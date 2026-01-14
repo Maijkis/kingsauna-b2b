@@ -2,7 +2,27 @@
 
 This project is containerized using Docker and nginx to serve the static landing page and survey.
 
-## 📋 Prerequisites
+## 🚀 Automated Build (GitHub Actions)
+
+**The Docker image is automatically built and pushed to GitHub Container Registry on every push to `main` branch.**
+
+### Using the Pre-built Image
+
+The image is available at: `ghcr.io/akseler/kingsauna:latest`
+
+```bash
+# Pull and run the pre-built image
+docker pull ghcr.io/akseler/kingsauna:latest
+docker run -d -p 8080:80 --name kingsauna-landing ghcr.io/akseler/kingsauna:latest
+```
+
+### View Build Status
+
+Check the [Actions tab](https://github.com/Akseler/kingsauna/actions) in your GitHub repository to see build status.
+
+---
+
+## 📋 Local Development Prerequisites
 
 - Docker installed on your system
 - Docker Compose (optional, but recommended)
@@ -110,25 +130,40 @@ sudo usermod -aG docker $USER
 
 ## 🚢 Production Deployment
 
-### Build for production
+### Option 1: Use Pre-built Image from GitHub Container Registry (Recommended)
+
 ```bash
+# Pull the latest image
+docker pull ghcr.io/akseler/kingsauna:latest
+
+# Run on production server
+docker run -d -p 80:80 --name kingsauna-landing --restart unless-stopped ghcr.io/akseler/kingsauna:latest
+```
+
+### Option 2: Build Locally and Push
+
+```bash
+# Build for production
 docker build -t kingsauna-landing:latest .
+
+# Tag for GitHub Container Registry
+docker tag kingsauna-landing:latest ghcr.io/akseler/kingsauna:latest
+
+# Login to GitHub Container Registry
+echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+
+# Push to registry
+docker push ghcr.io/akseler/kingsauna:latest
 ```
 
-### Tag for registry
+### Option 3: Deploy to Other Registries
+
 ```bash
+# Tag for your registry
 docker tag kingsauna-landing:latest your-registry/kingsauna-landing:latest
-```
 
-### Push to registry
-```bash
+# Push to registry
 docker push your-registry/kingsauna-landing:latest
-```
-
-### Deploy to server
-```bash
-docker pull your-registry/kingsauna-landing:latest
-docker run -d -p 80:80 --name kingsauna-landing --restart unless-stopped your-registry/kingsauna-landing:latest
 ```
 
 ## 📝 Notes
