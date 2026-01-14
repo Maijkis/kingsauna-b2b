@@ -9,6 +9,18 @@
     <style>
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* Better mobile scroll */
+        body {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
         
         /* ===== NEW COLOR PALETTE ===== */
@@ -100,9 +112,22 @@
             color: white;
             font-weight: 600;
             touch-action: manipulation;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
         .cta-primary:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
+            box-shadow: 0 4px 20px -5px rgba(180, 92, 58, 0.5);
+        }
+        @media (max-width: 640px) {
+            .cta-primary {
+                min-height: 52px;
+                font-size: 1rem;
+                padding: 0.875rem 1.5rem;
+            }
         }
         .cta-primary::before {
             content: '';
