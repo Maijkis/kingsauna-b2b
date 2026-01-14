@@ -466,19 +466,52 @@
             }
             /* Add padding to step bottom to account for sticky actions and ensure scrollability */
             .step.active {
-                padding-bottom: 320px !important;
+                padding-bottom: 380px !important;
                 min-height: auto;
             }
             .step.active .glass-card {
-                padding-bottom: 3rem !important;
-                margin-bottom: 1.5rem;
+                padding-bottom: 3.5rem !important;
+                margin-bottom: 2rem;
             }
             /* Add extra spacing to option grids and lists */
             .icon-boxes-grid {
-                margin-bottom: 2rem;
+                margin-bottom: 3rem;
             }
-            .space-y-3, .space-y-4, .space-y-6 {
+            .space-y-3, .space-y-4, .space-y-5, .space-y-6 {
                 margin-bottom: 1.5rem;
+            }
+            /* Mobile-specific option button spacing */
+            .space-y-5 > * + * {
+                margin-top: 1.25rem !important;
+            }
+            .option-button {
+                margin-bottom: 0.75rem;
+            }
+            /* Ensure generous spacing in all option containers */
+            .glass-card .space-y-3 > * + *,
+            .glass-card .space-y-4 > * + *,
+            .glass-card .space-y-5 > * + * {
+                margin-top: 1.25rem !important;
+            }
+            /* Progress bar and text spacing */
+            .progress-bar-bg {
+                margin-bottom: 0.75rem !important;
+            }
+            #progressText {
+                margin-bottom: 2rem !important;
+            }
+            /* Question titles spacing */
+            .glass-card h2 {
+                margin-bottom: 2rem !important;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .step-subtitle {
+                margin-bottom: 1.5rem !important;
+            }
+            /* Body wrapper padding for footer visibility */
+            body > .min-h-screen {
+                padding-bottom: 2rem;
             }
             /* Ensure the main container allows scrolling */
             .min-h-screen {
@@ -489,10 +522,8 @@
             }
             /* Increase sticky button area height for better visibility */
             .mobile-actions-sticky {
-                padding-bottom: 1.5rem !important;
-                padding-top: 1rem !important;
-                /* Safe area for notched devices */
-                padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)) !important;
+                padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom)) 1.25rem !important;
+                box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.12);
             }
             /* Better scroll behavior */
             body {
@@ -523,7 +554,7 @@
             <div class="step active" id="step1">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Ką norite užsakyti?</h2>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectMainOption('lauko')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl mb-1 md:mb-2">Lauko pirtį</div>
@@ -732,7 +763,7 @@
                         <!-- Suolai section - initially hidden -->
                         <div id="suolai-section" class="conditional-section">
                             <label class="block font-semibold mb-4 text-center md:text-left" style="color: var(--text-charcoal);">Kur planuojami suolai?</label>
-                            <div class="space-y-3 md:space-y-4">
+                            <div class="space-y-5 md:space-y-4">
                                 <button onclick="selectLaukoSuolai('Tik pirties patalpoje')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Tik pirties patalpoje">
                                     <div class="font-bold text-lg md:text-xl">Tik pirties patalpoje</div>
                                 </button>
@@ -811,7 +842,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingi papildomi praėjimai ar pertvaros?</h2>
                     <p class="step-subtitle">Pavyzdžiui, atskiras įėjimas ar vidinė siena</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectLaukoPraeimai('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
                             <div class="font-bold text-lg md:text-xl">Taip</div>
                         </button>
@@ -837,7 +868,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Pristatymo sąlygos</h2>
                     <p class="step-subtitle">Ar yra patogus privažiavimas sunkvežimiui?</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectLaukoPristatymas('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Taip</div>
@@ -884,7 +915,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
                     <p class="step-subtitle">Kiekvienas turi savų privalumų</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasOption('tipas', 'Medinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Medinis</div>
@@ -916,7 +947,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių planuoja naudotis kubilu?</h2>
                     <p class="step-subtitle">Padės nustatyti optimalų dydį</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasZmones('2-3')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="2-3">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">2-3 žmonės</div>
@@ -960,7 +991,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Šildymo tipas</h2>
                     <p class="step-subtitle">Kaip norėtumėte šildyti vandenį?</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasOption('sildymas', 'Malkinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Malkinis</div>
@@ -998,7 +1029,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kubilo apdaila</h2>
                     <p class="step-subtitle">Išorinė apdaila vizualiam stiliui</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasOption('apdaila', 'Natūrali mediena')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Natūrali mediena</div>
@@ -1036,7 +1067,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Papildomos funkcijos</h2>
                     <p class="step-subtitle">Galite pasirinkti kelis variantus</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="toggleKubilasOption('funkcijos', 'LED apšvietimas')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">LED apšvietimas</div>
@@ -1092,7 +1123,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Pristatymo sąlygos</h2>
                     <p class="step-subtitle">Ar yra privažiavimas transportui?</p>
-                    <div class="space-y-3 md:space-y-4">
+                    <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Taip</div>
