@@ -466,11 +466,19 @@
             }
             /* Add padding to step bottom to account for sticky actions and ensure scrollability */
             .step.active {
-                padding-bottom: 240px !important;
+                padding-bottom: 320px !important;
                 min-height: auto;
             }
             .step.active .glass-card {
-                padding-bottom: 2.5rem !important;
+                padding-bottom: 3rem !important;
+                margin-bottom: 1.5rem;
+            }
+            /* Add extra spacing to option grids and lists */
+            .icon-boxes-grid {
+                margin-bottom: 2rem;
+            }
+            .space-y-3, .space-y-4, .space-y-6 {
+                margin-bottom: 1.5rem;
             }
             /* Ensure the main container allows scrolling */
             .min-h-screen {
@@ -496,8 +504,8 @@
 <body style="background: var(--bg-sand); color: var(--text-charcoal);">
     <div class="min-h-screen py-4 md:py-8 px-4">
         <div class="max-w-2xl mx-auto">
-            <!-- Header -->
-            <div class="text-center mb-6 md:mb-8">
+            <!-- Header - Only show on step 1 -->
+            <div id="surveyHeader" class="text-center mb-6 md:mb-8">
                 <a href="index.html" class="back-button text-base md:text-sm mb-4 inline-flex touch-manipulation">
                     ← Grįžti į pagrindinį puslapį
                 </a>
@@ -1705,6 +1713,16 @@
             stepHistory.push(stepNumber);
             updateProgress();
             
+            // Hide/show header based on step number (only show on step 1)
+            const surveyHeader = document.getElementById('surveyHeader');
+            if (surveyHeader) {
+                if (stepNumber === 1) {
+                    surveyHeader.style.display = 'block';
+                } else {
+                    surveyHeader.style.display = 'none';
+                }
+            }
+            
             // Smooth scroll to top with better mobile support
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1739,6 +1757,17 @@
                 }
                 
                 updateProgress();
+                
+                // Hide/show header based on step number (only show on step 1)
+                const surveyHeader = document.getElementById('surveyHeader');
+                if (surveyHeader) {
+                    if (previousStep === 1) {
+                        surveyHeader.style.display = 'block';
+                    } else {
+                        surveyHeader.style.display = 'none';
+                    }
+                }
+                
                 // Smooth scroll to top with better mobile support
                 setTimeout(() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1893,6 +1922,12 @@
 
         // Initialize
         updateProgress();
+        
+        // Ensure header is visible on step 1 initially
+        const surveyHeader = document.getElementById('surveyHeader');
+        if (surveyHeader && currentStep === 1) {
+            surveyHeader.style.display = 'block';
+        }
         
         // Check for quick select from landing page
         window.addEventListener('DOMContentLoaded', function() {
