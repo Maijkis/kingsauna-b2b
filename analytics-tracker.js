@@ -1,6 +1,7 @@
 /**
  * Kingsauna Analytics Tracker
- * Tracks page views, events, and user interactions
+ * Updated for new clean database structure
+ * Links all data via visitor_id
  */
 
 class KingsaunaAnalytics {
@@ -8,10 +9,9 @@ class KingsaunaAnalytics {
         this.supabase = supabaseClient;
         this.sessionId = this.getOrCreateSessionId();
         this.visitorId = this.getOrCreateVisitorId();
-        this.pageViewId = null;
         this.pageLoadTime = Date.now();
         this.scrollDepth = 0;
-        this.interactionCount = 0;
+        this.maxScrollDepth = 0;
         
         this.init();
     }
@@ -20,17 +20,17 @@ class KingsaunaAnalytics {
     // INITIALIZATION
     // ==========================================
     
-    init() {
-        // Track page view immediately
-        this.trackPageView();
+    async init() {
+        // First, ensure visitor exists in database
+        await this.ensureVisitor();
+        
+        // Track page view
+        await this.trackPageView();
         
         // Set up event listeners
         this.setupScrollTracking();
-        this.setupInteractionTracking();
         this.setupCTATracking();
         this.setupLinkTracking();
-        
-        // Track time on page before leaving
         this.setupBeforeUnload();
         
         console.log('📊 Kingsauna Analytics initialized', {
@@ -62,43 +62,107 @@ class KingsaunaAnalytics {
     }
     
     // ==========================================
+    // VISITOR RECORD MANAGEMENT
+    // ==========================================
+    
+    async ensureVisitor() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const visitorData = {
+            visitor_id: this.visitorId,
+            session_id: this.sessionId,
+            referrer: document.referrer || null,
+            utm_source: urlParams.get('utm_source') || null,
+            utm_medium: urlParams.get('utm_medium') || null,
+            utm_campaign: urlParams.get('utm_campaign') || null,
+            utm_content: urlParams.get('utm_content') || null,
+            landing_page: window.location.pathname === '/' ? window.location.href : (localStorage.getItem('ks_landing_page') || window.location.href),
+            device_type: this.getDeviceType(),
+            browser: this.getBrowser()
+        };
+        
+        // Store landing page if this is first visit
+        if (!localStorage.getItem('ks_landing_page')) {
+            localStorage.setItem('ks_landing_page', window.location.href);
+            visitorData.landing_page = window.location.href;
+        }
+        
+        try {
+            // Try to insert (will fail if exists, that's okay)
+            const { error: insertError } = await this.supabase
+                .from('visitors')
+                .insert([visitorData]);
+            
+            if (insertError && !insertError.message.includes('duplicate')) {
+                console.warn('⚠️ Visitor insert issue:', insertError.message);
+            }
+            
+            // Always update last_seen_at and increment session/page views
+            const { error: updateError } = await this.supabase
+                .from('visitors')
+                .update({
+                    last_seen_at: new Date().toISOString(),
+                    total_sessions: this.supabase.raw('total_sessions + 1')
+                })
+                .eq('visitor_id', this.visitorId);
+            
+            if (updateError && !updateError.message.includes('duplicate')) {
+                // If update fails, try upsert
+                const { error: upsertError } = await this.supabase
+                    .from('visitors')
+                    .upsert({
+                        ...visitorData,
+                        last_seen_at: new Date().toISOString(),
+                        total_page_views: 1,
+                        total_sessions: 1
+                    }, {
+                        onConflict: 'visitor_id'
+                    });
+                
+                if (upsertError) {
+                    console.error('❌ Visitor upsert error:', upsertError);
+                }
+            }
+        } catch (err) {
+            console.error('❌ Visitor tracking failed:', err);
+        }
+    }
+    
+    // ==========================================
     // PAGE VIEW TRACKING
     // ==========================================
     
     async trackPageView() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
         const pageData = {
-            session_id: this.sessionId,
             visitor_id: this.visitorId,
+            session_id: this.sessionId,
             page_url: window.location.href,
-            page_title: document.title,
             page_path: window.location.pathname,
-            referrer: document.referrer || null,
-            utm_source: urlParams.get('utm_source'),
-            utm_medium: urlParams.get('utm_medium'),
-            utm_campaign: urlParams.get('utm_campaign'),
-            utm_content: urlParams.get('utm_content'),
-            utm_term: urlParams.get('utm_term'),
-            user_agent: navigator.userAgent,
-            device_type: this.getDeviceType(),
-            browser: this.getBrowser(),
-            os: this.getOS(),
-            screen_width: window.screen.width,
-            screen_height: window.screen.height
+            page_title: document.title,
+            referrer: document.referrer || null
         };
         
         try {
-            const { data, error } = await this.supabase
-                .from('page_visitors')
-                .insert([pageData])
-                .select();
+            const { error } = await this.supabase
+                .from('page_views')
+                .insert([pageData]);
             
             if (error) {
                 console.error('❌ Page view tracking error:', error);
-            } else if (data && data[0]) {
-                this.pageViewId = data[0].id;
-                console.log('✅ Page view tracked:', data[0].id);
+            } else {
+                console.log('✅ Page view tracked');
+                
+                // Update visitor's total page views
+                await this.supabase.rpc('increment_page_views', { 
+                    visitor_id_param: this.visitorId 
+                }).catch(() => {
+                    // RPC might not exist, that's okay - we'll update manually
+                    this.supabase
+                        .from('visitors')
+                        .update({ total_page_views: this.supabase.raw('total_page_views + 1') })
+                        .eq('visitor_id', this.visitorId)
+                        .then(() => {});
+                });
             }
         } catch (err) {
             console.error('❌ Page view tracking failed:', err);
@@ -111,23 +175,21 @@ class KingsaunaAnalytics {
     
     async trackEvent(eventType, eventData = {}) {
         const event = {
-            session_id: this.sessionId,
             visitor_id: this.visitorId,
+            session_id: this.sessionId,
             event_type: eventType,
             event_category: eventData.category || 'general',
             event_label: eventData.label || null,
-            event_value: eventData.value || null,
             page_url: window.location.href,
             page_path: window.location.pathname,
             element_id: eventData.elementId || null,
             element_text: eventData.elementText || null,
-            element_position: eventData.position || null,
-            metadata: eventData.metadata || null
+            metadata: eventData.metadata ? JSON.stringify(eventData.metadata) : null
         };
         
         try {
             const { error } = await this.supabase
-                .from('user_events')
+                .from('events')
                 .insert([event]);
             
             if (error) {
@@ -141,29 +203,19 @@ class KingsaunaAnalytics {
     }
     
     // ==========================================
-    // FUNNEL TRACKING
+    // FUNNEL TRACKING (as events)
     // ==========================================
     
     async trackFunnelStep(stepName, stepNumber, funnelType = null, metadata = {}) {
-        const funnelData = {
-            session_id: this.sessionId,
-            visitor_id: this.visitorId,
-            step_name: stepName,
-            step_number: stepNumber,
-            funnel_type: funnelType,
-            page_url: window.location.href,
-            metadata: metadata
-        };
-        
-        try {
-            await this.supabase
-                .from('funnel_steps')
-                .insert([funnelData]);
-            
-            console.log('✅ Funnel step tracked:', stepName);
-        } catch (err) {
-            console.error('❌ Funnel tracking failed:', err);
-        }
+        await this.trackEvent('funnel_step', {
+            category: 'funnel',
+            label: stepName,
+            metadata: {
+                step_number: stepNumber,
+                funnel_type: funnelType,
+                ...metadata
+            }
+        });
     }
     
     // ==========================================
@@ -191,21 +243,9 @@ class KingsaunaAnalytics {
         
         const scrollPercentage = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
         
-        if (scrollPercentage > this.scrollDepth) {
-            this.scrollDepth = scrollPercentage;
+        if (scrollPercentage > this.maxScrollDepth) {
+            this.maxScrollDepth = scrollPercentage;
         }
-    }
-    
-    // ==========================================
-    // INTERACTION TRACKING
-    // ==========================================
-    
-    setupInteractionTracking() {
-        ['click', 'keypress', 'mousemove', 'scroll'].forEach(eventType => {
-            document.addEventListener(eventType, () => {
-                this.interactionCount++;
-            }, { once: false, passive: true });
-        });
     }
     
     // ==========================================
@@ -213,18 +253,16 @@ class KingsaunaAnalytics {
     // ==========================================
     
     setupCTATracking() {
-        document.querySelectorAll('[class*="cta-"]').forEach(button => {
+        document.querySelectorAll('[class*="cta-"], button[onclick*="survey"]').forEach(button => {
             button.addEventListener('click', (e) => {
-                const buttonText = e.target.textContent.trim();
-                const buttonClass = e.target.className;
-                const buttonId = e.target.id || 'no-id';
+                const buttonText = e.target.textContent.trim() || e.target.innerText.trim();
+                const buttonId = e.target.id || e.target.closest('[id]')?.id || 'no-id';
                 
                 this.trackEvent('cta_click', {
                     category: 'conversion',
                     label: buttonId,
                     elementText: buttonText,
-                    elementId: buttonId,
-                    metadata: { buttonClass }
+                    elementId: buttonId
                 });
             });
         });
@@ -239,7 +277,7 @@ class KingsaunaAnalytics {
             link.addEventListener('click', (e) => {
                 const linkText = e.target.textContent.trim();
                 const linkHref = e.target.href;
-                const isExternal = !linkHref.includes(window.location.hostname);
+                const isExternal = linkHref && !linkHref.includes(window.location.hostname);
                 
                 this.trackEvent('link_click', {
                     category: isExternal ? 'external' : 'internal',
@@ -256,6 +294,7 @@ class KingsaunaAnalytics {
     // ==========================================
     
     setupBeforeUnload() {
+        // Update on page unload
         window.addEventListener('beforeunload', () => {
             this.updatePageViewOnExit();
         });
@@ -267,21 +306,29 @@ class KingsaunaAnalytics {
     }
     
     async updatePageViewOnExit() {
-        if (!this.pageViewId) return;
-        
         const timeOnPage = Math.round((Date.now() - this.pageLoadTime) / 1000);
         
         try {
-            await this.supabase
-                .from('page_visitors')
-                .update({
-                    time_on_page_seconds: timeOnPage,
-                    scroll_depth: this.scrollDepth,
-                    interactions_count: this.interactionCount
-                })
-                .eq('id', this.pageViewId);
+            // Update the most recent page view for this session
+            const { data: pageViews } = await this.supabase
+                .from('page_views')
+                .select('id')
+                .eq('visitor_id', this.visitorId)
+                .eq('session_id', this.sessionId)
+                .order('created_at', { ascending: false })
+                .limit(1);
+            
+            if (pageViews && pageViews.length > 0) {
+                await this.supabase
+                    .from('page_views')
+                    .update({
+                        time_on_page_seconds: timeOnPage,
+                        scroll_depth: this.maxScrollDepth
+                    })
+                    .eq('id', pageViews[0].id);
+            }
         } catch (err) {
-            console.error('❌ Failed to update page view:', err);
+            // Silently fail - not critical
         }
     }
     
@@ -330,4 +377,3 @@ window.initKingsaunaAnalytics = function(supabaseClient) {
     window.ksAnalytics = new KingsaunaAnalytics(supabaseClient);
     return window.ksAnalytics;
 };
-

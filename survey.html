@@ -2105,14 +2105,26 @@
             // Get URL parameters for tracking
             const urlParams = new URLSearchParams(window.location.search);
             
-            // Start with minimal required payload (matches basic schema)
+            // Get visitor and session IDs from analytics
+            const visitorId = window.ksAnalytics ? window.ksAnalytics.visitorId : null;
+            const sessionId = window.ksAnalytics ? window.ksAnalytics.sessionId : null;
+            
+            // Start with minimal required payload (matches new clean schema)
             const basePayload = {
+                visitor_id: visitorId, // Link to visitor for tracking
+                session_id: sessionId || 'unknown',
                 vardas: contactData.vardas,
                 el_pastas: contactData.email,
                 telefonas: telefonas,
                 miestas: contactData.miestas || null,
                 komentaras: contactData.komentaras || null,
-                type: surveyData.type
+                type: surveyData.type,
+                time_to_complete_seconds: completionTime,
+                referrer: document.referrer || null,
+                utm_source: urlParams.get('utm_source') || null,
+                utm_medium: urlParams.get('utm_medium') || null,
+                utm_campaign: urlParams.get('utm_campaign') || null,
+                landing_page: localStorage.getItem('ks_landing_page') || window.location.href
             };
 
             // Add type-specific data as JSON
@@ -2154,6 +2166,8 @@
                     )) {
                         console.warn('⚠️ Column error detected, trying minimal payload...');
                         const minimalPayload = {
+                            visitor_id: visitorId,
+                            session_id: sessionId || 'unknown',
                             vardas: contactData.vardas,
                             el_pastas: contactData.email,
                             telefonas: telefonas,
@@ -2200,6 +2214,22 @@
                     }
                 } else {
                     console.log('✅ Survey saved successfully to Supabase');
+                    
+                    // Mark visitor as converted (non-blocking)
+                    if (visitorId) {
+                        try {
+                            await window.supabase
+                                .from('visitors')
+                                .update({
+                                    converted: true,
+                                    converted_at: new Date().toISOString()
+                                })
+                                .eq('visitor_id', visitorId);
+                            console.log('✅ Visitor marked as converted');
+                        } catch (e) {
+                            console.warn('Failed to mark visitor as converted (non-critical):', e);
+                        }
+                    }
                 }
                 
                 // Track successful submission (non-blocking)
