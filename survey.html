@@ -1201,8 +1201,83 @@
                             <input type="tel" id="telefonas" required class="form-input w-full p-4 text-base md:text-lg touch-manipulation min-h-[48px]" placeholder="+370 6XX XXXXX" pattern="\+370[0-9]{8}" title="Įveskite galiojantį Lietuvos telefono numerį (+370 ir 8 skaitmenys)">
                         </div>
                         <div>
-                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Miestas / regionas <span style="color: var(--copper);">*</span></label>
-                            <input type="text" id="miestas" required class="form-input w-full p-4 text-base md:text-lg touch-manipulation min-h-[48px]" placeholder="pvz. Vilnius">
+                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Miestas / savivaldybė <span style="color: var(--copper);">*</span></label>
+                            <input type="text" id="miestas" required list="miestu-sarasas" class="form-input w-full p-4 text-base md:text-lg touch-manipulation min-h-[48px]" placeholder="Pradėkite rašyti miestą arba savivaldybę...">
+                            <datalist id="miestu-sarasas">
+                                <!-- Didieji miestai -->
+                                <option value="Vilnius">
+                                <option value="Kaunas">
+                                <option value="Klaipėda">
+                                <option value="Šiauliai">
+                                <option value="Panevėžys">
+                                <option value="Alytus">
+                                <option value="Marijampolė">
+                                <option value="Mažeikiai">
+                                <option value="Jonava">
+                                <option value="Utena">
+                                <!-- Savivaldybės -->
+                                <option value="Akmenės r. sav.">
+                                <option value="Alytaus m. sav.">
+                                <option value="Alytaus r. sav.">
+                                <option value="Anykščių r. sav.">
+                                <option value="Birštono sav.">
+                                <option value="Biržų r. sav.">
+                                <option value="Druskininkų sav.">
+                                <option value="Elektrėnų sav.">
+                                <option value="Ignalinos r. sav.">
+                                <option value="Jonavos r. sav.">
+                                <option value="Joniškio r. sav.">
+                                <option value="Jurbarko r. sav.">
+                                <option value="Kaišiadorių r. sav.">
+                                <option value="Kalvarijos sav.">
+                                <option value="Kauno m. sav.">
+                                <option value="Kauno r. sav.">
+                                <option value="Kazlų Rūdos sav.">
+                                <option value="Kėdainių r. sav.">
+                                <option value="Kelmės r. sav.">
+                                <option value="Klaipėdos m. sav.">
+                                <option value="Klaipėdos r. sav.">
+                                <option value="Kretingos r. sav.">
+                                <option value="Kupiškio r. sav.">
+                                <option value="Lazdijų r. sav.">
+                                <option value="Marijampolės sav.">
+                                <option value="Mažeikių r. sav.">
+                                <option value="Molėtų r. sav.">
+                                <option value="Neringos sav.">
+                                <option value="Pagėgių sav.">
+                                <option value="Pakruojo r. sav.">
+                                <option value="Palangos m. sav.">
+                                <option value="Panevėžio m. sav.">
+                                <option value="Panevėžio r. sav.">
+                                <option value="Pasvalio r. sav.">
+                                <option value="Plungės r. sav.">
+                                <option value="Prienų r. sav.">
+                                <option value="Radviliškio r. sav.">
+                                <option value="Raseinių r. sav.">
+                                <option value="Rietavo sav.">
+                                <option value="Rokiškio r. sav.">
+                                <option value="Skuodo r. sav.">
+                                <option value="Šakių r. sav.">
+                                <option value="Šalčininkų r. sav.">
+                                <option value="Šiaulių m. sav.">
+                                <option value="Šiaulių r. sav.">
+                                <option value="Šilalės r. sav.">
+                                <option value="Šilutės r. sav.">
+                                <option value="Širvintų r. sav.">
+                                <option value="Skuodo r. sav.">
+                                <option value="Švenčionių r. sav.">
+                                <option value="Tauragės r. sav.">
+                                <option value="Telšių r. sav.">
+                                <option value="Trakų r. sav.">
+                                <option value="Ukmergės r. sav.">
+                                <option value="Utenos r. sav.">
+                                <option value="Varėnos r. sav.">
+                                <option value="Vilkaviškio r. sav.">
+                                <option value="Vilniaus m. sav.">
+                                <option value="Vilniaus r. sav.">
+                                <option value="Visagino sav.">
+                                <option value="Zarasų r. sav.">
+                            </datalist>
                         </div>
                         <div>
                             <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Papildomas komentaras</label>
