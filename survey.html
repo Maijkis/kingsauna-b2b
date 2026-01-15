@@ -2141,6 +2141,12 @@
                             console.log('✅ Survey saved with minimal payload');
                         }
                     } else if (insertError.message && (
+                        insertError.message.includes('Could not find the table') ||
+                        insertError.message.includes('does not exist') ||
+                        insertError.message.includes('relation') && insertError.message.includes('does not exist')
+                    )) {
+                        throw new Error('Duomenų bazės lentelė nerasta. Prašome sukurti "survey_responses" lentelę Supabase duomenų bazėje. Žiūrėkite SUPABASE_QUICK_SETUP.md failą arba Supabase SQL Editor.');
+                    } else if (insertError.message && (
                         insertError.message.includes('permission') || 
                         insertError.message.includes('policy') ||
                         insertError.message.includes('RLS')
