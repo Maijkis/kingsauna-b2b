@@ -14,8 +14,26 @@
         const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log('✅ Supabase client initialized');
+        let supabase;
+        try {
+            if (!window.supabase) {
+                throw new Error('Supabase library not loaded');
+            }
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('✅ Supabase client initialized');
+            
+            // Test connection
+            supabase.from('survey_responses').select('id').limit(0).then(({ error }) => {
+                if (error && !error.message.includes('permission') && !error.message.includes('policy')) {
+                    console.warn('⚠️ Supabase connection test:', error.message);
+                } else {
+                    console.log('✅ Supabase connection verified');
+                }
+            });
+        } catch (error) {
+            console.error('❌ Failed to initialize Supabase:', error);
+            alert('Klaida: Nepavyko prisijungti prie duomenų bazės. Patikrinkite interneto ryšį.');
+        }
     </script>
     
     <!-- Analytics Tracker -->
@@ -1919,6 +1937,13 @@
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Check if Supabase is available
+            if (!supabase) {
+                console.error('❌ Supabase client not initialized');
+                alert('Klaida: Duomenų bazės ryšys nepasiekiamas. Patikrinkite interneto ryšį ir bandykite dar kartą.');
+                return;
+            }
+            
             // Normalize and validate Lithuanian phone number
             const phoneInput = document.getElementById('telefonas');
             let telefonas = phoneInput.value.replace(/\s+/g, '').replace(/-/g, ''); // Remove spaces and hyphens
@@ -2003,97 +2028,136 @@
             // Get URL parameters for tracking
             const urlParams = new URLSearchParams(window.location.search);
             
-            // Prepare payload for Supabase
-            const surveyPayload = {
+            // Start with minimal required payload (matches basic schema)
+            const basePayload = {
                 vardas: contactData.vardas,
                 el_pastas: contactData.email,
-                telefonas: telefonas, // Use normalized phone
-                miestas: contactData.miestas,
-                komentaras: contactData.komentaras,
-                type: surveyData.type,
-                
-                // Tracking data
-                session_id: window.ksAnalytics ? window.ksAnalytics.sessionId : null,
-                visitor_id: window.ksAnalytics ? window.ksAnalytics.visitorId : null,
-                time_to_complete_seconds: completionTime,
-                referrer: document.referrer || null,
-                utm_source: urlParams.get('utm_source'),
-                utm_medium: urlParams.get('utm_medium'),
-                utm_campaign: urlParams.get('utm_campaign'),
-                landing_page: document.referrer || window.location.href
+                telefonas: telefonas,
+                miestas: contactData.miestas || null,
+                komentaras: contactData.komentaras || null,
+                type: surveyData.type
             };
 
             // Add type-specific data as JSON
             if (surveyData.type === 'lauko') {
-                surveyPayload.lauko_data = surveyData.lauko;
+                basePayload.lauko_data = surveyData.lauko;
             } else if (surveyData.type === 'kubila') {
-                surveyPayload.kubilas_data = surveyData.kubilas;
+                basePayload.kubilas_data = surveyData.kubilas;
             } else if (surveyData.type === 'vidaus') {
-                surveyPayload.vidaus_data = surveyData.vidaus;
+                basePayload.vidaus_data = surveyData.vidaus;
             }
 
             try {
-                // Track funnel completion
+                // Track funnel completion (non-blocking)
                 if (window.ksAnalytics) {
-                    window.ksAnalytics.trackFunnelStep('survey_completed', 4, surveyData.type, {
-                        completion_time: completionTime
-                    });
+                    try {
+                        window.ksAnalytics.trackFunnelStep('survey_completed', 4, surveyData.type, {
+                            completion_time: completionTime
+                        });
+                    } catch (e) {
+                        console.warn('Analytics tracking failed (non-critical):', e);
+                    }
                 }
                 
-                // Submit to Supabase
-                const { data, error } = await supabase
+                // Try submitting with base payload first (no .select() to avoid RLS issues)
+                console.log('📤 Submitting survey to Supabase...', basePayload);
+                const { error: insertError } = await supabase
                     .from('survey_responses')
-                    .insert([surveyPayload])
-                    .select();
+                    .insert([basePayload]);
 
-                if (error) {
-                    console.error('❌ Supabase error:', error);
-                    // If error is about missing columns, it might be because analytics schema isn't applied
-                    if (error.code === 'P0001' || error.message.includes('column')) {
-                        console.warn('⚠️ Retrying without tracking data...');
-                        const simplifiedPayload = {
+                if (insertError) {
+                    console.error('❌ Supabase insert error:', insertError);
+                    console.error('Error details:', JSON.stringify(insertError, null, 2));
+                    
+                    // If error mentions missing columns, try without optional fields
+                    if (insertError.message && (
+                        insertError.message.includes('column') || 
+                        insertError.message.includes('does not exist') ||
+                        insertError.code === '42703'
+                    )) {
+                        console.warn('⚠️ Column error detected, trying minimal payload...');
+                        const minimalPayload = {
                             vardas: contactData.vardas,
                             el_pastas: contactData.email,
                             telefonas: telefonas,
-                            miestas: contactData.miestas,
-                            komentaras: contactData.komentaras,
                             type: surveyData.type
                         };
-                        if (surveyData.type === 'lauko') simplifiedPayload.lauko_data = surveyData.lauko;
-                        else if (surveyData.type === 'kubila') simplifiedPayload.kubilas_data = surveyData.kubilas;
-                        else if (surveyData.type === 'vidaus') simplifiedPayload.vidaus_data = surveyData.vidaus;
-
-                        const { error: retryError } = await supabase
-                            .from('survey_responses')
-                            .insert([simplifiedPayload]);
                         
-                        if (retryError) {
-                            console.error('❌ Retry failed:', retryError);
-                            throw retryError; // Let the catch block handle the user alert
+                        // Only add fields that definitely exist
+                        if (contactData.miestas) minimalPayload.miestas = contactData.miestas;
+                        if (contactData.komentaras) minimalPayload.komentaras = contactData.komentaras;
+                        if (surveyData.type === 'lauko' && surveyData.lauko) minimalPayload.lauko_data = surveyData.lauko;
+                        else if (surveyData.type === 'kubila' && surveyData.kubilas) minimalPayload.kubilas_data = surveyData.kubilas;
+                        else if (surveyData.type === 'vidaus' && surveyData.vidaus) minimalPayload.vidaus_data = surveyData.vidaus;
+
+                        const { error: minimalError } = await supabase
+                            .from('survey_responses')
+                            .insert([minimalPayload]);
+                        
+                        if (minimalError) {
+                            console.error('❌ Minimal payload also failed:', minimalError);
+                            throw new Error(`Duomenų bazės klaida: ${minimalError.message || 'Nežinoma klaida'}`);
+                        } else {
+                            console.log('✅ Survey saved with minimal payload');
                         }
+                    } else if (insertError.message && (
+                        insertError.message.includes('permission') || 
+                        insertError.message.includes('policy') ||
+                        insertError.message.includes('RLS')
+                    )) {
+                        throw new Error('Prieigos klaida. Patikrinkite duomenų bazės nustatymus (RLS policies).');
+                    } else if (insertError.message && (
+                        insertError.message.includes('network') || 
+                        insertError.message.includes('fetch') ||
+                        insertError.message.includes('Failed to fetch')
+                    )) {
+                        throw new Error('Tinklo klaida. Patikrinkite interneto ryšį ir bandykite dar kartą.');
                     } else {
-                        throw error; // Let the catch block handle it
+                        throw new Error(`Duomenų bazės klaida: ${insertError.message || insertError.hint || 'Nežinoma klaida'}`);
+                    }
+                } else {
+                    console.log('✅ Survey saved successfully to Supabase');
+                }
+                
+                // Track successful submission (non-blocking)
+                if (window.ksAnalytics) {
+                    try {
+                        window.ksAnalytics.trackEvent('survey_submitted', {
+                            category: 'conversion',
+                            label: surveyData.type,
+                            value: 1
+                        });
+                    } catch (e) {
+                        console.warn('Analytics event tracking failed (non-critical):', e);
                     }
                 }
-
-                console.log('✅ Survey saved to Supabase:', data);
                 
-                // Track successful submission
-                if (window.ksAnalytics) {
-                    const responseId = (data && data.length > 0) ? data[0].id : 'anonymous';
-                    window.ksAnalytics.trackEvent('survey_submitted', {
-                        category: 'conversion',
-                        label: surveyData.type,
-                        value: 1,
-                        metadata: { response_id: responseId }
-                    });
-                }
-                
+                // Navigate to confirmation page
                 goToStep('step-confirmation', totalSteps + 1);
                 
             } catch (error) {
-                console.error('❌ Submission error:', error);
-                alert('Įvyko klaida. Bandykite dar kartą.');
+                console.error('❌ Full submission error:', error);
+                console.error('Error stack:', error.stack);
+                
+                // Show user-friendly error message
+                let errorMessage = 'Įvyko klaida siunčiant duomenis.';
+                if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                // Create a better error display
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-height: 80vh; overflow-y: auto;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: 1.5rem;">${errorMessage}</p>
+                    <button onclick="this.parentElement.remove()" class="cta-primary py-2 px-6" style="width: 100%;">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
+                
+                // Also log to console for debugging
+                console.error('User-facing error:', errorMessage);
             }
         });
 
