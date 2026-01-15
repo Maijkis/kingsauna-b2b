@@ -825,38 +825,39 @@
                     <div class="space-y-6">
                         <div>
                             <label class="block font-semibold mb-4" style="color: var(--text-charcoal);">Langų skaičius</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                                <button onclick="selectLaukoLangai('0')" class="option-button rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="0">
-                                    <div class="font-bold text-lg md:text-xl">0</div>
-                                </button>
-                                <button onclick="selectLaukoLangai('1')" class="option-button rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="1">
-                                    <div class="font-bold text-lg md:text-xl">1</div>
-                                </button>
-                                <button onclick="selectLaukoLangai('2')" class="option-button rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="2">
-                                    <div class="font-bold text-lg md:text-xl">2</div>
-                                </button>
-                                <button onclick="selectLaukoLangai('daugiau')" class="option-button rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="daugiau">
+                            <div class="space-y-3">
+                                <!-- Row 1: 0, 1, 2 -->
+                                <div class="grid grid-cols-3 gap-3 md:gap-4">
+                                    <button onclick="selectLaukoLangai('0')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="0">
+                                        <div class="font-bold text-lg md:text-xl">0</div>
+                                    </button>
+                                    <button onclick="selectLaukoLangai('1')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="1">
+                                        <div class="font-bold text-lg md:text-xl">1</div>
+                                    </button>
+                                    <button onclick="selectLaukoLangai('2')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="2">
+                                        <div class="font-bold text-lg md:text-xl">2</div>
+                                    </button>
+                                </div>
+                                <!-- Row 2: Daugiau -->
+                                <button onclick="selectLaukoLangai('daugiau')" class="option-button w-full rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="daugiau">
                                     <div class="font-bold text-lg md:text-xl">Daugiau</div>
                                 </button>
                             </div>
-                            <div id="langai-daugiau-container" class="slide-input-container">
+                            <div id="langai-daugiau-container" class="slide-input-container mt-3">
                                 <input type="number" id="langai-daugiau-input" class="form-input w-full p-4 text-base" placeholder="Įveskite langų skaičių..." min="3">
                             </div>
                         </div>
                         <div>
                             <label class="block font-semibold mb-4" style="color: var(--text-charcoal);">Durų tipas</label>
-                            <div class="icon-boxes-grid">
-                                <button onclick="selectLaukoDuruTipas('Stiklinės')" class="icon-box-option touch-manipulation" data-value="Stiklinės">
-                                    <div class="icon-box-icon">◻</div>
-                                    <div class="icon-box-label">Stiklinės</div>
+                            <div class="grid grid-cols-3 gap-2 md:gap-4">
+                                <button onclick="selectLaukoDuruTipas('Stiklinės')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Stiklinės">
+                                    <div class="font-bold text-sm sm:text-base md:text-lg">Stiklinės</div>
                                 </button>
-                                <button onclick="selectLaukoDuruTipas('Medinės')" class="icon-box-option touch-manipulation" data-value="Medinės">
-                                    <div class="icon-box-icon">▯</div>
-                                    <div class="icon-box-label">Medinės</div>
+                                <button onclick="selectLaukoDuruTipas('Medinės')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Medinės">
+                                    <div class="font-bold text-sm sm:text-base md:text-lg">Medinės</div>
                                 </button>
-                                <button onclick="selectLaukoDuruTipas('Norėčiau Pasikonsultuoti')" class="icon-box-option touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                    <div class="icon-box-icon">?</div>
-                                    <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
+                                <button onclick="selectLaukoDuruTipas('Norėčiau Pasikonsultuoti')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Norėčiau Pasikonsultuoti">
+                                    <div class="font-bold text-[10px] leading-tight sm:text-xs md:text-lg">Norėčiau Pasikonsultuoti</div>
                                 </button>
                             </div>
                         </div>
