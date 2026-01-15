@@ -1954,13 +1954,48 @@
                 return;
             }
             
+            // Ensure survey type is set
+            if (!surveyData.type) {
+                console.error('❌ Survey type is missing');
+                alert('Įvyko klaida: nepasirinktas apklausos tipas. Grįžkite į pradžią.');
+                return;
+            }
+
             const contactData = {
                 vardas: document.getElementById('vardas').value,
                 email: document.getElementById('email').value,
                 telefonas: telefonas,
-                miestas: document.getElementById('miestas').value,
+                miestas: document.getElementById('miestas').value.trim(),
                 komentaras: document.getElementById('komentaras').value
             };
+
+            // Validate city/municipality from the list
+            const datalist = document.getElementById('miestu-sarasas');
+            const validOptions = Array.from(datalist.options).map(opt => opt.value);
+            
+            if (!validOptions.includes(contactData.miestas)) {
+                const miestasInput = document.getElementById('miestas');
+                miestasInput.focus();
+                miestasInput.style.borderColor = 'var(--copper)';
+                miestasInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
+                
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                errorMsg.style.cssText = 'color: var(--copper); font-size: 0.875rem; margin-top: 0.5rem; padding: 0.75rem; background: rgba(180, 92, 58, 0.1); border-radius: 8px; border: 1px solid rgba(180, 92, 58, 0.2);';
+                errorMsg.textContent = 'Prašome pasirinkti miestą arba savivaldybę iš pateikto sąrašo.';
+                
+                const container = miestasInput.parentElement;
+                const existingError = container.querySelector('.error-message');
+                if (existingError) existingError.remove();
+                container.appendChild(errorMsg);
+                
+                setTimeout(() => {
+                    miestasInput.style.borderColor = '';
+                    miestasInput.style.boxShadow = '';
+                    if (errorMsg.parentElement) errorMsg.remove();
+                }, 5000);
+                return;
+            }
 
             // Calculate completion time
             const completionTime = Math.round((Date.now() - surveyStartTime) / 1000);
@@ -2034,30 +2069,23 @@
                         
                         if (retryError) {
                             console.error('❌ Retry failed:', retryError);
-                            alert('Įvyko klaida siunčiant duomenis. Bandykite dar kartą.');
-                            return;
+                            throw retryError; // Let the catch block handle the user alert
                         }
                     } else {
-                        alert('Įvyko klaida siunčiant duomenis. Bandykite dar kartą.');
-                        return;
+                        throw error; // Let the catch block handle it
                     }
                 }
 
                 console.log('✅ Survey saved to Supabase:', data);
                 
                 // Track successful submission
-                if (window.ksAnalytics && data && data.length > 0) {
+                if (window.ksAnalytics) {
+                    const responseId = (data && data.length > 0) ? data[0].id : 'anonymous';
                     window.ksAnalytics.trackEvent('survey_submitted', {
                         category: 'conversion',
                         label: surveyData.type,
                         value: 1,
-                        metadata: { response_id: data[0].id }
-                    });
-                } else if (window.ksAnalytics) {
-                    window.ksAnalytics.trackEvent('survey_submitted', {
-                        category: 'conversion',
-                        label: surveyData.type,
-                        value: 1
+                        metadata: { response_id: responseId }
                     });
                 }
                 
