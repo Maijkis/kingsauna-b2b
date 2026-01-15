@@ -437,23 +437,20 @@
             .grid-narrow {
                 grid-template-columns: 1fr !important;
             }
-            /* Mobile sticky navigation for survey */
+            /* Mobile navigation for survey - Embedded in card */
             .mobile-actions-sticky {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: white;
-                padding: 0.75rem 1.25rem 1.25rem 1.25rem;
-                box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+                position: relative;
+                background: transparent;
+                padding: 0;
+                box-shadow: none;
                 display: flex;
                 gap: 0.75rem;
-                z-index: 40;
-                border-top: 1px solid var(--glass-border);
-                border-radius: 20px 20px 0 0;
+                z-index: 10;
+                border-top: none;
+                border-radius: 0;
             }
             .mobile-actions-sticky .cta-primary {
-                flex: 2;
+                flex: 1;
                 margin: 0;
                 min-height: 48px;
             }
@@ -464,14 +461,14 @@
                 border: 1px solid var(--glass-border);
                 min-height: 48px;
             }
-            /* Add padding to step bottom to account for sticky actions and ensure scrollability */
+            /* Reset padding since buttons are no longer sticky */
             .step.active {
-                padding-bottom: 100px !important;
+                padding-bottom: 2rem !important;
                 min-height: auto;
             }
             .step.active .glass-card {
-                padding-bottom: 3.5rem !important;
-                margin-bottom: 2rem;
+                padding-bottom: 2rem !important;
+                margin-bottom: 1rem;
             }
             /* Add extra spacing to option grids and lists */
             .icon-boxes-grid {
@@ -520,11 +517,6 @@
                 height: auto;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
-            }
-            /* Increase sticky button area height for better visibility */
-            .mobile-actions-sticky {
-                padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom)) 1.25rem !important;
-                box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.12);
             }
             /* Better scroll behavior */
             body {
@@ -642,7 +634,7 @@
                             <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -673,7 +665,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -710,7 +702,7 @@
                     <div id="mediena-kita-container" class="slide-input-container">
                         <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -736,7 +728,7 @@
                             <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -780,7 +772,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -831,7 +823,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(7)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -857,7 +849,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(8)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -889,7 +881,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(9)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -936,7 +928,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextKubilasStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -980,7 +972,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextKubilasStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -1018,7 +1010,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextKubilasStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -1056,7 +1048,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextKubilasStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -1144,7 +1136,7 @@
                             </div>
                         </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextKubilasStep(7)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
@@ -1164,7 +1156,7 @@
                             Mūsų specialistai susisieks ir aptars visus detales.
                         </p>
                     </div>
-                    <div class="flex flex-col md:flex-row gap-4 mt-6 md:mt-8 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                    <div class="flex flex-col md:flex-row gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
                         <button onclick="goToContact()" class="cta-primary py-4 px-6 md:px-8 min-h-[56px] touch-manipulation text-base md:text-lg w-full">Tęsti prie kontaktų</button>
                     </div>
@@ -1205,7 +1197,7 @@
                             </label>
                         </div>
                         
-                        <div class="flex flex-col md:flex-row gap-4 pt-6 mobile-actions-sticky md:relative md:bg-transparent md:p-0 md:shadow-none md:border-0">
+                        <div class="flex flex-col md:flex-row gap-4 pt-6 mobile-actions-sticky">
                             <button type="button" onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                             <button type="submit" class="cta-primary ml-auto py-4 px-6 md:px-10 text-base md:text-lg w-full md:w-auto min-h-[56px] touch-manipulation">
                                 Gauti pasiūlymą
