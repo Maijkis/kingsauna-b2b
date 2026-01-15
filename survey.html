@@ -23,12 +23,47 @@
         console.log('Supabase client type:', typeof window.supabase);
         console.log('Has .from method:', typeof window.supabase.from === 'function');
         
-        // Test connection
+        // Test connection and table existence
         setTimeout(() => {
             window.supabase.from('survey_responses').select('id').limit(0)
                 .then(({ error }) => {
                     if (error) {
-                        if (error.message.includes('permission') || 
+                        if (error.message.includes('Could not find the table') || 
+                            error.message.includes('does not exist') ||
+                            (error.message.includes('relation') && error.message.includes('does not exist'))) {
+                            console.error('❌ TABLE MISSING: survey_responses table does not exist in Supabase!');
+                            console.error('📋 SETUP REQUIRED:');
+                            console.error('1. Go to https://supabase.com/dashboard');
+                            console.error('2. Open SQL Editor');
+                            console.error('3. Copy and paste the SQL from CREATE_TABLE.sql file');
+                            console.error('4. Click Run');
+                            
+                            // Show user-friendly warning
+                            const warningDiv = document.createElement('div');
+                            warningDiv.id = 'supabase-setup-warning';
+                            warningDiv.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; max-width: 90%; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.2);';
+                            warningDiv.innerHTML = `
+                                <div style="display: flex; align-items: start; gap: 1rem;">
+                                    <div style="flex: 1;">
+                                        <h3 style="color: #92400e; font-size: 1.1rem; font-weight: bold; margin-bottom: 0.5rem;">⚠️ Duomenų bazės lentelė nerasta</h3>
+                                        <p style="color: #78350f; margin-bottom: 1rem; line-height: 1.5;">
+                                            Reikia sukurti "survey_responses" lentelę Supabase duomenų bazėje.
+                                        </p>
+                                        <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                            <p style="color: #78350f; font-weight: 600; margin-bottom: 0.5rem;">Kaip tai padaryti:</p>
+                                            <ol style="color: #78350f; margin-left: 1.5rem; line-height: 1.8;">
+                                                <li>Eikite į <a href="https://supabase.com/dashboard" target="_blank" style="color: #f59e0b; text-decoration: underline;">Supabase Dashboard</a></li>
+                                                <li>Atidarykite <strong>SQL Editor</strong></li>
+                                                <li>Nukopijuokite SQL kodą iš <strong>CREATE_TABLE.sql</strong> failo</li>
+                                                <li>Spustelėkite <strong>Run</strong></li>
+                                            </ol>
+                                        </div>
+                                        <button onclick="this.closest('#supabase-setup-warning').remove()" style="background: #f59e0b; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;">Supratau</button>
+                                    </div>
+                                </div>
+                            `;
+                            document.body.appendChild(warningDiv);
+                        } else if (error.message.includes('permission') || 
                             error.message.includes('policy') || 
                             error.message.includes('RLS')) {
                             console.log('✅ Supabase connected (RLS active - expected)');
@@ -36,10 +71,12 @@
                             console.warn('⚠️ Connection test:', error.message);
                         }
                     } else {
-                        console.log('✅ Supabase connection verified');
+                        console.log('✅ Supabase connection verified - table exists!');
                     }
                 })
-                .catch(() => {});
+                .catch((err) => {
+                    console.error('Connection test error:', err);
+                });
         }, 100);
     </script>
     
@@ -2187,18 +2224,42 @@
                 
                 // Show user-friendly error message
                 let errorMessage = 'Įvyko klaida siunčiant duomenis.';
+                let errorDetails = '';
+                let isTableMissing = false;
+                
                 if (error.message) {
                     errorMessage = error.message;
+                    // Check if it's a missing table error
+                    if (error.message.includes('Could not find the table') ||
+                        error.message.includes('does not exist') ||
+                        (error.message.includes('relation') && error.message.includes('does not exist')) ||
+                        error.message.includes('lentelė nerasta')) {
+                        isTableMissing = true;
+                        errorMessage = 'Duomenų bazės lentelė nerasta';
+                        errorDetails = `
+                            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="color: #78350f; font-weight: 600; margin-bottom: 0.75rem;">Reikia sukurti "survey_responses" lentelę Supabase duomenų bazėje:</p>
+                                <ol style="color: #78350f; margin-left: 1.5rem; line-height: 1.8;">
+                                    <li>Eikite į <a href="https://supabase.com/dashboard" target="_blank" style="color: #f59e0b; font-weight: 600;">Supabase Dashboard</a></li>
+                                    <li>Atidarykite <strong>SQL Editor</strong></li>
+                                    <li>Nukopijuokite SQL kodą iš <strong>CREATE_TABLE.sql</strong> failo</li>
+                                    <li>Spustelėkite <strong>Run</strong></li>
+                                    <li>Grįžkite čia ir bandykite dar kartą</li>
+                                </ol>
+                            </div>
+                        `;
+                    }
                 }
                 
                 // Create a better error display
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'error-message';
-                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-height: 80vh; overflow-y: auto;';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;';
                 errorDiv.innerHTML = `
                     <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida</h3>
-                    <p style="color: var(--text-charcoal); margin-bottom: 1.5rem;">${errorMessage}</p>
-                    <button onclick="this.parentElement.remove()" class="cta-primary py-2 px-6" style="width: 100%;">Uždaryti</button>
+                    <p style="color: var(--text-charcoal); margin-bottom: ${isTableMissing ? '0' : '1.5rem'};">${errorMessage}</p>
+                    ${errorDetails}
+                    <button onclick="this.closest('.error-message').remove()" class="cta-primary py-2 px-6" style="width: 100%; margin-top: 1rem;">Uždaryti</button>
                 `;
                 document.body.appendChild(errorDiv);
                 
