@@ -580,7 +580,7 @@
                                 <div class="option-description text-sm md:text-base" style="color: var(--text-muted);">Autentiška lauko pirtis jūsų sodo ar kiemo erdvei</div>
                             </div>
                         </button>
-                        <button onclick="selectMainOption('kubilas')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                        <button onclick="selectMainOption('kubila')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl mb-1 md:mb-2">Kubilą</div>
                                 <div class="option-description text-sm md:text-base" style="color: var(--text-muted);">Lauko kubilas su šildymu ir papildomomis funkcijomis</div>
@@ -1309,7 +1309,7 @@
             if (type === 'lauko') {
                 totalSteps = 11;
                 setTimeout(() => goToStep('step-lauko-2', 2), 300);
-            } else if (type === 'kubilas') {
+            } else if (type === 'kubila') {
                 totalSteps = 8;
                 setTimeout(() => goToStep('step-kubilas-2', 2), 300);
             } else if (type === 'vidaus') {
@@ -1790,7 +1790,7 @@
                 } else if (surveyData.type === 'lauko') {
                     document.getElementById(`step-lauko-${previousStep}`).classList.add('active');
                     currentStep = previousStep;
-                } else if (surveyData.type === 'kubilas') {
+                } else if (surveyData.type === 'kubila') {
                     document.getElementById(`step-kubilas-${previousStep}`).classList.add('active');
                     currentStep = previousStep;
                 } else if (surveyData.type === 'vidaus') {
@@ -1844,16 +1844,16 @@
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validate Lithuanian phone number
-            const telefonas = document.getElementById('telefonas').value;
+            // Normalize and validate Lithuanian phone number
+            const phoneInput = document.getElementById('telefonas');
+            let telefonas = phoneInput.value.replace(/\s+/g, '').replace(/-/g, ''); // Remove spaces and hyphens
             const phonePattern = /^\+370[0-9]{8}$/;
             
             if (!phonePattern.test(telefonas)) {
                 // Better mobile-friendly error display
-                const telefonasInput = document.getElementById('telefonas');
-                telefonasInput.focus();
-                telefonasInput.style.borderColor = 'var(--copper)';
-                telefonasInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
+                phoneInput.focus();
+                phoneInput.style.borderColor = 'var(--copper)';
+                phoneInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
                 
                 // Show error message (better than alert for mobile)
                 const errorMsg = document.createElement('div');
@@ -1861,19 +1861,19 @@
                 errorMsg.style.cssText = 'color: var(--copper); font-size: 0.875rem; margin-top: 0.5rem; padding: 0.75rem; background: rgba(180, 92, 58, 0.1); border-radius: 8px; border: 1px solid rgba(180, 92, 58, 0.2);';
                 errorMsg.textContent = 'Prašome įvesti galiojantį Lietuvos telefono numerį formatu: +370 ir 8 skaitmenys (pvz., +37060012345)';
                 
-                const telefonasContainer = telefonasInput.parentElement;
+                const telefonasContainer = phoneInput.parentElement;
                 const existingError = telefonasContainer.querySelector('.error-message');
                 if (existingError) existingError.remove();
                 telefonasContainer.appendChild(errorMsg);
                 
                 // Scroll to error on mobile
                 setTimeout(() => {
-                    telefonasInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    phoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
                 
                 setTimeout(() => {
-                    telefonasInput.style.borderColor = '';
-                    telefonasInput.style.boxShadow = '';
+                    phoneInput.style.borderColor = '';
+                    phoneInput.style.boxShadow = '';
                     if (errorMsg.parentElement) errorMsg.remove();
                 }, 5000);
                 return;
@@ -1897,7 +1897,7 @@
             const surveyPayload = {
                 vardas: contactData.vardas,
                 el_pastas: contactData.email,
-                telefonas: contactData.telefonas,
+                telefonas: telefonas, // Use normalized phone
                 miestas: contactData.miestas,
                 komentaras: contactData.komentaras,
                 type: surveyData.type,
@@ -1985,7 +1985,9 @@
                 } else if (quickSelect === 'vidaus') {
                     totalSteps = 3;
                     goToStep('step-vidaus-2', 2);
-                } else if (quickSelect === 'kubilas') {
+                } else if (quickSelect === 'kubila' || quickSelect === 'kubilas') {
+                    // Normalize to 'kubila' for consistency
+                    surveyData.type = 'kubila';
                     totalSteps = 8;
                     goToStep('step-kubilas-2', 2);
                 }
