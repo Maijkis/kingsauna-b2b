@@ -507,6 +507,21 @@
             .step-subtitle {
                 margin-bottom: 1.5rem !important;
             }
+            
+            /* Custom grid override for Step 4 wood types */
+            #step-lauko-4 .grid-cols-3 .icon-box-option {
+                min-height: 100px;
+                padding: 0.5rem;
+            }
+            #step-lauko-4 .grid-cols-3 .icon-box-image {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 0.25rem;
+            }
+            #step-lauko-4 .grid-cols-3 .icon-box-label {
+                font-size: 0.75rem;
+                line-height: 1.2;
+            }
             /* Body wrapper padding for footer visibility */
             body > .min-h-screen {
                 padding-bottom: 0 !important;
@@ -677,29 +692,43 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kokią medieną svarstote?</h2>
                     <p class="step-subtitle">Galite pasirinkti kelis variantus</p>
-                    <div class="icon-boxes-grid mb-4">
-                        <button onclick="toggleLaukoMediena('Pušis')" class="icon-box-option touch-manipulation" data-value="Pušis" data-type="normal">
-                            <img src="images/pine-wood.jpg" alt="Pušis" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Pušis</div>
-                        </button>
-                        <button onclick="toggleLaukoMediena('Eglė')" class="icon-box-option touch-manipulation" data-value="Eglė" data-type="normal">
-                            <img src="images/fir-wood.jpg" alt="Eglė" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Eglė</div>
-                        </button>
-                        <button onclick="toggleLaukoMediena('Termomediena')" class="icon-box-option touch-manipulation" data-value="Termomediena" data-type="normal">
-                            <img src="images/thermo-wood.jpg" alt="Termomediena" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Termomediena</div>
-                        </button>
-                        <button onclick="toggleLaukoMediena('Kita')" class="icon-box-option touch-manipulation" data-value="Kita" data-type="kita">
-                            <div class="icon-box-icon">✎</div>
-                            <div class="icon-box-label">Kita</div>
-                        </button>
-                        <button onclick="toggleLaukoMediena('Reikalinga konsultacija')" class="icon-box-option touch-manipulation" data-value="Reikalinga konsultacija" data-type="exclusive">
-                            <div class="icon-box-icon">?</div>
-                            <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
-                        </button>
+                    
+                    <div class="space-y-5">
+                        <!-- Top Row: 3 Wood types in one row on mobile -->
+                        <div class="grid grid-cols-3 gap-3 md:gap-4">
+                            <button onclick="toggleLaukoMediena('Pušis')" class="icon-box-option touch-manipulation" data-value="Pušis" data-type="normal">
+                                <img src="images/pine-wood.jpg" alt="Pušis" class="icon-box-image" loading="lazy">
+                                <div class="icon-box-label text-xs sm:text-sm">Pušis</div>
+                            </button>
+                            <button onclick="toggleLaukoMediena('Eglė')" class="icon-box-option touch-manipulation" data-value="Eglė" data-type="normal">
+                                <img src="images/fir-wood.jpg" alt="Eglė" class="icon-box-image" loading="lazy">
+                                <div class="icon-box-label text-xs sm:text-sm">Eglė</div>
+                            </button>
+                            <button onclick="toggleLaukoMediena('Termomediena')" class="icon-box-option touch-manipulation" data-value="Termomediena" data-type="normal">
+                                <img src="images/thermo-wood.jpg" alt="Termomediena" class="icon-box-image" loading="lazy">
+                                <div class="icon-box-label text-xs sm:text-sm">Termomediena</div>
+                            </button>
+                        </div>
+
+                        <!-- Bottom Rows: 2 longer buttons stacked -->
+                        <div class="space-y-3">
+                            <button onclick="toggleLaukoMediena('Kita')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Kita" data-type="kita">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">✎</div>
+                                    <div class="font-bold text-lg md:text-xl">Kita</div>
+                                </div>
+                            </button>
+                            
+                            <button onclick="toggleLaukoMediena('Reikalinga konsultacija')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Reikalinga konsultacija" data-type="exclusive">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">?</div>
+                                    <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
+                                </div>
+                            </button>
+                        </div>
                     </div>
-                    <div id="mediena-kita-container" class="slide-input-container">
+
+                    <div id="mediena-kita-container" class="slide-input-container mt-4">
                         <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
