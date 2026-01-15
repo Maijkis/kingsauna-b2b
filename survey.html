@@ -718,6 +718,10 @@
                                     <div class="font-bold text-lg md:text-xl">Kita</div>
                                 </div>
                             </button>
+
+                            <div id="mediena-kita-container" class="slide-input-container">
+                                <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
+                            </div>
                             
                             <button onclick="toggleLaukoMediena('Reikalinga konsultacija')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Reikalinga konsultacija" data-type="exclusive">
                                 <div class="flex items-center gap-4">
@@ -728,9 +732,6 @@
                         </div>
                     </div>
 
-                    <div id="mediena-kita-container" class="slide-input-container mt-4">
-                        <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
-                    </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
                         <button onclick="nextLaukoStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
