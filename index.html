@@ -588,11 +588,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 0.875rem;
-            color: white;
+            overflow: hidden;
             margin-left: -12px;
             transition: transform 0.2s ease, z-index 0.2s ease;
+            background: #2d3748;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .avatar:first-child {
             margin-left: 0;
@@ -601,10 +605,6 @@
             transform: translateY(-2px) scale(1.05);
             z-index: 10;
         }
-        .avatar-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .avatar-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .avatar-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .avatar-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         @media (max-width: 640px) {
             .avatar {
                 width: 36px;
@@ -745,10 +745,18 @@
                             <!-- Avatar Stack -->
                             <div class="avatar-stack">
                                 <div class="avatar-group">
-                                    <div class="avatar avatar-1" title="Mantas V.">MV</div>
-                                    <div class="avatar avatar-2" title="Greta K.">GK</div>
-                                    <div class="avatar avatar-3" title="Jonas S.">JS</div>
-                                    <div class="avatar avatar-4" title="Laura P.">LP</div>
+                                    <div class="avatar" title="Mantas V.">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=100&h=100&q=80" alt="Mantas V.">
+                                    </div>
+                                    <div class="avatar" title="Greta K.">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fit=crop&w=100&h=100&q=80" alt="Greta K.">
+                                    </div>
+                                    <div class="avatar" title="Jonas S.">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=100&h=100&q=80" alt="Jonas S.">
+                                    </div>
+                                    <div class="avatar" title="Laura P.">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?fit=crop&w=100&h=100&q=80" alt="Laura P.">
+                                    </div>
                                 </div>
                                 <span class="text-xs text-emerald-100/70">ir dar 96+ klientų</span>
                             </div>
