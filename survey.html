@@ -1113,10 +1113,10 @@
                             </div>
                             <div class="checkmark">✓</div>
                         </button>
-                        <button onclick="toggleKubilasOption('funkcijos', 'Nieko papildomai')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                        <button onclick="toggleKubilasOption('funkcijos', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
-                                <div class="font-bold text-lg md:text-xl">Nieko papildomai</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Tik bazinė komplektacija</div>
+                                <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
+                                <div class="option-description text-sm" style="color: var(--text-muted);">Aptarsime papildomas funkcijas kartu</div>
                             </div>
                             <div class="checkmark">✓</div>
                         </button>
@@ -1662,22 +1662,22 @@
                 surveyData.kubilas[field].splice(index, 1);
                 button.classList.remove('selected');
                 
-                // If deselecting "Nieko papildomai", re-enable all other buttons
-                if (value === 'Nieko papildomai') {
+                // If deselecting "Norėčiau Pasikonsultuoti", re-enable all other buttons
+                if (value === 'Norėčiau Pasikonsultuoti') {
                     stepEl.querySelectorAll('.option-button').forEach(btn => {
-                        if (!btn.textContent.includes('Nieko papildomai')) {
+                        if (!btn.textContent.includes('Norėčiau Pasikonsultuoti')) {
                             btn.disabled = false;
                             btn.style.opacity = '1';
                         }
                     });
                 }
             } else {
-                if (value === 'Nieko papildomai') {
+                if (value === 'Norėčiau Pasikonsultuoti') {
                     // Exclusive selection - clear all others and disable them
-                    surveyData.kubilas[field] = ['Nieko papildomai'];
+                    surveyData.kubilas[field] = ['Norėčiau Pasikonsultuoti'];
                     stepEl.querySelectorAll('.option-button').forEach(btn => {
                         btn.classList.remove('selected');
-                        if (!btn.textContent.includes('Nieko papildomai')) {
+                        if (!btn.textContent.includes('Norėčiau Pasikonsultuoti')) {
                             btn.disabled = true;
                             btn.style.opacity = '0.5';
                         }
@@ -1686,12 +1686,12 @@
                     button.disabled = false;
                     button.style.opacity = '1';
                 } else {
-                    // Deselect "Nieko papildomai" if it was selected
-                    const niekoIndex = surveyData.kubilas[field].indexOf('Nieko papildomai');
+                    // Deselect "Norėčiau Pasikonsultuoti" if it was selected
+                    const niekoIndex = surveyData.kubilas[field].indexOf('Norėčiau Pasikonsultuoti');
                     if (niekoIndex > -1) {
                         surveyData.kubilas[field].splice(niekoIndex, 1);
                         stepEl.querySelectorAll('.option-button').forEach(btn => {
-                            if (btn.textContent.includes('Nieko papildomai')) {
+                            if (btn.textContent.includes('Norėčiau Pasikonsultuoti')) {
                                 btn.classList.remove('selected');
                             }
                             // Re-enable all buttons
