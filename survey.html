@@ -7,33 +7,60 @@
     <title>Kingsauna Apklausa | Raskite Tobulą Sprendimą</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
+    <!-- Supabase Client - Using ES Module import -->
+    <script type="module">
+        // Import Supabase using ES modules
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        
         // Initialize Supabase
         const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
         
-        let supabase;
-        try {
-            if (!window.supabase) {
-                throw new Error('Supabase library not loaded');
-            }
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            console.log('✅ Supabase client initialized');
-            
-            // Test connection
-            supabase.from('survey_responses').select('id').limit(0).then(({ error }) => {
-                if (error && !error.message.includes('permission') && !error.message.includes('policy')) {
-                    console.warn('⚠️ Supabase connection test:', error.message);
-                } else {
-                    console.log('✅ Supabase connection verified');
+        // Create client and make it globally available
+        window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        console.log('✅ Supabase client initialized (ES Module)');
+        console.log('Supabase client type:', typeof window.supabase);
+        console.log('Has .from method:', typeof window.supabase.from === 'function');
+        
+        // Test connection
+        setTimeout(() => {
+            window.supabase.from('survey_responses').select('id').limit(0)
+                .then(({ error }) => {
+                    if (error) {
+                        if (error.message.includes('permission') || 
+                            error.message.includes('policy') || 
+                            error.message.includes('RLS')) {
+                            console.log('✅ Supabase connected (RLS active - expected)');
+                        } else {
+                            console.warn('⚠️ Connection test:', error.message);
+                        }
+                    } else {
+                        console.log('✅ Supabase connection verified');
+                    }
+                })
+                .catch(() => {});
+        }, 100);
+    </script>
+    
+    <!-- Fallback for non-module browsers -->
+    <script nomodule>
+        // Fallback: Load UMD build for older browsers
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+            script.onload = function() {
+                const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+                
+                // UMD build exposes supabaseLib
+                if (window.supabaseLib && window.supabaseLib.createClient) {
+                    window.supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    console.log('✅ Supabase client initialized (UMD fallback)');
                 }
-            });
-        } catch (error) {
-            console.error('❌ Failed to initialize Supabase:', error);
-            alert('Klaida: Nepavyko prisijungti prie duomenų bazės. Patikrinkite interneto ryšį.');
-        }
+            };
+            document.head.appendChild(script);
+        })();
     </script>
     
     <!-- Analytics Tracker -->
@@ -41,12 +68,24 @@
     <script>
         let surveyStartTime = Date.now();
         
-        // Initialize analytics when page loads
+        // Initialize analytics when page loads (wait for Supabase)
         window.addEventListener('DOMContentLoaded', function() {
-            window.initKingsaunaAnalytics(supabase);
-            
-            // Track funnel: Survey page view
-            window.ksAnalytics.trackFunnelStep('survey_page_view', 3, null);
+            // Wait for Supabase to be available
+            function initAnalytics() {
+                if (window.supabase && typeof window.supabase.from === 'function') {
+                    if (window.initKingsaunaAnalytics) {
+                        window.initKingsaunaAnalytics(window.supabase);
+                    }
+                    // Track funnel: Survey page view
+                    if (window.ksAnalytics) {
+                        window.ksAnalytics.trackFunnelStep('survey_page_view', 3, null);
+                    }
+                } else {
+                    // Retry after a short delay
+                    setTimeout(initAnalytics, 200);
+                }
+            }
+            initAnalytics();
         });
     </script>
     
@@ -1938,8 +1977,9 @@
             e.preventDefault();
             
             // Check if Supabase is available
-            if (!supabase) {
+            if (!window.supabase || typeof window.supabase.from !== 'function') {
                 console.error('❌ Supabase client not initialized');
+                console.error('window.supabase:', typeof window.supabase);
                 alert('Klaida: Duomenų bazės ryšys nepasiekiamas. Patikrinkite interneto ryšį ir bandykite dar kartą.');
                 return;
             }
@@ -2061,7 +2101,7 @@
                 
                 // Try submitting with base payload first (no .select() to avoid RLS issues)
                 console.log('📤 Submitting survey to Supabase...', basePayload);
-                const { error: insertError } = await supabase
+                const { error: insertError } = await window.supabase
                     .from('survey_responses')
                     .insert([basePayload]);
 
@@ -2090,7 +2130,7 @@
                         else if (surveyData.type === 'kubila' && surveyData.kubilas) minimalPayload.kubilas_data = surveyData.kubilas;
                         else if (surveyData.type === 'vidaus' && surveyData.vidaus) minimalPayload.vidaus_data = surveyData.vidaus;
 
-                        const { error: minimalError } = await supabase
+                        const { error: minimalError } = await window.supabase
                             .from('survey_responses')
                             .insert([minimalPayload]);
                         
