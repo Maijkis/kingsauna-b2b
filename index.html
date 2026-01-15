@@ -570,6 +570,49 @@
             color: var(--text-warm);
         }
         
+        /* ===== AVATAR STACK ===== */
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .avatar-group {
+            display: flex;
+            margin-right: 0.5rem;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+            margin-left: -12px;
+            transition: transform 0.2s ease, z-index 0.2s ease;
+        }
+        .avatar:first-child {
+            margin-left: 0;
+        }
+        .avatar:hover {
+            transform: translateY(-2px) scale(1.05);
+            z-index: 10;
+        }
+        .avatar-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .avatar-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .avatar-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .avatar-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        @media (max-width: 640px) {
+            .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.75rem;
+            }
+        }
+        
         /* ===== CTA SECTION ===== */
         .cta-section-gradient {
             background: linear-gradient(160deg, #1a3c34 0%, #0d1f1a 100%);
@@ -693,10 +736,22 @@
                             <span class="font-semibold text-white">100+ klientų</span>
                         </div>
                         <div class="hidden sm:block w-px h-4 bg-emerald-300/30"></div>
-                        <div class="flex items-center gap-2 text-emerald-100/80">
-                            <span>Įvertinimas</span>
-                            <span class="font-semibold text-white">4,98 / 5</span>
-                            <div class="flex text-amber-400 text-sm">★★★★★</div>
+                        <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                            <div class="flex items-center gap-2 text-emerald-100/80">
+                                <span>Įvertinimas</span>
+                                <span class="font-semibold text-white">4,98 / 5</span>
+                                <div class="flex text-amber-400 text-sm">★★★★★</div>
+                            </div>
+                            <!-- Avatar Stack -->
+                            <div class="avatar-stack">
+                                <div class="avatar-group">
+                                    <div class="avatar avatar-1" title="Mantas V.">MV</div>
+                                    <div class="avatar avatar-2" title="Greta K.">GK</div>
+                                    <div class="avatar avatar-3" title="Jonas S.">JS</div>
+                                    <div class="avatar avatar-4" title="Laura P.">LP</div>
+                                </div>
+                                <span class="text-xs text-emerald-100/70">ir dar 96+ klientų</span>
+                            </div>
                         </div>
                     </div>
                 </div>
