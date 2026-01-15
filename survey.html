@@ -2013,19 +2013,51 @@
 
                 if (error) {
                     console.error('❌ Supabase error:', error);
-                    alert('Įvyko klaida siunčiant duomenis. Bandykite dar kartą.');
-                    return;
+                    // If error is about missing columns, it might be because analytics schema isn't applied
+                    if (error.code === 'P0001' || error.message.includes('column')) {
+                        console.warn('⚠️ Retrying without tracking data...');
+                        const simplifiedPayload = {
+                            vardas: contactData.vardas,
+                            el_pastas: contactData.email,
+                            telefonas: telefonas,
+                            miestas: contactData.miestas,
+                            komentaras: contactData.komentaras,
+                            type: surveyData.type
+                        };
+                        if (surveyData.type === 'lauko') simplifiedPayload.lauko_data = surveyData.lauko;
+                        else if (surveyData.type === 'kubila') simplifiedPayload.kubilas_data = surveyData.kubilas;
+                        else if (surveyData.type === 'vidaus') simplifiedPayload.vidaus_data = surveyData.vidaus;
+
+                        const { error: retryError } = await supabase
+                            .from('survey_responses')
+                            .insert([simplifiedPayload]);
+                        
+                        if (retryError) {
+                            console.error('❌ Retry failed:', retryError);
+                            alert('Įvyko klaida siunčiant duomenis. Bandykite dar kartą.');
+                            return;
+                        }
+                    } else {
+                        alert('Įvyko klaida siunčiant duomenis. Bandykite dar kartą.');
+                        return;
+                    }
                 }
 
                 console.log('✅ Survey saved to Supabase:', data);
                 
                 // Track successful submission
-                if (window.ksAnalytics) {
+                if (window.ksAnalytics && data && data.length > 0) {
                     window.ksAnalytics.trackEvent('survey_submitted', {
                         category: 'conversion',
                         label: surveyData.type,
                         value: 1,
                         metadata: { response_id: data[0].id }
+                    });
+                } else if (window.ksAnalytics) {
+                    window.ksAnalytics.trackEvent('survey_submitted', {
+                        category: 'conversion',
+                        label: surveyData.type,
+                        value: 1
                     });
                 }
                 
