@@ -186,6 +186,23 @@
             to { opacity: 1; transform: translateX(0); }
         }
         
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                max-height: 200px;
+            }
+        }
+        
+        .validation-error-message {
+            animation: slideDown 0.3s ease;
+        }
+        
         /* ===== OPTION BUTTONS ===== */
         .option-button {
             transition: all 0.2s ease;
@@ -1695,11 +1712,62 @@
         }
 
         // ===== LAUKO NAVIGATION =====
+        // Helper function to show validation error
+        function showValidationError(message, stepElement = null) {
+            // Remove any existing error
+            const existingError = document.querySelector('.validation-error-message');
+            if (existingError) existingError.remove();
+            
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error-message';
+            errorDiv.style.cssText = 'background: rgba(180, 92, 58, 0.1); border-left: 4px solid var(--copper); padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; animation: slideDown 0.3s ease;';
+            errorDiv.innerHTML = `
+                <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <div style="font-size: 1.25rem;">⚠️</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--copper); margin-bottom: 0.25rem;">Pasirinkimas privalomas</div>
+                        <div style="color: var(--text-warm); font-size: 0.9rem;">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert error message
+            const targetElement = stepElement || document.querySelector('.step.active .glass-card');
+            if (targetElement) {
+                // Insert after the title/subtitle but before the options
+                const subtitle = targetElement.querySelector('.step-subtitle');
+                if (subtitle) {
+                    subtitle.after(errorDiv);
+                } else {
+                    const title = targetElement.querySelector('h2');
+                    if (title) {
+                        title.after(errorDiv);
+                    } else {
+                        targetElement.prepend(errorDiv);
+                    }
+                }
+                
+                // Scroll to error
+                setTimeout(() => {
+                    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    errorDiv.style.opacity = '0';
+                    errorDiv.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => errorDiv.remove(), 300);
+                }, 5000);
+            }
+        }
+        
         function nextLaukoStep(currentStepNum) {
             // Validation
             if (currentStepNum === 2) {
                 if (!surveyData.lauko.forma || surveyData.lauko.forma.length === 0) {
-                    return; // Must select at least one
+                    showValidationError('Prašome pasirinkti bent vieną pirties formą, kuri jus domina.');
+                    return;
                 }
             }
             if (currentStepNum === 3) {
@@ -1710,11 +1778,13 @@
                     surveyData.lauko.ilgis = ilgis;
                     surveyData.lauko.ismatavimai = null;
                 } else if (!surveyData.lauko.ismatavimai) {
-                    return; // Must enter measurements OR select Norėčiau Pasikonsultuoti
+                    showValidationError('Prašome įvesti išmatavimus arba pasirinkti "Norėčiau Pasikonsultuoti".');
+                    return;
                 }
             }
             if (currentStepNum === 4) {
                 if (!surveyData.lauko.mediena || surveyData.lauko.mediena.length === 0) {
+                    showValidationError('Prašome pasirinkti bent vieną medieną arba "Norėčiau Pasikonsultuoti".');
                     return;
                 }
                 // Validate and collect kita input if selected
@@ -1740,13 +1810,30 @@
                 }
             }
             if (currentStepNum === 5) {
-                if (!surveyData.lauko.pecius) return;
+                if (!surveyData.lauko.pecius) {
+                    showValidationError('Prašome pasirinkti pečiaus tipą.');
+                    return;
+                }
             }
             if (currentStepNum === 6) {
-                if (!surveyData.lauko.priepirtis || !surveyData.lauko.suolai) return;
+                if (!surveyData.lauko.priepirtis || !surveyData.lauko.suolai) {
+                    if (!surveyData.lauko.priepirtis) {
+                        showValidationError('Prašome pasirinkti, ar norite priepirčio.');
+                    } else {
+                        showValidationError('Prašome pasirinkti, kur planuojami suolai.');
+                    }
+                    return;
+                }
             }
             if (currentStepNum === 7) {
-                if (!surveyData.lauko.langai || !surveyData.lauko.duru_tipas) return;
+                if (!surveyData.lauko.langai || !surveyData.lauko.duru_tipas) {
+                    if (!surveyData.lauko.langai) {
+                        showValidationError('Prašome pasirinkti langų kiekį.');
+                    } else {
+                        showValidationError('Prašome pasirinkti durų tipą.');
+                    }
+                    return;
+                }
                 // Collect daugiau input if selected
                 if (surveyData.lauko.langai === 'daugiau') {
                     const langaiValue = document.getElementById('langai-daugiau-input').value.trim();
@@ -1769,10 +1856,16 @@
                 }
             }
             if (currentStepNum === 8) {
-                if (!surveyData.lauko.praeimai) return;
+                if (!surveyData.lauko.praeimai) {
+                    showValidationError('Prašome pasirinkti praėjimo variantą.');
+                    return;
+                }
             }
             if (currentStepNum === 9) {
-                if (!surveyData.lauko.pristatymas) return;
+                if (!surveyData.lauko.pristatymas) {
+                    showValidationError('Prašome pasirinkti pristatymo sąlygas.');
+                    return;
+                }
             }
             if (currentStepNum === 10) {
                 surveyData.lauko.pageidavimai = document.getElementById('lauko-pageidavimai').value;
@@ -1876,9 +1969,15 @@
         }
 
         function nextKubilasStep(currentStepNum) {
-            if (currentStepNum === 2 && !surveyData.kubilas.tipas) return;
+            if (currentStepNum === 2 && !surveyData.kubilas.tipas) {
+                showValidationError('Prašome pasirinkti kubilo tipą.');
+                return;
+            }
             if (currentStepNum === 3) {
-                if (!surveyData.kubilas.zmones) return;
+                if (!surveyData.kubilas.zmones) {
+                    showValidationError('Prašome pasirinkti žmonių kiekį.');
+                    return;
+                }
                 // Collect custom input if "Daugiau" was selected
                 if (surveyData.kubilas.zmones === 'Daugiau') {
                     const daugiauValue = document.getElementById('kubilas-zmones-daugiau-input').value.trim();
@@ -1900,10 +1999,22 @@
                     surveyData.kubilas.zmonesDaugiau = daugiauValue;
                 }
             }
-            if (currentStepNum === 4 && !surveyData.kubilas.sildymas) return;
-            if (currentStepNum === 5 && !surveyData.kubilas.apdaila) return;
-            if (currentStepNum === 6 && (!surveyData.kubilas.funkcijos || surveyData.kubilas.funkcijos.length === 0)) return;
-            if (currentStepNum === 7 && !surveyData.kubilas.pristatymas) return;
+            if (currentStepNum === 4 && !surveyData.kubilas.sildymas) {
+                showValidationError('Prašome pasirinkti šildymo būdą.');
+                return;
+            }
+            if (currentStepNum === 5 && !surveyData.kubilas.apdaila) {
+                showValidationError('Prašome pasirinkti apdailos variantą.');
+                return;
+            }
+            if (currentStepNum === 6 && (!surveyData.kubilas.funkcijos || surveyData.kubilas.funkcijos.length === 0)) {
+                showValidationError('Prašome pasirinkti bent vieną papildomą funkciją arba "Norėčiau Pasikonsultuoti".');
+                return;
+            }
+            if (currentStepNum === 7 && !surveyData.kubilas.pristatymas) {
+                showValidationError('Prašome pasirinkti pristatymo sąlygas.');
+                return;
+            }
 
             if (currentStepNum < 7) {
                 goToStep(`step-kubilas-${currentStepNum + 1}`, currentStepNum + 1);
