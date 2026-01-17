@@ -358,24 +358,6 @@
             transform: translateY(0) scale(1);
         }
         
-        .process-number {
-            position: absolute;
-            top: -20px;
-            right: -10px;
-            font-size: 8rem;
-            font-weight: 900;
-            color: var(--forest);
-            opacity: 0.04;
-            line-height: 1;
-            pointer-events: none;
-            transition: all 0.6s ease;
-        }
-        
-        .process-card:hover .process-number {
-            opacity: 0.08;
-            transform: scale(1.1) translateX(-10px);
-        }
-        
         .process-icon-wrapper {
             width: 56px;
             height: 56px;
@@ -401,9 +383,6 @@
         @media (max-width: 768px) {
             .process-card {
                 padding: 2rem 1.5rem;
-            }
-            .process-number {
-                font-size: 6rem;
             }
         }
 
@@ -1238,7 +1217,6 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
                 <!-- Step 1 -->
                 <div class="process-card scroll-reveal">
-                    <div class="process-number">1</div>
                     <div class="process-icon-wrapper">1</div>
                     <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Užpildote apklausą</h3>
                     <p class="text-readable text-sm leading-relaxed">
@@ -1248,7 +1226,6 @@
 
                 <!-- Step 2 -->
                 <div class="process-card scroll-reveal" style="transition-delay: 150ms;">
-                    <div class="process-number">2</div>
                     <div class="process-icon-wrapper">2</div>
                     <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Konsultacija</h3>
                     <p class="text-readable text-sm leading-relaxed">
@@ -1258,7 +1235,6 @@
 
                 <!-- Step 3 -->
                 <div class="process-card scroll-reveal" style="transition-delay: 300ms;">
-                    <div class="process-number">3</div>
                     <div class="process-icon-wrapper">3</div>
                     <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Individualus pasiūlymas</h3>
                     <p class="text-readable text-sm leading-relaxed">
