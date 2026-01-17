@@ -852,18 +852,18 @@
     <!-- ===== POPULIARIAUSI MODELIAI ===== -->
     <section id="populiariausi" class="py-16 md:py-24 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
-                    Mūsų populiariausi modeliai
-                </h2>
-                <div class="w-12 h-1 bg-forest mx-auto mb-6 rounded-full opacity-20"></div>
-                <p class="text-readable max-w-2xl mx-auto text-lg">
-                    Atraskite populiariausius sprendimus, kuriuos pamėgo šimtai mūsų klientų visoje Lietuvoje.
-                </p>
-            </div>
-            
-            <div class="glass-card-light p-4 md:p-8 lg:p-10 relative overflow-hidden shadow-2xl shadow-black/5" style="background: rgba(255, 255, 255, 0.7);">
-                <div class="product-carousel-wrapper">
+            <div class="bg-white/50 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 lg:p-16 border border-white/40 shadow-2xl shadow-forest/5">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+                        Mūsų populiariausi modeliai
+                    </h2>
+                    <div class="w-8 h-1 bg-forest mx-auto mb-6 rounded-full opacity-30"></div>
+                    <p class="text-readable max-w-2xl mx-auto text-lg opacity-90">
+                        Populiariausi sprendimai, pamėgti šimtų mūsų klientų visoje Lietuvoje.
+                    </p>
+                </div>
+                
+                <div class="product-carousel-wrapper relative">
                     <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
@@ -955,10 +955,12 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="productCarouselDots" class="product-carousel-dots mt-8"></div>
                 </div>
-                
-                <div id="productCarouselDots" class="product-carousel-dots"></div>
             </div>
+        </div>
+    </section>
         </div>
     </section>
 
