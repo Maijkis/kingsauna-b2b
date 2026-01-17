@@ -338,6 +338,75 @@
             border-radius: 4px;
         }
 
+        /* ===== PROCESS CARDS (Kaip tai veikia) ===== */
+        .process-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        
+        .process-card.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .process-number {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--forest);
+            opacity: 0.04;
+            line-height: 1;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+        
+        .process-card:hover .process-number {
+            opacity: 0.08;
+            transform: scale(1.1) translateX(-10px);
+        }
+        
+        .process-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            background: var(--copper);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px rgba(180, 92, 58, 0.2);
+        }
+        
+        .process-card:hover {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(34, 84, 61, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        @media (max-width: 768px) {
+            .process-card {
+                padding: 2rem 1.5rem;
+            }
+            .process-number {
+                font-size: 6rem;
+            }
+        }
+
         /* ===== TESTIMONIAL CAROUSEL ===== */
         .carousel-container {
             overflow: hidden;
@@ -1154,45 +1223,46 @@
     </section>
 
     <!-- ===== KAIP TAI VEIKIA ===== -->
-    <section id="kaip-veikia" class="py-16 md:py-24 px-4 bg-sand section-px">
+    <section id="kaip-veikia" class="py-20 md:py-32 px-4 bg-cream section-px overflow-hidden">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-charcoal);">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
                     Kaip tai veikia?
                 </h2>
-                <p class="text-readable max-w-2xl mx-auto">
-                    Paprastas kelias iki jūsų svajonių pirties ar kubilo
+                <div class="w-12 h-1 bg-copper mx-auto mb-6 rounded-full"></div>
+                <p class="text-readable max-w-2xl mx-auto text-lg opacity-80">
+                    Paprastas ir aiškus kelias iki jūsų svajonių pirties ar kubilo
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
-                        1
-                    </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Užpildote apklausą</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Atsakote į kelis klausimus apie savo poreikius.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Step 1 -->
+                <div class="process-card scroll-reveal">
+                    <div class="process-number">1</div>
+                    <div class="process-icon-wrapper">1</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Užpildote apklausą</h3>
+                    <p class="text-readable text-sm leading-relaxed">
+                        Atsakykite į kelis trumpus klausimus apie savo viziją. Tai užtruks vos 2 minutes.
                     </p>
                 </div>
 
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
-                        2
-                    </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Konsultacija</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Aptariame detales ir patariame geriausią sprendimą.
+                <!-- Step 2 -->
+                <div class="process-card scroll-reveal" style="transition-delay: 150ms;">
+                    <div class="process-number">2</div>
+                    <div class="process-icon-wrapper">2</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Konsultacija</h3>
+                    <p class="text-readable text-sm leading-relaxed">
+                        Susisieksime, patarsime ir padėsime rasti geriausią techninį bei dizaino sprendimą.
                     </p>
                 </div>
 
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
-                        3
-                    </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Individualus pasiūlymas</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Paruošiame būtent Jums pritaikytą kainos pasiūlymą.
+                <!-- Step 3 -->
+                <div class="process-card scroll-reveal" style="transition-delay: 300ms;">
+                    <div class="process-number">3</div>
+                    <div class="process-icon-wrapper">3</div>
+                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Individualus pasiūlymas</h3>
+                    <p class="text-readable text-sm leading-relaxed">
+                        Paruošiame būtent Jums pritaikytą, aiškų ir detalų kainos pasiūlymą be jokių paslėptų mokesčių.
                     </p>
                 </div>
             </div>
@@ -1909,6 +1979,25 @@
             renderCarousel();
             initProductCarousel();
             startAutoplay();
+            
+            // Initialize scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+
             document.getElementById('prevBtn').addEventListener('click', prevSlide);
             document.getElementById('nextBtn').addEventListener('click', nextSlide);
             
