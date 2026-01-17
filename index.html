@@ -187,6 +187,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             touch-action: manipulation;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .product-card:active {
             transform: scale(0.99);
@@ -271,6 +274,8 @@
             flex: 0 0 280px;
             scroll-snap-align: center;
             transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         .product-card-slide:hover {
             transform: scale(1.02);
@@ -881,12 +886,14 @@
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/barrel-classic.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
                                 </div>
-                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
-                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
-                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
-                                        Daugiau informacijos
-                                    </span>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
+                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
+                                    <div class="mt-auto pt-2">
+                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                            Daugiau informacijos
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -897,12 +904,14 @@
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
                                 </div>
-                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
-                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
-                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
-                                        Daugiau informacijos
-                                    </span>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
+                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
+                                    <div class="mt-auto pt-2">
+                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                            Daugiau informacijos
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -913,12 +922,14 @@
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
                                 </div>
-                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
-                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
-                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
-                                        Daugiau informacijos
-                                    </span>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
+                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
+                                    <div class="mt-auto pt-2">
+                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                            Daugiau informacijos
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -929,12 +940,14 @@
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
                                 </div>
-                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
-                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Mobili pirtis</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
-                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
-                                        Daugiau informacijos
-                                    </span>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Mobili pirtis</h3>
+                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
+                                    <div class="mt-auto pt-2">
+                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                            Daugiau informacijos
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -945,12 +958,14 @@
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
                                 </div>
-                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
-                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
-                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
-                                        Daugiau informacijos
-                                    </span>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
+                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
+                                    <div class="mt-auto pt-2">
+                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                            Daugiau informacijos
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -959,8 +974,6 @@
                     <div id="productCarouselDots" class="product-carousel-dots mt-8"></div>
                 </div>
             </div>
-        </div>
-    </section>
         </div>
     </section>
 
