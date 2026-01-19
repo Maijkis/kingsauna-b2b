@@ -831,8 +831,8 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
         <!-- Background Video -->
-        <video autoplay muted loop playsinline class="hero-video-bg">
-            <source src="images/VideoL.mov" type="video/mp4">
+        <video autoplay muted loop playsinline class="hero-video-bg" poster="images/iglu-garden-installed.jpg">
+            <source src="images/VideoL.mp4" type="video/mp4">
             <!-- Fallback image if video fails to load -->
             <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background">
         </video>
@@ -861,53 +861,6 @@
         </div>
     </section>
     
-    <!-- ===== APIE MUS SECTION ===== -->
-    <section id="apie-mus" class="py-20 md:py-32 px-4 bg-sand section-px">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <div class="order-2 md:order-1">
-                    <div class="relative">
-                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
-                            <img src="images/barrel-sauna-summer.jpg" alt="Kingsauna komanda ir darbai" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Decorative element -->
-                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-copper rounded-3xl -z-10 opacity-20"></div>
-                    </div>
-                </div>
-                
-                <div class="order-1 md:order-2">
-                    <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-4">Mūsų istorija</span>
-                    <h2 class="text-3xl md:text-5xl font-bold mb-8" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
-                        Meistrystė, gimusi iš meilės pirties kultūrai
-                    </h2>
-                    
-                    <div class="space-y-6 text-readable text-lg opacity-90 leading-relaxed">
-                        <p>
-                            „Kingsauna“ – tai daugiau nei dešimtmetį puoselėjama aistra kokybiškam poilsiui. Jau daugelį metų kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
-                        </p>
-                        <p>
-                            Mūsų tikslas – sujungti senąsias pirties tradicijas su šiuolaikišku dizainu ir technologijomis. Kiekvienas gaminys mums yra unikalus, todėl skiriame ypatingą dėmesį detalėms, medžiagų kokybei ir Jūsų individualiai vizijai.
-                        </p>
-                        <p>
-                            Tikime, kad pirtis nėra tik pastatas – tai vieta, kurioje sustoja laikas, dingsta rūpesčiai ir gimsta geriausi prisiminimai su artimiausiais.
-                        </p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-8 mt-12">
-                        <div>
-                            <div class="text-3xl font-bold text-forest mb-1">10+</div>
-                            <div class="text-sm text-readable opacity-70">Metų patirties</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold text-forest mb-1">500+</div>
-                            <div class="text-sm text-readable opacity-70">Laimingų šeimų</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== POPULIARIAUSI MODELIAI ===== -->
     <section id="populiariausi" class="py-16 md:py-24 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
@@ -1021,28 +974,65 @@
         </div>
     </section>
 
-            <!-- Testimonial Carousel -->
-            <div class="glass-card-light p-6 md:p-8">
-                <h3 class="text-xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
-                    Klientų atsiliepimai
-                </h3>
-                
-                <div class="carousel-container relative">
-                    <div id="carouselTrack" class="carousel-track"></div>
-                    
-                    <button id="prevBtn" class="carousel-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 hidden md:flex" aria-label="Ankstesnis">
-                        <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button id="nextBtn" class="carousel-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 hidden md:flex" aria-label="Kitas">
-                        <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+    <!-- ===== APIE MUS SECTION ===== -->
+    <section id="apie-mus" class="py-20 md:py-32 px-4 bg-sand section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="order-2 md:order-1">
+                    <!-- Testimonial Carousel instead of photo -->
+                    <div class="glass-card-light p-6 md:p-8">
+                        <h3 class="text-xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
+                            Klientų atsiliepimai
+                        </h3>
+                        
+                        <div class="carousel-container relative">
+                            <div id="carouselTrack" class="carousel-track"></div>
+                            
+                            <button id="prevBtn" class="carousel-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 hidden md:flex" aria-label="Ankstesnis">
+                                <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <button id="nextBtn" class="carousel-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 hidden md:flex" aria-label="Kitas">
+                                <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
+                    </div>
                 </div>
                 
-                <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
+                <div class="order-1 md:order-2">
+                    <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-4">Mūsų istorija</span>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+                        Meistrystė, gimusi iš meilės pirties kultūrai
+                    </h2>
+                    
+                    <div class="space-y-6 text-readable text-lg opacity-90 leading-relaxed">
+                        <p>
+                            „Kingsauna“ – tai daugiau nei dešimtmetį puoselėjama aistra kokybiškam poilsiui. Jau daugelį metų kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
+                        </p>
+                        <p>
+                            Mūsų tikslas – sujungti senąsias pirties tradicijas su šiuolaikišku dizainu ir technologijomis. Kiekvienas gaminys mums yra unikalus, todėl skiriame ypatingą dėmesį detalėms, medžiagų kokybei ir Jūsų individualiai vizijai.
+                        </p>
+                        <p>
+                            Tikime, kad pirtis nėra tik pastatas – tai vieta, kurioje sustoja laikas, dingsta rūpesčiai ir gimsta geriausi prisiminimai su artimiausiais.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-8 mt-12">
+                        <div>
+                            <div class="text-3xl font-bold text-forest mb-1">10+</div>
+                            <div class="text-sm text-readable opacity-70">Metų patirties</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-forest mb-1">500+</div>
+                            <div class="text-sm text-readable opacity-70">Laimingų šeimų</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
