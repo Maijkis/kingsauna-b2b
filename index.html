@@ -776,8 +776,8 @@
 </head>
 <body class="bg-sand" style="color: var(--text-charcoal);">
     
-    <!-- ===== TOP LOGO BAR ===== -->
-    <header id="topLogoBar" class="top-logo-bar py-6">
+    <!-- ===== TOP LOGO BAR (Hidden - logo moved to hero box) ===== -->
+    <header id="topLogoBar" class="top-logo-bar py-6 hidden">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <a href="index.html" class="inline-block">
                 <img src="images/logo.png" alt="Kingsauna Logo" class="h-20 md:h-24 w-auto brightness-0 invert" loading="lazy">
@@ -839,50 +839,22 @@
         <div class="hero-overlay"></div>
 
         <div class="hero-content max-w-4xl mx-auto w-full">
-            <div class="glass-panel p-6 md:p-12 lg:p-16">
+            <div class="glass-panel p-8 md:p-16 lg:p-20">
                 <div class="text-center">
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                        Pirčių bei Kubilų Sprendimai Jums
-                    </h1>
-                    
-                    <p class="text-lg md:text-xl mb-10 text-emerald-100/90 leading-relaxed max-w-2xl mx-auto">
-                        Padėsime išsirinkti tinkamiausią sprendimą per trumpą apklausą - visiškai be įsipareigojimų
-                    </p>
-                    
+                    <!-- Logo inside the box -->
                     <div class="mb-10">
-                        <a href="survey.html" class="cta-primary inline-flex py-4 px-6 sm:py-5 sm:px-12 text-[15px] sm:text-lg md:text-xl items-center justify-center min-h-[56px] sm:min-h-[64px] whitespace-nowrap">
+                        <img src="images/logo.png" alt="Kingsauna Logo" class="h-20 md:h-28 w-auto brightness-0 invert mx-auto" loading="lazy">
+                    </div>
+
+                    <!-- Secondary text (was main) -->
+                    <h2 class="text-xl md:text-2xl font-medium mb-12 text-emerald-100/90 leading-relaxed max-w-xl mx-auto">
+                        Pirčių bei Kubilų Sprendimai Jums
+                    </h2>
+                    
+                    <div class="mb-2">
+                        <a href="survey.html" class="cta-primary inline-flex py-4 px-8 sm:py-5 sm:px-12 text-[15px] sm:text-lg md:text-xl items-center justify-center min-h-[56px] sm:min-h-[64px] whitespace-nowrap">
                             Rasti man tinkamiausią pirtį
                         </a>
-                    </div>
-                    
-                    <div class="flex items-center justify-center mt-10">
-                        <div class="inline-flex items-center gap-2 sm:gap-4 py-2 px-4 sm:px-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-black/5" style="background: linear-gradient(110deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);">
-                            <span class="font-medium text-xs sm:text-sm text-emerald-100/90">Pasitiki</span>
-                            
-                            <!-- Avatar Group -->
-                            <div class="flex -space-x-2 shrink-0">
-                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Mantas V.">
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fit=crop&w=100&h=100&q=80" alt="Mantas V.">
-                                </div>
-                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Greta K.">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?fit=crop&w=100&h=100&q=80" alt="Greta K.">
-                                </div>
-                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Jonas S.">
-                                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?fit=crop&w=100&h=100&q=80" alt="Jonas S.">
-                                </div>
-                                <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full border-2 border-[#1a3c34] bg-white/10 flex items-center justify-center text-[9px] sm:text-xs font-bold text-white/80 backdrop-blur-sm">
-                                    +99
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-emerald-100/90">
-                                <div class="w-1 h-1 rounded-full bg-emerald-400/40"></div>
-                                <div class="flex items-center gap-1">
-                                    <span class="font-bold text-white">4,98/5</span>
-                                    <div class="flex text-amber-400 text-[9px] sm:text-[10px]">★★★★★</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
