@@ -1428,10 +1428,6 @@
                                 <option value="Zarasų r. sav.">
                             </datalist>
                         </div>
-                        <div>
-                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Papildomas komentaras</label>
-                            <textarea id="komentaras" rows="3" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Bet kokios papildomos mintys ar klausimai (nebūtina)"></textarea>
-                        </div>
                         <div class="flex items-start pt-2">
                             <input type="checkbox" id="consent" required class="mt-1 mr-3 w-5 h-5 rounded focus:ring-2 touch-manipulation cursor-pointer" style="accent-color: var(--forest);">
                             <label for="consent" class="text-sm" style="color: var(--text-warm);">
@@ -2271,8 +2267,7 @@
                 vardas: document.getElementById('vardas').value,
                 email: document.getElementById('email').value,
                 telefonas: telefonas,
-                miestas: document.getElementById('miestas').value.trim(),
-                komentaras: document.getElementById('komentaras').value
+                miestas: document.getElementById('miestas').value.trim()
             };
 
             // Validate city/municipality from the list
@@ -2321,7 +2316,6 @@
                 el_pastas: contactData.email,
                 telefonas: telefonas,
                 miestas: contactData.miestas || null,
-                komentaras: contactData.komentaras || null,
                 type: surveyData.type,
                 time_to_complete_seconds: completionTime,
                 referrer: document.referrer || null,
