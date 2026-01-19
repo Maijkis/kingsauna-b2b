@@ -1289,22 +1289,43 @@
                 </div>
             </div>
 
-            <!-- VIDAUS PIRTIES SURVEY (Placeholder) -->
+            <!-- VIDAUS PIRTIES SURVEY -->
+            <!-- Step 2: Išmatavimai -->
             <div class="step" id="step-vidaus-2">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-center px-2" style="color: var(--text-charcoal);">Vidaus pirties apklausa</h2>
-                    <div class="text-center mb-6 p-6 rounded-xl" style="background: var(--bg-forest-light);">
-                        <p class="mb-4" style="color: var(--text-warm);">
-                            Šiuo metu kuriame detalią vidaus pirties apklausą.<br>
-                            Bet galite tęsti ir aprašyti savo poreikius komentarų lauke.
-                        </p>
-                        <p class="text-sm" style="color: var(--text-muted);">
-                            Mūsų specialistai susisieks ir aptars visus detales.
-                        </p>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
+                    <p class="step-subtitle">Nurodykite preliminarius matmenis metrais (pvz.: 2.5)</p>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Ilgis (m)</label>
+                                <input type="number" id="vidaus-ilgis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.0" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Plotis (m)</label>
+                                <input type="number" id="vidaus-plotis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.5" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Aukštis (m)</label>
+                                <input type="number" id="vidaus-aukstis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.1" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <p class="text-sm mb-3 text-center" style="color: var(--text-muted);">Arba pasirinkite:</p>
+                            <button id="vidaus-nezinau-measurements-btn" onclick="selectVidausNezinauMeasurements()" class="option-button w-full rounded-xl p-5 md:p-6 text-center justify-center relative">
+                                <div class="font-bold text-lg md:text-xl">Dar nežinau / Reikia išmatuoti</div>
+                            </button>
+                        </div>
                     </div>
-                    <div class="flex flex-col md:flex-row gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
-                        <button onclick="goToContact()" class="cta-primary py-4 px-6 md:px-8 min-h-[56px] touch-manipulation text-base md:text-lg w-full">Tęsti prie kontaktų</button>
+
+                    <div class="flex gap-4 mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
                 </div>
             </div>
@@ -1490,7 +1511,9 @@
                 medienaKita: ''
             },
             kubilas: {},
-            vidaus: {}
+            vidaus: {
+                ismatavimai: null
+            }
         };
 
         let currentStep = 1;
@@ -2038,6 +2061,59 @@
             } else {
                 goToContact();
             }
+        }
+
+        // ===== VIDAUS PIRTIS FUNCTIONS =====
+        function onVidausMeasurementInput() {
+            const nezinauBtn = document.getElementById('vidaus-nezinau-measurements-btn');
+            nezinauBtn.classList.remove('selected');
+            surveyData.vidaus.ismatavimai = null;
+        }
+
+        function selectVidausNezinauMeasurements() {
+            const btn = document.getElementById('vidaus-nezinau-measurements-btn');
+            const ilgisInput = document.getElementById('vidaus-ilgis');
+            const plotisInput = document.getElementById('vidaus-plotis');
+            const aukstisInput = document.getElementById('vidaus-aukstis');
+            
+            if (btn.classList.contains('selected')) {
+                btn.classList.remove('selected');
+                ilgisInput.disabled = false;
+                plotisInput.disabled = false;
+                aukstisInput.disabled = false;
+                surveyData.vidaus.ismatavimai = null;
+            } else {
+                btn.classList.add('selected');
+                ilgisInput.value = '';
+                plotisInput.value = '';
+                aukstisInput.value = '';
+                ilgisInput.disabled = true;
+                plotisInput.disabled = true;
+                aukstisInput.disabled = true;
+                surveyData.vidaus.ismatavimai = 'Dar nežinau / Reikia išmatuoti';
+            }
+        }
+
+        function nextVidausStep(currentStepNum) {
+            if (currentStepNum === 2) {
+                const ilgis = document.getElementById('vidaus-ilgis').value;
+                const plotis = document.getElementById('vidaus-plotis').value;
+                const aukstis = document.getElementById('vidaus-aukstis').value;
+                
+                if (!surveyData.vidaus.ismatavimai && (!ilgis || !plotis || !aukstis)) {
+                    showValidationError('Prašome nurodyti visus matmenis arba pasirinkti "Dar nežinau".');
+                    return;
+                }
+                
+                if (!surveyData.vidaus.ismatavimai) {
+                    surveyData.vidaus.ilgis = ilgis;
+                    surveyData.vidaus.plotis = plotis;
+                    surveyData.vidaus.aukstis = aukstis;
+                    surveyData.vidaus.ismatavimai = `${ilgis}x${plotis}x${aukstis}m`;
+                }
+            }
+
+            goToContact();
         }
 
         // ===== NAVIGATION FUNCTIONS =====
