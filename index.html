@@ -884,129 +884,129 @@
         </div>
     </section>
     <!-- ===== POPULIARIAUSI MODELIAI ===== -->
-    <section id="populiariausi" class="py-16 md:py-24 px-4 bg-sand section-px">
+    <section id="populiariausi" class="py-16 md:py-24 px-4 section-px bg-sand">
         <div class="max-w-6xl mx-auto">
-            <div class="bg-white/50 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 lg:p-16 border border-white/40 shadow-2xl shadow-forest/5">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
-                        Mūsų populiariausi modeliai
-                    </h2>
-                    <div class="w-8 h-1 bg-forest mx-auto mb-6 rounded-full opacity-30"></div>
-                    <p class="text-readable max-w-2xl mx-auto text-lg opacity-90">
-                        Populiariausi sprendimai, pamėgti šimtų mūsų klientų visoje Lietuvoje.
-                    </p>
-                </div>
-                
-                <div class="product-carousel-wrapper relative">
-                    <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+                    Mūsų populiariausi modeliai
+                </h2>
+                <div class="w-8 h-1 bg-forest mx-auto mb-6 rounded-full opacity-30"></div>
+                <p class="text-readable max-w-2xl mx-auto text-lg opacity-90">
+                    Populiariausi sprendimai, pamėgti šimtų mūsų klientų visoje Lietuvoje.
+                </p>
+            </div>
+            
+            <div class="product-carousel-wrapper relative">
+                <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
 
-                    <div id="productCarousel" class="product-carousel-container">
-                        <!-- Product Card 1: Bačka (Featured) -->
-                        <div class="product-card-slide">
-                            <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
-                                <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
-                                    Populiariausias
-                                </div>
-                                <div class="aspect-[4/3] image-container">
-                                    <img src="images/barrel-classic.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow">
-                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
-                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
-                                    <div class="mt-auto pt-2">
-                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
-                                            Daugiau informacijos
-                                        </span>
-                                    </div>
-                                </div>
+                <div id="productCarousel" class="product-carousel-container">
+                    <!-- Product Card 1: Bačka (Featured) -->
+                    <div class="product-card-slide">
+                        <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
+                            <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
+                                Populiariausias
                             </div>
-                        </div>
-
-                        <!-- Product Card 2: Kvadratinė -->
-                        <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kvadratine')">
-                                <div class="aspect-[4/3] image-container">
-                                    <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow">
-                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
-                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
-                                    <div class="mt-auto pt-2">
-                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
-                                            Daugiau informacijos
-                                        </span>
-                                    </div>
-                                </div>
+                            <div class="aspect-[4/3] image-container">
+                                <img src="images/barrel-classic.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
                             </div>
-                        </div>
-
-                        <!-- Product Card 3: Trikampė -->
-                        <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('trikampe')">
-                                <div class="aspect-[4/3] image-container">
-                                    <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow">
-                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
-                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
-                                    <div class="mt-auto pt-2">
-                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
-                                            Daugiau informacijos
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 4: Mobili -->
-                        <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('mobili')">
-                                <div class="aspect-[4/3] image-container">
-                                    <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow">
-                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Mobili pirtis</h3>
-                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
-                                    <div class="mt-auto pt-2">
-                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
-                                            Daugiau informacijos
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 5: Kubilas -->
-                        <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kubilas')">
-                                <div class="aspect-[4/3] image-container">
-                                    <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow">
-                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
-                                    <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
-                                    <div class="mt-auto pt-2">
-                                        <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
-                                            Daugiau informacijos
-                                        </span>
-                                    </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
+                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
+                                <div class="mt-auto pt-2">
+                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                        Daugiau informacijos
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div id="productCarouselDots" class="product-carousel-dots mt-8"></div>
+
+                    <!-- Product Card 2: Kvadratinė -->
+                    <div class="product-card-slide">
+                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kvadratine')">
+                            <div class="aspect-[4/3] image-container">
+                                <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
+                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
+                                <div class="mt-auto pt-2">
+                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3: Trikampė -->
+                    <div class="product-card-slide">
+                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('trikampe')">
+                            <div class="aspect-[4/3] image-container">
+                                <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
+                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
+                                <div class="mt-auto pt-2">
+                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4: Mobili -->
+                    <div class="product-card-slide">
+                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('mobili')">
+                            <div class="aspect-[4/3] image-container">
+                                <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Mobili pirtis</h3>
+                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
+                                <div class="mt-auto pt-2">
+                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5: Kubilas -->
+                    <div class="product-card-slide">
+                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kubilas')">
+                            <div class="aspect-[4/3] image-container">
+                                <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
+                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
+                                <div class="mt-auto pt-2">
+                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <div id="productCarouselDots" class="product-carousel-dots mt-8"></div>
             </div>
         </div>
     </section>
 
-            <!-- Testimonial Carousel -->
+    <!-- ===== ATSILIEPIMAI ===== -->
+    <section id="atsiliepimai" class="py-16 md:py-24 px-4 bg-cream section-px">
+        <div class="max-w-6xl mx-auto">
             <div class="glass-card-light p-6 md:p-8">
                 <h3 class="text-xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
                     Klientų atsiliepimai
