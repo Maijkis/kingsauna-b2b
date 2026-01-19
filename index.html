@@ -882,16 +882,15 @@
                 </p>
             </div>
             
-            <div class="glass-card-light p-4 md:p-8 lg:p-10 relative overflow-hidden shadow-2xl shadow-black/5" style="background: rgba(255, 255, 255, 0.7);">
-                <div class="product-carousel-wrapper">
-                    <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
+            <div class="product-carousel-wrapper relative">
+                <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
 
-                    <div id="productCarousel" class="product-carousel-container">
+                <div id="productCarousel" class="product-carousel-container">
                         <!-- Product Card 1: Bačka (Featured) -->
                         <div class="product-card-slide">
                             <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
