@@ -1290,8 +1290,54 @@
             </div>
 
             <!-- VIDAUS PIRTIES SURVEY -->
-            <!-- Step 2: Išmatavimai -->
+            <!-- Step 2: Vieta -->
             <div class="step" id="step-vidaus-2">
+                <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kur bus įrengiama pirtis?</h2>
+                    <p class="step-subtitle">Pasirinkite vietos tipą</p>
+                    <div class="space-y-5 md:space-y-4">
+                        <button onclick="selectVidausOption('vieta', 'Bute')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Bute</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Name')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Name</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Sodyboje')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Sodyboje</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Komerciniame objekte')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Komerciniame objekte (SPA, sporto klubas ir pan.)</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Tipas -->
+            <div class="step" id="step-vidaus-3">
+                <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kokios pirties norite?</h2>
+                    <p class="step-subtitle">Pasirinkite pirties tipą</p>
+                    <div class="space-y-5 md:space-y-4">
+                        <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Sauna (sausa)</div>
+                        </button>
+                        <button onclick="selectVidausOption('tipas', 'Garinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Garinė</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Išmatavimai -->
+            <div class="step" id="step-vidaus-4">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
                     <p class="step-subtitle">Nurodykite preliminarius matmenis metrais (pvz.: 2.5)</p>
@@ -1325,7 +1371,30 @@
 
                     <div class="flex gap-4 mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextVidausStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                        <button onclick="nextVidausStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Krosnelė -->
+            <div class="step" id="step-vidaus-5">
+                <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Krosnelės tipas</h2>
+                    <p class="step-subtitle">Kaip bus šildoma pirtis?</p>
+                    <div class="space-y-5 md:space-y-4">
+                        <button onclick="selectVidausOption('krosnele', 'Elektrinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Elektrinė</div>
+                        </button>
+                        <button onclick="selectVidausOption('krosnele', 'Malkinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Malkinė</div>
+                        </button>
+                        <button onclick="selectVidausOption('krosnele', 'Nežinau')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Dar nežinau / Reikia patarimo</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
                 </div>
             </div>
@@ -1353,7 +1422,6 @@
                             <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Miestas / savivaldybė <span style="color: var(--copper);">*</span></label>
                             <input type="text" id="miestas" required list="miestu-sarasas" class="form-input w-full p-4 text-base md:text-lg touch-manipulation min-h-[48px]" placeholder="Pradėkite rašyti miestą arba savivaldybę...">
                             <datalist id="miestu-sarasas">
-                                <!-- Didieji miestai -->
                                 <option value="Vilnius">
                                 <option value="Kaunas">
                                 <option value="Klaipėda">
@@ -1364,7 +1432,6 @@
                                 <option value="Mažeikiai">
                                 <option value="Jonava">
                                 <option value="Utena">
-                                <!-- Savivaldybės -->
                                 <option value="Akmenės r. sav.">
                                 <option value="Alytaus m. sav.">
                                 <option value="Alytaus r. sav.">
@@ -1455,7 +1522,7 @@
                     </div>
                     <h2 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--text-charcoal);">Ačiū! Jūsų užklausa gauta.</h2>
                     <p class="text-lg mb-8" style="color: var(--text-warm);">
-                        Mūsų komanda netrukus su Jumis susisieks SMS žinute.
+                        Mūsų komanda su Jumis susisieks netrukus SMS žinute.
                     </p>
                     <a href="index.html" class="btn-secondary inline-block py-3 px-8 font-semibold touch-manipulation">
                         Grįžti į pagrindinį puslapį
@@ -1508,7 +1575,10 @@
             },
             kubilas: {},
             vidaus: {
-                ismatavimai: null
+                vieta: null,
+                tipas: null,
+                ismatavimai: null,
+                krosnele: null
             }
         };
 
@@ -1535,7 +1605,7 @@
                 totalSteps = 8;
                 setTimeout(() => goToStep('step-kubilas-2', 2), 300);
             } else if (type === 'vidaus') {
-                totalSteps = 3;
+                totalSteps = 6;
                 setTimeout(() => goToStep('step-vidaus-2', 2), 300);
             }
         }
@@ -2060,6 +2130,16 @@
         }
 
         // ===== VIDAUS PIRTIS FUNCTIONS =====
+        function selectVidausOption(field, value) {
+            surveyData.vidaus[field] = value;
+            
+            const currentStepEl = document.querySelector('.step.active');
+            currentStepEl.querySelectorAll('.option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.closest('.option-button').classList.add('selected');
+        }
+
         function onVidausMeasurementInput() {
             const nezinauBtn = document.getElementById('vidaus-nezinau-measurements-btn');
             nezinauBtn.classList.remove('selected');
@@ -2091,7 +2171,15 @@
         }
 
         function nextVidausStep(currentStepNum) {
-            if (currentStepNum === 2) {
+            if (currentStepNum === 2 && !surveyData.vidaus.vieta) {
+                showValidationError('Prašome pasirinkti įrengimo vietą.');
+                return;
+            }
+            if (currentStepNum === 3 && !surveyData.vidaus.tipas) {
+                showValidationError('Prašome pasirinkti pirties tipą.');
+                return;
+            }
+            if (currentStepNum === 4) {
                 const ilgis = document.getElementById('vidaus-ilgis').value;
                 const plotis = document.getElementById('vidaus-plotis').value;
                 const aukstis = document.getElementById('vidaus-aukstis').value;
@@ -2108,8 +2196,16 @@
                     surveyData.vidaus.ismatavimai = `${ilgis}x${plotis}x${aukstis}m`;
                 }
             }
+            if (currentStepNum === 5 && !surveyData.vidaus.krosnele) {
+                showValidationError('Prašome pasirinkti krosnelės tipą.');
+                return;
+            }
 
-            goToContact();
+            if (currentStepNum < 5) {
+                goToStep(`step-vidaus-${currentStepNum + 1}`, currentStepNum + 1);
+            } else {
+                goToContact();
+            }
         }
 
         // ===== NAVIGATION FUNCTIONS =====
@@ -2374,7 +2470,6 @@
                         
                         // Only add fields that definitely exist
                         if (contactData.miestas) minimalPayload.miestas = contactData.miestas;
-                        if (contactData.komentaras) minimalPayload.komentaras = contactData.komentaras;
                         if (surveyData.type === 'lauko' && surveyData.lauko) minimalPayload.lauko_data = surveyData.lauko;
                         else if (surveyData.type === 'kubila' && surveyData.kubilas) minimalPayload.kubilas_data = surveyData.kubilas;
                         else if (surveyData.type === 'vidaus' && surveyData.vidaus) minimalPayload.vidaus_data = surveyData.vidaus;
