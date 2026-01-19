@@ -831,7 +831,15 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
         <!-- Background Video -->
-        <video autoplay muted loop playsinline class="hero-video-bg" poster="images/iglu-garden-installed.jpg">
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            preload="auto"
+            poster="images/iglu-garden-installed.jpg" 
+            class="hero-video-bg"
+            onloadeddata="this.play().catch(() => {})">
             <source src="images/VideoL.mp4" type="video/mp4">
             <!-- Fallback image if video fails to load -->
             <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background">
