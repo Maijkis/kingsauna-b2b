@@ -151,12 +151,33 @@
         /* ===== HERO ===== */
         .hero-section {
             position: relative;
-            background: linear-gradient(160deg, rgba(26, 60, 52, 0.92) 0%, rgba(13, 31, 26, 0.85) 40%, rgba(26, 60, 52, 0.92) 100%),
-                        url('images/iglu-garden-installed.jpg') center/cover no-repeat;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .hero-content-wrapper {
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(160deg, rgba(26, 60, 52, 0.85) 0%, rgba(13, 31, 26, 0.7) 40%, rgba(26, 60, 52, 0.85) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
             position: relative;
             z-index: 10;
             width: 100%;
@@ -168,48 +189,8 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            position: relative;
-            z-index: 10;
         }
-
-        .hero-photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 3rem;
-            opacity: 0.9;
-        }
-
-        .hero-photo-item {
-            aspect-ratio: 4/3;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .hero-photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-photo-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        @media (max-width: 640px) {
-            .hero-photo-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                margin-top: 2rem;
-            }
-            .hero-photo-item:last-child {
-                display: none;
-            }
-        }
-
+        
         /* ===== PRODUCT IMAGES ===== */
         .product-image {
             width: 100%;
@@ -235,9 +216,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             touch-action: manipulation;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
         .product-card:active {
             transform: scale(0.99);
@@ -322,8 +300,6 @@
             flex: 0 0 280px;
             scroll-snap-align: center;
             transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
         .product-card-slide:hover {
             transform: scale(1.02);
@@ -384,54 +360,6 @@
             background: var(--forest);
             width: 24px;
             border-radius: 4px;
-        }
-
-        /* ===== PROCESS CARDS (Kaip tai veikia) ===== */
-        .process-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 32px;
-            padding: 2.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-        }
-        
-        .process-card.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        .process-icon-wrapper {
-            width: 56px;
-            height: 56px;
-            background: var(--copper);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 16px rgba(180, 92, 58, 0.2);
-        }
-        
-        .process-card:hover {
-            background: rgba(255, 255, 255, 0.6);
-            border-color: rgba(34, 84, 61, 0.2);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-        }
-
-        @media (max-width: 768px) {
-            .process-card {
-                padding: 2rem 1.5rem;
-            }
         }
 
         /* ===== TESTIMONIAL CAROUSEL ===== */
@@ -868,7 +796,6 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#populiariausi" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Populiariausi</a>
                     <a href="#sprendimai" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Sprendimai</a>
-                    <a href="#apie-mus" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Apie mus</a>
                     <a href="#duk" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">DUK</a>
                 </div>
                 
@@ -890,7 +817,6 @@
                 <div class="flex flex-col py-3 space-y-1 border-t" style="border-color: rgba(34, 84, 61, 0.1);">
                     <a href="#populiariausi" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Populiariausi</a>
                     <a href="#sprendimai" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Sprendimai</a>
-                    <a href="#apie-mus" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Apie mus</a>
                     <a href="#duk" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">DUK</a>
                     <a href="survey.html" class="cta-primary py-3 px-6 text-center mt-2">
                         Rasti savo pirtį
@@ -901,8 +827,18 @@
     </nav>
 
     <!-- ===== HERO SECTION ===== -->
-    <section class="hero-section text-white min-h-screen flex items-center py-12 md:py-20 px-4 section-px relative overflow-hidden">
-        <div class="hero-content-wrapper max-w-4xl mx-auto w-full">
+    <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline class="hero-video-bg">
+            <source src="images/VideoL.mov" type="video/mp4">
+            <!-- Fallback image if video fails to load -->
+            <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background">
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content max-w-4xl mx-auto w-full">
             <div class="glass-panel p-6 md:p-12 lg:p-16">
                 <div class="text-center">
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
@@ -919,23 +855,33 @@
                         </a>
                     </div>
                     
-                    <div class="flex items-center justify-center mt-12">
-                        <div class="inline-flex items-center gap-3 py-2.5 px-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg" style="background: linear-gradient(110deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);">
-                            <span class="text-amber-400 text-xs sm:text-sm">★★★★★</span>
-                            <span class="font-medium text-xs sm:text-sm text-emerald-100/90">Virš 100 patenkintų klientų visoje Lietuvoje</span>
-                        </div>
-                    </div>
-
-                    <!-- Clean Photo Grid -->
-                    <div class="hero-photo-grid">
-                        <div class="hero-photo-item">
-                            <img src="images/barrel-classic.jpg" alt="Bačka pirtis">
-                        </div>
-                        <div class="hero-photo-item">
-                            <img src="images/sauna-hot-tub-combo.jpg" alt="Pirtis su kubilu">
-                        </div>
-                        <div class="hero-photo-item">
-                            <img src="images/modern-pod-saunas.jpg" alt="Moderni pirtis">
+                    <div class="flex items-center justify-center mt-10">
+                        <div class="inline-flex items-center gap-2 sm:gap-4 py-2 px-4 sm:px-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-black/5" style="background: linear-gradient(110deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);">
+                            <span class="font-medium text-xs sm:text-sm text-emerald-100/90">Pasitiki</span>
+                            
+                            <!-- Avatar Group -->
+                            <div class="flex -space-x-2 shrink-0">
+                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Mantas V.">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fit=crop&w=100&h=100&q=80" alt="Mantas V.">
+                                </div>
+                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Greta K.">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?fit=crop&w=100&h=100&q=80" alt="Greta K.">
+                                </div>
+                                <div class="avatar w-7 h-7 sm:w-9 sm:h-9 border-2 border-[#1a3c34]" title="Jonas S.">
+                                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?fit=crop&w=100&h=100&q=80" alt="Jonas S.">
+                                </div>
+                                <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full border-2 border-[#1a3c34] bg-white/10 flex items-center justify-center text-[9px] sm:text-xs font-bold text-white/80 backdrop-blur-sm">
+                                    +99
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-emerald-100/90">
+                                <div class="w-1 h-1 rounded-full bg-emerald-400/40"></div>
+                                <div class="flex items-center gap-1">
+                                    <span class="font-bold text-white">4,98/5</span>
+                                    <div class="flex text-amber-400 text-[9px] sm:text-[10px]">★★★★★</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -943,113 +889,105 @@
         </div>
     </section>
     <!-- ===== POPULIARIAUSI MODELIAI ===== -->
-    <section id="populiariausi" class="py-16 md:py-24 px-4 section-px bg-sand">
+    <section id="populiariausi" class="py-16 md:py-24 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
                     Mūsų populiariausi modeliai
                 </h2>
-                <div class="w-8 h-1 bg-forest mx-auto mb-6 rounded-full opacity-30"></div>
-                <p class="text-readable max-w-2xl mx-auto text-lg opacity-90">
-                    Populiariausi sprendimai, pamėgti šimtų mūsų klientų visoje Lietuvoje.
+                <div class="w-12 h-1 bg-forest mx-auto mb-6 rounded-full opacity-20"></div>
+                <p class="text-readable max-w-2xl mx-auto text-lg">
+                    Atraskite populiariausius sprendimus, kuriuos pamėgo šimtai mūsų klientų visoje Lietuvoje.
                 </p>
             </div>
             
-            <div class="product-carousel-wrapper relative">
-                <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
+            <div class="glass-card-light p-4 md:p-8 lg:p-10 relative overflow-hidden shadow-2xl shadow-black/5" style="background: rgba(255, 255, 255, 0.7);">
+                <div class="product-carousel-wrapper">
+                    <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
 
-                <div id="productCarousel" class="product-carousel-container">
-                    <!-- Product Card 1: Bačka (Featured) -->
-                    <div class="product-card-slide">
-                        <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
-                            <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
-                                Populiariausias
-                            </div>
-                            <div class="aspect-[4/3] image-container">
-                                <img src="images/barrel-classic.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
-                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
-                                <div class="mt-auto pt-2">
-                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                    <div id="productCarousel" class="product-carousel-container">
+                        <!-- Product Card 1: Bačka (Featured) -->
+                        <div class="product-card-slide">
+                            <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
+                                <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
+                                    Populiariausias
+                                </div>
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/barrel-classic.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
+                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 2: Kvadratinė -->
-                    <div class="product-card-slide">
-                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kvadratine')">
-                            <div class="aspect-[4/3] image-container">
-                                <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
-                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
-                                <div class="mt-auto pt-2">
-                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                        <!-- Product Card 2: Kvadratinė -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kvadratine')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
+                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 3: Trikampė -->
-                    <div class="product-card-slide">
-                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('trikampe')">
-                            <div class="aspect-[4/3] image-container">
-                                <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
-                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
-                                <div class="mt-auto pt-2">
-                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                        <!-- Product Card 3: Trikampė -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('trikampe')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
+                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 4: Mobili -->
-                    <div class="product-card-slide">
-                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('mobili')">
-                            <div class="aspect-[4/3] image-container">
-                                <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Mobili pirtis</h3>
-                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
-                                <div class="mt-auto pt-2">
-                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                        <!-- Product Card 4: Mobili -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('mobili')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
+                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Mobili pirtis</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Pirtis ant priekabos kelionėms</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 5: Kubilas -->
-                    <div class="product-card-slide">
-                        <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kubilas')">
-                            <div class="aspect-[4/3] image-container">
-                                <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
-                                <p class="text-sm mb-6 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
-                                <div class="mt-auto pt-2">
-                                    <span class="glass-button block w-full py-3.5 px-4 text-[13px] font-bold text-center uppercase tracking-wider">
+                        <!-- Product Card 5: Kubilas -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kubilas')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col h-[calc(100%-75%)]">
+                                    <h3 class="font-bold text-lg mb-1" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
                                 </div>
@@ -1058,14 +996,12 @@
                     </div>
                 </div>
                 
-                <div id="productCarouselDots" class="product-carousel-dots mt-8"></div>
+                <div id="productCarouselDots" class="product-carousel-dots"></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== ATSILIEPIMAI ===== -->
-    <section id="atsiliepimai" class="py-16 md:py-24 px-4 bg-cream section-px">
-        <div class="max-w-6xl mx-auto">
+            <!-- Testimonial Carousel -->
             <div class="glass-card-light p-6 md:p-8">
                 <h3 class="text-xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
                     Klientų atsiliepimai
@@ -1242,88 +1178,46 @@
     </section>
 
     <!-- ===== KAIP TAI VEIKIA ===== -->
-    <section id="kaip-veikia" class="py-20 md:py-32 px-4 bg-cream section-px overflow-hidden">
+    <section id="kaip-veikia" class="py-16 md:py-24 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-charcoal);">
                     Kaip tai veikia?
                 </h2>
-                <div class="w-12 h-1 bg-copper mx-auto mb-6 rounded-full"></div>
-                <p class="text-readable max-w-2xl mx-auto text-lg opacity-80">
-                    Paprastas ir aiškus kelias iki jūsų svajonių pirties ar kubilo
+                <p class="text-readable max-w-2xl mx-auto">
+                    Paprastas kelias iki jūsų svajonių pirties ar kubilo
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-                <!-- Step 1 -->
-                <div class="process-card scroll-reveal">
-                    <div class="process-icon-wrapper">1</div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Užpildote apklausą</h3>
-                    <p class="text-readable text-sm leading-relaxed">
-                        Atsakykite į kelis trumpus klausimus apie savo viziją. Tai užtruks vos 2 minutes.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card-light p-6 text-center">
+                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+                        1
+                    </div>
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Užpildote apklausą</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
+                        Atsakote į kelis klausimus apie savo poreikius.
                     </p>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="process-card scroll-reveal" style="transition-delay: 150ms;">
-                    <div class="process-icon-wrapper">2</div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Konsultacija</h3>
-                    <p class="text-readable text-sm leading-relaxed">
-                        Susisieksime, patarsime ir padėsime rasti geriausią techninį bei dizaino sprendimą.
+                <div class="glass-card-light p-6 text-center">
+                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+                        2
+                    </div>
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Konsultacija</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
+                        Aptariame detales ir patariame geriausią sprendimą.
                     </p>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="process-card scroll-reveal" style="transition-delay: 300ms;">
-                    <div class="process-icon-wrapper">3</div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-charcoal);">Individualus pasiūlymas</h3>
-                    <p class="text-readable text-sm leading-relaxed">
-                        Paruošiame būtent Jums pritaikytą, aiškų ir detalų kainos pasiūlymą be jokių paslėptų mokesčių.
+                <div class="glass-card-light p-6 text-center">
+                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+                        3
+                    </div>
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Individualus pasiūlymas</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
+                        Paruošiame būtent Jums pritaikytą kainos pasiūlymą.
                     </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== APIE MUS ===== -->
-    <section id="apie-mus" class="py-20 md:py-32 px-4 bg-sand section-px">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <div class="order-2 md:order-1 scroll-reveal">
-                    <div class="relative">
-                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
-                            <img src="images/barrel-sauna-summer.jpg" alt="Kingsauna komanda ir darbai" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Decorative element -->
-                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-copper rounded-3xl -z-10 opacity-20"></div>
-                    </div>
-                </div>
-                
-                <div class="order-1 md:order-2 scroll-reveal" style="transition-delay: 200ms;">
-                    <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-4">Mūsų istorija</span>
-                    <h2 class="text-3xl md:text-5xl font-bold mb-8" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
-                        Meistrystė, gimusi iš meilės pirties kultūrai
-                    </h2>
-                    
-                    <div class="space-y-6 text-readable text-lg opacity-90 leading-relaxed">
-                        <p>
-                            „Kingsauna“ – tai ne tik verslas, tai mūsų šeimos puoselėjama aistra kokybiškam poilsiui. Jau daugiau nei dešimtmetį kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
-                        </p>
-                        <p>
-                            Mūsų tikslas – sujungti senąsias pirties tradicijas su šiuolaikiniu dizainu ir technologijomis. Kiekvienas gaminys mums yra unikalus, todėl skiriame ypatingą dėmesį detalėms, medžiagų kokybei ir kliento vizijai.
-                        </p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-8 mt-12">
-                        <div>
-                            <div class="text-3xl font-bold text-forest mb-1">10+</div>
-                            <div class="text-sm text-readable opacity-70">Metų patirties</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-bold text-forest mb-1">500+</div>
-                            <div class="text-sm text-readable opacity-70">Laimingų šeimų</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -2039,25 +1933,6 @@
             renderCarousel();
             initProductCarousel();
             startAutoplay();
-            
-            // Initialize scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.scroll-reveal').forEach(el => {
-                observer.observe(el);
-            });
-
             document.getElementById('prevBtn').addEventListener('click', prevSlide);
             document.getElementById('nextBtn').addEventListener('click', nextSlide);
             
