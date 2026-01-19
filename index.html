@@ -979,28 +979,12 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
                 <div class="order-2 md:order-1">
-                    <!-- Testimonial Carousel instead of photo -->
-                    <div class="glass-card-light p-6 md:p-8">
-                        <h3 class="text-xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
-                            Klientų atsiliepimai
-                        </h3>
-                        
-                        <div class="carousel-container relative">
-                            <div id="carouselTrack" class="carousel-track"></div>
-                            
-                            <button id="prevBtn" class="carousel-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 hidden md:flex" aria-label="Ankstesnis">
-                                <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                                </svg>
-                            </button>
-                            <button id="nextBtn" class="carousel-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 hidden md:flex" aria-label="Kitas">
-                                <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </button>
+                    <div class="relative">
+                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
+                            <img src="images/barrel-sauna-summer.jpg" alt="Kingsauna komanda ir darbai" class="w-full h-full object-cover">
                         </div>
-                        
-                        <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
+                        <!-- Decorative element -->
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-copper rounded-3xl -z-10 opacity-20"></div>
                     </div>
                 </div>
                 
@@ -1033,6 +1017,37 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KLIENTŲ ATSILIEPIMAI ===== -->
+    <section id="atsiliepimai" class="py-16 md:py-24 px-4 bg-cream section-px">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card-light p-8 md:p-12 lg:p-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl md:text-4xl font-bold" style="color: var(--text-charcoal);">
+                        Ką sako mūsų klientai
+                    </h2>
+                    <div class="w-12 h-1 bg-forest mx-auto mt-4 rounded-full opacity-20"></div>
+                </div>
+                
+                <div class="carousel-container relative">
+                    <div id="carouselTrack" class="carousel-track"></div>
+                    
+                    <button id="prevBtn" class="carousel-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 hidden md:flex" aria-label="Ankstesnis">
+                        <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="nextBtn" class="carousel-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 hidden md:flex" aria-label="Kitas">
+                        <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div id="carouselDots" class="flex justify-center gap-2 mt-8"></div>
             </div>
         </div>
     </section>
