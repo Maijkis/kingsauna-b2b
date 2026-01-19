@@ -151,43 +151,9 @@
         /* ===== HERO ===== */
         .hero-section {
             position: relative;
-            background: #1a3c34;
+            background: linear-gradient(160deg, rgba(26, 60, 52, 0.92) 0%, rgba(13, 31, 26, 0.85) 40%, rgba(26, 60, 52, 0.92) 100%),
+                        url('images/iglu-garden-installed.jpg') center/cover no-repeat;
             overflow: hidden;
-        }
-        
-        .hero-bg-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        
-        .hero-bg-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-        }
-        
-        .hero-bg-slide.active {
-            opacity: 1;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(160deg, rgba(26, 60, 52, 0.92) 0%, rgba(13, 31, 26, 0.85) 40%, rgba(26, 60, 52, 0.92) 100%);
-            z-index: 2;
         }
         
         .hero-content-wrapper {
@@ -206,61 +172,44 @@
             z-index: 10;
         }
 
-        /* ===== HERO FLOATING HIGHLIGHTS ===== */
-        .hero-floating-highlight {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            z-index: 5;
-            transition: transform 0.3s ease;
-            pointer-events: none;
+        .hero-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 3rem;
+            opacity: 0.9;
         }
 
-        .hero-floating-highlight img {
+        .hero-photo-item {
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.8);
         }
 
-        /* Mobile specific positioning */
-        .h-float-1 { top: 5%; left: -15%; width: 100px; height: 100px; opacity: 0.4; animation: float 6s ease-in-out infinite; }
-        .h-float-2 { bottom: 5%; left: -10%; width: 80px; height: 80px; opacity: 0.3; animation: float 8s ease-in-out infinite 1s; }
-        .h-float-3 { top: 10%; right: -15%; width: 120px; height: 120px; opacity: 0.4; animation: float 7s ease-in-out infinite 0.5s; }
-        .h-float-4 { bottom: 10%; right: -10%; width: 90px; height: 90px; opacity: 0.3; animation: float 9s ease-in-out infinite 1.5s; }
+        .hero-photo-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
 
-        @media (min-width: 1024px) {
-            .hero-floating-highlight {
-                width: 160px;
-                height: 160px;
-                opacity: 1;
-                pointer-events: auto;
+        @media (max-width: 640px) {
+            .hero-photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-top: 2rem;
             }
-            .h-float-1 { top: 15%; left: -10%; opacity: 0.8; }
-            .h-float-2 { bottom: 10%; left: -5%; width: 140px; height: 140px; opacity: 0.7; }
-            .h-float-3 { top: 20%; right: -8%; width: 180px; height: 180px; opacity: 0.9; }
-            .h-float-4 { bottom: 15%; right: -12%; width: 150px; height: 150px; opacity: 0.8; }
-            
-            .hero-floating-highlight:hover {
-                transform: scale(1.1);
-                border-color: rgba(255, 255, 255, 0.4);
-                opacity: 1;
-                z-index: 20;
-            }
-            .hero-floating-highlight img {
-                filter: brightness(1);
+            .hero-photo-item:last-child {
+                display: none;
             }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
         /* ===== PRODUCT IMAGES ===== */
         .product-image {
             width: 100%;
@@ -953,29 +902,6 @@
 
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section text-white min-h-screen flex items-center py-12 md:py-20 px-4 section-px relative overflow-hidden">
-        <!-- Dynamic Background Fader -->
-        <div class="hero-bg-container">
-            <div class="hero-bg-slide active" style="background-image: url('images/iglu-garden-installed.jpg');"></div>
-            <div class="hero-bg-slide" style="background-image: url('images/sauna-hot-tub-combo.jpg');"></div>
-            <div class="hero-bg-slide" style="background-image: url('images/modern-pod-saunas.jpg');"></div>
-            <div class="hero-bg-slide" style="background-image: url('images/barrel-classic.jpg');"></div>
-        </div>
-        <div class="hero-overlay"></div>
-
-        <!-- Floating Highlights -->
-        <div class="hero-floating-highlight h-float-1">
-            <img src="images/barrel-mini-glass.jpg" alt="Pirties detalė">
-        </div>
-        <div class="hero-floating-highlight h-float-2">
-            <img src="images/kubilas-wood.jpg" alt="Kubilo detalė">
-        </div>
-        <div class="hero-floating-highlight h-float-3">
-            <img src="images/square-modern-glass.jpg" alt="Moderni pirtis">
-        </div>
-        <div class="hero-floating-highlight h-float-4">
-            <img src="images/iglu-terrace.jpg" alt="Iglu pirties vaizdas">
-        </div>
-
         <div class="hero-content-wrapper max-w-4xl mx-auto w-full">
             <div class="glass-panel p-6 md:p-12 lg:p-16">
                 <div class="text-center">
@@ -997,6 +923,19 @@
                         <div class="inline-flex items-center gap-3 py-2.5 px-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg" style="background: linear-gradient(110deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);">
                             <span class="text-amber-400 text-xs sm:text-sm">★★★★★</span>
                             <span class="font-medium text-xs sm:text-sm text-emerald-100/90">Virš 100 patenkintų klientų visoje Lietuvoje</span>
+                        </div>
+                    </div>
+
+                    <!-- Clean Photo Grid -->
+                    <div class="hero-photo-grid">
+                        <div class="hero-photo-item">
+                            <img src="images/barrel-classic.jpg" alt="Bačka pirtis">
+                        </div>
+                        <div class="hero-photo-item">
+                            <img src="images/sauna-hot-tub-combo.jpg" alt="Pirtis su kubilu">
+                        </div>
+                        <div class="hero-photo-item">
+                            <img src="images/modern-pod-saunas.jpg" alt="Moderni pirtis">
                         </div>
                     </div>
                 </div>
@@ -2100,17 +2039,6 @@
             renderCarousel();
             initProductCarousel();
             startAutoplay();
-            
-            // Hero Background Rotation
-            const heroSlides = document.querySelectorAll('.hero-bg-slide');
-            let currentHeroSlide = 0;
-            if (heroSlides.length > 1) {
-                setInterval(() => {
-                    heroSlides[currentHeroSlide].classList.remove('active');
-                    currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
-                    heroSlides[currentHeroSlide].classList.add('active');
-                }, 5000); // Change background every 5 seconds
-            }
             
             // Initialize scroll animations
             const observerOptions = {
