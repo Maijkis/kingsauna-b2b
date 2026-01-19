@@ -830,7 +830,7 @@
                                 <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
                             </div>
                             
-                            <button onclick="toggleLaukoMediena('Reikalinga konsultacija')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Reikalinga konsultacija" data-type="exclusive">
+                            <button onclick="toggleLaukoMediena('Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti" data-type="exclusive">
                                 <div class="flex items-center gap-4">
                                     <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">?</div>
                                     <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
@@ -1149,7 +1149,7 @@
                                 <div class="option-description text-sm" style="color: var(--text-muted);">Abu variantai - maksimalus lankstumas</div>
                             </div>
                         </button>
-                        <button onclick="selectKubilasOption('sildymas', 'Reikalinga konsultacija')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                        <button onclick="selectKubilasOption('sildymas', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
                                 <div class="option-description text-sm" style="color: var(--text-muted);">Padėsime išsirinkti</div>
@@ -1364,7 +1364,7 @@
                         <div class="pt-4">
                             <p class="text-sm mb-3 text-center" style="color: var(--text-muted);">Arba pasirinkite:</p>
                             <button id="vidaus-nezinau-measurements-btn" onclick="selectVidausNezinauMeasurements()" class="option-button w-full rounded-xl p-5 md:p-6 text-center justify-center relative">
-                                <div class="font-bold text-lg md:text-xl">Dar nežinau / Reikia išmatuoti</div>
+                                <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
                             </button>
                         </div>
                     </div>
@@ -1388,8 +1388,8 @@
                         <button onclick="selectVidausOption('krosnele', 'Malkinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div class="font-bold text-lg md:text-xl">Malkinė</div>
                         </button>
-                        <button onclick="selectVidausOption('krosnele', 'Nežinau')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div class="font-bold text-lg md:text-xl">Dar nežinau / Reikia patarimo</div>
+                        <button onclick="selectVidausOption('krosnele', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
                         </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
@@ -1664,7 +1664,7 @@
             const stepEl = document.getElementById('step-lauko-4');
             const kitaContainer = document.getElementById('mediena-kita-container');
             
-            if (value === 'Reikalinga konsultacija') {
+            if (value === 'Norėčiau Pasikonsultuoti') {
                 // Exclusive option - deselect all others
                 if (button.classList.contains('selected')) {
                     button.classList.remove('selected');
@@ -1679,7 +1679,7 @@
                         btn.classList.remove('selected');
                     });
                     button.classList.add('selected');
-                    surveyData.lauko.mediena = ['Reikalinga konsultacija'];
+                    surveyData.lauko.mediena = ['Norėčiau Pasikonsultuoti'];
                     // Disable other buttons
                     stepEl.querySelectorAll('.icon-box-option[data-type="normal"], .icon-box-option[data-type="kita"], .option-button[data-type="normal"], .option-button[data-type="kita"]').forEach(btn => {
                         btn.disabled = true;
@@ -1689,8 +1689,8 @@
                 }
             } else {
                 // Normal or Kita option
-                // First, deselect "Reikalinga konsultacija" if selected
-                const konsultacijaBtn = stepEl.querySelector('.icon-box-option[data-value="Reikalinga konsultacija"], .option-button[data-value="Reikalinga konsultacija"]');
+                // First, deselect "Norėčiau Pasikonsultuoti" if selected
+                const konsultacijaBtn = stepEl.querySelector('.icon-box-option[data-value="Norėčiau Pasikonsultuoti"], .option-button[data-value="Norėčiau Pasikonsultuoti"]');
                 if (konsultacijaBtn && konsultacijaBtn.classList.contains('selected')) {
                     konsultacijaBtn.classList.remove('selected');
                     surveyData.lauko.mediena = [];
@@ -2166,7 +2166,7 @@
                 ilgisInput.disabled = true;
                 plotisInput.disabled = true;
                 aukstisInput.disabled = true;
-                surveyData.vidaus.ismatavimai = 'Dar nežinau / Reikia išmatuoti';
+                surveyData.vidaus.ismatavimai = 'Norėčiau Pasikonsultuoti';
             }
         }
 
@@ -2185,7 +2185,7 @@
                 const aukstis = document.getElementById('vidaus-aukstis').value;
                 
                 if (!surveyData.vidaus.ismatavimai && (!ilgis || !plotis || !aukstis)) {
-                    showValidationError('Prašome nurodyti visus matmenis arba pasirinkti "Dar nežinau".');
+                    showValidationError('Prašome nurodyti visus matmenis arba pasirinkti "Norėčiau Pasikonsultuoti".');
                     return;
                 }
                 
