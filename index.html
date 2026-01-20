@@ -594,6 +594,20 @@
             border-radius: 4px;
         }
         
+        /* ===== KAIP TAI VEIKIA ICONS ===== */
+        .step-flow-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            background: rgba(34, 84, 61, 0.06);
+            border: 1px solid rgba(34, 84, 61, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--forest);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        
         /* ===== MODAL (Fixed Scroll) ===== */
         .modal-overlay {
             position: fixed;
@@ -1194,6 +1208,12 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass-card-light p-6 text-center">
+                    <div class="step-flow-icon mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="4" width="14" height="16" rx="2" ry="2"></rect>
+                            <path d="M8 8h8M8 12h5M8 16h3"></path>
+                        </svg>
+                    </div>
                     <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
                         1
                     </div>
@@ -1204,6 +1224,12 @@
                 </div>
 
                 <div class="glass-card-light p-6 text-center">
+                    <div class="step-flow-icon mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6.5 4.5L9 4h6a2 2 0 0 1 2 2v8.5a2 2 0 0 1-1.3 1.87l-3.4 1.36a2 2 0 0 1-1.5 0L7.4 16.4a2 2 0 0 1-1.3-1.87V7a2 2 0 0 1 .4-1.2L7 4.5"></path>
+                            <path d="M9 9h6M9 12h3.5"></path>
+                        </svg>
+                    </div>
                     <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
                         2
                     </div>
@@ -1214,6 +1240,12 @@
                 </div>
 
                 <div class="glass-card-light p-6 text-center">
+                    <div class="step-flow-icon mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 11L12 5l8 6v7a1 1 0 0 1-1 1h-4.5v-4.5h-5V19H5a1 1 0 0 1-1-1v-7z"></path>
+                            <path d="M10 21h4"></path>
+                        </svg>
+                    </div>
                     <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
                         3
                     </div>
