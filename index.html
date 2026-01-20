@@ -1933,6 +1933,18 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Ensure hero video plays on iOS after first interaction if autoplay is blocked
+            const heroVideo = document.querySelector('.hero-video-bg');
+            if (heroVideo) {
+                const tryPlay = () => {
+                    heroVideo.play().catch(() => {});
+                    window.removeEventListener('touchstart', tryPlay);
+                    window.removeEventListener('click', tryPlay);
+                };
+                window.addEventListener('touchstart', tryPlay, { once: true });
+                window.addEventListener('click', tryPlay, { once: true });
+            }
+
             renderCarousel();
             initProductCarousel();
             startAutoplay();
