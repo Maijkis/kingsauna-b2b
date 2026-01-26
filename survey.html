@@ -7,27 +7,61 @@
     <title>Kingsauna Apklausa | Raskite Tobulą Sprendimą</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Supabase Client - Using ES Module import -->
-    <script type="module">
-        // Import Supabase using ES modules
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-        
-        // Initialize Supabase
-        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
-        
-        try {
-            // Create client and make it globally available
-            window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            window.supabaseReady = true; // Mark as ready
+    <!-- Supabase Client - Load UMD version directly (more reliable) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase immediately with UMD build
+        (function() {
+            const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
             
-            console.log('✅ Supabase client initialized (ES Module)');
-            console.log('Supabase client type:', typeof window.supabase);
-            console.log('Has .from method:', typeof window.supabase.from === 'function');
-        } catch (error) {
-            console.error('❌ Failed to initialize Supabase (ES Module):', error);
-            window.supabaseReady = false;
-        }
+            // Wait for Supabase library to load
+            let attempts = 0;
+            const maxAttempts = 50;
+            const checkInterval = setInterval(function() {
+                attempts++;
+                
+                if (window.supabase && window.supabase.createClient) {
+                    clearInterval(checkInterval);
+                    try {
+                        window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                        window.supabase = window.supabaseClient; // Alias for compatibility
+                        window.supabaseReady = true;
+                        
+                        console.log('✅ Supabase client initialized');
+                        console.log('Client ready:', typeof window.supabase.from === 'function');
+                        
+                        // Test connection
+                        setTimeout(function() {
+                            window.supabase.from('survey_responses').select('id').limit(0)
+                                .then(function(result) {
+                                    if (result.error) {
+                                        if (result.error.message && result.error.message.includes('relation') && result.error.message.includes('does not exist')) {
+                                            console.warn('⚠️ Table does not exist. Run ONE_STEP_FIX.sql in Supabase.');
+                                        } else if (result.error.message && result.error.message.includes('RLS')) {
+                                            console.log('✅ Connection verified (RLS active)');
+                                        } else {
+                                            console.warn('⚠️ Connection test:', result.error.message);
+                                        }
+                                    } else {
+                                        console.log('✅ Connection verified - table exists!');
+                                    }
+                                })
+                                .catch(function(err) {
+                                    console.error('Connection test error:', err);
+                                });
+                        }, 100);
+                    } catch (error) {
+                        console.error('❌ Failed to initialize Supabase:', error);
+                        window.supabaseReady = false;
+                    }
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                    console.error('❌ Supabase library failed to load after ' + (maxAttempts * 100) + 'ms');
+                    window.supabaseReady = false;
+                }
+            }, 100);
+        })();
         
         // Test connection and table existence
         setTimeout(() => {
@@ -86,26 +120,6 @@
         }, 100);
     </script>
     
-    <!-- Fallback for non-module browsers -->
-    <script nomodule>
-        // Fallback: Load UMD build for older browsers
-        (function() {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-            script.onload = function() {
-                const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
-                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
-                
-                // UMD build exposes supabaseLib
-                if (window.supabaseLib && window.supabaseLib.createClient) {
-                    window.supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                    window.supabaseReady = true; // Mark as ready
-                    console.log('✅ Supabase client initialized (UMD fallback)');
-                }
-            };
-            document.head.appendChild(script);
-        })();
-    </script>
     
     <!-- Analytics Tracker -->
     <script src="analytics-tracker.js"></script>
