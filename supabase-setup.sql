@@ -23,6 +23,16 @@ CREATE TABLE IF NOT EXISTS survey_responses (
   kubilas_data JSONB,
   vidaus_data JSONB,
   
+  -- Analytics & Tracking Fields
+  visitor_id TEXT,
+  session_id TEXT,
+  time_to_complete_seconds INTEGER,
+  referrer TEXT,
+  utm_source TEXT,
+  utm_medium TEXT,
+  utm_campaign TEXT,
+  landing_page TEXT,
+  
   -- Indexes for common queries
   CONSTRAINT valid_type CHECK (type IN ('lauko', 'vidaus', 'kubila'))
 );

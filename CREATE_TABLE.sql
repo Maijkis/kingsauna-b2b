@@ -20,7 +20,17 @@ CREATE TABLE IF NOT EXISTS survey_responses (
   -- Type-specific data stored as JSON
   lauko_data JSONB,
   kubilas_data JSONB,
-  vidaus_data JSONB
+  vidaus_data JSONB,
+  
+  -- Analytics & Tracking Fields
+  visitor_id TEXT,
+  session_id TEXT,
+  time_to_complete_seconds INTEGER,
+  referrer TEXT,
+  utm_source TEXT,
+  utm_medium TEXT,
+  utm_campaign TEXT,
+  landing_page TEXT
 );
 
 -- Create indexes for better performance

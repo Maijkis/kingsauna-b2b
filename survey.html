@@ -18,6 +18,7 @@
         
         // Create client and make it globally available
         window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.supabaseReady = true; // Mark as ready
         
         console.log('✅ Supabase client initialized (ES Module)');
         console.log('Supabase client type:', typeof window.supabase);
@@ -93,6 +94,7 @@
                 // UMD build exposes supabaseLib
                 if (window.supabaseLib && window.supabaseLib.createClient) {
                     window.supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    window.supabaseReady = true; // Mark as ready
                     console.log('✅ Supabase client initialized (UMD fallback)');
                 }
             };
@@ -104,6 +106,32 @@
     <script src="analytics-tracker.js"></script>
     <script>
         let surveyStartTime = Date.now();
+        
+        // Initialize supabaseReady flag if not set
+        if (typeof window.supabaseReady === 'undefined') {
+            window.supabaseReady = false;
+        }
+        
+        // Helper function to wait for Supabase to be ready
+        window.waitForSupabase = function(maxWait = 5000) {
+            return new Promise((resolve, reject) => {
+                if (window.supabaseReady && window.supabase && typeof window.supabase.from === 'function') {
+                    resolve(window.supabase);
+                    return;
+                }
+                
+                const startTime = Date.now();
+                const checkInterval = setInterval(() => {
+                    if (window.supabaseReady && window.supabase && typeof window.supabase.from === 'function') {
+                        clearInterval(checkInterval);
+                        resolve(window.supabase);
+                    } else if (Date.now() - startTime > maxWait) {
+                        clearInterval(checkInterval);
+                        reject(new Error('Supabase initialization timeout'));
+                    }
+                }, 100);
+            });
+        };
         
         // Initialize analytics when page loads (wait for Supabase)
         window.addEventListener('DOMContentLoaded', function() {
@@ -2309,11 +2337,60 @@
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Check if Supabase is available
+            // Disable submit button to prevent double submission
+            const submitButton = e.target.querySelector('button[type="submit"], .cta-primary');
+            const originalButtonText = submitButton ? submitButton.textContent : '';
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Siunčiama...';
+            }
+            
+            try {
+                // Wait for Supabase to be ready (with timeout)
+                await window.waitForSupabase(5000);
+            } catch (error) {
+                console.error('❌ Supabase client not initialized after waiting');
+                console.error('Error:', error);
+                
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                // Show user-friendly error
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida: Duomenų bazės ryšys nepasiekiamas</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: 1.5rem;">Patikrinkite interneto ryšį ir bandykite dar kartą. Jei problema išlieka, susisiekite su mumis.</p>
+                    <button onclick="this.closest('.error-message').remove()" class="cta-primary py-2 px-6" style="width: 100%;">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
+                return;
+            }
+            
+            // Double-check Supabase is available
             if (!window.supabase || typeof window.supabase.from !== 'function') {
                 console.error('❌ Supabase client not initialized');
                 console.error('window.supabase:', typeof window.supabase);
-                alert('Klaida: Duomenų bazės ryšys nepasiekiamas. Patikrinkite interneto ryšį ir bandykite dar kartą.');
+                
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida: Duomenų bazės ryšys nepasiekiamas</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: 1.5rem;">Patikrinkite interneto ryšį ir bandykite dar kartą.</p>
+                    <button onclick="this.closest('.error-message').remove()" class="cta-primary py-2 px-6" style="width: 100%;">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
                 return;
             }
             
@@ -2323,6 +2400,12 @@
             const phonePattern = /^\+370[0-9]{8}$/;
             
             if (!phonePattern.test(telefonas)) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
                 // Better mobile-friendly error display
                 phoneInput.focus();
                 phoneInput.style.borderColor = 'var(--copper)';
@@ -2354,6 +2437,11 @@
             
             // Ensure survey type is set
             if (!surveyData.type) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
                 console.error('❌ Survey type is missing');
                 alert('Įvyko klaida: nepasirinktas apklausos tipas. Grįžkite į pradžią.');
                 return;
@@ -2371,6 +2459,12 @@
             const validOptions = Array.from(datalist.options).map(opt => opt.value);
             
             if (!validOptions.includes(contactData.miestas)) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
                 const miestasInput = document.getElementById('miestas');
                 miestasInput.focus();
                 miestasInput.style.borderColor = 'var(--copper)';
@@ -2452,23 +2546,22 @@
                     console.error('❌ Supabase insert error:', insertError);
                     console.error('Error details:', JSON.stringify(insertError, null, 2));
                     
-                    // If error mentions missing columns, try without optional fields
+                    // If error mentions missing columns, try with only core required fields
                     if (insertError.message && (
                         insertError.message.includes('column') || 
                         insertError.message.includes('does not exist') ||
                         insertError.code === '42703'
                     )) {
-                        console.warn('⚠️ Column error detected, trying minimal payload...');
+                        console.warn('⚠️ Column error detected, trying minimal payload with only core fields...');
+                        // Only include fields that are definitely in the base schema (no analytics fields)
                         const minimalPayload = {
-                            visitor_id: visitorId,
-                            session_id: sessionId || 'unknown',
                             vardas: contactData.vardas,
                             el_pastas: contactData.email,
                             telefonas: telefonas,
                             type: surveyData.type
                         };
                         
-                        // Only add fields that definitely exist
+                        // Only add fields that definitely exist in base schema
                         if (contactData.miestas) minimalPayload.miestas = contactData.miestas;
                         if (surveyData.type === 'lauko' && surveyData.lauko) minimalPayload.lauko_data = surveyData.lauko;
                         else if (surveyData.type === 'kubila' && surveyData.kubilas) minimalPayload.kubilas_data = surveyData.kubilas;
@@ -2545,6 +2638,12 @@
                 console.error('❌ Full submission error:', error);
                 console.error('Error stack:', error.stack);
                 
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
                 // Show user-friendly error message
                 let errorMessage = 'Įvyko klaida siunčiant duomenis.';
                 let errorDetails = '';
@@ -2612,7 +2711,7 @@
                     totalSteps = 11;
                     goToStep('step-lauko-2', 2);
                 } else if (quickSelect === 'vidaus') {
-                    totalSteps = 3;
+                    totalSteps = 6;
                     goToStep('step-vidaus-2', 2);
                 } else if (quickSelect === 'kubila' || quickSelect === 'kubilas') {
                     // Normalize to 'kubila' for consistency

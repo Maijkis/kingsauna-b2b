@@ -268,14 +268,61 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
             border-radius: 20px;
+            overflow: hidden;
+        }
+        /* Desktop: Image on left side (lauko, kubilai) */
+        @media (min-width: 768px) {
+            .glass-card-light .grid > div:first-child.sprendimai-image-container {
+                border-radius: 20px 0 0 20px;
+            }
+            .glass-card-light .grid > div:last-child.sprendimai-image-container {
+                border-radius: 0 20px 20px 0;
+            }
+        }
+        /* Mobile: Image always on top */
+        @media (max-width: 767px) {
+            .glass-card-light .sprendimai-image-container {
+                border-radius: 20px 20px 0 0;
+            }
+            .glass-card-light .grid > div.bg-white {
+                border-radius: 0 0 20px 20px;
+            }
         }
         
         /* ===== SPRENDIMAI IMAGE ===== */
+        .sprendimai-image-container {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-cream);
+        }
         .sprendimai-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            min-height: 300px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .sprendimai-image-container:hover .sprendimai-image {
+            transform: scale(1.02);
+        }
+        @media (min-width: 768px) {
+            .sprendimai-image-container {
+                min-height: 400px;
+            }
+        }
+        @media (max-width: 640px) {
+            .sprendimai-image-container {
+                min-height: 220px;
+                max-height: 240px;
+                border-radius: 0;
+            }
+            .sprendimai-image {
+                min-height: 220px;
+                max-height: 240px;
+            }
+            .glass-card-light .grid {
+                max-height: calc(100vh - 4rem);
+            }
         }
         
         /* ===== PRODUCT CAROUSEL ===== */
@@ -537,27 +584,33 @@
         .inline-price {
             display: inline-flex;
             align-items: baseline;
-            gap: 0.375rem;
-            padding: 0.5rem 1rem;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
             background: linear-gradient(135deg, rgba(185, 110, 72, 0.1), rgba(185, 110, 72, 0.05));
-            border: 1.5px solid rgba(185, 110, 72, 0.2);
+            border: 1px solid rgba(185, 110, 72, 0.2);
             border-radius: 999px;
             white-space: nowrap;
         }
         .price-from {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--text-warm);
         }
         .price-amount {
-            font-size: 1.5rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: var(--copper);
             letter-spacing: -0.02em;
         }
         @media (max-width: 768px) {
             .price-amount {
-                font-size: 1.25rem;
+                font-size: 1rem;
+            }
+            .price-from {
+                font-size: 0.7rem;
+            }
+            .inline-price {
+                padding: 0.3rem 0.65rem;
             }
         }
         
@@ -1031,11 +1084,11 @@
     </section>
 
     <!-- ===== SPRENDIMAI: LAUKO PIRTYS ===== -->
-    <section id="sprendimai" class="pt-6 md:pt-10 pb-16 md:pb-24 px-4 bg-cream section-px">
+    <section id="sprendimai" class="pt-4 md:pt-10 pb-4 md:pb-24 px-4 bg-cream section-px">
         <div class="max-w-6xl mx-auto">
             <div class="glass-card-light overflow-hidden">
                 <div class="grid md:grid-cols-2 gap-0">
-                    <div class="aspect-[4/3] md:aspect-auto image-container min-h-[300px]">
+                    <div class="sprendimai-image-container">
                         <img 
                             src="images/iglu-garden-installed.jpg" 
                             alt="Lauko pirtis sodyboje" 
@@ -1043,10 +1096,9 @@
                             loading="lazy"
                         >
                     </div>
-                    <div class="p-8 md:p-10 flex flex-col justify-center">
-                        <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full mb-4 w-fit" style="background: rgba(34, 84, 61, 0.1); color: var(--forest);">Lauko pirtys</span>
-                        <div class="flex items-baseline gap-4 mb-4 flex-wrap">
-                            <h2 class="text-2xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                    <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
+                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Autentiškos Lauko Pirtys
                             </h2>
                             <div class="inline-price">
@@ -1054,10 +1106,10 @@
                                 <span class="price-amount">4,896€</span>
                             </div>
                         </div>
-                        <p class="text-readable mb-6">
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Tradicinės lauko pirtys jūsų sodui ar kiemui. Aukščiausios kokybės mediena, atspari visoms oro sąlygoms.
                         </p>
-                        <ul class="space-y-2.5 mb-8" style="color: var(--text-warm);">
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
                                 Individualus pasiūlymas
@@ -1071,7 +1123,7 @@
                                 Be įsipareigojimų
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-4 px-8 text-center w-fit">
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
                             Išsirinkti lauko pirtį
                         </a>
                     </div>
@@ -1081,14 +1133,13 @@
     </section>
 
     <!-- ===== SPRENDIMAI: VIDAUS PIRTYS ===== -->
-    <section class="py-16 md:py-24 px-4 bg-sand section-px">
+    <section class="py-4 md:py-24 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
             <div class="glass-card-light overflow-hidden">
                 <div class="grid md:grid-cols-2 gap-0">
-                    <div class="p-8 md:p-10 flex flex-col justify-center order-2 md:order-1">
-                        <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full mb-4 w-fit" style="background: rgba(34, 84, 61, 0.1); color: var(--forest);">Vidaus pirtys</span>
-                        <div class="flex items-baseline gap-4 mb-4 flex-wrap">
-                            <h2 class="text-2xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                    <div class="p-6 md:p-10 flex flex-col justify-center order-2 md:order-1 bg-white">
+                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Modernios Vidaus Saunos
                             </h2>
                             <div class="inline-price">
@@ -1096,10 +1147,10 @@
                                 <span class="price-amount">5,500€</span>
                             </div>
                         </div>
-                        <p class="text-readable mb-6">
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Kompaktiškos vidaus saunos bet kuriai namų ar buto patalpai. Funkcionalios ir elegantiškos.
                         </p>
-                        <ul class="space-y-2.5 mb-8" style="color: var(--text-warm);">
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
                                 Individualus pasiūlymas
@@ -1113,11 +1164,11 @@
                                 Be įsipareigojimų
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-4 px-8 text-center w-fit">
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
                             Išsirinkti vidaus pirtį
                         </a>
                     </div>
-                    <div class="aspect-[4/3] md:aspect-auto image-container min-h-[300px] order-1 md:order-2">
+                    <div class="sprendimai-image-container order-1 md:order-2">
                         <img 
                             src="images/interior-wood.jpg" 
                             alt="Pirties interjeras" 
@@ -1131,11 +1182,11 @@
     </section>
 
     <!-- ===== SPRENDIMAI: KUBILAI ===== -->
-    <section class="py-16 md:py-24 px-4 bg-cream section-px">
+    <section class="py-4 md:py-24 px-4 bg-cream section-px">
         <div class="max-w-6xl mx-auto">
             <div class="glass-card-light overflow-hidden">
                 <div class="grid md:grid-cols-2 gap-0">
-                    <div class="aspect-[4/3] md:aspect-auto image-container min-h-[300px]">
+                    <div class="sprendimai-image-container">
                         <img 
                             src="images/kubilas-wood.jpg" 
                             alt="Medinis kubilas" 
@@ -1143,10 +1194,9 @@
                             loading="lazy"
                         >
                     </div>
-                    <div class="p-8 md:p-10 flex flex-col justify-center">
-                        <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full mb-4 w-fit" style="background: rgba(34, 84, 61, 0.1); color: var(--forest);">Kubilai</span>
-                        <div class="flex items-baseline gap-4 mb-4 flex-wrap">
-                            <h2 class="text-2xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                    <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
+                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Šildomi Kubilai Poilsiui
                             </h2>
                             <div class="inline-price">
@@ -1154,10 +1204,10 @@
                                 <span class="price-amount">1,709€</span>
                             </div>
                         </div>
-                        <p class="text-readable mb-6">
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Mediniai ir stiklo pluošto kubilai su įvairiais šildymo būdais. Puikus pasirinkimas atsipalaidavimui.
                         </p>
-                        <ul class="space-y-2.5 mb-8" style="color: var(--text-warm);">
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
                                 Individualus pasiūlymas
@@ -1171,7 +1221,7 @@
                                 Be įsipareigojimų
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-4 px-8 text-center w-fit">
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
                             Išsirinkti kubilą
                         </a>
                     </div>
