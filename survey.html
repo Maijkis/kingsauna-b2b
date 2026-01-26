@@ -2537,14 +2537,19 @@
                 }
                 
                 // Try submitting with base payload first (no .select() to avoid RLS issues)
-                console.log('📤 Submitting survey to Supabase...', basePayload);
+                // Log submission without exposing sensitive data
+                console.log('📤 Submitting survey to Supabase...', { type: basePayload.type, hasData: true });
                 const { error: insertError } = await window.supabase
                     .from('survey_responses')
                     .insert([basePayload]);
 
                 if (insertError) {
-                    console.error('❌ Supabase insert error:', insertError);
-                    console.error('Error details:', JSON.stringify(insertError, null, 2));
+                    // Log error without exposing sensitive payload data
+                    console.error('❌ Supabase insert error:', { 
+                        code: insertError.code, 
+                        message: insertError.message?.substring(0, 150),
+                        hint: insertError.hint?.substring(0, 100)
+                    });
                     
                     // If error mentions missing columns, try with only core required fields
                     if (insertError.message && (
@@ -2572,10 +2577,14 @@
                             .insert([minimalPayload]);
                         
                         if (minimalError) {
-                            console.error('❌ Minimal payload also failed:', minimalError);
+                            // Don't expose payload data in error logs
+                            console.error('❌ Minimal payload also failed:', { 
+                                code: minimalError.code, 
+                                message: minimalError.message?.substring(0, 100) 
+                            });
                             throw new Error(`Duomenų bazės klaida: ${minimalError.message || 'Nežinoma klaida'}`);
                         } else {
-                            console.log('✅ Survey saved with minimal payload');
+                            console.log('✅ Survey saved successfully');
                         }
                     } else if (insertError.message && (
                         insertError.message.includes('Could not find the table') ||
@@ -2631,12 +2640,24 @@
                     }
                 }
                 
+                // Clear sensitive data from memory after successful submission
+                // Reset survey data to prevent access via browser console
+                Object.keys(surveyData).forEach(key => {
+                    if (key !== 'type') {
+                        surveyData[key] = {};
+                    }
+                });
+                surveyData.type = null;
+                
                 // Navigate to confirmation page
                 goToStep('step-confirmation', totalSteps + 1);
                 
             } catch (error) {
-                console.error('❌ Full submission error:', error);
-                console.error('Error stack:', error.stack);
+                // Log error without exposing sensitive data
+                console.error('❌ Full submission error:', { 
+                    message: error.message?.substring(0, 200),
+                    name: error.name
+                });
                 
                 // Re-enable button
                 if (submitButton) {
