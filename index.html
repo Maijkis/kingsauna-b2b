@@ -363,32 +363,37 @@
             }
         }
         .product-carousel-btn {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
             position: absolute;
-            top: 50%;
+            top: 45%;
             transform: translateY(-50%);
             z-index: 20;
             cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 84, 61, 0.1);
+        }
+        .product-carousel-btn svg {
+            width: 22px;
+            height: 22px;
         }
         .product-carousel-btn:hover {
             background: var(--forest);
             color: white !important;
-            transform: translateY(-50%) scale(1.1);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 20px rgba(34, 84, 61, 0.25);
         }
         .product-carousel-btn:active {
-            transform: translateY(-50%) scale(0.95);
+            transform: translateY(-50%) scale(0.96);
         }
-        .product-carousel-btn.prev { left: -10px; }
-        .product-carousel-btn.next { right: -10px; }
+        .product-carousel-btn.prev { left: -16px; }
+        .product-carousel-btn.next { right: -16px; }
         
         .product-carousel-dots {
             display: flex;
@@ -618,8 +623,8 @@
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(34, 84, 61, 0.1);
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -630,9 +635,14 @@
         .carousel-btn:hover {
             background: white;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
         }
         .carousel-btn:active {
             transform: scale(0.92);
+        }
+        .carousel-btn svg {
+            width: 24px;
+            height: 24px;
         }
         .carousel-dot {
             width: 8px;
@@ -907,11 +917,11 @@
             <div class="glass-panel p-6 md:p-12 lg:p-16">
                 <div class="text-center">
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                        Pirčių bei Kubilų Sprendimai Jums
+                        Jūsų svajonių pirtis – per 3 minutes
                     </h1>
                     
                     <p class="text-lg md:text-xl mb-10 text-emerald-100/90 leading-relaxed max-w-2xl mx-auto">
-                        Padėsime išsirinkti tinkamiausią sprendimą per trumpą apklausą - visiškai be įsipareigojimų
+                        Atsakykite į kelis klausimus ir gaukite individualų pasiūlymą su tikslią kaina – be slėgimo ir įsipareigojimų
                     </p>
                     
                     <div class="mb-2">
@@ -1037,17 +1047,17 @@
     </section>
 
     <!-- ===== APIE MUS SECTION ===== -->
-    <section id="apie-mus" class="pt-20 md:pt-32 pb-12 px-4 bg-sand section-px">
+    <section id="apie-mus" class="pt-12 md:pt-16 pb-12 px-4 bg-sand section-px">
         <div class="max-w-4xl mx-auto">
-            <div class="text-left">
-                <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-4">Mūsų istorija</span>
-                <h2 class="text-3xl md:text-5xl font-bold mb-8" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+                <div class="text-left max-w-4xl">
+                <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-3">Mūsų istorija</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style="color: var(--text-charcoal); letter-spacing: -0.02em; line-height: 1.2;">
                     Meistrystė, gimusi iš meilės pirties kultūrai
                 </h2>
                 
-                <div class="space-y-6 text-readable text-lg opacity-90 leading-relaxed max-w-3xl mb-8">
+                <div class="space-y-5 text-readable text-base md:text-lg opacity-90 leading-relaxed mb-10">
                     <p>
-                        „Kingsauna“ – tai daugiau nei dešimtmetį puoselėjama aistra kokybiškam poilsiui. Jau daugelį metų kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
+                        „Kingsauna" – tai daugiau nei dešimtmetį puoselėjama aistra kokybiškam poilsiui. Jau daugelį metų kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
                     </p>
                     <p>
                         Mūsų tikslas – sujungti senąsias pirties tradicijas su šiuolaikišku dizainu ir technologijomis. Kiekvienas gaminys mums yra unikalus, todėl skiriame ypatingą dėmesį detalėms, medžiagų kokybei ir Jūsų individualiai vizijai.
@@ -1058,27 +1068,27 @@
                 </div>
 
                 <!-- KLIENTŲ ATSILIEPIMAI integrated into About Us -->
-                <div class="mt-6 pb-4">
-                    <div class="carousel-container relative max-w-3xl mx-auto" style="padding-bottom: 2rem;">
+                <div class="mt-8 pb-6">
+                    <div class="carousel-container relative" style="padding-bottom: 2.5rem;">
                         <div id="carouselTrack" class="carousel-track"></div>
                         
-                        <button id="prevBtn" class="carousel-btn absolute left-0 bottom-4 -translate-x-4 z-10 hidden md:flex" aria-label="Ankstesnis">
-                            <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        <button id="prevBtn" class="carousel-btn absolute left-0 bottom-6 -translate-x-2 md:-translate-x-4 z-10 hidden md:flex" aria-label="Ankstesnis">
+                            <svg style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
                             </svg>
                         </button>
-                        <button id="nextBtn" class="carousel-btn absolute right-0 bottom-4 translate-x-4 z-10 hidden md:flex" aria-label="Kitas">
-                            <svg class="w-5 h-5" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        <button id="nextBtn" class="carousel-btn absolute right-0 bottom-6 translate-x-2 md:translate-x-4 z-10 hidden md:flex" aria-label="Kitas">
+                            <svg style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </button>
                     </div>
                     
-                    <div id="carouselDots" class="flex justify-center gap-1.5 mt-4"></div>
+                    <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
                 </div>
 
                 <!-- Section Divider after reviews -->
-                <div class="w-24 h-1 bg-forest/10 mx-auto mt-4 rounded-full"></div>
+                <div class="w-24 h-1 bg-forest/10 mx-auto mt-6 rounded-full"></div>
             </div>
         </div>
     </section>
@@ -1112,15 +1122,15 @@
                         <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Individualus pasiūlymas
+                                Terminuota gamyba (4-8 savaitės)
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Aiški sąmata ir komplektacija
+                                Pristatymas ir montavimas visoje Lietuvoje
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Be įsipareigojimų
+                                Garantija ir techninė pagalba
                             </li>
                         </ul>
                         <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
@@ -1153,15 +1163,15 @@
                         <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Individualus pasiūlymas
+                                Kompaktiški sprendimai bet kuriai patalpai
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Aiški sąmata ir komplektacija
+                                Elektriniai ir malkini pečiai
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Be įsipareigojimų
+                                Profesionalus montavimas ir pajungimas
                             </li>
                         </ul>
                         <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
@@ -1210,15 +1220,15 @@
                         <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Individualus pasiūlymas
+                                Medinis arba stiklo pluošto korpusas
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Aiški sąmata ir komplektacija
+                                Malkinis, dujinis ar elektrinis šildymas
                             </li>
                             <li class="flex items-center">
                                 <span class="mr-3" style="color: var(--forest);">✓</span>
-                                Be įsipareigojimų
+                                Papildoma įranga: LED, oro burbulai, filtrai
                             </li>
                         </ul>
                         <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
