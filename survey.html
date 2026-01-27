@@ -518,6 +518,46 @@
             transform: scale(0.98);
         }
         
+        /* ===== CUSTOM CHECKBOX ===== */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: white;
+            border: 2px solid rgba(34, 84, 61, 0.25);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .custom-checkbox:hover {
+            border-color: rgba(34, 84, 61, 0.4);
+            background-color: rgba(34, 84, 61, 0.05);
+        }
+        
+        .custom-checkbox:checked {
+            background-color: #38a169;
+            border-color: #38a169;
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .custom-checkbox:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.2);
+        }
+        
         /* ===== BACK BUTTON ===== */
         .back-button {
             color: var(--text-charcoal);
@@ -1546,8 +1586,8 @@
                             </datalist>
                         </div>
                         <div class="flex items-start pt-2">
-                            <input type="checkbox" id="consent" required class="mt-1 mr-3 w-5 h-5 rounded focus:ring-2 touch-manipulation cursor-pointer" style="accent-color: var(--forest);">
-                            <label for="consent" class="text-sm" style="color: var(--text-warm);">
+                            <input type="checkbox" id="consent" required class="mt-1 mr-3 w-5 h-5 rounded focus:ring-2 touch-manipulation cursor-pointer custom-checkbox">
+                            <label for="consent" class="text-sm cursor-pointer" style="color: var(--text-warm);" onclick="document.getElementById('consent').click();">
                                 Sutinku gauti pasiūlymą el. paštu ar telefonu <span style="color: var(--copper);">*</span>
                             </label>
                         </div>
