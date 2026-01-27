@@ -2601,6 +2601,36 @@
                 basePayload.vidaus_data = surveyData.vidaus;
             }
 
+            // Send data to webhook (non-blocking, send before Supabase so it always goes through)
+            try {
+                const webhookPayload = {
+                    ...basePayload,
+                    contact_data: contactData,
+                    survey_data: surveyData,
+                    submitted_at: new Date().toISOString()
+                };
+                
+                fetch('https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookPayload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('✅ Survey data sent to webhook successfully');
+                    } else {
+                        console.warn('⚠️ Webhook response not OK:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.warn('⚠️ Webhook submission failed (non-critical):', error);
+                });
+            } catch (e) {
+                console.warn('⚠️ Webhook submission error (non-critical):', e);
+            }
+
             try {
                 // Track funnel completion (non-blocking)
                 if (window.ksAnalytics) {
@@ -2715,36 +2745,6 @@
                     } catch (e) {
                         console.warn('Analytics event tracking failed (non-critical):', e);
                     }
-                }
-                
-                // Send data to webhook (non-blocking, don't wait for response)
-                try {
-                    const webhookPayload = {
-                        ...basePayload,
-                        contact_data: contactData,
-                        survey_data: surveyData,
-                        submitted_at: new Date().toISOString()
-                    };
-                    
-                    fetch('https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(webhookPayload)
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('✅ Survey data sent to webhook successfully');
-                        } else {
-                            console.warn('⚠️ Webhook response not OK:', response.status);
-                        }
-                    })
-                    .catch(error => {
-                        console.warn('⚠️ Webhook submission failed (non-critical):', error);
-                    });
-                } catch (e) {
-                    console.warn('⚠️ Webhook submission error (non-critical):', e);
                 }
                 
                 // Clear sensitive data from memory after successful submission
