@@ -2717,6 +2717,36 @@
                     }
                 }
                 
+                // Send data to webhook (non-blocking, don't wait for response)
+                try {
+                    const webhookPayload = {
+                        ...basePayload,
+                        contact_data: contactData,
+                        survey_data: surveyData,
+                        submitted_at: new Date().toISOString()
+                    };
+                    
+                    fetch('https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(webhookPayload)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('✅ Survey data sent to webhook successfully');
+                        } else {
+                            console.warn('⚠️ Webhook response not OK:', response.status);
+                        }
+                    })
+                    .catch(error => {
+                        console.warn('⚠️ Webhook submission failed (non-critical):', error);
+                    });
+                } catch (e) {
+                    console.warn('⚠️ Webhook submission error (non-critical):', e);
+                }
+                
                 // Clear sensitive data from memory after successful submission
                 // Reset survey data to prevent access via browser console
                 Object.keys(surveyData).forEach(key => {
