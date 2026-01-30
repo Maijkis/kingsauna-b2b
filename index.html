@@ -451,6 +451,23 @@
             margin: 0 -1rem;
             padding: 0 1rem;
         }
+        .product-carousel-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(245, 242, 236, 0.95));
+            pointer-events: none;
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .product-carousel-wrapper::after {
+                width: 150px;
+                background: linear-gradient(to right, transparent, rgba(245, 242, 236, 0.98));
+            }
+        }
         .product-carousel-container {
             display: flex;
             gap: 1.25rem;
