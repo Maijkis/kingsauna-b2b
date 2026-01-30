@@ -456,9 +456,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 80px;
+            width: 100px;
             height: 100%;
-            background: linear-gradient(to right, rgba(245, 242, 236, 0.7), transparent);
+            background: linear-gradient(to right, #f5f2ec 0%, rgba(245, 242, 236, 0.9) 30%, rgba(245, 242, 236, 0.5) 60%, transparent 100%);
             pointer-events: none;
             z-index: 10;
         }
@@ -467,20 +467,20 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 80px;
+            width: 100px;
             height: 100%;
-            background: linear-gradient(to left, rgba(245, 242, 236, 0.7), transparent);
+            background: linear-gradient(to left, #f5f2ec 0%, rgba(245, 242, 236, 0.9) 30%, rgba(245, 242, 236, 0.5) 60%, transparent 100%);
             pointer-events: none;
             z-index: 10;
         }
         @media (min-width: 768px) {
             .product-carousel-wrapper::before,
             .product-carousel-wrapper::after {
-                width: 120px;
-                background: linear-gradient(to right, rgba(245, 242, 236, 0.6), transparent);
+                width: 150px;
+                background: linear-gradient(to right, #f5f2ec 0%, rgba(245, 242, 236, 0.95) 25%, rgba(245, 242, 236, 0.7) 50%, rgba(245, 242, 236, 0.3) 75%, transparent 100%);
             }
             .product-carousel-wrapper::after {
-                background: linear-gradient(to left, rgba(245, 242, 236, 0.6), transparent);
+                background: linear-gradient(to left, #f5f2ec 0%, rgba(245, 242, 236, 0.95) 25%, rgba(245, 242, 236, 0.7) 50%, rgba(245, 242, 236, 0.3) 75%, transparent 100%);
             }
         }
         .product-carousel-container {
