@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kingsauna - profesionalūs saunų, lauko pirčių ir kubilų sprendimai Lietuvoje. Raskite tinkamiausią pirtį ar kubilą per trumpą apklausą.">
     <title>Kingsauna - Raskite Tobulą Pirtį ar Kubilą | Profesionalūs Sprendimai</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html {
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
+            scroll-padding-top: 80px; /* Account for sticky nav */
         }
         
         /* Better mobile scroll */
@@ -17,6 +22,12 @@
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior-y: contain;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        /* Typography - Serif for headings */
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
         }
         
         * {
@@ -31,8 +42,8 @@
             --bg-forest-light: #e8f0eb;
             
             /* Accent - Forest Green */
-            --forest: #22543d;
-            --forest-light: #276749;
+            --forest: #1a3c34;
+            --forest-light: #22543d;
             --forest-muted: #38a169;
             
             /* CTA - Copper */
@@ -103,6 +114,14 @@
         
         /* ===== PRIMARY CTA (Copper) ===== */
         .cta-primary {
+            min-height: 56px; /* Mobile-first: minimum touch target */
+        }
+        @media (min-width: 768px) {
+            .cta-primary {
+                min-height: auto;
+            }
+        }
+        .cta-primary {
             background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
             box-shadow: 0 8px 30px -5px rgba(180, 92, 58, 0.4);
             transition: all 0.25s ease;
@@ -125,9 +144,38 @@
         }
         @media (max-width: 640px) {
             .cta-primary {
-                min-height: 52px;
+                min-height: 56px;
                 font-size: 1rem;
                 padding: 0.875rem 1.5rem;
+                width: 100%;
+            }
+        }
+        
+        /* ===== STICKY BOTTOM CTA BAR (Mobile Only) ===== */
+        .sticky-bottom-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            padding: 12px 16px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        .sticky-bottom-cta.visible {
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .sticky-bottom-cta {
+                display: block;
+            }
+            /* Add padding to body when sticky CTA is visible */
+            body.sticky-cta-active {
+                padding-bottom: 80px;
             }
         }
         .cta-primary::before {
@@ -323,7 +371,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--copper);
-            font-family: serif;
+            font-family: 'Cormorant Garamond', serif;
             letter-spacing: -0.02em;
         }
         @media (max-width: 768px) {
@@ -1249,7 +1297,7 @@
                                 Profesionalus montavimas ir pajungimas
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
                             Išsirinkti vidaus pirtį
                         </a>
                     </div>
@@ -1310,7 +1358,7 @@
                                 Papildoma įranga: LED, oro burbulai, filtrai
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
                             Išsirinkti kubilą
                         </a>
                     </div>
@@ -1664,7 +1712,7 @@
             <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-warm);">
                 Užpildykite trumpą apklausą ir gaukite individualų pasiūlymą - be jokių įsipareigojimų.
             </p>
-            <a href="survey.html" class="cta-primary inline-flex py-4 px-6 sm:px-10 text-[15px] sm:text-lg items-center justify-center whitespace-nowrap">
+            <a href="survey.html" class="cta-primary inline-flex py-4 px-6 sm:px-10 text-[15px] sm:text-lg items-center justify-center whitespace-nowrap w-full md:w-auto min-h-[56px]">
                 Rasti sprendimą man
             </a>
         </div>
@@ -2182,6 +2230,51 @@
                 btn.querySelector('span:last-child').textContent = '−';
             }
         }
+    </script>
+
+    <!-- ===== STICKY BOTTOM CTA BAR (Mobile Only) ===== -->
+    <div id="stickyBottomCTA" class="sticky-bottom-cta">
+        <a href="survey.html" class="cta-primary w-full py-4 px-6 text-center text-base font-semibold block" onclick="if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('sticky_cta_click', 1, 'mobile');">
+            RASTI SPRENDIMĄ MAN
+        </a>
+    </div>
+
+    <script>
+        // Sticky Bottom CTA Bar (Mobile Only)
+        (function() {
+            const stickyCTA = document.getElementById('stickyBottomCTA');
+            const heroSection = document.querySelector('.hero-section');
+            
+            if (!stickyCTA || !heroSection) return;
+            
+            function handleScroll() {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollY = window.scrollY || window.pageYOffset;
+                
+                if (scrollY > heroBottom) {
+                    stickyCTA.classList.add('visible');
+                    document.body.classList.add('sticky-cta-active');
+                } else {
+                    stickyCTA.classList.remove('visible');
+                    document.body.classList.remove('sticky-cta-active');
+                }
+            }
+            
+            // Throttle scroll events
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Initial check
+            handleScroll();
+        })();
     </script>
 </body>
 </html>
