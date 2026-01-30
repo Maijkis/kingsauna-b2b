@@ -2371,26 +2371,50 @@
         (function() {
             const stickyCTA = document.getElementById('stickyBottomCTA');
             const heroSection = document.querySelector('.hero-section');
-            const finalCTASection = document.querySelector('section.bg-forest-light');
+            const productModal = document.getElementById('productModal');
             
             if (!stickyCTA || !heroSection) return;
+            
+            // Function to check if any survey CTA button is visible in viewport
+            function isAnySurveyButtonVisible() {
+                // Check if modal is open
+                if (productModal && productModal.classList.contains('active')) {
+                    return true;
+                }
+                
+                // Get all survey buttons (excluding the sticky CTA itself)
+                const surveyButtons = document.querySelectorAll('a[href="survey.html"]:not(#stickyBottomCTA a)');
+                const scrollY = window.scrollY || window.pageYOffset;
+                const windowHeight = window.innerHeight;
+                const viewportTop = scrollY;
+                const viewportBottom = scrollY + windowHeight;
+                
+                for (let button of surveyButtons) {
+                    // Skip if button is hidden
+                    if (button.offsetParent === null) continue;
+                    
+                    const rect = button.getBoundingClientRect();
+                    const buttonTop = scrollY + rect.top;
+                    const buttonBottom = scrollY + rect.bottom;
+                    
+                    // Check if button is visible in viewport (with some padding)
+                    if (buttonBottom >= viewportTop - 50 && buttonTop <= viewportBottom + 50) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
             
             function handleScroll() {
                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
                 const scrollY = window.scrollY || window.pageYOffset;
-                const windowHeight = window.innerHeight;
                 
-                // Check if final CTA section is visible
-                let finalCTAVisible = false;
-                if (finalCTASection) {
-                    const finalCTATop = finalCTASection.offsetTop;
-                    const finalCTABottom = finalCTATop + finalCTASection.offsetHeight;
-                    // Hide sticky CTA if final CTA is within viewport
-                    finalCTAVisible = scrollY + windowHeight >= finalCTATop - 100;
-                }
+                // Check if any survey button is visible
+                const surveyButtonVisible = isAnySurveyButtonVisible();
                 
-                // Show sticky CTA only if past hero AND final CTA is not visible
-                if (scrollY > heroBottom && !finalCTAVisible) {
+                // Show sticky CTA only if past hero AND no survey button is visible
+                if (scrollY > heroBottom && !surveyButtonVisible) {
                     stickyCTA.classList.add('visible');
                     document.body.classList.add('sticky-cta-active');
                 } else {
@@ -2410,6 +2434,17 @@
                     ticking = true;
                 }
             });
+            
+            // Also check when modal opens/closes
+            if (productModal) {
+                const observer = new MutationObserver(function(mutations) {
+                    handleScroll();
+                });
+                observer.observe(productModal, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            }
             
             // Initial check
             handleScroll();
