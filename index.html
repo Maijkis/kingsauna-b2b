@@ -1046,13 +1046,6 @@
             </div>
             
             <div class="product-carousel-wrapper relative">
-                <button id="productPrevBtn" class="product-carousel-btn prev hidden md:flex" aria-label="Ankstesnis">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button id="productNextBtn" class="product-carousel-btn next hidden md:flex" aria-label="Kitas">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-
                 <div id="productCarousel" class="product-carousel-container">
                         <!-- Product Card 1: Bačka (Featured) -->
                         <div class="product-card-slide">
@@ -1208,16 +1201,6 @@
                     <div class="carousel-container relative" style="padding-bottom: 2.5rem;">
                         <div id="carouselTrack" class="carousel-track"></div>
                         
-                        <button id="prevBtn" class="carousel-btn absolute left-0 bottom-6 -translate-x-2 md:-translate-x-4 z-10 hidden md:flex" aria-label="Ankstesnis">
-                            <svg style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-                        <button id="nextBtn" class="carousel-btn absolute right-0 bottom-6 translate-x-2 md:translate-x-4 z-10 hidden md:flex" aria-label="Kitas">
-                            <svg style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
                     </div>
                     
                     <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
@@ -2083,8 +2066,6 @@
         // ===== PRODUCT CAROUSEL LOGIC =====
         function initProductCarousel() {
             const carousel = document.getElementById('productCarousel');
-            const prevBtn = document.getElementById('productPrevBtn');
-            const nextBtn = document.getElementById('productNextBtn');
             const dotsContainer = document.getElementById('productCarouselDots');
             const slides = carousel.querySelectorAll('.product-card-slide');
             
@@ -2115,13 +2096,6 @@
                 requestAnimationFrame(updateDots);
             });
 
-            prevBtn.addEventListener('click', () => {
-                carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
-            });
-
-            nextBtn.addEventListener('click', () => {
-                carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
-            });
 
             // Drag to scroll
             carousel.addEventListener('mousedown', (e) => {
@@ -2171,8 +2145,6 @@
             renderCarousel();
             initProductCarousel();
             startAutoplay();
-            document.getElementById('prevBtn').addEventListener('click', prevSlide);
-            document.getElementById('nextBtn').addEventListener('click', nextSlide);
             
             const container = document.querySelector('.carousel-container');
             container.addEventListener('mouseenter', () => isPaused = true);
