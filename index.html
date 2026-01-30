@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kingsauna - profesionalūs saunų, lauko pirčių ir kubilų sprendimai Lietuvoje. Raskite tinkamiausią pirtį ar kubilą per trumpą apklausą.">
     <title>Kingsauna - Raskite Tobulą Pirtį ar Kubilą | Profesionalūs Sprendimai</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html {
@@ -35,59 +34,26 @@
             --forest: #22543d;
             --forest-light: #276749;
             --forest-muted: #38a169;
-            --forest-deep: #1a3c34;     /* Dark background in 'How it works' */
-            --forest-grid: #244a40;     /* Grid pattern color */
             
             /* CTA - Copper */
             --copper: #b45c3a;
             --copper-dark: #9a4a2f;
             --copper-light: #c76a47;
-            --copper-main: #b45c3a;     /* Main CTA and icons */
             
             /* Text */
             --text-charcoal: #2d3748;
             --text-warm: #4a5568;
             --text-muted: #718096;
-            --text-dark: #2d3748;
             
             /* Glass */
             --glass-white: rgba(255, 255, 255, 0.92);
             --glass-border: rgba(34, 84, 61, 0.1);
         }
         
-        /* ===== PREMIUM TYPOGRAPHY ===== */
-        h1, h2, h3, .serif-font {
-            font-family: 'Cormorant Garamond', serif;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        
         /* ===== BACKGROUNDS ===== */
         .bg-sand { background-color: var(--bg-sand); }
         .bg-cream { background-color: var(--bg-cream); }
         .bg-forest-light { background-color: var(--bg-forest-light); }
-        
-        /* ===== GRID PATTERN BACKGROUND ===== */
-        .bg-grid-pattern {
-            background-color: var(--forest-deep);
-            background-image: 
-                radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-        
-        /* ===== REFINED GLASS CARD ===== */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-        }
-        
-        /* ===== COPPER GLOW FOR CTAs ===== */
-        .cta-glow:hover {
-            box-shadow: 0 0 20px rgba(180, 92, 58, 0.4);
-        }
         
         /* ===== NAVIGATION ===== */
         .top-logo-bar {
@@ -1905,19 +1871,17 @@
             
             track.innerHTML = shuffledTestimonials.map(t => `
                 <div class="carousel-slide" style="width: ${100 / slidesPerView}%;">
-                    <div class="testimonial-card p-5 h-full">
-                        <div class="flex text-amber-500 text-sm mb-2">★★★★★</div>
-                        <p class="mb-3 text-sm leading-relaxed italic" style="color: var(--text-warm);">"${t.quote}"</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="${t.image}" alt="${t.product}" class="testimonial-image mr-2" loading="lazy">
-                                <div>
-                                    <div class="font-semibold text-sm" style="color: var(--text-charcoal);">${t.name}</div>
-                                    <div class="text-xs" style="color: var(--text-muted);">${t.city}</div>
-                                </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h4 class="font-bold text-lg">${t.name}</h4>
+                                <p class="text-gray-400 text-sm">Prieš mėnesį</p>
                             </div>
-                            <span class="text-xs px-2 py-1 rounded-full" style="background: rgba(34, 84, 61, 0.08); color: var(--forest);">${t.product}</span>
+                            <div class="flex text-amber-400">
+                                ${Array(5).fill('<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>').join('')}
+                            </div>
                         </div>
+                        <p class="text-gray-600 italic leading-relaxed mb-4">"${t.quote}"</p>
                     </div>
                 </div>
             `).join('');
