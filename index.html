@@ -270,6 +270,14 @@
             border-radius: 20px;
             overflow: hidden;
         }
+        .glassmorphism-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
         /* Desktop: Image on left side (lauko, kubilai) */
         @media (min-width: 768px) {
             .glass-card-light .grid > div:first-child.sprendimai-image-container {
@@ -294,6 +302,42 @@
             position: relative;
             overflow: hidden;
             background: var(--bg-cream);
+        }
+        .floating-price-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: #f5f2ec;
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        .floating-price-badge .price-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        .floating-price-badge .price-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--copper);
+            font-family: serif;
+            letter-spacing: -0.02em;
+        }
+        @media (max-width: 768px) {
+            .floating-price-badge {
+                bottom: 1rem;
+                left: 1rem;
+                padding: 0.6rem 0.85rem;
+            }
+            .floating-price-badge .price-value {
+                font-size: 1.25rem;
+            }
+            .floating-price-badge .price-label {
+                font-size: 0.65rem;
+            }
         }
         .sprendimai-image {
             width: 100%;
@@ -1050,9 +1094,19 @@
     </section>
 
     <!-- ===== APIE MUS SECTION ===== -->
-    <section id="apie-mus" class="pt-6 md:pt-10 pb-6 px-4 bg-sand section-px">
+    <section id="apie-mus" class="pt-6 md:pt-10 pb-6 px-4 bg-sand section-px relative">
         <div class="max-w-4xl mx-auto">
-                <div class="text-left max-w-4xl">
+                <div class="text-left max-w-4xl relative">
+                <!-- Floating Meta Tag -->
+                <div class="absolute -right-4 top-0 hidden md:block bg-white rounded-lg shadow-lg px-4 py-3 z-10" style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded" style="background: var(--copper);"></div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">King Sauna</p>
+                            <p class="text-xs text-gray-600">Nuo 2014</p>
+                        </div>
+                    </div>
+                </div>
                 <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-3">Mūsų istorija</span>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style="color: var(--text-charcoal); letter-spacing: -0.02em; line-height: 1.2;">
                     Meistrystė, gimusi iš meilės pirties kultūrai
@@ -1072,21 +1126,26 @@
 
                 <!-- KLIENTŲ ATSILIEPIMAI integrated into About Us -->
                 <div class="mt-8 pb-6">
-                    <div class="flex items-center justify-center gap-6 mb-6">
-                        <div class="flex items-center gap-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Google Review Summary Badge -->
+                    <div class="flex items-center justify-center mb-8">
+                        <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 shadow-sm">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                             </svg>
-                            <span class="text-sm font-medium text-gray-700">Google</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                            <span class="text-sm font-medium text-gray-700">Facebook</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-gray-900">4.8</span>
+                                <div class="flex text-amber-400">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <span class="text-sm text-gray-600">50+ atsiliepimų</span>
+                            </div>
                         </div>
                     </div>
                     <div class="carousel-container relative" style="padding-bottom: 2.5rem;">
@@ -1125,16 +1184,16 @@
                             class="sprendimai-image"
                             loading="lazy"
                         >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 4,896€</span>
+                        </div>
                     </div>
                     <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
-                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                        <div class="mb-3 md:mb-4">
                             <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Autentiškos Lauko Pirtys
                             </h2>
-                            <div class="inline-price">
-                                <span class="price-from">nuo</span>
-                                <span class="price-amount">4,896€</span>
-                            </div>
                         </div>
                         <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Tradicinės lauko pirtys jūsų sodui ar kiemui. Aukščiausios kokybės mediena, atspari visoms oro sąlygoms.
@@ -1168,14 +1227,10 @@
             <div class="glass-card-light overflow-hidden">
                 <div class="grid md:grid-cols-2 gap-0">
                     <div class="p-6 md:p-10 flex flex-col justify-center order-2 md:order-1 bg-white">
-                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                        <div class="mb-3 md:mb-4">
                             <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Modernios Vidaus Saunos
                             </h2>
-                            <div class="inline-price">
-                                <span class="price-from">nuo</span>
-                                <span class="price-amount">5,500€</span>
-                            </div>
                         </div>
                         <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Kompaktiškos vidaus saunos bet kuriai namų ar buto patalpai. Funkcionalios ir elegantiškos.
@@ -1205,6 +1260,10 @@
                             class="sprendimai-image"
                             loading="lazy"
                         >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 5,500€</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1223,16 +1282,16 @@
                             class="sprendimai-image"
                             loading="lazy"
                         >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 1,709€</span>
+                        </div>
                     </div>
                     <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
-                        <div class="flex items-baseline gap-3 md:gap-4 mb-3 md:mb-4 flex-wrap">
+                        <div class="mb-3 md:mb-4">
                             <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
                                 Šildomi Kubilai Poilsiui
                             </h2>
-                            <div class="inline-price">
-                                <span class="price-from">nuo</span>
-                                <span class="price-amount">1,709€</span>
-                            </div>
                         </div>
                         <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
                             Mediniai ir stiklo pluošto kubilai su įvairiais šildymo būdais. Puikus pasirinkimas atsipalaidavimui.
@@ -1261,46 +1320,71 @@
     </section>
 
     <!-- ===== KAIP TAI VEIKIA ===== -->
-    <section id="kaip-veikia" class="py-8 md:py-12 px-4 bg-sand section-px">
-        <div class="max-w-6xl mx-auto">
+    <section id="kaip-veikia" class="py-12 md:py-16 px-4 section-px relative overflow-hidden" style="background: #1a3c34;">
+        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(185, 110, 72, 0.3) 40px, rgba(185, 110, 72, 0.3) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(185, 110, 72, 0.3) 40px, rgba(185, 110, 72, 0.3) 41px);"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--text-charcoal);">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
                     Kaip tai veikia?
                 </h2>
-                <p class="text-readable max-w-2xl mx-auto">
+                <p class="text-white/80 max-w-2xl mx-auto">
                     Paprastas kelias nuo idėjos iki įrengtos pirties ar kubilo
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Connecting line (desktop only) -->
+                <div class="hidden md:block absolute top-14 left-0 right-0 h-0.5" style="background: var(--copper); z-index: 1;"></div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
                         1
                     </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Susidėliojate norimą pirtį</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Pasirenkate pirties ar kubilo tipą ir atsakote į kelis trumpus klausimus apie savo poreikius.
-                    </p>
+                    <div class="glassmorphism-card p-6 text-center">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white" style="font-family: serif;">Susidėliojate norimą pirtį</h3>
+                        <p class="text-sm leading-relaxed text-white/80">
+                            Pasirenkate pirties ar kubilo tipą ir atsakote į kelis trumpus klausimus apie savo poreikius.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
                         2
                     </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Specialisto konsultacija</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Su Jumis susisieks vienas iš mūsų specialistų, aptarsite detales ir kartu išsirinksite geriausią sprendimą.
-                    </p>
+                    <div class="glassmorphism-card p-6 text-center">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white" style="font-family: serif;">Specialisto konsultacija</h3>
+                        <p class="text-sm leading-relaxed text-white/80">
+                            Su Jumis susisieks vienas iš mūsų specialistų, aptarsite detales ir kartu išsirinksite geriausią sprendimą.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="glass-card-light p-6 text-center">
-                    <div class="w-14 h-14 rounded-xl mx-auto mb-5 flex items-center justify-center text-white text-xl font-bold" style="background: var(--copper);">
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
                         3
                     </div>
-                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-charcoal);">Tikslus pasiūlymas ir įrengimas</h3>
-                    <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
-                        Paruošiame tikslų pasiūlymą, suderiname sąlygas ir maždaug po 2 savaičių galite džiaugtis nauja pirtimi ar kubilu.
-                    </p>
+                    <div class="glassmorphism-card p-6 text-center">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white" style="font-family: serif;">Tikslus pasiūlymas ir įrengimas</h3>
+                        <p class="text-sm leading-relaxed text-white/80">
+                            Paruošiame tikslų pasiūlymą, suderiname sąlygas ir maždaug po 2 savaičių galite džiaugtis nauja pirtimi ar kubilu.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1888,17 +1972,15 @@
             
             track.innerHTML = shuffledTestimonials.map(t => `
                 <div class="carousel-slide" style="width: ${100 / slidesPerView}%;">
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col">
-                        <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h4 class="font-bold text-lg">${t.name}</h4>
-                                <p class="text-gray-400 text-sm">${t.date}</p>
-                            </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-t-2 border-gray-200 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-semibold text-base text-gray-900">${t.name}</h4>
                             <div class="flex text-amber-400">
                                 ${Array(5).fill('<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>').join('')}
                             </div>
                         </div>
-                        <p class="text-gray-600 italic leading-relaxed mb-4">"${t.quote}"</p>
+                        <p class="text-gray-700 leading-relaxed mb-4 flex-grow" style="line-height: 1.6;">"${t.quote}"</p>
+                        <p class="text-gray-500 text-xs mt-auto">${t.date}</p>
                     </div>
                 </div>
             `).join('');
