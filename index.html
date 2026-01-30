@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kingsauna - profesionalūs saunų, lauko pirčių ir kubilų sprendimai Lietuvoje. Raskite tinkamiausią pirtį ar kubilą per trumpą apklausą.">
     <title>Kingsauna - Raskite Tobulą Pirtį ar Kubilą | Profesionalūs Sprendimai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html {
@@ -34,26 +35,59 @@
             --forest: #22543d;
             --forest-light: #276749;
             --forest-muted: #38a169;
+            --forest-deep: #1a3c34;     /* Dark background in 'How it works' */
+            --forest-grid: #244a40;     /* Grid pattern color */
             
             /* CTA - Copper */
             --copper: #b45c3a;
             --copper-dark: #9a4a2f;
             --copper-light: #c76a47;
+            --copper-main: #b45c3a;     /* Main CTA and icons */
             
             /* Text */
             --text-charcoal: #2d3748;
             --text-warm: #4a5568;
             --text-muted: #718096;
+            --text-dark: #2d3748;
             
             /* Glass */
             --glass-white: rgba(255, 255, 255, 0.92);
             --glass-border: rgba(34, 84, 61, 0.1);
         }
         
+        /* ===== PREMIUM TYPOGRAPHY ===== */
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
         /* ===== BACKGROUNDS ===== */
         .bg-sand { background-color: var(--bg-sand); }
         .bg-cream { background-color: var(--bg-cream); }
         .bg-forest-light { background-color: var(--bg-forest-light); }
+        
+        /* ===== GRID PATTERN BACKGROUND ===== */
+        .bg-grid-pattern {
+            background-color: var(--forest-deep);
+            background-image: 
+                radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        /* ===== REFINED GLASS CARD ===== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+        
+        /* ===== COPPER GLOW FOR CTAs ===== */
+        .cta-glow:hover {
+            box-shadow: 0 0 20px rgba(180, 92, 58, 0.4);
+        }
         
         /* ===== NAVIGATION ===== */
         .top-logo-bar {
