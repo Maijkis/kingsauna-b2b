@@ -2610,25 +2610,88 @@
                     submitted_at: new Date().toISOString()
                 };
                 
-                fetch('https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7', {
+                const webhookUrl = 'https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7';
+                
+                // Try JSON format first
+                fetch(webhookUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(webhookPayload)
                 })
-                .then(response => {
+                .then(async response => {
+                    const responseText = await response.text();
                     if (response.ok) {
-                        console.log('✅ Survey data sent to webhook successfully');
+                        console.log('✅ Survey data sent to webhook successfully', responseText);
                     } else {
-                        console.warn('⚠️ Webhook response not OK:', response.status);
+                        console.error('❌ Webhook JSON error:', response.status, responseText);
+                        // Try FormData format as fallback
+                        try {
+                            const formData = new FormData();
+                            Object.keys(webhookPayload).forEach(key => {
+                                const value = webhookPayload[key];
+                                if (value !== null && value !== undefined) {
+                                    if (typeof value === 'object') {
+                                        formData.append(key, JSON.stringify(value));
+                                    } else {
+                                        formData.append(key, String(value));
+                                    }
+                                }
+                            });
+                            
+                            const formResponse = await fetch(webhookUrl, {
+                                method: 'POST',
+                                body: formData
+                            });
+                            
+                            const formResponseText = await formResponse.text();
+                            if (formResponse.ok) {
+                                console.log('✅ Survey data sent to webhook successfully (form data format)', formResponseText);
+                            } else {
+                                console.error('❌ Webhook form data also failed:', formResponse.status, formResponseText);
+                                // Try URL-encoded format as last resort
+                                try {
+                                    const urlParams = new URLSearchParams();
+                                    Object.keys(webhookPayload).forEach(key => {
+                                        const value = webhookPayload[key];
+                                        if (value !== null && value !== undefined) {
+                                            if (typeof value === 'object') {
+                                                urlParams.append(key, JSON.stringify(value));
+                                            } else {
+                                                urlParams.append(key, String(value));
+                                            }
+                                        }
+                                    });
+                                    
+                                    const urlResponse = await fetch(webhookUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: urlParams.toString()
+                                    });
+                                    
+                                    const urlResponseText = await urlResponse.text();
+                                    if (urlResponse.ok) {
+                                        console.log('✅ Survey data sent to webhook successfully (URL-encoded format)', urlResponseText);
+                                    } else {
+                                        console.error('❌ All webhook formats failed. Last error:', urlResponse.status, urlResponseText);
+                                    }
+                                } catch (urlError) {
+                                    console.error('❌ URL-encoded fallback failed:', urlError);
+                                }
+                            }
+                        } catch (formError) {
+                            console.error('❌ Form data fallback failed:', formError);
+                        }
                     }
                 })
                 .catch(error => {
-                    console.warn('⚠️ Webhook submission failed (non-critical):', error);
+                    console.error('❌ Webhook submission failed:', error);
                 });
             } catch (e) {
-                console.warn('⚠️ Webhook submission error (non-critical):', e);
+                console.error('❌ Webhook submission error:', e);
             }
 
             try {
