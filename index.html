@@ -456,38 +456,6 @@
             margin: 0 -1rem;
             padding: 0 1rem;
         }
-        .product-carousel-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100px;
-            height: 100%;
-            background: linear-gradient(to right, #faf8f4 0%, rgba(250, 248, 244, 0.9) 30%, rgba(250, 248, 244, 0.5) 60%, transparent 100%);
-            pointer-events: none;
-            z-index: 10;
-        }
-        .product-carousel-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100%;
-            background: linear-gradient(to left, #faf8f4 0%, rgba(250, 248, 244, 0.9) 30%, rgba(250, 248, 244, 0.5) 60%, transparent 100%);
-            pointer-events: none;
-            z-index: 10;
-        }
-        @media (min-width: 768px) {
-            .product-carousel-wrapper::before,
-            .product-carousel-wrapper::after {
-                width: 150px;
-                background: linear-gradient(to right, #faf8f4 0%, rgba(250, 248, 244, 0.95) 25%, rgba(250, 248, 244, 0.7) 50%, rgba(250, 248, 244, 0.3) 75%, transparent 100%);
-            }
-            .product-carousel-wrapper::after {
-                background: linear-gradient(to left, #faf8f4 0%, rgba(250, 248, 244, 0.95) 25%, rgba(250, 248, 244, 0.7) 50%, rgba(250, 248, 244, 0.3) 75%, transparent 100%);
-            }
-        }
         .product-carousel-container {
             display: flex;
             gap: 1.25rem;
