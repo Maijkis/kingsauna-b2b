@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -283,7 +284,7 @@
         .product-card {
             background: var(--glass-white);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            box-shadow: none;
             border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
@@ -307,21 +308,14 @@
         }
         .product-card:hover {
             transform: translateY(-6px);
-            box-shadow: 
-                0 0 25px rgba(34, 84, 61, 0.12),
-                0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
             border-color: rgba(34, 84, 61, 0.2);
         }
         .product-card.featured {
-            box-shadow: 
-                0 0 0 2px rgba(180, 92, 58, 0.4),
-                0 8px 30px rgba(180, 92, 58, 0.12);
+            box-shadow: none;
         }
         .product-card.featured:hover {
-            box-shadow: 
-                0 0 0 2px rgba(180, 92, 58, 0.5),
-                0 0 30px rgba(180, 92, 58, 0.2),
-                0 20px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: none;
         }
         
         .badge-popular {
@@ -1124,7 +1118,7 @@
                 <div id="productCarousel" class="product-carousel-container">
                         <!-- Product Card 1: Bačka (Featured) -->
                         <div class="product-card-slide">
-                            <div class="product-card featured relative h-full bg-white shadow-sm" onclick="openProductModal('backa')">
+                            <div class="product-card featured relative h-full bg-white" onclick="openProductModal('backa')">
                                 <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
                                     Populiariausias
                                 </div>
@@ -1143,7 +1137,7 @@
 
                         <!-- Product Card 2: Kvadratinė -->
                         <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kvadratine')">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('kvadratine')">
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/kvadratine-modern-dark.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
                                 </div>
@@ -1159,7 +1153,7 @@
 
                         <!-- Product Card 3: Trikampė -->
                         <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('trikampe')">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('trikampe')">
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/iglu-premium-glass.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
                                 </div>
@@ -1175,7 +1169,7 @@
 
                         <!-- Product Card 4: Mobili -->
                         <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('mobili')">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('mobili')">
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/mobile-beach.jpg" alt="Mobili pirtis ant priekabos" class="product-image" loading="lazy">
                                 </div>
@@ -1191,7 +1185,7 @@
 
                         <!-- Product Card 5: Kubilas -->
                         <div class="product-card-slide">
-                            <div class="product-card h-full bg-white shadow-sm" onclick="openProductModal('kubilas')">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('kubilas')">
                                 <div class="aspect-[4/3] image-container">
                                     <img src="images/kubilas-wood.jpg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
                                 </div>
