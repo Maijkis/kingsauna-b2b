@@ -2061,9 +2061,32 @@
         }
 
         function updateCarousel() {
+            const container = document.querySelector('.carousel-container');
             const track = document.getElementById('carouselTrack');
-            track.style.transform = `translateX(-${currentSlide * (100 / slidesPerView)}%)`;
+            if (container && track) {
+                // Use native scroll instead of transform
+                const slideWidth = container.offsetWidth / slidesPerView;
+                container.scrollTo({
+                    left: currentSlide * slideWidth,
+                    behavior: 'smooth'
+                });
+            }
             document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        }
+        
+        // Update dots based on scroll position for native scrolling
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('scroll', () => {
+                const scrollLeft = carouselContainer.scrollLeft;
+                const slideWidth = carouselContainer.offsetWidth / slidesPerView;
+                const newSlide = Math.round(scrollLeft / slideWidth);
+                const max = Math.ceil(shuffledTestimonials.length / slidesPerView) - 1;
+                if (newSlide !== currentSlide && newSlide >= 0 && newSlide <= max) {
+                    currentSlide = newSlide;
+                    document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+                }
+            });
         }
 
         function goToSlide(i) {
