@@ -587,6 +587,10 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 0.5rem;
         }
+        .icon-boxes-grid-stove {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
         .icon-box-option-consultation {
             display: flex;
             align-items: center;
@@ -630,6 +634,10 @@
         @media (max-width: 640px) {
             .icon-boxes-grid-main {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+            .icon-boxes-grid-stove {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
             }
             .icon-box-option {
@@ -1103,7 +1111,7 @@
             <div class="step" id="step-lauko-5">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks pečiaus tipas?</h2>
-                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                    <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
                         <button onclick="selectLaukoPecius('Malkinis')" class="icon-box-option touch-manipulation" data-value="Malkinis">
                             <img src="images/stove-wood.jpg" alt="Malkinis pečius" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Malkinis</div>
