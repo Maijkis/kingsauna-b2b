@@ -2414,31 +2414,34 @@
     </script>
 
     <!-- ===== SURVEY MODAL ===== -->
-    <div id="surveyModal" class="modal-overlay" style="z-index: 10000;">
-        <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto; background: var(--bg-sand);">
-            <button onclick="closeSurveyModal()" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors shadow-md" style="color: var(--text-charcoal);" aria-label="Uždaryti">
+    <div id="surveyModal" class="modal-overlay" style="z-index: 10000; background: rgba(0, 0, 0, 0.7);">
+        <div class="modal-content" style="max-width: 1000px; width: 95%; max-height: 95vh; overflow-y: auto; background: white; border-radius: 16px; position: relative;">
+            <button onclick="closeSurveyModal()" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors shadow-lg" style="color: var(--text-charcoal);" aria-label="Uždaryti">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
             
-            <div class="p-4 md:p-6">
+            <div class="p-6 md:p-8">
                 <!-- Survey Header -->
                 <div id="surveyModalHeader" class="text-center mb-6">
                     <img src="images/logo.png" alt="Kingsauna Logo" class="h-10 md:h-12 w-auto mx-auto mb-4" loading="lazy">
+                    <h2 class="text-xl md:text-2xl font-bold" style="color: var(--text-charcoal);">Individualus sprendimo pasirinkimas</h2>
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="mb-2 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div id="surveyProgressBar" class="h-full bg-forest transition-all duration-300" style="width: 0%"></div>
-                </div>
-                <div class="text-center text-sm mb-6 font-medium" style="color: var(--text-muted);">
-                    <span id="surveyProgressText">Žingsnis 1 iš 1</span>
+                <div class="mb-4">
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
+                        <div id="surveyProgressBar" class="h-full bg-forest transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <div class="text-center text-sm font-medium" style="color: var(--text-muted);">
+                        <span id="surveyProgressText">Žingsnis 1 iš 1</span>
+                    </div>
                 </div>
 
                 <!-- Survey Content Container -->
-                <div id="surveyContent">
-                    <!-- Survey content will be loaded here -->
+                <div id="surveyContent" style="min-height: 400px;">
+                    <!-- Survey content will be loaded here via iframe -->
                 </div>
             </div>
         </div>
