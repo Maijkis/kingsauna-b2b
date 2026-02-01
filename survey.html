@@ -2825,15 +2825,15 @@
                 
                 // Set total steps and navigate to step 2
                 if (quickSelect === 'lauko') {
-                    totalSteps = 11;
+                    totalSteps = 8;
                     goToStep('step-lauko-2', 2);
                 } else if (quickSelect === 'vidaus') {
-                    totalSteps = 6;
+                    totalSteps = 7;
                     goToStep('step-vidaus-2', 2);
                 } else if (quickSelect === 'kubila' || quickSelect === 'kubilas') {
                     // Normalize to 'kubila' for consistency
                     surveyData.type = 'kubila';
-                    totalSteps = 8;
+                    totalSteps = 9;
                     goToStep('step-kubilas-2', 2);
                 }
                 
