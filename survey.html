@@ -726,7 +726,7 @@
             background: rgba(34, 84, 61, 0.1);
             border-radius: 9999px;
             overflow: hidden;
-            height: 2px;
+            height: 4px;
         }
         .progress-bar-fill {
             background: linear-gradient(90deg, var(--forest-muted), var(--forest));
@@ -2473,14 +2473,10 @@
                 setTimeout(() => initBudgetSlider('vidaus'), 100);
             }
             
-            // Hide/show header based on step number (only show on step 1)
+            // Keep logo visible on all steps
             const surveyHeader = document.getElementById('surveyHeader');
             if (surveyHeader) {
-                if (stepNumber === 1) {
-                    surveyHeader.style.display = 'block';
-                } else {
-                    surveyHeader.style.display = 'none';
-                }
+                surveyHeader.style.display = 'block';
             }
             
             // Smooth scroll to top with better mobile support
@@ -2528,11 +2524,10 @@
                 // Hide/show header based on step number (only show on step 1)
                 const surveyHeader = document.getElementById('surveyHeader');
                 if (surveyHeader) {
-                    if (previousStep === 1) {
-                        surveyHeader.style.display = 'block';
-                    } else {
-                        surveyHeader.style.display = 'none';
-                    }
+                // Keep logo visible on all steps
+                if (surveyHeader) {
+                    surveyHeader.style.display = 'block';
+                }
                 }
                 
                 // Smooth scroll to top with better mobile support
