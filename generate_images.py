@@ -45,7 +45,7 @@ IMAGE_SPECS = [
         "alt": "Mobili pirtis ant priekabos"
     },
     {
-        "filename": "kubilas-wood.jpg",
+        "filename": "kubilas-wooden-natural.jpg",
         "prompt": "Professional photography of a wooden hot tub (kubilas) exterior, modern design, natural wood finish, outdoor setting, Scandinavian style, natural lighting, high quality product photography, 4K, clean composition",
         "alt": "Stiklo pluošto kubilas"
     },
