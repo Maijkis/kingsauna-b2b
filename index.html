@@ -2414,28 +2414,27 @@
     </script>
 
     <!-- ===== SURVEY MODAL ===== -->
-    <div id="surveyModal" class="modal-overlay" style="z-index: 10000; background: rgba(0, 0, 0, 0.7);">
-        <div class="modal-content" style="max-width: 1000px; width: 95%; max-height: 95vh; overflow-y: auto; background: white; border-radius: 16px; position: relative;">
-            <button onclick="closeSurveyModal()" class="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors shadow-lg" style="color: var(--text-charcoal);" aria-label="Uždaryti">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            
-            <div class="p-6 md:p-8">
-                <!-- Survey Header -->
-                <div id="surveyModalHeader" class="text-center mb-6">
-                    <img src="images/logo.png" alt="Kingsauna Logo" class="h-10 md:h-12 w-auto mx-auto mb-4" loading="lazy">
-                    <h2 class="text-xl md:text-2xl font-bold" style="color: var(--text-charcoal);">Individualus sprendimo pasirinkimas</h2>
+    <div id="surveyModal" class="modal-overlay" style="z-index: 10000; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);">
+        <div class="modal-content" style="max-width: 900px; width: 95%; max-height: 95vh; overflow-y: auto; background: white; border-radius: 0; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <!-- Gold Header -->
+            <div style="background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <div style="flex: 1;"></div>
+                <h2 class="text-lg md:text-xl font-bold text-center" style="color: #1a1a1a; flex: 2;">INDIVIDUALUS SPRENDIMO PASIRINKIMAS</h2>
+                <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <button onclick="closeSurveyModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors" style="color: #1a1a1a;" aria-label="Uždaryti">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
                 </div>
-
-                <!-- Progress Bar -->
-                <div class="mb-4">
-                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
+            </div>
+            
+            <div class="p-6 md:p-8" style="background: white;">
+                <!-- Progress Indicator -->
+                <div class="mb-6">
+                    <div class="text-sm font-medium mb-2" style="color: var(--text-charcoal);">Užsakymo progresas</div>
+                    <div class="h-2 bg-gray-300 rounded-full overflow-hidden">
                         <div id="surveyProgressBar" class="h-full bg-forest transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                    <div class="text-center text-sm font-medium" style="color: var(--text-muted);">
-                        <span id="surveyProgressText">Žingsnis 1 iš 1</span>
                     </div>
                 </div>
 
@@ -2492,19 +2491,37 @@
             }
         });
 
-        // Load survey content - use iframe for full functionality
+        // Load survey content - embed directly for better styling control
         function loadSurveyContent(quickSelect = null) {
             const surveyContent = document.getElementById('surveyContent');
             if (surveyContent) {
+                // For now, use iframe but we'll style it to match reference
                 const iframe = document.createElement('iframe');
                 iframe.src = 'survey.html' + (quickSelect ? '?type=' + quickSelect : '');
                 iframe.style.width = '100%';
-                iframe.style.height = '70vh';
+                iframe.style.height = '65vh';
                 iframe.style.border = 'none';
-                iframe.style.borderRadius = '12px';
+                iframe.style.borderRadius = '0';
                 iframe.allow = 'fullscreen';
                 surveyContent.innerHTML = '';
                 surveyContent.appendChild(iframe);
+                
+                // Add custom styles to iframe when loaded
+                iframe.onload = function() {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const style = iframeDoc.createElement('style');
+                        style.textContent = `
+                            body { background: white !important; padding: 0 !important; }
+                            .min-h-screen { min-height: auto !important; padding: 0 !important; }
+                            .max-w-2xl { max-width: 100% !important; }
+                            #surveyHeader { display: none !important; }
+                        `;
+                        iframeDoc.head.appendChild(style);
+                    } catch(e) {
+                        // Cross-origin restrictions - that's ok
+                    }
+                };
             }
         }
 
