@@ -1846,7 +1846,7 @@
         function toggleLaukoForma(value) {
             if (!surveyData.lauko.forma) surveyData.lauko.forma = [];
             
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
             const index = surveyData.lauko.forma.indexOf(value);
             
             if (index > -1) {
