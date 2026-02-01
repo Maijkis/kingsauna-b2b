@@ -2164,11 +2164,7 @@
             if (nextStep < 11) {
                 goToStep(`step-lauko-${nextStep}`, nextStep);
             } else if (nextStep === 11) {
-                // Budget step validation
-                if (!surveyData.lauko.biudzetas) {
-                    showValidationError('Prašome pasirinkti biudžetą.');
-                    return;
-                }
+                // Budget step - optional, no validation needed
                 goToContact();
             } else {
                 goToContact();
@@ -2315,11 +2311,7 @@
             if (currentStepNum < 8) {
                 goToStep(`step-kubilas-${currentStepNum + 1}`, currentStepNum + 1);
             } else if (currentStepNum === 8) {
-                // Budget step validation
-                if (!surveyData.kubilas.biudzetas) {
-                    showValidationError('Prašome pasirinkti biudžetą.');
-                    return;
-                }
+                // Budget step - optional, no validation needed
                 goToContact();
             } else {
                 goToContact();
@@ -2401,11 +2393,7 @@
             if (currentStepNum < 6) {
                 goToStep(`step-vidaus-${currentStepNum + 1}`, currentStepNum + 1);
             } else if (currentStepNum === 6) {
-                // Budget step validation
-                if (!surveyData.vidaus.biudzetas) {
-                    showValidationError('Prašome pasirinkti biudžetą.');
-                    return;
-                }
+                // Budget step - optional, no validation needed
                 goToContact();
             } else {
                 goToContact();
