@@ -862,10 +862,10 @@
 
             <!-- LAUKO PIRTIES SURVEY -->
             <!-- Step 2: Forma / tipas (MULTI-SELECT) -->
-            <div class="step" id="step-lauko-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios formos lauko pirtis jus domina?</h2>
-                    <div class="icon-boxes-grid">
+            <div class="step" id="step-lauko-2" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                <div class="glass-card p-3 md:p-8 lg:p-12" style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-2 md:mb-6 text-center px-2" style="color: var(--text-charcoal); flex-shrink: 0;">Kokios formos lauko pirtis jus domina?</h2>
+                    <div class="icon-boxes-grid" style="flex: 1; min-height: 0;">
                         <button onclick="toggleLaukoForma('Namelis')" class="icon-box-option touch-manipulation" data-value="Namelis">
                             <img src="images/modern-pod-saunas.jpg" alt="Namelis" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Namelis</div>
@@ -1177,8 +1177,8 @@
 
             <!-- KUBILŲ SURVEY -->
             <!-- Step 2: Kubilo tipas -->
-            <div class="step" id="step-kubilas-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+            <div class="step" id="step-kubilas-2" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                <div class="glass-card p-3 md:p-8 lg:p-12" style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectKubilasOption('tipas', 'Medinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
@@ -1412,8 +1412,8 @@
 
             <!-- VIDAUS PIRTIES SURVEY -->
             <!-- Step 2: Vieta -->
-            <div class="step" id="step-vidaus-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+            <div class="step" id="step-vidaus-2" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+                <div class="glass-card p-3 md:p-8 lg:p-12" style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kur bus įrengiama pirtis?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectVidausOption('vieta', 'Bute')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
