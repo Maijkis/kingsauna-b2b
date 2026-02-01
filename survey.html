@@ -1884,11 +1884,11 @@
         // ===== LAUKO STEP 5: PEČIUS (SINGLE-SELECT) =====
         function selectLaukoPecius(value) {
             const stepEl = document.getElementById('step-lauko-5');
-            stepEl.querySelectorAll('.icon-box-option, .option-button').forEach(btn => {
+            stepEl.querySelectorAll('.icon-box-option, .option-button, .icon-box-option-consultation').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
-            button.classList.add('selected');
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
+            if (button) button.classList.add('selected');
             surveyData.lauko.pecius = value;
         }
 
