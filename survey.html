@@ -587,7 +587,9 @@
             grid-template-columns: repeat(3, 1fr);
         }
         .icon-boxes-grid-secondary {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(1, 1fr);
+            max-width: 300px;
+            margin: 0 auto;
         }
         @media (max-width: 640px) {
             .icon-boxes-grid-main,
@@ -1010,14 +1012,6 @@
                     </div>
                     <!-- Second row: Other options -->
                     <div class="icon-boxes-grid icon-boxes-grid-secondary">
-                        <button onclick="toggleLaukoForma('Namelis')" class="icon-box-option touch-manipulation" data-value="Namelis">
-                            <img src="images/modern-pod-saunas.jpg" alt="Namelis" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Namelis</div>
-                        </button>
-                        <button onclick="toggleLaukoForma('Lapų formos')" class="icon-box-option touch-manipulation" data-value="Lapų formos">
-                            <img src="images/trikampe-iglu.jpg" alt="Lapų formos" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Lapų formos</div>
-                        </button>
                         <button onclick="toggleLaukoForma('Norėčiau Pasikonsultuoti')" class="icon-box-option touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
                             <div class="icon-box-icon">?</div>
                             <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
