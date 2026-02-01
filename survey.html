@@ -1131,20 +1131,10 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
+                            <div class="budget-value-display" id="lauko-budget-value">1000€</div>
                             <div class="budget-slider-track" id="lauko-budget-track">
                                 <div class="budget-slider-fill" id="lauko-budget-fill"></div>
                                 <div class="budget-slider-handle" id="lauko-budget-handle"></div>
-                            </div>
-                            <div class="budget-labels flex justify-between mt-4">
-                                <button onclick="selectBudget('lauko', '1000-2000')" class="budget-label-btn" data-value="1000-2000">
-                                    <span class="budget-amount">1000€ - 2000€</span>
-                                </button>
-                                <button onclick="selectBudget('lauko', '2000-3000')" class="budget-label-btn" data-value="2000-3000">
-                                    <span class="budget-amount">2000€ - 3000€</span>
-                                </button>
-                                <button onclick="selectBudget('lauko', '3000-4000+')" class="budget-label-btn" data-value="3000-4000+">
-                                    <span class="budget-amount">3000€ - 4000+ €</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1396,21 +1386,10 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
+                            <div class="budget-value-display" id="kubilas-budget-value">1000€</div>
                             <div class="budget-slider-track" id="kubilas-budget-track">
                                 <div class="budget-slider-fill" id="kubilas-budget-fill"></div>
                                 <div class="budget-slider-handle" id="kubilas-budget-handle"></div>
-                            </div>
-                            <div class="budget-value-display" id="kubilas-budget-value">1000€</div>
-                            <div class="budget-labels flex justify-between mt-4">
-                                <button onclick="selectBudget('kubilas', '1000-2000')" class="budget-label-btn" data-value="1000-2000">
-                                    <span class="budget-amount">1000€ - 2000€</span>
-                                </button>
-                                <button onclick="selectBudget('kubilas', '2000-3000')" class="budget-label-btn" data-value="2000-3000">
-                                    <span class="budget-amount">2000€ - 3000€</span>
-                                </button>
-                                <button onclick="selectBudget('kubilas', '3000-4000+')" class="budget-label-btn" data-value="3000-4000+">
-                                    <span class="budget-amount">3000€ - 4000+ €</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1533,21 +1512,10 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
+                            <div class="budget-value-display" id="vidaus-budget-value">1000€</div>
                             <div class="budget-slider-track" id="vidaus-budget-track">
                                 <div class="budget-slider-fill" id="vidaus-budget-fill"></div>
                                 <div class="budget-slider-handle" id="vidaus-budget-handle"></div>
-                            </div>
-                            <div class="budget-value-display" id="vidaus-budget-value">1000€</div>
-                            <div class="budget-labels flex justify-between mt-4">
-                                <button onclick="selectBudget('vidaus', '1000-2000')" class="budget-label-btn" data-value="1000-2000">
-                                    <span class="budget-amount">1000€ - 2000€</span>
-                                </button>
-                                <button onclick="selectBudget('vidaus', '2000-3000')" class="budget-label-btn" data-value="2000-3000">
-                                    <span class="budget-amount">2000€ - 3000€</span>
-                                </button>
-                                <button onclick="selectBudget('vidaus', '3000-4000+')" class="budget-label-btn" data-value="3000-4000+">
-                                    <span class="budget-amount">3000€ - 4000+ €</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1915,7 +1883,7 @@
             let startX = 0;
             
             const minValue = 1000;
-            const maxValue = 4000;
+            const maxValue = 5000;
             const snapPoints = [2000, 3000]; // Snap points in euros
             
             // Convert value to percentage
@@ -1934,8 +1902,10 @@
                     return '1000-2000';
                 } else if (value < 3000) {
                     return '2000-3000';
+                } else if (value < 5000) {
+                    return '3000-5000';
                 } else {
-                    return '3000-4000+';
+                    return '5000+';
                 }
             }
             
