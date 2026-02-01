@@ -1703,14 +1703,18 @@
             lauko: {
                 forma: [],
                 mediena: [],
-                medienaKita: ''
+                medienaKita: '',
+                biudzetas: null
             },
-            kubilas: {},
+            kubilas: {
+                biudzetas: null
+            },
             vidaus: {
                 vieta: null,
                 tipas: null,
                 ismatavimai: null,
-                krosnele: null
+                krosnele: null,
+                biudzetas: null
             }
         };
 
@@ -1820,6 +1824,47 @@
             });
             event.target.closest('.option-button').classList.add('selected');
             surveyData.lauko.pristatymas = value;
+        }
+
+        // ===== BUDGET SELECTION FUNCTION =====
+        function selectBudget(type, value) {
+            const positionMap = {
+                '1000-2000': 1,
+                '2000-3000': 2,
+                '3000-4000+': 3
+            };
+            const position = positionMap[value];
+            
+            // Update survey data
+            if (type === 'lauko') {
+                surveyData.lauko.biudzetas = value;
+            } else if (type === 'kubilas') {
+                surveyData.kubilas.biudzetas = value;
+            } else if (type === 'vidaus') {
+                surveyData.vidaus.biudzetas = value;
+            }
+            
+            // Update UI elements
+            const fillId = `${type}-budget-fill`;
+            const handleId = `${type}-budget-handle`;
+            const fill = document.getElementById(fillId);
+            const handle = document.getElementById(handleId);
+            const stepId = type === 'lauko' ? 'step-lauko-11' : type === 'kubilas' ? 'step-kubilas-8' : 'step-vidaus-6';
+            const buttons = document.querySelectorAll(`#${stepId} .budget-label-btn`);
+            
+            // Update slider position
+            if (fill && handle) {
+                fill.setAttribute('data-position', position);
+                handle.setAttribute('data-position', position);
+            }
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.getAttribute('data-value') === value) {
+                    btn.classList.add('selected');
+                }
+            });
         }
 
         // ===== LAUKO NAVIGATION =====
