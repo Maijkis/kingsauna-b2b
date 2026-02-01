@@ -2231,13 +2231,13 @@
             if (nextStep === 7) nextStep = 9; // Skip langai/durys
             if (nextStep === 8) nextStep = 9; // Skip praėjimai
             
-            if (nextStep === 11) {
-                // Budget step - go to budget step (before additional questions)
+            // After step 9 (delivery), go to step 11 (budget) before step 10 (additional questions)
+            if (currentStepNum === 9) {
                 goToStep('step-lauko-11', 11);
-            } else if (nextStep === 10) {
+            } else if (currentStepNum === 11) {
                 // After budget (11), go to additional questions (10)
                 goToStep('step-lauko-10', 10);
-            } else if (nextStep === 12) {
+            } else if (currentStepNum === 10) {
                 // After additional questions (10), go to contact
                 goToContact();
             } else if (nextStep < 11) {
