@@ -1957,12 +1957,12 @@
                 
                 let value = percentToValue(percent);
                 
-                // Snap to nearest snap point if within threshold
-                if (snap) {
-                    const nearestSnap = findNearestSnap(value);
-                    if (Math.abs(value - nearestSnap) < (maxValue - minValue) * 0.1) {
-                        value = nearestSnap;
-                        percent = valueToPercent(value);
+                // Always snap to nearest snap point
+                const nearestSnap = findNearestSnap(value);
+                if (snap || Math.abs(value - nearestSnap) < (maxValue - minValue) * 0.15) {
+                    value = nearestSnap;
+                    percent = valueToPercent(value);
+                    if (snap) {
                         handle.classList.add('snapping');
                     }
                 }
@@ -1975,11 +1975,10 @@
                 
                 // Update value display
                 if (valueDisplay) {
-                    const roundedValue = Math.round(value);
-                    if (roundedValue >= 5000) {
+                    if (value >= 5000) {
                         valueDisplay.textContent = '5000+€';
                     } else {
-                        valueDisplay.textContent = roundedValue + '€';
+                        valueDisplay.textContent = value + '€';
                     }
                 }
                 
