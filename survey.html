@@ -1125,19 +1125,7 @@
             </div>
 
             <!-- Step 10: Individualūs sprendimai -->
-            <div class="step" id="step-lauko-10">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar turite papildomų pageidavimų?</h2>
-                    <p class="helper-text text-center mb-4">(Nebūtina užpildyti)</p>
-                    <textarea id="lauko-pageidavimai" rows="5" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Pvz.: norėčiau LED apšvietimo, turiu klausimų dėl stogo dangos, svarstau apie papildomą langą..."></textarea>
-                    <div class="flex flex-col md:flex-row gap-4 mt-6">
-                        <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
-                        <button onclick="nextLaukoStep(10)" class="cta-primary py-4 px-6 md:px-10 text-base md:text-lg w-full md:w-auto min-h-[56px] touch-manipulation">Tęsti</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 11: Budget (LAUKO) -->
+            <!-- Step 11: Budget (LAUKO) - Before additional questions -->
             <div class="step" id="step-lauko-11">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
@@ -1163,6 +1151,18 @@
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
                         <button onclick="nextLaukoStep(11)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" id="step-lauko-10">
+                <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar turite papildomų pageidavimų?</h2>
+                    <p class="helper-text text-center mb-4">(Nebūtina užpildyti)</p>
+                    <textarea id="lauko-pageidavimai" rows="5" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Pvz.: norėčiau LED apšvietimo, turiu klausimų dėl stogo dangos, svarstau apie papildomą langą..."></textarea>
+                    <div class="flex flex-col md:flex-row gap-4 mt-6">
+                        <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
+                        <button onclick="nextLaukoStep(10)" class="cta-primary py-4 px-6 md:px-10 text-base md:text-lg w-full md:w-auto min-h-[56px] touch-manipulation">Tęsti</button>
                     </div>
                 </div>
             </div>
@@ -2173,12 +2173,18 @@
             if (nextStep === 8) nextStep = 9; // Skip praėjimai
             
             if (nextStep === 11) {
-                // Budget step - go to budget step
+                // Budget step - go to budget step (before additional questions)
                 goToStep('step-lauko-11', 11);
+            } else if (nextStep === 10) {
+                // After budget (11), go to additional questions (10)
+                goToStep('step-lauko-10', 10);
+            } else if (nextStep === 12) {
+                // After additional questions (10), go to contact
+                goToContact();
             } else if (nextStep < 11) {
                 goToStep(`step-lauko-${nextStep}`, nextStep);
             } else {
-                // After budget step, go to contact
+                // Fallback to contact
                 goToContact();
             }
         }
@@ -2503,6 +2509,10 @@
                     if (previousStep === 4) previousStep = 3; // Skip mediena
                     if (previousStep === 7) previousStep = 6; // Skip langai/durys
                     if (previousStep === 8) previousStep = 6; // Skip praėjimai
+                    // Handle new order: step 9 -> step 11 (budget) -> step 10 (additional) -> contact
+                    if (previousStep === 12) previousStep = 10; // After contact, go back to additional questions
+                    if (previousStep === 10) previousStep = 11; // From additional questions, go back to budget
+                    if (previousStep === 11) previousStep = 9; // From budget, go back to delivery
                 }
                 
                 document.querySelectorAll('.step').forEach(step => {
