@@ -407,11 +407,30 @@
         .budget-value-display {
             text-align: center;
             margin-bottom: 2rem;
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--forest);
-            min-height: 2.5rem;
+            min-height: 3rem;
             position: relative;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 84, 61, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(34, 84, 61, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 640px) {
+            .budget-value-display {
+                font-size: 2rem;
+                padding: 1.25rem 1.5rem;
+                max-width: 100%;
+            }
         }
         .budget-slider-handle {
             position: absolute;
@@ -1885,7 +1904,7 @@
             
             const minValue = 1000;
             const maxValue = 5000;
-            const snapPoints = [2000, 3000]; // Snap points in euros
+            const snapPoints = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000]; // Snap points in euros
             
             // Convert value to percentage
             function valueToPercent(value) {
@@ -1917,13 +1936,18 @@
                 
                 snapPoints.forEach(snap => {
                     const dist = Math.abs(value - snap);
-                    if (dist < minDist && dist < (maxValue - minValue) * 0.1) { // 10% threshold
+                    if (dist < minDist) {
                         minDist = dist;
                         nearest = snap;
                     }
                 });
                 
-                return nearest;
+                // Always snap to nearest point if within reasonable distance
+                if (minDist < (maxValue - minValue) * 0.15) { // 15% threshold for snapping
+                    return nearest;
+                }
+                
+                return value;
             }
             
             function updateSlider(x, snap = false) {
