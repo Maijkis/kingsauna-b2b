@@ -1910,49 +1910,95 @@
             
             let isDragging = false;
             let startX = 0;
-            let startLeft = 0;
             
-            const valueMap = {
-                1: '1000-2000',
-                2: '2000-3000',
-                3: '3000-4000+'
-            };
+            const minValue = 1000;
+            const maxValue = 4000;
+            const snapPoints = [2000, 3000]; // Snap points in euros
             
-            const positions = [16.66, 50, 83.33]; // Percentage positions for each option
+            // Convert value to percentage
+            function valueToPercent(value) {
+                return ((value - minValue) / (maxValue - minValue)) * 100;
+            }
             
-            function getPositionFromX(x) {
-                const rect = track.getBoundingClientRect();
-                const percent = ((x - rect.left) / rect.width) * 100;
-                
-                // Snap to nearest position
-                let closestPos = 0;
+            // Convert percentage to value
+            function percentToValue(percent) {
+                return minValue + (percent / 100) * (maxValue - minValue);
+            }
+            
+            // Get budget range string from value
+            function getBudgetRange(value) {
+                if (value < 2000) {
+                    return '1000-2000';
+                } else if (value < 3000) {
+                    return '2000-3000';
+                } else {
+                    return '3000-4000+';
+                }
+            }
+            
+            // Find nearest snap point
+            function findNearestSnap(value) {
+                let nearest = value;
                 let minDist = Infinity;
-                positions.forEach((pos, index) => {
-                    const dist = Math.abs(percent - pos);
-                    if (dist < minDist) {
+                
+                snapPoints.forEach(snap => {
+                    const dist = Math.abs(value - snap);
+                    if (dist < minDist && dist < (maxValue - minValue) * 0.1) { // 10% threshold
                         minDist = dist;
-                        closestPos = index + 1;
+                        nearest = snap;
                     }
                 });
                 
-                return closestPos;
+                return nearest;
             }
             
-            function updateSlider(x) {
-                const position = getPositionFromX(x);
-                const value = valueMap[position];
+            function updateSlider(x, snap = false) {
+                const rect = track.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
                 
-                // Update survey data
-                if (type === 'lauko') {
-                    surveyData.lauko.biudzetas = value;
-                } else if (type === 'kubilas') {
-                    surveyData.kubilas.biudzetas = value;
-                } else if (type === 'vidaus') {
-                    surveyData.vidaus.biudzetas = value;
+                let value = percentToValue(percent);
+                
+                // Snap to nearest snap point if within threshold
+                if (snap) {
+                    const nearestSnap = findNearestSnap(value);
+                    if (Math.abs(value - nearestSnap) < (maxValue - minValue) * 0.1) {
+                        value = nearestSnap;
+                        percent = valueToPercent(value);
+                        handle.classList.add('snapping');
+                    }
                 }
                 
-                // Update UI
-                updateBudgetSlider(type, position, value);
+                // Update handle position
+                handle.style.left = percent + '%';
+                
+                // Update fill
+                fill.style.width = percent + '%';
+                
+                // Update value display
+                if (valueDisplay) {
+                    const roundedValue = Math.round(value);
+                    valueDisplay.textContent = roundedValue + '€';
+                }
+                
+                // Update survey data with range
+                const budgetRange = getBudgetRange(value);
+                if (type === 'lauko') {
+                    surveyData.lauko.biudzetas = budgetRange;
+                } else if (type === 'kubilas') {
+                    surveyData.kubilas.biudzetas = budgetRange;
+                } else if (type === 'vidaus') {
+                    surveyData.vidaus.biudzetas = budgetRange;
+                }
+                
+                // Update button states
+                const buttons = document.querySelectorAll(`#${stepId} .budget-label-btn`);
+                buttons.forEach(btn => {
+                    btn.classList.remove('selected');
+                    if (btn.getAttribute('data-value') === budgetRange) {
+                        btn.classList.add('selected');
+                    }
+                });
             }
             
             function startDrag(e) {
