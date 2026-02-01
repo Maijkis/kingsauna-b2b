@@ -1149,12 +1149,17 @@
             <div class="step" id="step-lauko-6">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectLaukoPriepirtis('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <button onclick="selectLaukoPriepirtis('Taip')" class="option-button rounded-xl p-5 md:p-6 text-center relative touch-manipulation min-h-[100px] md:min-h-[120px]" data-value="Taip">
                             <div class="font-bold text-lg md:text-xl">Taip</div>
                         </button>
-                        <button onclick="selectLaukoPriepirtis('Ne')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Ne">
+                        <button onclick="selectLaukoPriepirtis('Ne')" class="option-button rounded-xl p-5 md:p-6 text-center relative touch-manipulation min-h-[100px] md:min-h-[120px]" data-value="Ne">
                             <div class="font-bold text-lg md:text-xl">Ne</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectLaukoPriepirtis('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
@@ -1910,11 +1915,15 @@
         function selectLaukoPriepirtis(value) {
             const stepEl = document.getElementById('step-lauko-6');
             
-            // Deselect both Taip/Ne buttons
-            stepEl.querySelectorAll('.option-button[data-value="Taip"], .option-button[data-value="Ne"]').forEach(btn => {
+            // Deselect all buttons
+            stepEl.querySelectorAll('.option-button, .icon-box-option-consultation').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            event.target.closest('.option-button').classList.add('selected');
+            
+            // Select the clicked button
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option-consultation');
+            if (button) button.classList.add('selected');
+            
             surveyData.lauko.priepirtis = value;
         }
 
