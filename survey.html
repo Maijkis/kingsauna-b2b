@@ -2172,12 +2172,13 @@
             if (nextStep === 7) nextStep = 9; // Skip langai/durys
             if (nextStep === 8) nextStep = 9; // Skip praėjimai
             
-            if (nextStep < 11) {
+            if (nextStep === 11) {
+                // Budget step - go to budget step
+                goToStep('step-lauko-11', 11);
+            } else if (nextStep < 11) {
                 goToStep(`step-lauko-${nextStep}`, nextStep);
-            } else if (nextStep === 11) {
-                // Budget step - optional, no validation needed
-                goToContact();
             } else {
+                // After budget step, go to contact
                 goToContact();
             }
         }
@@ -2402,11 +2403,14 @@
                 return;
             }
 
-            if (currentStepNum < 6) {
-                goToStep(`step-vidaus-${currentStepNum + 1}`, currentStepNum + 1);
+            if (currentStepNum === 5) {
+                // Go to budget step
+                goToStep('step-vidaus-6', 6);
             } else if (currentStepNum === 6) {
-                // Budget step - optional, no validation needed
+                // After budget step, go to contact
                 goToContact();
+            } else if (currentStepNum < 6) {
+                goToStep(`step-vidaus-${currentStepNum + 1}`, currentStepNum + 1);
             } else {
                 goToContact();
             }
