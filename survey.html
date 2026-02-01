@@ -828,6 +828,10 @@
             background: white;
             font-size: 16px !important; /* Prevent iOS zoom */
         }
+        .form-input::placeholder {
+            color: #9ca3af;
+            opacity: 0.7;
+        }
         .form-input:focus {
             border-color: var(--forest-muted);
             outline: none;
@@ -837,6 +841,9 @@
         @media (max-width: 640px) {
             .form-input {
                 font-size: 16px !important; /* Prevents iOS zoom on focus */
+            }
+            .form-input::placeholder {
+                font-size: 0.875rem !important; /* 14px - smaller placeholder on mobile */
             }
             .form-input:focus {
                 transform: scale(1.01);
