@@ -920,23 +920,24 @@
     <div class="min-h-screen py-4 md:py-8 px-4">
         <div class="max-w-2xl mx-auto">
             <!-- Header - Only show on step 1 -->
-            <div id="surveyHeader" class="text-center mb-6 md:mb-8">
-                <div class="mb-6">
+            <div id="surveyHeader" class="text-center mb-3 md:mb-4">
+                <div class="mb-2 md:mb-3">
                     <img src="images/logo.png" alt="Kingsauna Logo" class="h-12 md:h-16 w-auto mx-auto" loading="lazy">
                 </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
-                <div id="progressBar" class="progress-bar-fill h-full" style="width: 0%"></div>
-            </div>
-            <div class="text-center text-sm md:text-base mb-6 md:mb-8 font-medium" style="color: var(--text-muted);">
-                <span id="progressText">Žingsnis 1 iš 1</span>
             </div>
 
             <!-- STEP 1: Qualification -->
             <div class="step active" id="step1">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <!-- Progress Bar - Inside the card -->
+                    <div class="mb-4 md:mb-6">
+                        <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
+                            <div id="progressBar" class="progress-bar-fill h-full" style="width: 0%"></div>
+                        </div>
+                        <div class="text-center text-sm md:text-base font-medium" style="color: var(--text-muted);">
+                            <span id="progressText">Žingsnis 1 iš 1</span>
+                        </div>
+                    </div>
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Ką norite užsakyti?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectMainOption('lauko')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
@@ -2415,11 +2416,49 @@
                 step.classList.remove('active');
             });
             
-            document.getElementById(stepId).classList.add('active');
+            const activeStep = document.getElementById(stepId);
+            activeStep.classList.add('active');
             
             currentStep = stepNumber;
             stepHistory.push(stepNumber);
             updateProgress();
+            
+            // Add progress bar inside the glass-card if it doesn't exist
+            const glassCard = activeStep.querySelector('.glass-card');
+            if (glassCard) {
+                // Check if progress bar already exists in this card
+                let progressContainer = glassCard.querySelector('.progress-container-inside');
+                if (!progressContainer) {
+                    // Create progress bar container
+                    progressContainer = document.createElement('div');
+                    progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
+                    progressContainer.innerHTML = `
+                        <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
+                            <div class="progress-bar-fill h-full" style="width: 0%"></div>
+                        </div>
+                        <div class="text-center text-sm md:text-base font-medium" style="color: var(--text-muted);">
+                            <span class="progress-text-inside">Žingsnis ${stepNumber} iš ${totalSteps}</span>
+                        </div>
+                    `;
+                    // Insert at the beginning of glass-card
+                    glassCard.insertBefore(progressContainer, glassCard.firstChild);
+                }
+                
+                // Update the progress bar inside the card
+                const progressBarInside = progressContainer.querySelector('.progress-bar-fill');
+                const progressTextInside = progressContainer.querySelector('.progress-text-inside');
+                if (progressBarInside) {
+                    const percentage = (stepNumber / totalSteps) * 100;
+                    progressBarInside.style.width = Math.min(percentage, 100) + '%';
+                    progressBarInside.classList.add('glowing');
+                    setTimeout(() => {
+                        progressBarInside.classList.remove('glowing');
+                    }, 600);
+                }
+                if (progressTextInside) {
+                    progressTextInside.textContent = `Žingsnis ${stepNumber} iš ${totalSteps}`;
+                }
+            }
             
             // Initialize budget sliders when budget steps become active
             if (stepId === 'step-lauko-11') {
