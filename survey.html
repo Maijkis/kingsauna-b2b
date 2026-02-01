@@ -384,28 +384,13 @@
             left: 0;
             width: 0%;
         }
-        .budget-slider-track::before {
-            content: '';
+        .budget-slider-marker {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             width: 2px;
             height: 16px;
-            background: var(--forest);
-            opacity: 0.3;
-            left: 33.33%;
-            z-index: 1;
-        }
-        .budget-slider-track::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 2px;
-            height: 16px;
-            background: var(--forest);
-            opacity: 0.3;
-            left: 66.66%;
+            background: rgba(34, 84, 61, 0.25);
             z-index: 1;
         }
         .budget-value-display {
@@ -1414,6 +1399,16 @@
                             <div class="budget-slider-track" id="kubilas-budget-track">
                                 <div class="budget-slider-fill" id="kubilas-budget-fill"></div>
                                 <div class="budget-slider-handle" id="kubilas-budget-handle"></div>
+                                <!-- Sticky point markers -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 12.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 25%;"></div>
+                                <div class="budget-slider-marker" style="left: 37.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 50%;"></div>
+                                <div class="budget-slider-marker" style="left: 62.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 75%;"></div>
+                                <div class="budget-slider-marker" style="left: 87.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -1540,6 +1535,16 @@
                             <div class="budget-slider-track" id="vidaus-budget-track">
                                 <div class="budget-slider-fill" id="vidaus-budget-fill"></div>
                                 <div class="budget-slider-handle" id="vidaus-budget-handle"></div>
+                                <!-- Sticky point markers -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 12.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 25%;"></div>
+                                <div class="budget-slider-marker" style="left: 37.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 50%;"></div>
+                                <div class="budget-slider-marker" style="left: 62.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 75%;"></div>
+                                <div class="budget-slider-marker" style="left: 87.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
                             </div>
                         </div>
                     </div>
