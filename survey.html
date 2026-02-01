@@ -930,15 +930,6 @@
             <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
                 <div id="progressBar" class="progress-bar-fill h-full" style="width: 0%"></div>
             </div>
-            
-            <!-- Price Display -->
-            <div id="survey-price-display" class="hidden justify-center items-center mb-4 md:mb-6" style="display: none;">
-                <div class="inline-flex items-center px-4 py-2 rounded-2xl" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border: 2px solid rgba(34, 84, 61, 0.2); box-shadow: 0 8px 32px rgba(34, 84, 61, 0.15);">
-                    <span class="text-xs md:text-sm font-medium mr-2" style="color: var(--text-muted);">Kaina:</span>
-                    <span class="text-lg md:text-xl font-bold" style="color: var(--copper);" id="survey-price-value">nuo 0€</span>
-                </div>
-            </div>
-            
             <div class="text-center text-sm md:text-base mb-6 md:mb-8 font-medium" style="color: var(--text-muted);">
                 <span id="progressText">Žingsnis 1 iš 1</span>
             </div>
@@ -1764,150 +1755,6 @@
         let stepHistory = [1];
         let totalSteps = 1;
 
-        // ===== PRICING CALCULATION =====
-        const PRICING = {
-            lauko: {
-                base: 3500, // Base price for lauko pirtys
-                forma: {
-                    'Bačka': 1200,
-                    'Kvadratinė': 1800,
-                    'Trikampė Iglu': 1500,
-                    'Lapų formos': 2000
-                },
-                mediena: {
-                    'Eglė': 0,
-                    'Pušis': 200,
-                    'Kėnis': 300,
-                    'Termo mediena': 500
-                },
-                pecius: {
-                    'Elektrinė': 800,
-                    'Malkinė': 400,
-                    'Dujinė': 1000
-                },
-                priepirtis: {
-                    'Taip': 1500,
-                    'Ne': 0
-                },
-                pristatymas: {
-                    'Taip': 0,
-                    'Ne': 200
-                }
-            },
-            kubilas: {
-                base: 1700, // Base price for kubilas
-                tipas: {
-                    'Medinis': 0,
-                    'Stiklo pluošto': 500
-                },
-                talpa: {
-                    '4-5 žmonėms': 0,
-                    '6-8 žmonėms': 800,
-                    '8+ žmonėms': 1500
-                },
-                sildymas: {
-                    'Malkinis': 400,
-                    'Dujinis': 1000,
-                    'Elektrinis': 800
-                }
-            },
-            vidaus: {
-                base: 2500, // Base price for vidaus pirtys
-                tipas: {
-                    'Klasikinė': 0,
-                    'Infrared': 1500,
-                    'Steam': 2000
-                },
-                krosnele: {
-                    'Elektrinė': 800,
-                    'Malkinė': 400
-                }
-            }
-        };
-
-        function calculatePrice() {
-            if (!surveyData.type) return null;
-
-            let price = 0;
-            const type = surveyData.type;
-
-            if (type === 'lauko') {
-                price = PRICING.lauko.base;
-                
-                // Add forma prices (take first selected or average if multiple)
-                if (surveyData.lauko.forma && surveyData.lauko.forma.length > 0) {
-                    const formaPrices = surveyData.lauko.forma.map(f => PRICING.lauko.forma[f] || 0);
-                    price += formaPrices.reduce((a, b) => a + b, 0) / surveyData.lauko.forma.length;
-                }
-                
-                // Add mediena price (take first selected)
-                if (surveyData.lauko.mediena && surveyData.lauko.mediena.length > 0) {
-                    price += PRICING.lauko.mediena[surveyData.lauko.mediena[0]] || 0;
-                }
-                
-                // Add pecius price
-                if (surveyData.lauko.pecius) {
-                    price += PRICING.lauko.pecius[surveyData.lauko.pecius] || 0;
-                }
-                
-                // Add priepirtis price
-                if (surveyData.lauko.priepirtis) {
-                    price += PRICING.lauko.priepirtis[surveyData.lauko.priepirtis] || 0;
-                }
-                
-                // Add pristatymas adjustment
-                if (surveyData.lauko.pristatymas) {
-                    price += PRICING.lauko.pristatymas[surveyData.lauko.pristatymas] || 0;
-                }
-            } else if (type === 'kubila') {
-                price = PRICING.kubilas.base;
-                
-                // Add tipas price
-                if (surveyData.kubilas.tipas) {
-                    price += PRICING.kubilas.tipas[surveyData.kubilas.tipas] || 0;
-                }
-                
-                // Add talpa price
-                if (surveyData.kubilas.talpa) {
-                    price += PRICING.kubilas.talpa[surveyData.kubilas.talpa] || 0;
-                }
-                
-                // Add sildymas price
-                if (surveyData.kubilas.sildymas) {
-                    price += PRICING.kubilas.sildymas[surveyData.kubilas.sildymas] || 0;
-                }
-            } else if (type === 'vidaus') {
-                price = PRICING.vidaus.base;
-                
-                // Add tipas price
-                if (surveyData.vidaus.tipas) {
-                    price += PRICING.vidaus.tipas[surveyData.vidaus.tipas] || 0;
-                }
-                
-                // Add krosnele price
-                if (surveyData.vidaus.krosnele) {
-                    price += PRICING.vidaus.krosnele[surveyData.vidaus.krosnele] || 0;
-                }
-            }
-
-            return Math.round(price);
-        }
-
-        function updatePriceDisplay() {
-            const price = calculatePrice();
-            const priceDisplay = document.getElementById('survey-price-display');
-            const priceValue = document.getElementById('survey-price-value');
-            
-            if (priceDisplay && priceValue) {
-                if (price !== null && price > 0) {
-                    priceValue.textContent = `nuo ${price.toLocaleString('lt-LT')}€`;
-                    priceDisplay.style.display = 'flex';
-                } else {
-                    priceDisplay.style.display = 'none';
-                }
-            }
-        }
-
         // ===== STEP 1: MAIN QUALIFICATION =====
         function selectMainOption(type) {
             surveyData.type = type;
@@ -1918,9 +1765,6 @@
             });
             // Add selected to clicked
             event.target.closest('.option-button').classList.add('selected');
-            
-            // Update price display
-            updatePriceDisplay();
             
             // Set total steps based on type
             if (type === 'lauko') {
@@ -1949,9 +1793,6 @@
                 surveyData.lauko.forma.push(value);
                 button.classList.add('selected');
             }
-            
-            // Update price display
-            updatePriceDisplay();
         }
 
         // ===== LAUKO STEP 3: IŠMATAVIMAI (EXCLUSIVE) =====
@@ -1994,7 +1835,6 @@
             const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
             button.classList.add('selected');
             surveyData.lauko.pecius = value;
-            updatePriceDisplay();
         }
 
         // ===== LAUKO STEP 6: PRIEPIRČIO KAMBARYS =====
@@ -2007,7 +1847,6 @@
             });
             event.target.closest('.option-button').classList.add('selected');
             surveyData.lauko.priepirtis = value;
-            updatePriceDisplay();
         }
 
         // ===== LAUKO STEP 9: PRISTATYMAS (SINGLE-SELECT) =====
@@ -2018,7 +1857,6 @@
             });
             event.target.closest('.option-button').classList.add('selected');
             surveyData.lauko.pristatymas = value;
-            updatePriceDisplay();
         }
 
         // ===== BUDGET SELECTION FUNCTION =====
@@ -2350,7 +2188,6 @@
                 btn.classList.remove('selected');
             });
             event.target.closest('.option-button').classList.add('selected');
-            updatePriceDisplay();
         }
         
         function selectKubilasZmones(value) {
@@ -2365,8 +2202,7 @@
             // Select the clicked button
             event.target.closest('.option-button').classList.add('selected');
             surveyData.kubilas.zmones = value;
-            surveyData.kubilas.talpa = value; // Also set talpa for pricing
-            updatePriceDisplay();
+            surveyData.kubilas.talpa = value;
             
             // Show/hide the input field
             if (value === 'Daugiau') {
@@ -2500,7 +2336,6 @@
                 btn.classList.remove('selected');
             });
             event.target.closest('.option-button').classList.add('selected');
-            updatePriceDisplay();
         }
 
         function onVidausMeasurementInput() {
