@@ -932,6 +932,12 @@
             <!-- STEP 1: Qualification -->
             <div class="step active" id="step1">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
+                    <!-- Progress Bar - Inside the card -->
+                    <div class="mb-4 md:mb-6">
+                        <div class="progress-bar-bg h-3.5 md:h-4">
+                            <div id="progressBar" class="progress-bar-fill h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Ką norite užsakyti?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectMainOption('lauko')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
@@ -2417,44 +2423,48 @@
             stepHistory.push(stepNumber);
             updateProgress();
             
-            // Add progress bar inside the glass-card starting from step 2
+            // Add progress bar inside the glass-card for all steps
             // Progress calculation: exclude step 1, so step 2 is the first progress step
-            if (stepNumber > 1) {
-                const glassCard = activeStep.querySelector('.glass-card');
-                if (glassCard) {
-                    // Check if progress bar already exists in this card
-                    let progressBarInside = glassCard.querySelector('.progress-bar-fill');
-                    
-                    if (!progressBarInside) {
-                        // Create progress bar container if it doesn't exist
-                        const progressContainer = document.createElement('div');
-                        progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
-                        progressContainer.innerHTML = `
-                            <div class="progress-bar-bg h-3.5 md:h-4">
-                                <div class="progress-bar-fill h-full" style="width: 0%"></div>
-                            </div>
-                        `;
-                        // Insert at the beginning of glass-card
-                        glassCard.insertBefore(progressContainer, glassCard.firstChild);
-                        progressBarInside = progressContainer.querySelector('.progress-bar-fill');
-                    }
-                    
-                    // Update the progress bar inside the card with smooth animation
-                    // Calculate percentage excluding step 1: (stepNumber - 1) / (totalSteps - 1)
-                    if (progressBarInside) {
+            const glassCard = activeStep.querySelector('.glass-card');
+            if (glassCard) {
+                // Check if progress bar already exists in this card
+                let progressBarInside = glassCard.querySelector('#progressBar') || glassCard.querySelector('.progress-bar-fill');
+                
+                if (!progressBarInside) {
+                    // Create progress bar container if it doesn't exist
+                    const progressContainer = document.createElement('div');
+                    progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
+                    progressContainer.innerHTML = `
+                        <div class="progress-bar-bg h-3.5 md:h-4">
+                            <div class="progress-bar-fill h-full" style="width: 0%"></div>
+                        </div>
+                    `;
+                    // Insert at the beginning of glass-card
+                    glassCard.insertBefore(progressContainer, glassCard.firstChild);
+                    progressBarInside = progressContainer.querySelector('.progress-bar-fill');
+                }
+                
+                // Update the progress bar inside the card with smooth animation
+                // Calculate percentage excluding step 1: (stepNumber - 1) / (totalSteps - 1)
+                if (progressBarInside) {
+                    let percentage = 0;
+                    if (stepNumber > 1) {
                         const effectiveStep = stepNumber - 1; // Step 2 becomes step 1 for progress
                         const effectiveTotal = totalSteps - 1; // Exclude step 1 from total
-                        const percentage = (effectiveStep / effectiveTotal) * 100;
-                        
-                        // Use requestAnimationFrame for smooth 60fps animation
-                        requestAnimationFrame(() => {
-                            progressBarInside.style.width = Math.min(percentage, 100) + '%';
+                        percentage = (effectiveStep / effectiveTotal) * 100;
+                    }
+                    // Step 1 shows 0%, step 2+ shows calculated progress
+                    
+                    // Use requestAnimationFrame for smooth 60fps animation
+                    requestAnimationFrame(() => {
+                        progressBarInside.style.width = Math.min(percentage, 100) + '%';
+                        if (stepNumber > 1) {
                             progressBarInside.classList.add('glowing');
                             setTimeout(() => {
                                 progressBarInside.classList.remove('glowing');
                             }, 600);
-                        });
-                    }
+                        }
+                    });
                 }
             }
             
