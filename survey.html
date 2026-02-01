@@ -401,11 +401,17 @@
             border-radius: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 12px rgba(34, 84, 61, 0.3);
-            cursor: pointer;
+            cursor: grab;
             z-index: 2;
             left: 16.66%;
+            touch-action: none;
+            user-select: none;
+        }
+        .budget-slider-handle:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(1.1);
         }
         .budget-slider-handle[data-position="1"] {
             left: 16.66%;
@@ -415,6 +421,10 @@
         }
         .budget-slider-handle[data-position="3"] {
             left: 83.33%;
+        }
+        .budget-slider-track {
+            cursor: pointer;
+            touch-action: none;
         }
         .budget-labels {
             display: flex;
@@ -1107,7 +1117,7 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
-                            <div class="budget-slider-track">
+                            <div class="budget-slider-track" id="lauko-budget-track">
                                 <div class="budget-slider-fill" id="lauko-budget-fill"></div>
                                 <div class="budget-slider-handle" id="lauko-budget-handle"></div>
                             </div>
@@ -1372,7 +1382,7 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
-                            <div class="budget-slider-track">
+                            <div class="budget-slider-track" id="kubilas-budget-track">
                                 <div class="budget-slider-fill" id="kubilas-budget-fill"></div>
                                 <div class="budget-slider-handle" id="kubilas-budget-handle"></div>
                             </div>
@@ -1508,7 +1518,7 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-6">
                         <div class="budget-slider-container">
-                            <div class="budget-slider-track">
+                            <div class="budget-slider-track" id="vidaus-budget-track">
                                 <div class="budget-slider-fill" id="vidaus-budget-fill"></div>
                                 <div class="budget-slider-handle" id="vidaus-budget-handle"></div>
                             </div>
@@ -1845,6 +1855,10 @@
             }
             
             // Update UI elements
+            updateBudgetSlider(type, position, value);
+        }
+
+        function updateBudgetSlider(type, position, value) {
             const fillId = `${type}-budget-fill`;
             const handleId = `${type}-budget-handle`;
             const fill = document.getElementById(fillId);
@@ -1865,6 +1879,125 @@
                     btn.classList.add('selected');
                 }
             });
+        }
+
+        // ===== BUDGET SLIDER DRAG FUNCTIONALITY =====
+        function initBudgetSlider(type) {
+            const trackId = `${type}-budget-track`;
+            const handleId = `${type}-budget-handle`;
+            const fillId = `${type}-budget-fill`;
+            const track = document.getElementById(trackId);
+            const handle = document.getElementById(handleId);
+            const fill = document.getElementById(fillId);
+            
+            if (!track || !handle || !fill) return;
+            
+            let isDragging = false;
+            let startX = 0;
+            let startLeft = 0;
+            
+            const valueMap = {
+                1: '1000-2000',
+                2: '2000-3000',
+                3: '3000-4000+'
+            };
+            
+            const positions = [16.66, 50, 83.33]; // Percentage positions for each option
+            
+            function getPositionFromX(x) {
+                const rect = track.getBoundingClientRect();
+                const percent = ((x - rect.left) / rect.width) * 100;
+                
+                // Snap to nearest position
+                let closestPos = 0;
+                let minDist = Infinity;
+                positions.forEach((pos, index) => {
+                    const dist = Math.abs(percent - pos);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closestPos = index + 1;
+                    }
+                });
+                
+                return closestPos;
+            }
+            
+            function updateSlider(x) {
+                const position = getPositionFromX(x);
+                const value = valueMap[position];
+                
+                // Update survey data
+                if (type === 'lauko') {
+                    surveyData.lauko.biudzetas = value;
+                } else if (type === 'kubilas') {
+                    surveyData.kubilas.biudzetas = value;
+                } else if (type === 'vidaus') {
+                    surveyData.vidaus.biudzetas = value;
+                }
+                
+                // Update UI
+                updateBudgetSlider(type, position, value);
+            }
+            
+            function startDrag(e) {
+                isDragging = true;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                startX = clientX;
+                const rect = track.getBoundingClientRect();
+                const handleRect = handle.getBoundingClientRect();
+                startLeft = handleRect.left - rect.left;
+                
+                handle.style.transition = 'none';
+                fill.style.transition = 'none';
+                
+                e.preventDefault();
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const rect = track.getBoundingClientRect();
+                let newX = clientX - rect.left;
+                
+                // Constrain to track bounds
+                newX = Math.max(0, Math.min(rect.width, newX));
+                
+                updateSlider(rect.left + newX);
+            }
+            
+            function endDrag(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                handle.style.transition = '';
+                fill.style.transition = '';
+                
+                const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+                updateSlider(clientX);
+            }
+            
+            // Mouse events
+            handle.addEventListener('mousedown', startDrag);
+            track.addEventListener('mousedown', (e) => {
+                if (e.target === track || e.target === fill) {
+                    startDrag(e);
+                    drag(e);
+                }
+            });
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Touch events
+            handle.addEventListener('touchstart', startDrag, { passive: false });
+            track.addEventListener('touchstart', (e) => {
+                if (e.target === track || e.target === fill) {
+                    startDrag(e);
+                    drag(e);
+                }
+            }, { passive: false });
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('touchend', endDrag);
         }
 
         // ===== LAUKO NAVIGATION =====
@@ -2228,6 +2361,15 @@
             currentStep = stepNumber;
             stepHistory.push(stepNumber);
             updateProgress();
+            
+            // Initialize budget sliders when budget steps become active
+            if (stepId === 'step-lauko-11') {
+                setTimeout(() => initBudgetSlider('lauko'), 100);
+            } else if (stepId === 'step-kubilas-8') {
+                setTimeout(() => initBudgetSlider('kubilas'), 100);
+            } else if (stepId === 'step-vidaus-6') {
+                setTimeout(() => initBudgetSlider('vidaus'), 100);
+            }
             
             // Hide/show header based on step number (only show on step 1)
             const surveyHeader = document.getElementById('surveyHeader');
