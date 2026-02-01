@@ -506,11 +506,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            min-height: 200px;
+            min-height: 140px;
             padding: 0;
             background: rgba(255, 255, 255, 0.6);
             border: 1.5px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -566,10 +566,10 @@
         }
         .icon-box-label {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             text-align: center;
             line-height: 1.3;
-            padding: 0.75rem 0.5rem;
+            padding: 0.5rem 0.4rem;
             flex: 1;
             display: flex;
             align-items: center;
@@ -581,10 +581,11 @@
         }
         .icon-boxes-grid {
             display: grid;
-            gap: 1rem;
+            gap: 0.75rem;
         }
         .icon-boxes-grid-main {
             grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
         }
         .icon-box-option-consultation {
             display: flex;
@@ -627,26 +628,33 @@
             color: white;
         }
         @media (max-width: 640px) {
-            .icon-boxes-grid-main,
-            .icon-boxes-grid-secondary {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
+            .icon-boxes-grid-main {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
             }
             .icon-box-option {
-                min-height: 180px;
+                min-height: 120px;
             }
             .icon-box-image {
                 height: 60%; /* Keep 3/5 ratio on mobile */
             }
             .icon-box-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.75rem;
-                margin: 0.75rem 0 0.5rem 0;
+                width: 36px;
+                height: 36px;
+                font-size: 1.5rem;
+                margin: 0.5rem 0 0.25rem 0;
             }
             .icon-box-label {
-                font-size: 0.875rem;
-                padding: 0.5rem;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.3rem;
+            }
+            .icon-box-option-consultation {
+                min-height: 44px;
+                height: 44px;
+                padding: 0.4rem 1rem;
+            }
+            .icon-box-consultation-text {
+                font-size: 0.8rem;
             }
         }
         
@@ -657,7 +665,12 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-            border-radius: 20px;
+            border-radius: 16px;
+        }
+        @media (max-width: 640px) {
+            .glass-card {
+                border-radius: 12px;
+            }
         }
         
         /* ===== PRIMARY CTA (Copper) ===== */
