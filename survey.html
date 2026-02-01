@@ -1104,15 +1104,21 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks pečiaus tipas?</h2>
                     <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectLaukoPecius('Malkinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Malkinis">
-                            <div>
+                        <button onclick="selectLaukoPecius('Malkinis')" class="option-button-with-image w-full rounded-xl overflow-hidden text-left relative touch-manipulation" data-value="Malkinis">
+                            <div class="option-image-container">
+                                <img src="images/stove-wood.jpg" alt="Malkinis pečius" class="option-image" loading="lazy">
+                            </div>
+                            <div class="option-content">
                                 <div class="font-bold text-lg md:text-xl mb-1">Malkinis</div>
                                 <div class="option-description text-sm md:text-base" style="color: var(--text-muted);">Tradicinis šildymas malkomis autentiškai atmosferai</div>
                             </div>
                         </button>
                         
-                        <button onclick="selectLaukoPecius('Elektrinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Elektrinis">
-                            <div>
+                        <button onclick="selectLaukoPecius('Elektrinis')" class="option-button-with-image w-full rounded-xl overflow-hidden text-left relative touch-manipulation" data-value="Elektrinis">
+                            <div class="option-image-container">
+                                <img src="images/stove-electric.jpg" alt="Elektrinis pečius" class="option-image" loading="lazy">
+                            </div>
+                            <div class="option-content">
                                 <div class="font-bold text-lg md:text-xl mb-1">Elektrinis</div>
                                 <div class="option-description text-sm md:text-base" style="color: var(--text-muted);">Patogus ir greitas valdymas vienu mygtuko paspaudimu</div>
                             </div>
