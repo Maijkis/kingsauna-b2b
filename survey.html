@@ -931,11 +931,8 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <!-- Progress Bar - Inside the card -->
                     <div class="mb-4 md:mb-6">
-                        <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
+                        <div class="progress-bar-bg h-3.5 md:h-4">
                             <div id="progressBar" class="progress-bar-fill h-full" style="width: 0%"></div>
-                        </div>
-                        <div class="text-center text-sm md:text-base font-medium" style="color: var(--text-muted);">
-                            <span id="progressText">Žingsnis 1 iš 1</span>
                         </div>
                     </div>
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Ką norite užsakyti?</h2>
@@ -2433,11 +2430,8 @@
                     progressContainer = document.createElement('div');
                     progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
                     progressContainer.innerHTML = `
-                        <div class="mb-2 progress-bar-bg h-3.5 md:h-4">
+                        <div class="progress-bar-bg h-3.5 md:h-4">
                             <div class="progress-bar-fill h-full" style="width: 0%"></div>
-                        </div>
-                        <div class="text-center text-sm md:text-base font-medium" style="color: var(--text-muted);">
-                            <span class="progress-text-inside">Žingsnis ${stepNumber} iš ${totalSteps}</span>
                         </div>
                     `;
                     // Insert at the beginning of glass-card
@@ -2446,7 +2440,6 @@
                 
                 // Update the progress bar inside the card
                 const progressBarInside = progressContainer.querySelector('.progress-bar-fill');
-                const progressTextInside = progressContainer.querySelector('.progress-text-inside');
                 if (progressBarInside) {
                     const percentage = (stepNumber / totalSteps) * 100;
                     progressBarInside.style.width = Math.min(percentage, 100) + '%';
@@ -2454,9 +2447,6 @@
                     setTimeout(() => {
                         progressBarInside.classList.remove('glowing');
                     }, 600);
-                }
-                if (progressTextInside) {
-                    progressTextInside.textContent = `Žingsnis ${stepNumber} iš ${totalSteps}`;
                 }
             }
             
@@ -2558,7 +2548,7 @@
                 progressBar.classList.remove('glowing');
             }, 600);
             
-            document.getElementById('progressText').textContent = `Žingsnis ${currentStep} iš ${totalSteps}`;
+            // Progress text removed
         }
 
         // ===== FORM SUBMISSION =====
