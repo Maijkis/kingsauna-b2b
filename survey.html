@@ -344,6 +344,60 @@
             box-shadow: none;
         }
         
+        /* ===== OPTION BUTTON WITH IMAGE ===== */
+        .option-button-with-image {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            overflow: hidden;
+            background: var(--glass-white);
+            border: 2px solid var(--glass-border);
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+        .option-button-with-image:hover {
+            transform: translateY(-2px);
+            border-color: var(--forest-muted);
+            box-shadow: 0 4px 16px rgba(34, 84, 61, 0.1);
+        }
+        .option-button-with-image.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            box-shadow: 0 4px 20px rgba(34, 84, 61, 0.25);
+        }
+        .option-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .option-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .option-button-with-image:hover .option-image {
+            transform: scale(1.05);
+        }
+        .option-content {
+            padding: 1.25rem 1.5rem;
+        }
+        .option-button-with-image.selected .option-content {
+            color: white;
+        }
+        .option-button-with-image.selected .option-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        @media (max-width: 640px) {
+            .option-image-container {
+                height: 160px;
+            }
+            .option-content {
+                padding: 1rem 1.25rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .option-button {
                 min-height: 64px;
