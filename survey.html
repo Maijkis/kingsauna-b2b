@@ -375,6 +375,14 @@
             border-radius: 10px;
             margin: 2rem 0;
         }
+        @media (max-width: 640px) {
+            .budget-slider-container {
+                padding: 1rem 0;
+            }
+            .budget-slider-track {
+                margin: 1rem 0;
+            }
+        }
         .budget-slider-fill {
             position: absolute;
             height: 100%;
@@ -416,9 +424,11 @@
         }
         @media (max-width: 640px) {
             .budget-value-display {
-                font-size: 2rem;
-                padding: 1.25rem 1.5rem;
+                font-size: 1.75rem;
+                padding: 1rem 1.25rem;
                 max-width: 100%;
+                margin: 0 auto 1rem auto;
+                min-height: 2.5rem;
             }
         }
         .budget-slider-handle {
@@ -1196,9 +1206,9 @@
             <!-- Step 10: Individualūs sprendimai -->
             <!-- Step 11: Budget (LAUKO) - Before additional questions -->
             <div class="step" id="step-lauko-11">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
-                    <div class="space-y-6">
+                <div class="glass-card p-4 md:p-8 lg:p-12">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
                             <div class="budget-value-display" id="lauko-budget-value">1000€</div>
                             <div class="budget-slider-track" id="lauko-budget-track">
@@ -1461,9 +1471,9 @@
 
             <!-- Step 8: Budget (KUBILAS) -->
             <div class="step" id="step-kubilas-8">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
-                    <div class="space-y-6">
+                <div class="glass-card p-4 md:p-8 lg:p-12">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
                             <div class="budget-value-display" id="kubilas-budget-value">1000€</div>
                             <div class="budget-slider-track" id="kubilas-budget-track">
@@ -1599,9 +1609,9 @@
 
             <!-- Step 6: Budget (VIDAUS) -->
             <div class="step" id="step-vidaus-6">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
-                    <div class="space-y-6">
+                <div class="glass-card p-4 md:p-8 lg:p-12">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
                             <div class="budget-value-display" id="vidaus-budget-value">1000€</div>
                             <div class="budget-slider-track" id="vidaus-budget-track">
