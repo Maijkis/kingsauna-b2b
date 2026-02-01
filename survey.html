@@ -586,10 +586,45 @@
         .icon-boxes-grid-main {
             grid-template-columns: repeat(3, 1fr);
         }
-        .icon-boxes-grid-secondary {
-            grid-template-columns: repeat(1, 1fr);
-            max-width: 300px;
-            margin: 0 auto;
+        .icon-box-option-consultation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            height: 48px;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            width: 100%;
+            max-width: 600px;
+        }
+        .icon-box-option-consultation:hover {
+            transform: translateY(-1px);
+            border-color: var(--forest);
+            box-shadow: 0 4px 12px rgba(34, 84, 61, 0.1);
+        }
+        .icon-box-option-consultation:active {
+            transform: scale(0.98);
+        }
+        .icon-box-option-consultation.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: white;
+        }
+        .icon-box-consultation-text {
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--text-charcoal);
+        }
+        .icon-box-option-consultation.selected .icon-box-consultation-text {
+            color: white;
         }
         @media (max-width: 640px) {
             .icon-boxes-grid-main,
@@ -996,7 +1031,7 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios formos lauko pirtis jus domina?</h2>
                     <!-- First row: Bačka, Kvadratinė, Trikampė -->
-                    <div class="icon-boxes-grid icon-boxes-grid-main mb-4">
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
                         <button onclick="toggleLaukoForma('Bačka')" class="icon-box-option touch-manipulation" data-value="Bačka">
                             <img src="images/barrel-vidutine.jpg" alt="Bačka" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Bačka</div>
@@ -1010,11 +1045,10 @@
                             <div class="icon-box-label">Trikampė</div>
                         </button>
                     </div>
-                    <!-- Second row: Other options -->
-                    <div class="icon-boxes-grid icon-boxes-grid-secondary">
-                        <button onclick="toggleLaukoForma('Norėčiau Pasikonsultuoti')" class="icon-box-option touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                            <div class="icon-box-icon">?</div>
-                            <div class="icon-box-label">Norėčiau Pasikonsultuoti</div>
+                    <!-- Sleeker consultation button spanning bottom -->
+                    <div class="flex justify-center">
+                        <button onclick="toggleLaukoForma('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
