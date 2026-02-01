@@ -1242,24 +1242,24 @@
             <div class="step" id="step-kubilas-2">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectKubilasOption('tipas', 'Medinis')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Medinis</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Tradicinis, natūralus, autentiškas</div>
-                            </div>
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                        <button onclick="selectKubilasOption('tipas', 'Medinis')" class="icon-box-option touch-manipulation" data-value="Medinis">
+                            <img src="images/kubilas-wood.jpg" alt="Medinis kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Medinis</div>
                         </button>
-                        <button onclick="selectKubilasOption('tipas', 'Plastikinis su apdaila')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Stiklo pluošto su apdaila</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Lengva priežiūra, ilgaamžis</div>
-                            </div>
+                        <button onclick="selectKubilasOption('tipas', 'Plastikinis')" class="icon-box-option touch-manipulation" data-value="Plastikinis">
+                            <img src="images/kubilas-winter.jpeg" alt="Plastikinis kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Plastikinis</div>
                         </button>
-                        <div class="flex justify-center">
-                            <button onclick="selectKubilasOption('tipas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
+                        <button onclick="selectKubilasOption('tipas', 'Stiklo Pluošto')" class="icon-box-option touch-manipulation" data-value="Stiklo Pluošto">
+                            <img src="images/kubilas-lake-deck.jpg" alt="Stiklo pluošto kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Stiklo Pluošto</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectKubilasOption('tipas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
@@ -2259,10 +2259,10 @@
             surveyData.kubilas[field] = value;
             
             const currentStepEl = document.querySelector('.step.active');
-            currentStepEl.querySelectorAll('.option-button, .icon-box-option-consultation').forEach(btn => {
+            currentStepEl.querySelectorAll('.option-button, .icon-box-option, .icon-box-option-consultation').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option-consultation');
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation');
             if (button) button.classList.add('selected');
         }
         
