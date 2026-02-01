@@ -503,10 +503,11 @@
         /* ===== ICON BOX OPTIONS ===== */
         .icon-box-option {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: flex-start;
-            min-height: 140px;
+            min-height: 48px;
+            height: 48px;
             padding: 0;
             background: rgba(255, 255, 255, 0.6);
             border: 1.5px solid var(--glass-border);
@@ -533,10 +534,10 @@
             color: white;
         }
         .icon-box-image {
-            width: 100%;
-            height: 80%; /* 4/5 of button height */
+            width: 48px;
+            height: 48px;
             object-fit: cover;
-            border-radius: 12px 12px 0 0;
+            border-radius: 12px 0 0 12px;
             margin: 0;
             opacity: 0.9;
             flex-shrink: 0;
@@ -565,16 +566,15 @@
             color: white;
         }
         .icon-box-label {
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: left;
             line-height: 1.3;
-            padding: 0.5rem 0.4rem;
+            padding: 0.5rem 1rem;
             flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 100%;
+            justify-content: flex-start;
         }
         .icon-box-option.selected .icon-box-label {
             color: white;
@@ -633,10 +633,12 @@
                 gap: 0.5rem;
             }
             .icon-box-option {
-                min-height: 120px;
+                min-height: 48px;
+                height: 48px;
             }
             .icon-box-image {
-                height: 80%; /* Keep 4/5 ratio on mobile */
+                width: 48px;
+                height: 48px;
             }
             .icon-box-icon {
                 width: 36px;
@@ -1090,7 +1092,6 @@
                         <button onclick="selectLaukoNezinauMeasurements()" id="nezinau-measurements-btn" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Padėsime nustatyti optimalų dydį</div>
                             </div>
                         </button>
                     </div>
@@ -1122,8 +1123,7 @@
                         
                         <button onclick="selectLaukoPecius('Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
                             <div>
-                                <div class="font-bold text-lg md:text-xl mb-1">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm md:text-base" style="color: var(--text-muted);">Padėsime išsirinkti tinkamiausią variantą jums</div>
+                                <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
                             </div>
                         </button>
                     </div>
@@ -1173,7 +1173,6 @@
                         <button onclick="selectLaukoPristatymas('Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Patikrinsime kartu</div>
                             </div>
                         </button>
                     </div>
@@ -1248,7 +1247,6 @@
                         <button onclick="selectKubilasOption('tipas', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Padėsime išsirinkti</div>
                             </div>
                         </button>
                     </div>
@@ -1328,7 +1326,6 @@
                         <button onclick="selectKubilasOption('sildymas', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Padėsime išsirinkti</div>
                             </div>
                         </button>
                     </div>
@@ -1365,7 +1362,6 @@
                         <button onclick="selectKubilasOption('apdaila', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Patarsite, kas tinka geriausiai</div>
                             </div>
                         </button>
                     </div>
@@ -1419,7 +1415,6 @@
                         <button onclick="toggleKubilasOption('funkcijos', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Aptarsime papildomas funkcijas kartu</div>
                             </div>
                             <div class="checkmark">✓</div>
                         </button>
@@ -1451,7 +1446,6 @@
                         <button onclick="selectKubilasOption('pristatymas', 'Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
                             <div>
                                 <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Patikrinsime kartu</div>
                             </div>
                         </button>
                     </div>
