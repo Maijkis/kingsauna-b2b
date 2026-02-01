@@ -757,20 +757,6 @@
                 margin-bottom: 1.5rem !important;
             }
             
-            /* Custom grid override for Step 4 wood types */
-            #step-lauko-4 .grid-cols-3 .icon-box-option {
-                min-height: 100px;
-                padding: 0.5rem;
-            }
-            #step-lauko-4 .grid-cols-3 .icon-box-image {
-                width: 40px;
-                height: 40px;
-                margin-bottom: 0.25rem;
-            }
-            #step-lauko-4 .grid-cols-3 .icon-box-label {
-                font-size: 0.75rem;
-                line-height: 1.2;
-            }
             /* Body wrapper padding for footer visibility */
             body > .min-h-screen {
                 padding-bottom: 0 !important;
@@ -911,57 +897,6 @@
                 </div>
             </div>
 
-            <!-- Step 4: Mediena (MULTI-SELECT with conditionals) -->
-            <div class="step" id="step-lauko-4">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokią medieną svarstote?</h2>
-                    
-                    <div class="space-y-5">
-                        <!-- Top Row: 3 Wood types in one row on mobile -->
-                        <div class="grid grid-cols-3 gap-3 md:gap-4">
-                            <button onclick="toggleLaukoMediena('Pūšis')" class="icon-box-option touch-manipulation" data-value="Pūšis" data-type="normal">
-                                <img src="images/pine-wood.jpg" alt="Pūšis" class="icon-box-image" loading="lazy">
-                                <div class="icon-box-label text-xs sm:text-sm">Pūšis</div>
-                            </button>
-                            <button onclick="toggleLaukoMediena('Eglė')" class="icon-box-option touch-manipulation" data-value="Eglė" data-type="normal">
-                                <img src="images/fir-wood.jpg" alt="Eglė" class="icon-box-image" loading="lazy">
-                                <div class="icon-box-label text-xs sm:text-sm">Eglė</div>
-                            </button>
-                            <button onclick="toggleLaukoMediena('Termomediena')" class="icon-box-option touch-manipulation" data-value="Termomediena" data-type="normal">
-                                <img src="images/thermo-wood.jpg" alt="Termomediena" class="icon-box-image" loading="lazy">
-                                <div class="icon-box-label text-xs sm:text-sm">Termomediena</div>
-                            </button>
-                        </div>
-
-                        <!-- Bottom Rows: 2 longer buttons stacked -->
-                        <div class="space-y-3">
-                            <button onclick="toggleLaukoMediena('Kita')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Kita" data-type="kita">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">✎</div>
-                                    <div class="font-bold text-lg md:text-xl">Kita</div>
-                                </div>
-                            </button>
-
-                            <div id="mediena-kita-container" class="slide-input-container">
-                                <input type="text" id="mediena-kita-input" class="form-input w-full p-4 text-base" placeholder="Įveskite norimą medieną...">
-                            </div>
-                            
-                            <button onclick="toggleLaukoMediena('Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti" data-type="exclusive">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">?</div>
-                                    <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextLaukoStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Step 5: Pečius (SINGLE-SELECT) -->
             <div class="step" id="step-lauko-5">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
@@ -998,38 +933,14 @@
             <!-- Step 6: Išplanavimas (CONDITIONAL reveal) -->
             <div class="step" id="step-lauko-6">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Išplanavimo sprendimai</h2>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block font-semibold mb-4 text-center md:text-left" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</label>
-                            <div class="flex gap-4">
-                                <button onclick="selectLaukoPriepirtis('Taip')" class="option-button flex-1 rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="Taip">
-                                    <div class="font-bold text-lg md:text-xl">Taip</div>
-                                </button>
-                                <button onclick="selectLaukoPriepirtis('Ne')" class="option-button flex-1 rounded-xl p-5 md:p-6 text-center justify-center relative" data-value="Ne">
-                                    <div class="font-bold text-lg md:text-xl">Ne</div>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Suolai section - initially hidden -->
-                        <div id="suolai-section" class="conditional-section">
-                            <label class="block font-semibold mb-4 text-center md:text-left" style="color: var(--text-charcoal);">Kur planuojami suolai?</label>
-                            <div class="space-y-5 md:space-y-4">
-                                <button onclick="selectLaukoSuolai('Tik pirties patalpoje')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Tik pirties patalpoje">
-                                    <div class="font-bold text-lg md:text-xl">Tik pirties patalpoje</div>
-                                </button>
-                                <button onclick="selectLaukoSuolai('Pirtyje ir priepirtyje')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Pirtyje ir priepirtyje">
-                                    <div class="font-bold text-lg md:text-xl">Pirtyje ir priepirtyje</div>
-                                </button>
-                                <button onclick="selectLaukoSuolai('Reikia pasiūlymo')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Reikia pasiūlymo">
-                                    <div>
-                                        <div class="font-bold text-lg md:text-xl">Reikia pasiūlymo</div>
-                                        <div class="option-description text-sm" style="color: var(--text-muted);">Patarsime optimalų variantą</div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
+                    <div class="space-y-5 md:space-y-4">
+                        <button onclick="selectLaukoPriepirtis('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
+                            <div class="font-bold text-lg md:text-xl">Taip</div>
+                        </button>
+                        <button onclick="selectLaukoPriepirtis('Ne')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Ne">
+                            <div class="font-bold text-lg md:text-xl">Ne</div>
+                        </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
@@ -1038,86 +949,10 @@
                 </div>
             </div>
 
-            <!-- Step 7: Langai ir durys (SINGLE-SELECT with conditional) -->
-            <div class="step" id="step-lauko-7">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Langai ir durys</h2>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block font-semibold mb-4" style="color: var(--text-charcoal);">Langų skaičius</label>
-                            <div class="space-y-3">
-                                <!-- Row 1: 0, 1, 2 -->
-                                <div class="grid grid-cols-3 gap-3 md:gap-4">
-                                    <button onclick="selectLaukoLangai('0')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="0">
-                                        <div class="font-bold text-lg md:text-xl">0</div>
-                                    </button>
-                                    <button onclick="selectLaukoLangai('1')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="1">
-                                        <div class="font-bold text-lg md:text-xl">1</div>
-                                    </button>
-                                    <button onclick="selectLaukoLangai('2')" class="option-button rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="2">
-                                        <div class="font-bold text-lg md:text-xl">2</div>
-                                    </button>
-                                </div>
-                                <!-- Row 2: Daugiau -->
-                                <button onclick="selectLaukoLangai('daugiau')" class="option-button w-full rounded-xl p-4 md:p-6 text-center justify-center relative" data-value="daugiau">
-                                    <div class="font-bold text-lg md:text-xl">Daugiau</div>
-                                </button>
-                            </div>
-                            <div id="langai-daugiau-container" class="slide-input-container mt-3">
-                                <input type="number" id="langai-daugiau-input" class="form-input w-full p-4 text-base" placeholder="Įveskite langų skaičių..." min="3">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block font-semibold mb-4" style="color: var(--text-charcoal);">Durų tipas</label>
-                            <div class="grid grid-cols-3 gap-2 md:gap-4">
-                                <button onclick="selectLaukoDuruTipas('Stiklinės')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Stiklinės">
-                                    <div class="font-bold text-sm sm:text-base md:text-lg">Stiklinės</div>
-                                </button>
-                                <button onclick="selectLaukoDuruTipas('Medinės')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Medinės">
-                                    <div class="font-bold text-sm sm:text-base md:text-lg">Medinės</div>
-                                </button>
-                                <button onclick="selectLaukoDuruTipas('Norėčiau Pasikonsultuoti')" class="option-button rounded-xl p-3 md:p-6 text-center justify-center relative h-full flex-col" data-value="Norėčiau Pasikonsultuoti">
-                                    <div class="font-bold text-[10px] leading-tight sm:text-xs md:text-lg">Norėčiau Pasikonsultuoti</div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextLaukoStep(7)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 8: Papildomi praėjimai (SINGLE-SELECT) -->
-            <div class="step" id="step-lauko-8">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingi papildomi praėjimai ar pertvaros?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectLaukoPraeimai('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
-                            <div class="font-bold text-lg md:text-xl">Taip</div>
-                        </button>
-                        <button onclick="selectLaukoPraeimai('Ne')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Ne">
-                            <div class="font-bold text-lg md:text-xl">Ne</div>
-                        </button>
-                        <button onclick="selectLaukoPraeimai('Norėčiau Pasikonsultuoti')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Aptarsime galimybes</div>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextLaukoStep(8)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Step 9: Pristatymas (SINGLE-SELECT) -->
             <div class="step" id="step-lauko-9">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Pristatymo sąlygos</h2>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectLaukoPristatymas('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
                             <div>
@@ -1698,7 +1533,7 @@
             
             // Set total steps based on type
             if (type === 'lauko') {
-                totalSteps = 11;
+                totalSteps = 7;
                 setTimeout(() => goToStep('step-lauko-2', 2), 300);
             } else if (type === 'kubila') {
                 totalSteps = 8;
@@ -1756,67 +1591,6 @@
         }
 
         // ===== LAUKO STEP 4: MEDIENA (MULTI-SELECT WITH CONDITIONALS) =====
-        function toggleLaukoMediena(value) {
-            if (!surveyData.lauko.mediena) surveyData.lauko.mediena = [];
-            
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
-            const stepEl = document.getElementById('step-lauko-4');
-            const kitaContainer = document.getElementById('mediena-kita-container');
-            
-            if (value === 'Norėčiau Pasikonsultuoti') {
-                // Exclusive option - deselect all others
-                if (button.classList.contains('selected')) {
-                    button.classList.remove('selected');
-                    surveyData.lauko.mediena = [];
-                    // Re-enable other buttons
-                    stepEl.querySelectorAll('.icon-box-option[data-type="normal"], .icon-box-option[data-type="kita"], .option-button[data-type="normal"], .option-button[data-type="kita"]').forEach(btn => {
-                        btn.disabled = false;
-                    });
-                } else {
-                    // Select this, deselect and disable all others
-                    stepEl.querySelectorAll('.icon-box-option, .option-button').forEach(btn => {
-                        btn.classList.remove('selected');
-                    });
-                    button.classList.add('selected');
-                    surveyData.lauko.mediena = ['Norėčiau Pasikonsultuoti'];
-                    // Disable other buttons
-                    stepEl.querySelectorAll('.icon-box-option[data-type="normal"], .icon-box-option[data-type="kita"], .option-button[data-type="normal"], .option-button[data-type="kita"]').forEach(btn => {
-                        btn.disabled = true;
-                    });
-                    // Hide kita input
-                    kitaContainer.classList.remove('visible');
-                }
-            } else {
-                // Normal or Kita option
-                // First, deselect "Norėčiau Pasikonsultuoti" if selected
-                const konsultacijaBtn = stepEl.querySelector('.icon-box-option[data-value="Norėčiau Pasikonsultuoti"], .option-button[data-value="Norėčiau Pasikonsultuoti"]');
-                if (konsultacijaBtn && konsultacijaBtn.classList.contains('selected')) {
-                    konsultacijaBtn.classList.remove('selected');
-                    surveyData.lauko.mediena = [];
-                    stepEl.querySelectorAll('.icon-box-option[data-type="normal"], .icon-box-option[data-type="kita"], .option-button[data-type="normal"], .option-button[data-type="kita"]').forEach(btn => {
-                        btn.disabled = false;
-                    });
-                }
-                
-                const index = surveyData.lauko.mediena.indexOf(value);
-                
-                if (index > -1) {
-                    surveyData.lauko.mediena.splice(index, 1);
-                    button.classList.remove('selected');
-                    if (value === 'Kita') {
-                        kitaContainer.classList.remove('visible');
-                    }
-                } else {
-                    surveyData.lauko.mediena.push(value);
-                    button.classList.add('selected');
-                    if (value === 'Kita') {
-                        kitaContainer.classList.add('visible');
-                        document.getElementById('mediena-kita-input').focus();
-                    }
-                }
-            }
-        }
-
         // ===== LAUKO STEP 5: PEČIUS (SINGLE-SELECT) =====
         function selectLaukoPecius(value) {
             const stepEl = document.getElementById('step-lauko-5');
@@ -1828,10 +1602,9 @@
             surveyData.lauko.pecius = value;
         }
 
-        // ===== LAUKO STEP 6: IŠPLANAVIMAS (CONDITIONAL) =====
+        // ===== LAUKO STEP 6: PRIEPIRČIO KAMBARYS =====
         function selectLaukoPriepirtis(value) {
             const stepEl = document.getElementById('step-lauko-6');
-            const suolaiSection = document.getElementById('suolai-section');
             
             // Deselect both Taip/Ne buttons
             stepEl.querySelectorAll('.option-button[data-value="Taip"], .option-button[data-value="Ne"]').forEach(btn => {
@@ -1839,71 +1612,6 @@
             });
             event.target.closest('.option-button').classList.add('selected');
             surveyData.lauko.priepirtis = value;
-            
-            if (value === 'Taip') {
-                // Show suolai section for user to choose
-                suolaiSection.classList.add('visible');
-                // Clear previous suolai selection
-                surveyData.lauko.suolai = null;
-                suolaiSection.querySelectorAll('.option-button').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-            } else {
-                // Hide suolai section and auto-set to "Tik pirties patalpoje"
-                suolaiSection.classList.remove('visible');
-                surveyData.lauko.suolai = 'Tik pirties patalpoje';
-            }
-        }
-
-        function selectLaukoSuolai(value) {
-            const suolaiSection = document.getElementById('suolai-section');
-            suolaiSection.querySelectorAll('.option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.closest('.option-button').classList.add('selected');
-            surveyData.lauko.suolai = value;
-        }
-
-        // ===== LAUKO STEP 7: LANGAI IR DURYS (CONDITIONAL) =====
-        function selectLaukoLangai(value) {
-            const stepEl = document.getElementById('step-lauko-7');
-            const langaiButtons = stepEl.querySelectorAll('.option-button[data-value="0"], .option-button[data-value="1"], .option-button[data-value="2"], .option-button[data-value="daugiau"]');
-            const daugiauContainer = document.getElementById('langai-daugiau-container');
-            
-            langaiButtons.forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.closest('.option-button').classList.add('selected');
-            surveyData.lauko.langai = value;
-            
-            if (value === 'daugiau') {
-                daugiauContainer.classList.add('visible');
-                document.getElementById('langai-daugiau-input').focus();
-            } else {
-                daugiauContainer.classList.remove('visible');
-            }
-        }
-
-        function selectLaukoDuruTipas(value) {
-            const stepEl = document.getElementById('step-lauko-7');
-            const durysBtns = stepEl.querySelectorAll('.icon-box-option[data-value="Stiklinės"], .icon-box-option[data-value="Medinės"], .icon-box-option[data-value="Norėčiau Pasikonsultuoti"], .option-button[data-value="Stiklinės"], .option-button[data-value="Medinės"], .option-button[data-value="Norėčiau Pasikonsultuoti"]');
-            
-            durysBtns.forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
-            button.classList.add('selected');
-            surveyData.lauko.duru_tipas = value;
-        }
-
-        // ===== LAUKO STEP 8: PRAĖJIMAI (SINGLE-SELECT) =====
-        function selectLaukoPraeimai(value) {
-            const stepEl = document.getElementById('step-lauko-8');
-            stepEl.querySelectorAll('.option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.closest('.option-button').classList.add('selected');
-            surveyData.lauko.praeimai = value;
         }
 
         // ===== LAUKO STEP 9: PRISTATYMAS (SINGLE-SELECT) =====
@@ -1987,33 +1695,6 @@
                     return;
                 }
             }
-            if (currentStepNum === 4) {
-                if (!surveyData.lauko.mediena || surveyData.lauko.mediena.length === 0) {
-                    showValidationError('Prašome pasirinkti bent vieną medieną arba "Norėčiau Pasikonsultuoti".');
-                    return;
-                }
-                // Validate and collect kita input if selected
-                if (surveyData.lauko.mediena.includes('Kita')) {
-                    const kitaValue = document.getElementById('mediena-kita-input').value.trim();
-                    if (!kitaValue) {
-                        // Highlight the input field
-                        const input = document.getElementById('mediena-kita-input');
-                        input.focus();
-                        input.style.borderColor = 'var(--copper)';
-                        input.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
-                        // Scroll to input on mobile
-                        setTimeout(() => {
-                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }, 100);
-                        setTimeout(() => {
-                            input.style.borderColor = '';
-                            input.style.boxShadow = '';
-                        }, 3000);
-                        return;
-                    }
-                    surveyData.lauko.medienaKita = kitaValue;
-                }
-            }
             if (currentStepNum === 5) {
                 if (!surveyData.lauko.pecius) {
                     showValidationError('Prašome pasirinkti pečiaus tipą.');
@@ -2021,48 +1702,8 @@
                 }
             }
             if (currentStepNum === 6) {
-                if (!surveyData.lauko.priepirtis || !surveyData.lauko.suolai) {
-                    if (!surveyData.lauko.priepirtis) {
-                        showValidationError('Prašome pasirinkti, ar norite priepirčio.');
-                    } else {
-                        showValidationError('Prašome pasirinkti, kur planuojami suolai.');
-                    }
-                    return;
-                }
-            }
-            if (currentStepNum === 7) {
-                if (!surveyData.lauko.langai || !surveyData.lauko.duru_tipas) {
-                    if (!surveyData.lauko.langai) {
-                        showValidationError('Prašome pasirinkti langų kiekį.');
-                    } else {
-                        showValidationError('Prašome pasirinkti durų tipą.');
-                    }
-                    return;
-                }
-                // Collect daugiau input if selected
-                if (surveyData.lauko.langai === 'daugiau') {
-                    const langaiValue = document.getElementById('langai-daugiau-input').value.trim();
-                    if (!langaiValue) {
-                        const input = document.getElementById('langai-daugiau-input');
-                        input.focus();
-                        input.style.borderColor = 'var(--copper)';
-                        input.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
-                        // Scroll to input on mobile
-                        setTimeout(() => {
-                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }, 100);
-                        setTimeout(() => {
-                            input.style.borderColor = '';
-                            input.style.boxShadow = '';
-                        }, 3000);
-                        return;
-                    }
-                    surveyData.lauko.langaiDaugiau = langaiValue;
-                }
-            }
-            if (currentStepNum === 8) {
-                if (!surveyData.lauko.praeimai) {
-                    showValidationError('Prašome pasirinkti praėjimo variantą.');
+                if (!surveyData.lauko.priepirtis) {
+                    showValidationError('Prašome pasirinkti, ar norite priepirčio.');
                     return;
                 }
             }
@@ -2076,9 +1717,14 @@
                 surveyData.lauko.pageidavimai = document.getElementById('lauko-pageidavimai').value;
             }
 
-            // Navigate
-            if (currentStepNum < 10) {
-                goToStep(`step-lauko-${currentStepNum + 1}`, currentStepNum + 1);
+            // Navigate - skip removed steps (4, 7, 8)
+            let nextStep = currentStepNum + 1;
+            if (nextStep === 4) nextStep = 5; // Skip mediena
+            if (nextStep === 7) nextStep = 9; // Skip langai/durys
+            if (nextStep === 8) nextStep = 9; // Skip praėjimai
+            
+            if (nextStep < 10) {
+                goToStep(`step-lauko-${nextStep}`, nextStep);
             } else {
                 goToContact();
             }
@@ -2342,7 +1988,14 @@
         function goBack() {
             if (stepHistory.length > 1) {
                 stepHistory.pop();
-                const previousStep = stepHistory[stepHistory.length - 1];
+                let previousStep = stepHistory[stepHistory.length - 1];
+                
+                // Handle skipped steps for lauko survey
+                if (surveyData.type === 'lauko') {
+                    if (previousStep === 4) previousStep = 3; // Skip mediena
+                    if (previousStep === 7) previousStep = 6; // Skip langai/durys
+                    if (previousStep === 8) previousStep = 6; // Skip praėjimai
+                }
                 
                 document.querySelectorAll('.step').forEach(step => {
                     step.classList.remove('active');
