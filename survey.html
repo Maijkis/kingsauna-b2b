@@ -1173,24 +1173,20 @@
             <div class="step" id="step-lauko-9">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectLaukoPristatymas('Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Taip">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Taip</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Sunkvežimis gali privažiuoti prie vietos</div>
-                            </div>
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <button onclick="selectLaukoPristatymas('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center flex-col" data-value="Taip">
+                            <div class="font-bold text-base md:text-lg">Taip</div>
+                            <div class="option-description text-xs md:text-sm mt-1" style="color: var(--text-muted);">Sunkvežimis gali privažiuoti prie vietos</div>
                         </button>
-                        <button onclick="selectLaukoPristatymas('Ne')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Ne">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Ne</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Aptarsime alternatyvius sprendimus</div>
-                            </div>
+                        <button onclick="selectLaukoPristatymas('Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center flex-col" data-value="Ne">
+                            <div class="font-bold text-base md:text-lg">Ne</div>
+                            <div class="option-description text-xs md:text-sm mt-1" style="color: var(--text-muted);">Aptarsime alternatyvius sprendimus</div>
                         </button>
-                        <div class="flex justify-center">
-                            <button onclick="selectLaukoPristatymas('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectLaukoPristatymas('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
@@ -1445,24 +1441,20 @@
             <div class="step" id="step-kubilas-7">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Pristatymo sąlygos</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Taip</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Transportas gali privažiuoti</div>
-                            </div>
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center flex-col">
+                            <div class="font-bold text-base md:text-lg">Taip</div>
+                            <div class="option-description text-xs md:text-sm mt-1" style="color: var(--text-muted);">Transportas gali privažiuoti</div>
                         </button>
-                        <button onclick="selectKubilasOption('pristatymas', 'Ne')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Ne</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Aptarsime sprendimus</div>
-                            </div>
+                        <button onclick="selectKubilasOption('pristatymas', 'Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center flex-col">
+                            <div class="font-bold text-base md:text-lg">Ne</div>
+                            <div class="option-description text-xs md:text-sm mt-1" style="color: var(--text-muted);">Aptarsime sprendimus</div>
                         </button>
-                        <div class="flex justify-center">
-                            <button onclick="selectKubilasOption('pristatymas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectKubilasOption('pristatymas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
