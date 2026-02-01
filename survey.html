@@ -1902,9 +1902,12 @@
             const trackId = `${type}-budget-track`;
             const handleId = `${type}-budget-handle`;
             const fillId = `${type}-budget-fill`;
+            const valueDisplayId = `${type}-budget-value`;
             const track = document.getElementById(trackId);
             const handle = document.getElementById(handleId);
             const fill = document.getElementById(fillId);
+            const valueDisplay = document.getElementById(valueDisplayId);
+            const stepId = type === 'lauko' ? 'step-lauko-11' : type === 'kubilas' ? 'step-kubilas-8' : 'step-vidaus-6';
             
             if (!track || !handle || !fill) return;
             
