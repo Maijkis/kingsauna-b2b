@@ -1951,7 +1951,11 @@
                 // Update value display
                 if (valueDisplay) {
                     const roundedValue = Math.round(value);
-                    valueDisplay.textContent = roundedValue + '€';
+                    if (roundedValue >= 5000) {
+                        valueDisplay.textContent = '5000+€';
+                    } else {
+                        valueDisplay.textContent = roundedValue + '€';
+                    }
                 }
                 
                 // Update survey data with range
@@ -1963,15 +1967,6 @@
                 } else if (type === 'vidaus') {
                     surveyData.vidaus.biudzetas = budgetRange;
                 }
-                
-                // Update button states
-                const buttons = document.querySelectorAll(`#${stepId} .budget-label-btn`);
-                buttons.forEach(btn => {
-                    btn.classList.remove('selected');
-                    if (btn.getAttribute('data-value') === budgetRange) {
-                        btn.classList.add('selected');
-                    }
-                });
             }
             
             function startDrag(e) {
