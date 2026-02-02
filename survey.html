@@ -1681,42 +1681,6 @@
                 </div>
             </div>
 
-            <!-- Step 5: Apdaila -->
-            <div class="step" id="step-kubilas-5">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kubilo apdaila</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectKubilasOption('apdaila', 'Natūrali mediena')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Natūrali mediena</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Šiltas, tradicinis vaizdas</div>
-                            </div>
-                        </button>
-                        <button onclick="selectKubilasOption('apdaila', 'Termomediena')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Termomediena</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Tamsesnė, atspari drėgmei</div>
-                            </div>
-                        </button>
-                        <button onclick="selectKubilasOption('apdaila', 'Kompozitinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">Kompozitinė</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Modernios spalvos, minimali priežiūra</div>
-                            </div>
-                        </button>
-                        <div class="flex justify-center">
-                            <button onclick="selectKubilasOption('apdaila', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextKubilasStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Step 6: Papildomos funkcijos -->
             <div class="step" id="step-kubilas-6">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
@@ -2249,7 +2213,7 @@
                 totalSteps = 8;
                 setTimeout(() => goToStep('step-lauko-2', 2), 300);
             } else if (type === 'kubila') {
-                totalSteps = 9;
+                totalSteps = 8;
                 setTimeout(() => goToStep('step-kubilas-2', 2), 300);
             } else if (type === 'vidaus') {
                 totalSteps = 7;
@@ -2899,10 +2863,6 @@
                 showValidationError('Prašome pasirinkti šildymo būdą.');
                 return;
             }
-            if (currentStepNum === 5 && !surveyData.kubilas.apdaila) {
-                showValidationError('Prašome pasirinkti apdailos variantą.');
-                return;
-            }
             if (currentStepNum === 6 && (!surveyData.kubilas.funkcijos || surveyData.kubilas.funkcijos.length === 0)) {
                 showValidationError('Prašome pasirinkti bent vieną papildomą funkciją arba "Norėčiau Pasikonsultuoti".');
                 return;
@@ -2912,8 +2872,12 @@
                 return;
             }
 
+            // Skip step 5 (apdaila - removed)
+            let nextStep = currentStepNum + 1;
+            if (nextStep === 5) nextStep = 6; // Skip apdaila step
+            
             if (currentStepNum < 8) {
-                goToStep(`step-kubilas-${currentStepNum + 1}`, currentStepNum + 1);
+                goToStep(`step-kubilas-${nextStep}`, nextStep);
             } else if (currentStepNum === 8) {
                 // Budget step - optional, no validation needed
                 goToContact();
@@ -3107,6 +3071,11 @@
                     if (previousStep === 12) previousStep = 10; // After contact, go back to additional questions
                     if (previousStep === 10) previousStep = 11; // From additional questions, go back to budget
                     if (previousStep === 11) previousStep = 9; // From budget, go back to delivery
+                }
+                
+                // Handle skipped steps for kubilas survey
+                if (surveyData.type === 'kubila') {
+                    if (previousStep === 5) previousStep = 4; // Skip apdaila
                 }
                 
                 document.querySelectorAll('.step').forEach(step => {
@@ -3680,7 +3649,7 @@
                 } else if (quickSelect === 'kubila' || quickSelect === 'kubilas') {
                     // Normalize to 'kubila' for consistency
                     surveyData.type = 'kubila';
-                    totalSteps = 9;
+                    totalSteps = 8;
                     goToStep('step-kubilas-2', 2);
                 }
                 
