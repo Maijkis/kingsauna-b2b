@@ -1541,7 +1541,7 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
                     
                     <div class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Ilgis (m)</label>
                                 <input type="number" id="vidaus-ilgis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.0" step="0.1" min="0" oninput="onVidausMeasurementInput()">
@@ -1550,19 +1550,15 @@
                                 <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Plotis (m)</label>
                                 <input type="number" id="vidaus-plotis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.5" step="0.1" min="0" oninput="onVidausMeasurementInput()">
                             </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
+                            <div class="col-span-2">
                                 <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Aukštis (m)</label>
                                 <input type="number" id="vidaus-aukstis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.1" step="0.1" min="0" oninput="onVidausMeasurementInput()">
                             </div>
                         </div>
 
-                        <div class="pt-4">
-                            <p class="text-sm mb-3 text-center" style="color: var(--text-muted);">Arba pasirinkite:</p>
-                            <button id="vidaus-nezinau-measurements-btn" onclick="selectVidausNezinauMeasurements()" class="option-button w-full rounded-xl p-5 md:p-6 text-center justify-center relative">
-                                <div class="font-bold text-lg md:text-xl">Norėčiau Pasikonsultuoti</div>
+                        <div class="flex justify-center">
+                            <button id="vidaus-nezinau-measurements-btn" onclick="selectVidausNezinauMeasurements()" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                             </button>
                         </div>
                     </div>
