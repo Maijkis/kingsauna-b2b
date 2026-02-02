@@ -897,39 +897,27 @@
             background: transparent;
             outline: none;
             position: relative;
-            z-index: 2;
+            z-index: 3;
             cursor: pointer;
+            margin: 0;
         }
         .hottub-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 32px;
             height: 32px;
-            background: #A35E42;
-            border-radius: 50%;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
             position: relative;
-            z-index: 3;
-        }
-        .hottub-slider::-webkit-slider-thumb:active {
-            transform: scale(1.2);
-            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
+            z-index: 4;
         }
         .hottub-slider::-moz-range-thumb {
             width: 32px;
             height: 32px;
-            background: #A35E42;
-            border-radius: 50%;
-            cursor: pointer;
+            background: transparent;
             border: none;
-            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .hottub-slider::-moz-range-thumb:active {
-            transform: scale(1.2);
-            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
+            cursor: pointer;
         }
         .hottub-slider-track {
             position: absolute;
@@ -966,6 +954,10 @@
             z-index: 2;
             pointer-events: none;
         }
+        .hottub-slider-handle:active {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
+        }
         @media (max-width: 640px) {
             .hottub-illustration-container {
                 min-height: 150px;
@@ -999,6 +991,12 @@
             .hottub-slider-handle {
                 width: 36px;
                 height: 36px;
+            }
+            .hottub-slider-track {
+                height: 14px;
+            }
+            .hottub-slider-fill {
+                height: 14px;
             }
         }
         
@@ -2545,9 +2543,12 @@
                     labelSub.classList.remove('fade-slide-enter');
                 }, 150);
                 
-                // Update fill and handle position
-                fill.style.width = percent + '%';
-                handle.style.left = percent + '%';
+                // Update fill and handle position (account for track padding)
+                const trackLeft = 1; // 1rem padding
+                const trackWidth = 100 - (trackLeft * 2); // Account for left and right padding
+                const fillWidth = (percent / 100) * trackWidth;
+                fill.style.width = fillWidth + '%';
+                handle.style.left = `calc(${percent}% + ${trackLeft}rem - 16px)`;
                 
                 // Update survey data
                 const selectedValue = hottubValues[step];
