@@ -394,18 +394,6 @@
             height: 100%;
         }
         
-        /* Sticky CTA for features */
-        .sticky-features-cta {
-            position: sticky;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 1rem;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            margin-top: 2rem;
-        }
         @media (max-width: 640px) {
             .feature-option-button {
                 min-height: 90px;
@@ -1833,19 +1821,32 @@
                                 </svg>
                             </div>
                         </button>
-                        <div class="flex justify-center items-center">
-                            <button onclick="toggleKubilasOption('funkcijos', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Norėčiau Pasikonsultuoti')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <div class="flex items-start gap-3">
+                                <div class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                        <line x1="9" y1="10" x2="15" y2="10"/>
+                                        <line x1="9" y1="14" x2="15" y2="14"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-bold text-base md:text-lg mb-1">Norėčiau Pasikonsultuoti</div>
+                                    <div class="feature-description text-xs md:text-sm"></div>
+                                </div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
                     </div>
-                    <div class="flex gap-4 mt-6">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg w-full md:w-auto">Tęsti</button>
                     </div>
-                </div>
-                <!-- Sticky CTA Button -->
-                <div id="kubilas-features-cta" class="sticky-features-cta">
-                    <button onclick="nextKubilasStep(6)" class="cta-primary w-full py-4 px-6 min-h-[56px] touch-manipulation text-base md:text-lg font-semibold">Tęsti</button>
                 </div>
             </div>
 
@@ -2865,25 +2866,6 @@
                 }
             }
             
-            // Update sticky CTA text if on features step
-            if (field === 'funkcijos' && stepEl && stepEl.classList.contains('active')) {
-                updateKubilasFeaturesCTA();
-            }
-        }
-        
-        function updateKubilasFeaturesCTA() {
-            const ctaButton = document.querySelector('#kubilas-features-cta button');
-            if (!ctaButton) return;
-            
-            const selectedCount = surveyData.kubilas.funkcijos ? surveyData.kubilas.funkcijos.filter(f => f !== 'Norėčiau Pasikonsultuoti').length : 0;
-            
-            if (selectedCount === 0) {
-                ctaButton.textContent = 'Tęsti';
-            } else if (selectedCount === 1) {
-                ctaButton.textContent = 'Tęsti su 1 priedu';
-            } else {
-                ctaButton.textContent = `Tęsti su ${selectedCount} priedais`;
-            }
         }
 
         function nextKubilasStep(currentStepNum) {
@@ -3050,12 +3032,6 @@
                 }, 100);
             }
             
-            // Initialize features CTA when step-kubilas-6 is shown
-            if (stepId === 'step-kubilas-6') {
-                setTimeout(() => {
-                    updateKubilasFeaturesCTA();
-                }, 100);
-            }
             
             // Add progress bar inside the glass-card for all steps
             // Progress calculation: exclude step 1, so step 2 is the first progress step
