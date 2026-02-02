@@ -900,7 +900,7 @@
             margin-top: 0;
         }
         .slide-input-container.visible {
-            max-height: 100px;
+            max-height: 120px;
             opacity: 1;
             margin-top: 1rem;
         }
@@ -1289,41 +1289,70 @@
             <div class="step" id="step-kubilas-3">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių planuoja naudotis kubilu?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectKubilasZmones('2-3')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="2-3">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">2-3 žmonės</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Kompaktiškas, porai ar mažai šeimai</div>
+                    <div class="people-count-grid">
+                        <button onclick="selectKubilasZmones('2-3')" class="people-count-card touch-manipulation" data-value="2-3">
+                            <div class="people-count-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M1 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/>
+                                    <circle cx="17" cy="7" r="4"/>
+                                    <path d="M9 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                                </svg>
                             </div>
+                            <div class="people-count-label">2-3 žmonės</div>
+                            <div class="people-count-subtext">Kompaktiškas, porai ar mažai šeimai</div>
                         </button>
-                        <button onclick="selectKubilasZmones('4-5')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="4-5">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">4-5 žmonės</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Optimalus šeimai su vaikais</div>
+                        <button onclick="selectKubilasZmones('4-5')" class="people-count-card touch-manipulation" data-value="4-5">
+                            <div class="people-count-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="7" cy="6" r="3"/>
+                                    <path d="M1 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                                    <circle cx="17" cy="6" r="3"/>
+                                    <path d="M11 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                                    <circle cx="12" cy="4" r="2"/>
+                                    <path d="M6 18v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+                                </svg>
                             </div>
+                            <div class="people-count-label">4-5 žmonės</div>
+                            <div class="people-count-subtext">Optimalus šeimai su vaikais</div>
                         </button>
-                        <button onclick="selectKubilasZmones('6-8')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="6-8">
-                            <div>
-                                <div class="font-bold text-lg md:text-xl">6-8 žmonės</div>
-                                <div class="option-description text-sm" style="color: var(--text-muted);">Erdvus, tinka ir svečiams</div>
+                        <button onclick="selectKubilasZmones('6-8')" class="people-count-card touch-manipulation" data-value="6-8">
+                            <div class="people-count-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="6" cy="5" r="2.5"/>
+                                    <path d="M1 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
+                                    <circle cx="12" cy="5" r="2.5"/>
+                                    <path d="M7 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
+                                    <circle cx="18" cy="5" r="2.5"/>
+                                    <path d="M13 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
+                                </svg>
                             </div>
+                            <div class="people-count-label">6-8 žmonės</div>
+                            <div class="people-count-subtext">Erdvus, tinka ir svečiams</div>
                         </button>
-                        <div>
-                            <button onclick="selectKubilasZmones('Daugiau')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation" data-value="Daugiau">
-                                <div>
-                                    <div class="font-bold text-lg md:text-xl">Daugiau</div>
-                                    <div class="option-description text-sm" style="color: var(--text-muted);">Didelėms kompanijoms ar verslui</div>
-                                </div>
-                            </button>
-                            <div id="kubilas-zmones-daugiau-container" class="slide-input-container">
-                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Daugiausiai planuojamas žmonių kiekį įveskite čia</label>
-                                <input type="number" id="kubilas-zmones-daugiau-input" class="form-input w-full p-4 text-base" placeholder="pvz. 10" min="9">
+                        <button onclick="selectKubilasZmones('Daugiau')" class="people-count-card touch-manipulation" data-value="Daugiau">
+                            <div class="people-count-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <path d="M3 10h18"/>
+                                    <path d="M10 3v7"/>
+                                    <circle cx="8" cy="7" r="1"/>
+                                    <circle cx="12" cy="7" r="1"/>
+                                    <circle cx="16" cy="7" r="1"/>
+                                    <path d="M8 14h8"/>
+                                    <path d="M8 17h8"/>
+                                </svg>
                             </div>
-                        </div>
+                            <div class="people-count-label">Daugiau</div>
+                            <div class="people-count-subtext">Didelėms kompanijoms ar verslui</div>
+                        </button>
                     </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                    <div id="kubilas-zmones-daugiau-container" class="slide-input-container mb-4">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Daugiausiai planuojamas žmonių kiekį įveskite čia</label>
+                        <input type="number" id="kubilas-zmones-daugiau-input" class="form-input w-full p-4 text-base" placeholder="pvz. 10" min="9">
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextKubilasStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
                 </div>
             </div>
@@ -2330,22 +2359,47 @@
             const daugiauContainer = document.getElementById('kubilas-zmones-daugiau-container');
             const stepEl = document.getElementById('step-kubilas-3');
             
-            // Deselect all buttons
-            stepEl.querySelectorAll('.option-button').forEach(btn => {
-                btn.classList.remove('selected');
+            // Deselect all cards
+            stepEl.querySelectorAll('.people-count-card').forEach(card => {
+                card.classList.remove('selected');
             });
             
-            // Select the clicked button
-            event.target.closest('.option-button').classList.add('selected');
+            // Select the clicked card
+            const card = event.target.closest('.people-count-card');
+            if (card) {
+                card.classList.add('selected');
+            }
+            
             surveyData.kubilas.zmones = value;
             surveyData.kubilas.talpa = value;
             
             // Show/hide the input field
             if (value === 'Daugiau') {
                 daugiauContainer.classList.add('visible');
-                document.getElementById('kubilas-zmones-daugiau-input').focus();
+                setTimeout(() => {
+                    document.getElementById('kubilas-zmones-daugiau-input').focus();
+                }, 100);
             } else {
                 daugiauContainer.classList.remove('visible');
+            }
+            
+            // Auto-advance after brief highlight (only if not "Daugiau" or if input is filled)
+            if (value !== 'Daugiau') {
+                setTimeout(() => {
+                    nextKubilasStep(3);
+                }, 400);
+            } else {
+                // For "Daugiau", wait for input and then auto-advance
+                const input = document.getElementById('kubilas-zmones-daugiau-input');
+                const handleInput = () => {
+                    if (input.value && parseInt(input.value) >= 9) {
+                        input.removeEventListener('blur', handleInput);
+                        setTimeout(() => {
+                            nextKubilasStep(3);
+                        }, 300);
+                    }
+                };
+                input.addEventListener('blur', handleInput);
             }
         }
 
