@@ -1520,12 +1520,17 @@
             <div class="step" id="step-vidaus-3">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios pirties norite?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div class="font-bold text-lg md:text-xl">Sauna (sausa)</div>
+                    <div class="grid grid-cols-2 gap-4 mb-3">
+                        <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Sauna">
+                            <div class="font-bold text-base md:text-lg">Sauna</div>
                         </button>
-                        <button onclick="selectVidausOption('tipas', 'Garinė')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
-                            <div class="font-bold text-lg md:text-xl">Garinė</div>
+                        <button onclick="selectVidausOption('tipas', 'Garinė')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Garinė">
+                            <div class="font-bold text-base md:text-lg">Garinė</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectVidausOption('tipas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
