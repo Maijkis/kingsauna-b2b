@@ -2543,12 +2543,17 @@
                     labelSub.classList.remove('fade-slide-enter');
                 }, 150);
                 
-                // Update fill and handle position (account for track padding)
-                const trackLeft = 1; // 1rem padding
-                const trackWidth = 100 - (trackLeft * 2); // Account for left and right padding
+                // Update fill and handle position
+                // Track has 1rem padding on each side, so we need to calculate relative to the track width
+                const trackPadding = 16; // 1rem = 16px
+                const container = slider.parentElement;
+                const containerWidth = container.offsetWidth;
+                const trackWidth = containerWidth - (trackPadding * 2);
                 const fillWidth = (percent / 100) * trackWidth;
-                fill.style.width = fillWidth + '%';
-                handle.style.left = `calc(${percent}% + ${trackLeft}rem - 16px)`;
+                const handlePosition = trackPadding + fillWidth;
+                
+                fill.style.width = fillWidth + 'px';
+                handle.style.left = (handlePosition - 16) + 'px'; // 16px = half of handle width (32px)
                 
                 // Update survey data
                 const selectedValue = hottubValues[step];
