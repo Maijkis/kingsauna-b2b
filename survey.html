@@ -634,6 +634,7 @@
             opacity: 0.9;
             flex-shrink: 0;
             display: block;
+            aspect-ratio: 16 / 9;
         }
         .icon-box-option.selected .icon-box-image {
             opacity: 1;
@@ -732,18 +733,19 @@
         }
         @media (max-width: 640px) {
             .icon-boxes-grid-main {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5rem;
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 0.75rem;
             }
             .icon-boxes-grid-stove {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 0.75rem;
             }
             .icon-box-option {
-                min-height: 120px;
+                min-height: auto;
             }
             .icon-box-image {
-                height: 75%; /* 3/4 image, 1/4 text */
+                height: 80%; /* 4/5 image, 1/5 text */
+                aspect-ratio: 16 / 9;
             }
             .icon-box-icon {
                 width: 36px;
