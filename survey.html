@@ -981,6 +981,12 @@
             cursor: pointer;
             margin: 0;
         }
+        .hottub-slider::-webkit-slider-runnable-track {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            height: 12px;
+        }
         .hottub-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -991,6 +997,11 @@
             cursor: pointer;
             position: relative;
             z-index: 4;
+        }
+        .hottub-slider::-moz-range-track {
+            background: transparent;
+            height: 12px;
+            border: none;
         }
         .hottub-slider::-moz-range-thumb {
             width: 32px;
