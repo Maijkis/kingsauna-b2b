@@ -844,102 +844,161 @@
             100% { box-shadow: 0 0 12px rgba(56, 161, 105, 0.4); }
         }
         
-        /* ===== PEOPLE COUNT GRID CARDS ===== */
-        .people-count-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-        .people-count-card {
+        /* ===== HOT TUB SLIDER UI ===== */
+        .hottub-illustration-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 1.5rem 1rem;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1.5px solid var(--glass-border);
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            backdrop-filter: blur(10px);
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            min-height: 140px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-        .people-count-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--forest-muted);
-            box-shadow: 0 4px 12px rgba(34, 84, 61, 0.15);
-        }
-        .people-count-card:active {
-            transform: scale(0.98);
-        }
-        .people-count-card.selected {
-            background: #A35E42;
-            border-color: #A35E42;
-            color: white;
-            box-shadow: 0 6px 16px rgba(163, 94, 66, 0.3);
-        }
-        .people-count-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 0.75rem;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0.8;
+            margin: 2rem 0 1.5rem 0;
+            min-height: 180px;
         }
-        .people-count-card.selected .people-count-icon {
-            opacity: 1;
-            color: white;
+        .hottub-svg {
+            width: 200px;
+            height: 120px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+            transform: scale(1);
         }
-        .people-count-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.5;
+        .hottub-label-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            min-height: 80px;
         }
-        .people-count-label {
+        .hottub-label-main {
             font-weight: 700;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 0.25rem;
+            font-size: 1.5rem;
             color: var(--text-charcoal);
+            margin-bottom: 0.5rem;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .people-count-card.selected .people-count-label {
-            color: white;
-        }
-        .people-count-subtext {
-            font-size: 0.75rem;
-            text-align: center;
+        .hottub-label-sub {
+            font-size: 1rem;
             color: var(--text-muted);
-            line-height: 1.3;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .people-count-card.selected .people-count-subtext {
-            color: rgba(255, 255, 255, 0.9);
+        .hottub-label-main.fade-slide-enter {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .hottub-label-sub.fade-slide-enter {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .hottub-slider-container {
+            position: relative;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+        .hottub-slider {
+            width: 100%;
+            height: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            outline: none;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .hottub-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            background: #A35E42;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            z-index: 3;
+        }
+        .hottub-slider::-webkit-slider-thumb:active {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
+        }
+        .hottub-slider::-moz-range-thumb {
+            width: 32px;
+            height: 32px;
+            background: #A35E42;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hottub-slider::-moz-range-thumb:active {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
+        }
+        .hottub-slider-track {
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+            right: 1rem;
+            height: 12px;
+            background: #E5E7EB;
+            border-radius: 6px;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .hottub-slider-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #A35E42;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        .hottub-slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            width: 32px;
+            height: 32px;
+            background: #A35E42;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
+            transition: left 0.3s ease;
+            z-index: 2;
+            pointer-events: none;
         }
         @media (max-width: 640px) {
-            .people-count-grid {
-                gap: 0.5rem;
+            .hottub-illustration-container {
+                min-height: 150px;
+                margin: 1.5rem 0 1rem 0;
             }
-            .people-count-card {
-                min-height: 120px;
-                padding: 1.25rem 0.75rem;
+            .hottub-svg {
+                width: 160px;
+                height: 96px;
             }
-            .people-count-icon {
-                width: 40px;
-                height: 40px;
-                margin-bottom: 0.5rem;
+            .hottub-label-container {
+                min-height: 70px;
+                margin-bottom: 1.5rem;
             }
-            .people-count-label {
+            .hottub-label-main {
+                font-size: 1.25rem;
+            }
+            .hottub-label-sub {
                 font-size: 0.9rem;
             }
-            .people-count-subtext {
-                font-size: 0.7rem;
+            .hottub-slider-container {
+                margin: 1.5rem 0;
+            }
+            .hottub-slider::-webkit-slider-thumb {
+                width: 36px;
+                height: 36px;
+            }
+            .hottub-slider::-moz-range-thumb {
+                width: 36px;
+                height: 36px;
+            }
+            .hottub-slider-handle {
+                width: 36px;
+                height: 36px;
             }
         }
         
@@ -1388,68 +1447,59 @@
             <div class="step" id="step-kubilas-3">
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių planuoja naudotis kubilu?</h2>
-                    <div class="people-count-grid">
-                        <button onclick="selectKubilasZmones('2-3')" class="people-count-card touch-manipulation" data-value="2-3">
-                            <div class="people-count-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="9" cy="7" r="4"/>
-                                    <path d="M1 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/>
-                                    <circle cx="17" cy="7" r="4"/>
-                                    <path d="M9 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                                </svg>
-                            </div>
-                            <div class="people-count-label">2-3 žmonės</div>
-                            <div class="people-count-subtext">Kompaktiškas, porai ar mažai šeimai</div>
-                        </button>
-                        <button onclick="selectKubilasZmones('4-5')" class="people-count-card touch-manipulation" data-value="4-5">
-                            <div class="people-count-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="7" cy="6" r="3"/>
-                                    <path d="M1 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                                    <circle cx="17" cy="6" r="3"/>
-                                    <path d="M11 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                                    <circle cx="12" cy="4" r="2"/>
-                                    <path d="M6 18v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
-                                </svg>
-                            </div>
-                            <div class="people-count-label">4-5 žmonės</div>
-                            <div class="people-count-subtext">Optimalus šeimai su vaikais</div>
-                        </button>
-                        <button onclick="selectKubilasZmones('6-8')" class="people-count-card touch-manipulation" data-value="6-8">
-                            <div class="people-count-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="6" cy="5" r="2.5"/>
-                                    <path d="M1 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
-                                    <circle cx="12" cy="5" r="2.5"/>
-                                    <path d="M7 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
-                                    <circle cx="18" cy="5" r="2.5"/>
-                                    <path d="M13 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/>
-                                </svg>
-                            </div>
-                            <div class="people-count-label">6-8 žmonės</div>
-                            <div class="people-count-subtext">Erdvus, tinka ir svečiams</div>
-                        </button>
-                        <button onclick="selectKubilasZmones('Daugiau')" class="people-count-card touch-manipulation" data-value="Daugiau">
-                            <div class="people-count-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                    <path d="M3 10h18"/>
-                                    <path d="M10 3v7"/>
-                                    <circle cx="8" cy="7" r="1"/>
-                                    <circle cx="12" cy="7" r="1"/>
-                                    <circle cx="16" cy="7" r="1"/>
-                                    <path d="M8 14h8"/>
-                                    <path d="M8 17h8"/>
-                                </svg>
-                            </div>
-                            <div class="people-count-label">Daugiau</div>
-                            <div class="people-count-subtext">Didelėms kompanijoms ar verslui</div>
-                        </button>
+                    
+                    <!-- Hot Tub SVG Illustration -->
+                    <div class="hottub-illustration-container">
+                        <svg id="hottub-svg" class="hottub-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Hot tub base -->
+                            <ellipse cx="100" cy="100" rx="80" ry="15" fill="#8B7355" opacity="0.8"/>
+                            <!-- Hot tub body -->
+                            <ellipse cx="100" cy="70" rx="75" ry="25" fill="#A0826D" stroke="#6B5D4F" stroke-width="2"/>
+                            <!-- Water surface -->
+                            <ellipse cx="100" cy="60" rx="70" ry="20" fill="#4A90E2" opacity="0.6"/>
+                            <!-- Water ripples -->
+                            <ellipse cx="100" cy="58" rx="65" ry="18" fill="none" stroke="#5BA3F5" stroke-width="1" opacity="0.4"/>
+                            <ellipse cx="100" cy="56" rx="60" ry="16" fill="none" stroke="#6BB6FF" stroke-width="1" opacity="0.3"/>
+                            <!-- Wood texture lines -->
+                            <line x1="40" y1="70" x2="160" y2="70" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
+                            <line x1="45" y1="75" x2="155" y2="75" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
+                            <line x1="50" y1="80" x2="150" y2="80" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
+                            <!-- Steam bubbles -->
+                            <circle cx="80" cy="50" r="3" fill="#E8F4F8" opacity="0.7"/>
+                            <circle cx="100" cy="48" r="4" fill="#E8F4F8" opacity="0.7"/>
+                            <circle cx="120" cy="50" r="3" fill="#E8F4F8" opacity="0.7"/>
+                        </svg>
                     </div>
+                    
+                    <!-- Dynamic Labels -->
+                    <div class="hottub-label-container">
+                        <div id="hottub-label-main" class="hottub-label-main">2-3 žmonės</div>
+                        <div id="hottub-label-sub" class="hottub-label-sub">Kompaktiškas, porai</div>
+                    </div>
+                    
+                    <!-- Stepped Slider -->
+                    <div class="hottub-slider-container">
+                        <input 
+                            type="range" 
+                            id="kubilas-people-slider" 
+                            class="hottub-slider" 
+                            min="0" 
+                            max="3" 
+                            step="1" 
+                            value="0"
+                        >
+                        <div class="hottub-slider-track">
+                            <div class="hottub-slider-fill" id="hottub-slider-fill"></div>
+                            <div class="hottub-slider-handle" id="hottub-slider-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional input for "Daugiau" -->
                     <div id="kubilas-zmones-daugiau-container" class="slide-input-container mb-4">
                         <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Daugiausiai planuojamas žmonių kiekį įveskite čia</label>
                         <input type="number" id="kubilas-zmones-daugiau-input" class="form-input w-full p-4 text-base" placeholder="pvz. 10" min="9">
                     </div>
+                    
                     <div class="flex gap-4 mt-6 md:mt-8">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
                     </div>
@@ -2454,51 +2504,117 @@
             if (button) button.classList.add('selected');
         }
         
-        function selectKubilasZmones(value) {
+        // Slider labels configuration
+        const hottubLabels = [
+            { main: '2-3 žmonės', sub: 'Kompaktiškas, porai' },
+            { main: '4-5 žmonės', sub: 'Optimalus šeimai' },
+            { main: '6-8 žmonės', sub: 'Erdvus, svečiams' },
+            { main: 'Daugiau', sub: 'Verslui' }
+        ];
+        
+        const hottubValues = ['2-3', '4-5', '6-8', 'Daugiau'];
+        let hottubAutoAdvanceTimeout = null;
+        
+        function initHottubSlider() {
+            const slider = document.getElementById('kubilas-people-slider');
+            const svg = document.getElementById('hottub-svg');
+            const labelMain = document.getElementById('hottub-label-main');
+            const labelSub = document.getElementById('hottub-label-sub');
+            const fill = document.getElementById('hottub-slider-fill');
+            const handle = document.getElementById('hottub-slider-handle');
             const daugiauContainer = document.getElementById('kubilas-zmones-daugiau-container');
-            const stepEl = document.getElementById('step-kubilas-3');
             
-            // Deselect all cards
-            stepEl.querySelectorAll('.people-count-card').forEach(card => {
-                card.classList.remove('selected');
+            if (!slider || !svg || !labelMain || !labelSub) return;
+            
+            function updateSlider(value) {
+                const step = parseInt(value);
+                const percent = (step / 3) * 100;
+                
+                // Update SVG scale (1.0x to 1.5x)
+                const scale = 1 + (step * 0.1667); // 1.0, 1.167, 1.333, 1.5
+                svg.style.transform = `scale(${scale})`;
+                
+                // Update labels with fade & slide animation
+                labelMain.classList.add('fade-slide-enter');
+                labelSub.classList.add('fade-slide-enter');
+                
+                setTimeout(() => {
+                    labelMain.textContent = hottubLabels[step].main;
+                    labelSub.textContent = hottubLabels[step].sub;
+                    labelMain.classList.remove('fade-slide-enter');
+                    labelSub.classList.remove('fade-slide-enter');
+                }, 150);
+                
+                // Update fill and handle position
+                fill.style.width = percent + '%';
+                handle.style.left = percent + '%';
+                
+                // Update survey data
+                const selectedValue = hottubValues[step];
+                surveyData.kubilas.zmones = selectedValue;
+                surveyData.kubilas.talpa = selectedValue;
+                
+                // Show/hide additional input for "Daugiau"
+                if (step === 3) {
+                    daugiauContainer.classList.add('visible');
+                    setTimeout(() => {
+                        document.getElementById('kubilas-zmones-daugiau-input').focus();
+                    }, 100);
+                } else {
+                    daugiauContainer.classList.remove('visible');
+                }
+                
+                // Clear existing timeout
+                if (hottubAutoAdvanceTimeout) {
+                    clearTimeout(hottubAutoAdvanceTimeout);
+                }
+                
+                // Auto-advance after 800ms of no interaction
+                if (step !== 3) {
+                    hottubAutoAdvanceTimeout = setTimeout(() => {
+                        nextKubilasStep(3);
+                    }, 800);
+                } else {
+                    // For "Daugiau", wait for input
+                    const input = document.getElementById('kubilas-zmones-daugiau-input');
+                    const handleInput = () => {
+                        if (input.value && parseInt(input.value) >= 9) {
+                            input.removeEventListener('blur', handleInput);
+                            setTimeout(() => {
+                                nextKubilasStep(3);
+                            }, 300);
+                        }
+                    };
+                    input.removeEventListener('blur', handleInput);
+                    input.addEventListener('blur', handleInput);
+                }
+            }
+            
+            // Initialize
+            updateSlider(slider.value);
+            
+            // Handle slider input
+            slider.addEventListener('input', (e) => {
+                updateSlider(e.target.value);
             });
             
-            // Select the clicked card
-            const card = event.target.closest('.people-count-card');
-            if (card) {
-                card.classList.add('selected');
-            }
-            
-            surveyData.kubilas.zmones = value;
-            surveyData.kubilas.talpa = value;
-            
-            // Show/hide the input field
-            if (value === 'Daugiau') {
-                daugiauContainer.classList.add('visible');
-                setTimeout(() => {
-                    document.getElementById('kubilas-zmones-daugiau-input').focus();
-                }, 100);
-            } else {
-                daugiauContainer.classList.remove('visible');
-            }
-            
-            // Auto-advance after brief highlight (only if not "Daugiau" or if input is filled)
-            if (value !== 'Daugiau') {
-                setTimeout(() => {
-                    nextKubilasStep(3);
-                }, 400);
-            } else {
-                // For "Daugiau", wait for input and then auto-advance
-                const input = document.getElementById('kubilas-zmones-daugiau-input');
-                const handleInput = () => {
-                    if (input.value && parseInt(input.value) >= 9) {
-                        input.removeEventListener('blur', handleInput);
-                        setTimeout(() => {
-                            nextKubilasStep(3);
-                        }, 300);
-                    }
-                };
-                input.addEventListener('blur', handleInput);
+            // Handle slider change (for snap points)
+            slider.addEventListener('change', (e) => {
+                const value = parseInt(e.target.value);
+                slider.value = value;
+                updateSlider(value);
+            });
+        }
+        
+        function selectKubilasZmones(value) {
+            // Legacy function for compatibility - now handled by slider
+            const slider = document.getElementById('kubilas-people-slider');
+            if (slider) {
+                const index = hottubValues.indexOf(value);
+                if (index !== -1) {
+                    slider.value = index;
+                    slider.dispatchEvent(new Event('input'));
+                }
             }
         }
 
@@ -2716,6 +2832,13 @@
             currentStep = stepNumber;
             stepHistory.push(stepNumber);
             updateProgress();
+            
+            // Initialize hottub slider when step-kubilas-3 is shown
+            if (stepId === 'step-kubilas-3') {
+                setTimeout(() => {
+                    initHottubSlider();
+                }, 100);
+            }
             
             // Add progress bar inside the glass-card for all steps
             // Progress calculation: exclude step 1, so step 2 is the first progress step
