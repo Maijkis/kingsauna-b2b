@@ -853,8 +853,8 @@
             min-height: 180px;
         }
         .hottub-svg {
-            width: 200px;
-            height: 120px;
+            width: 240px;
+            height: 160px;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: center;
             transform: scale(1);
@@ -964,8 +964,8 @@
                 margin: 1.5rem 0 1rem 0;
             }
             .hottub-svg {
-                width: 160px;
-                height: 96px;
+                width: 200px;
+                height: 133px;
             }
             .hottub-label-container {
                 min-height: 70px;
@@ -1448,24 +1448,57 @@
                     
                     <!-- Hot Tub SVG Illustration -->
                     <div class="hottub-illustration-container">
-                        <svg id="hottub-svg" class="hottub-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Hot tub base -->
-                            <ellipse cx="100" cy="100" rx="80" ry="15" fill="#8B7355" opacity="0.8"/>
-                            <!-- Hot tub body -->
-                            <ellipse cx="100" cy="70" rx="75" ry="25" fill="#A0826D" stroke="#6B5D4F" stroke-width="2"/>
-                            <!-- Water surface -->
-                            <ellipse cx="100" cy="60" rx="70" ry="20" fill="#4A90E2" opacity="0.6"/>
-                            <!-- Water ripples -->
-                            <ellipse cx="100" cy="58" rx="65" ry="18" fill="none" stroke="#5BA3F5" stroke-width="1" opacity="0.4"/>
-                            <ellipse cx="100" cy="56" rx="60" ry="16" fill="none" stroke="#6BB6FF" stroke-width="1" opacity="0.3"/>
-                            <!-- Wood texture lines -->
-                            <line x1="40" y1="70" x2="160" y2="70" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
-                            <line x1="45" y1="75" x2="155" y2="75" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
-                            <line x1="50" y1="80" x2="150" y2="80" stroke="#6B5D4F" stroke-width="1" opacity="0.3"/>
-                            <!-- Steam bubbles -->
-                            <circle cx="80" cy="50" r="3" fill="#E8F4F8" opacity="0.7"/>
-                            <circle cx="100" cy="48" r="4" fill="#E8F4F8" opacity="0.7"/>
-                            <circle cx="120" cy="50" r="3" fill="#E8F4F8" opacity="0.7"/>
+                        <svg id="hottub-svg" class="hottub-svg" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Base/Stand -->
+                            <rect x="20" y="130" width="200" height="20" rx="10" fill="#6B5D4F" opacity="0.6"/>
+                            <ellipse cx="120" cy="130" rx="100" ry="8" fill="#5A4A3D" opacity="0.7"/>
+                            
+                            <!-- Hot tub outer rim -->
+                            <ellipse cx="120" cy="100" rx="95" ry="30" fill="#8B7355" stroke="#6B5D4F" stroke-width="2.5"/>
+                            
+                            <!-- Hot tub body (wooden barrel style) -->
+                            <ellipse cx="120" cy="85" rx="88" ry="28" fill="#A0826D" stroke="#7A6A5D" stroke-width="2"/>
+                            
+                            <!-- Wooden staves (vertical lines) -->
+                            <line x1="45" y1="60" x2="45" y2="110" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="60" y1="58" x2="60" y2="108" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="75" y1="57" x2="75" y2="107" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="90" y1="56" x2="90" y2="106" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="105" y1="55" x2="105" y2="105" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="120" y1="55" x2="120" y2="105" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="135" y1="56" x2="135" y2="106" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="150" y1="57" x2="150" y2="107" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="165" y1="58" x2="165" y2="108" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="180" y1="60" x2="180" y2="110" stroke="#6B5D4F" stroke-width="1.5" opacity="0.4"/>
+                            
+                            <!-- Metal hoops/bands -->
+                            <ellipse cx="120" cy="70" rx="92" ry="2" fill="#9A8A7D" opacity="0.6"/>
+                            <ellipse cx="120" cy="100" rx="92" ry="2" fill="#9A8A7D" opacity="0.6"/>
+                            
+                            <!-- Water surface (realistic) -->
+                            <ellipse cx="120" cy="75" rx="85" ry="22" fill="#4A90E2" opacity="0.7"/>
+                            <ellipse cx="120" cy="72" rx="82" ry="20" fill="#5BA3F5" opacity="0.5"/>
+                            
+                            <!-- Water ripples and reflections -->
+                            <ellipse cx="120" cy="70" rx="78" ry="18" fill="none" stroke="#6BB6FF" stroke-width="1" opacity="0.4"/>
+                            <ellipse cx="120" cy="68" rx="75" ry="16" fill="none" stroke="#7BC8FF" stroke-width="0.8" opacity="0.3"/>
+                            
+                            <!-- Steam rising -->
+                            <path d="M 80 65 Q 85 50, 90 40" stroke="#E8F4F8" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+                            <path d="M 100 63 Q 105 48, 110 38" stroke="#E8F4F8" stroke-width="2.5" fill="none" opacity="0.7" stroke-linecap="round"/>
+                            <path d="M 120 62 Q 125 47, 130 37" stroke="#E8F4F8" stroke-width="2.5" fill="none" opacity="0.7" stroke-linecap="round"/>
+                            <path d="M 140 63 Q 145 48, 150 38" stroke="#E8F4F8" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+                            <path d="M 160 65 Q 165 50, 170 40" stroke="#E8F4F8" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+                            
+                            <!-- Steam bubbles in water -->
+                            <circle cx="90" cy="75" r="2.5" fill="#E8F4F8" opacity="0.8"/>
+                            <circle cx="110" cy="73" r="3" fill="#E8F4F8" opacity="0.8"/>
+                            <circle cx="130" cy="73" r="3" fill="#E8F4F8" opacity="0.8"/>
+                            <circle cx="150" cy="75" r="2.5" fill="#E8F4F8" opacity="0.8"/>
+                            
+                            <!-- Control panel/jets (optional detail) -->
+                            <circle cx="200" cy="85" r="8" fill="#7A6A5D" opacity="0.5"/>
+                            <circle cx="200" cy="85" r="5" fill="#9A8A7D" opacity="0.7"/>
                         </svg>
                     </div>
                     
@@ -1498,8 +1531,9 @@
                         <input type="number" id="kubilas-zmones-daugiau-input" class="form-input w-full p-4 text-base" placeholder="pvz. 10" min="9">
                     </div>
                     
-                    <div class="flex gap-4 mt-6 md:mt-8">
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
                     </div>
                 </div>
             </div>
