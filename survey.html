@@ -1243,21 +1243,21 @@
                 <div class="glass-card p-5 md:p-8 lg:p-12">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
                     <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
-                        <button onclick="selectKubilasOption('tipas', 'Medinis')" class="icon-box-option touch-manipulation" data-value="Medinis">
+                        <button onclick="toggleKubilasTipas('Medinis')" class="icon-box-option touch-manipulation" data-value="Medinis">
                             <img src="images/kubilas-wooden-natural.jpg" alt="Medinis kubilas" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Medinis</div>
                         </button>
-                        <button onclick="selectKubilasOption('tipas', 'Plastikinis')" class="icon-box-option touch-manipulation" data-value="Plastikinis">
+                        <button onclick="toggleKubilasTipas('Plastikinis')" class="icon-box-option touch-manipulation" data-value="Plastikinis">
                             <img src="images/kubilas-wood-fired-steam.jpg" alt="Plastikinis kubilas" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Plastikinis</div>
                         </button>
-                        <button onclick="selectKubilasOption('tipas', 'Stiklo Pluošto')" class="icon-box-option touch-manipulation" data-value="Stiklo Pluošto">
+                        <button onclick="toggleKubilasTipas('Stiklo Pluošto')" class="icon-box-option touch-manipulation" data-value="Stiklo Pluošto">
                             <img src="images/kubilas-lake-terrace.jpeg" alt="Stiklo pluošto kubilas" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Stiklo Pluošto</div>
                         </button>
                     </div>
                     <div class="flex justify-center">
-                        <button onclick="selectKubilasOption('tipas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                        <button onclick="toggleKubilasTipas('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
                             <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
                     </div>
@@ -1799,6 +1799,7 @@
                 biudzetas: null
             },
             kubilas: {
+                tipas: [],
                 biudzetas: null
             },
             vidaus: {
@@ -2251,6 +2252,44 @@
         }
 
         // ===== KUBILAS FUNCTIONS =====
+        // ===== KUBILAS STEP 2: TIPAS (MULTI-SELECT) =====
+        function toggleKubilasTipas(value) {
+            if (!surveyData.kubilas.tipas) surveyData.kubilas.tipas = [];
+            
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
+            const index = surveyData.kubilas.tipas.indexOf(value);
+            
+            if (value === 'Norėčiau Pasikonsultuoti') {
+                // If selecting consultation, deselect all others and select only consultation
+                const stepEl = document.getElementById('step-kubilas-2');
+                stepEl.querySelectorAll('.icon-box-option, .icon-box-option-consultation').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                button.classList.add('selected');
+                surveyData.kubilas.tipas = ['Norėčiau Pasikonsultuoti'];
+            } else {
+                // If deselecting consultation, re-enable all buttons
+                const stepEl = document.getElementById('step-kubilas-2');
+                stepEl.querySelectorAll('.icon-box-option-consultation').forEach(btn => {
+                    if (btn.classList.contains('selected')) {
+                        btn.classList.remove('selected');
+                        const consultIndex = surveyData.kubilas.tipas.indexOf('Norėčiau Pasikonsultuoti');
+                        if (consultIndex > -1) {
+                            surveyData.kubilas.tipas.splice(consultIndex, 1);
+                        }
+                    }
+                });
+                
+                if (index > -1) {
+                    surveyData.kubilas.tipas.splice(index, 1);
+                    button.classList.remove('selected');
+                } else {
+                    surveyData.kubilas.tipas.push(value);
+                    button.classList.add('selected');
+                }
+            }
+        }
+        
         function selectKubilasOption(field, value) {
             surveyData.kubilas[field] = value;
             
@@ -2344,7 +2383,7 @@
         }
 
         function nextKubilasStep(currentStepNum) {
-            if (currentStepNum === 2 && !surveyData.kubilas.tipas) {
+            if (currentStepNum === 2 && (!surveyData.kubilas.tipas || surveyData.kubilas.tipas.length === 0)) {
                 showValidationError('Prašome pasirinkti kubilo tipą.');
                 return;
             }
