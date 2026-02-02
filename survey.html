@@ -546,7 +546,7 @@
         }
         .icon-box-image {
             width: 100%;
-            height: 80%; /* 4/5 of button height */
+            height: 75%; /* 3/4 of button height */
             object-fit: cover;
             object-position: center;
             border-radius: 12px 12px 0 0;
@@ -663,7 +663,7 @@
                 min-height: 120px;
             }
             .icon-box-image {
-                height: 70%; /* 70% image, 30% text for better text readability */
+                height: 75%; /* 3/4 image, 1/4 text */
             }
             .icon-box-icon {
                 width: 36px;
@@ -1050,15 +1050,18 @@
                         </div>
                     </div>
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Ką norite užsakyti?</h2>
-                    <div class="space-y-5 md:space-y-4">
-                        <button onclick="selectMainOption('lauko')" class="option-button w-full rounded-xl p-4 md:p-5 text-center relative touch-manipulation justify-center items-center">
-                            <div class="font-bold text-base md:text-lg">Lauko pirtį</div>
+                    <div class="icon-boxes-grid icon-boxes-grid-main">
+                        <button onclick="selectMainOption('lauko')" class="icon-box-option touch-manipulation" data-value="lauko">
+                            <img src="images/barrel-vidutine.jpg" alt="Lauko pirtis" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Lauko pirtį</div>
                         </button>
-                        <button onclick="selectMainOption('kubila')" class="option-button w-full rounded-xl p-4 md:p-5 text-center relative touch-manipulation justify-center items-center">
-                            <div class="font-bold text-base md:text-lg">Kubilą</div>
+                        <button onclick="selectMainOption('kubila')" class="icon-box-option touch-manipulation" data-value="kubila">
+                            <img src="images/kubilas-wooden-natural.jpg" alt="Kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Kubilą</div>
                         </button>
-                        <button onclick="selectMainOption('vidaus')" class="option-button w-full rounded-xl p-4 md:p-5 text-center relative touch-manipulation justify-center items-center">
-                            <div class="font-bold text-base md:text-lg">Vidaus pirtį</div>
+                        <button onclick="selectMainOption('vidaus')" class="icon-box-option touch-manipulation" data-value="vidaus">
+                            <img src="images/interior-sauna-modern.jpg" alt="Vidaus pirtis" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Vidaus pirtį</div>
                         </button>
                     </div>
                 </div>
@@ -1841,11 +1844,12 @@
             surveyData.type = type;
             
             // Remove selected from all
-            document.querySelectorAll('#step1 .option-button').forEach(btn => {
+            document.querySelectorAll('#step1 .icon-box-option, #step1 .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             // Add selected to clicked
-            event.target.closest('.option-button').classList.add('selected');
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
+            if (button) button.classList.add('selected');
             
             // Set total steps based on type
             if (type === 'lauko') {
