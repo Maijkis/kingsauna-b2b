@@ -1,0 +1,2411 @@
+
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kingsauna - profesionalūs saunų, lauko pirčių ir kubilų sprendimai Lietuvoje. Raskite tinkamiausią pirtį ar kubilą per trumpą apklausą.">
+    <title>Kingsauna - Raskite Tobulą Pirtį ar Kubilą | Profesionalūs Sprendimai</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: 80px; /* Account for sticky nav */
+        }
+        
+        /* Better mobile scroll */
+        body {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        /* Prevent text orphans (single/two words on a line) */
+        p, h1, h2, h3, h4, h5, h6, li, span:not(.whitespace-nowrap) {
+            text-wrap: pretty;
+            orphans: 3;
+            widows: 3;
+        }
+        
+        /* Ensure proper text wrapping for paragraphs */
+        p {
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* Typography - All text uses Inter */
+        h1, h2, h3 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* ===== NEW COLOR PALETTE ===== */
+        :root {
+            /* Backgrounds */
+            --bg-sand: #faf8f4;
+            --bg-cream: #f5f2ec;
+            --bg-forest-light: #e8f0eb;
+            
+            /* Accent - Forest Green */
+            --forest: #1a3c34;
+            --forest-light: #22543d;
+            --forest-muted: #38a169;
+            
+            /* CTA - Copper */
+            --copper: #b45c3a;
+            --copper-dark: #9a4a2f;
+            --copper-light: #c76a47;
+            
+            /* Text */
+            --text-charcoal: #2d3748;
+            --text-warm: #4a5568;
+            --text-muted: #718096;
+            
+            /* Glass */
+            --glass-white: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(34, 84, 61, 0.1);
+        }
+        
+        /* ===== BACKGROUNDS ===== */
+        .bg-sand { background-color: var(--bg-sand); }
+        .bg-cream { background-color: var(--bg-cream); }
+        .bg-forest-light { background-color: var(--bg-forest-light); }
+        
+        /* ===== NAVIGATION ===== */
+        .top-logo-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 40;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .top-logo-bar.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+        }
+        
+        .sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(250, 248, 244, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(34, 84, 61, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+        .sticky-nav.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.active {
+            max-height: 350px;
+        }
+        
+        /* ===== PRIMARY CTA (Copper) ===== */
+        .cta-primary {
+            min-height: 56px; /* Mobile-first: minimum touch target */
+        }
+        @media (min-width: 768px) {
+            .cta-primary {
+                min-height: auto;
+            }
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
+            box-shadow: 0 8px 30px -5px rgba(180, 92, 58, 0.4);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            touch-action: manipulation;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
+        .cta-primary:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 20px -5px rgba(180, 92, 58, 0.5);
+        }
+        @media (max-width: 640px) {
+            .cta-primary {
+                min-height: 56px;
+                font-size: 1rem;
+                padding: 0.875rem 1.5rem;
+                width: 100%;
+            }
+        }
+        
+        /* ===== STICKY BOTTOM CTA BAR (Mobile Only) ===== */
+        .sticky-bottom-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 12px 16px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .sticky-bottom-cta {
+                box-shadow: none;
+            }
+            /* Remove shadows on mobile for various elements */
+            .product-card,
+            .glass-card-light,
+            .glass-panel,
+            .faq-item {
+                box-shadow: none !important;
+            }
+        }
+        .sticky-bottom-cta.visible {
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .sticky-bottom-cta {
+                display: block;
+            }
+            /* Add padding to body when sticky CTA is visible */
+            body.sticky-cta-active {
+                padding-bottom: 80px;
+            }
+        }
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.4s;
+        }
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px -5px rgba(180, 92, 58, 0.5);
+        }
+        
+        /* ===== HERO ===== */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Lighten overlay so video is more visible */
+            background: linear-gradient(160deg, rgba(26, 60, 52, 0.65) 0%, rgba(13, 31, 26, 0.45) 40%, rgba(26, 60, 52, 0.7) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+        
+        /* ===== PRODUCT IMAGES ===== */
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        .image-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* ===== PRODUCT CARDS (Clickable + Premium Hover) ===== */
+        .product-card {
+            background: var(--glass-white);
+            border: 1px solid var(--glass-border);
+            box-shadow: none;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .product-card .image-container {
+            flex-shrink: 0;
+        }
+        .product-card > div:last-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .product-card:active {
+            transform: scale(0.99);
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: none;
+            border-color: rgba(34, 84, 61, 0.2);
+        }
+        .product-card.featured {
+            box-shadow: none;
+        }
+        .product-card.featured:hover {
+            box-shadow: none;
+        }
+        
+        .badge-popular {
+            background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
+        }
+        
+        .glass-button {
+            background: rgba(34, 84, 61, 0.08);
+            border: 1px solid rgba(34, 84, 61, 0.15);
+            color: var(--forest);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+        .glass-button:hover {
+            background: rgba(34, 84, 61, 0.12);
+            border-color: rgba(34, 84, 61, 0.25);
+        }
+        .glass-button:active {
+            background: rgba(34, 84, 61, 0.18);
+        }
+        
+        /* ===== GLASS CARD LIGHT ===== */
+        .glass-card-light {
+            background: var(--glass-white);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .glassmorphism-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        /* Desktop: Image on left side (lauko, kubilai) */
+        @media (min-width: 768px) {
+            .glass-card-light .grid > div:first-child.sprendimai-image-container {
+                border-radius: 20px 0 0 20px;
+            }
+            .glass-card-light .grid > div:last-child.sprendimai-image-container {
+                border-radius: 0 20px 20px 0;
+            }
+        }
+        /* Mobile: Image always on top */
+        @media (max-width: 767px) {
+            .glass-card-light .sprendimai-image-container {
+                border-radius: 20px 20px 0 0;
+            }
+            .glass-card-light .grid > div.bg-white {
+                border-radius: 0 0 20px 20px;
+            }
+        }
+        
+        /* ===== SPRENDIMAI IMAGE ===== */
+        .sprendimai-image-container {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-cream);
+        }
+        .floating-price-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 10;
+        }
+        .floating-price-badge .price-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 0.15rem;
+            display: block;
+        }
+        .floating-price-badge .price-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-warm);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            letter-spacing: -0.01em;
+        }
+        @media (max-width: 768px) {
+            .floating-price-badge {
+                bottom: 1rem;
+                left: 1rem;
+                padding: 0.45rem 0.65rem;
+            }
+            .floating-price-badge .price-value {
+                font-size: 0.9rem;
+            }
+            .floating-price-badge .price-label {
+                font-size: 0.6rem;
+            }
+        }
+        .sprendimai-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .sprendimai-image-container:hover .sprendimai-image {
+            transform: scale(1.02);
+        }
+        @media (min-width: 768px) {
+            .sprendimai-image-container {
+                min-height: 400px;
+            }
+        }
+        @media (max-width: 640px) {
+            .sprendimai-image-container {
+                aspect-ratio: 4/3;
+                border-radius: 0;
+            }
+            .sprendimai-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .glass-card-light .grid {
+                max-height: calc(100vh - 4rem);
+            }
+        }
+        
+        /* ===== PRODUCT CAROUSEL ===== */
+        .product-carousel-wrapper {
+            position: relative;
+            margin: 0 -1rem;
+            padding: 0 1rem;
+        }
+        .product-carousel-container {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            padding: 1rem 0.5rem 2rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            cursor: grab;
+        }
+        .product-carousel-container:active {
+            cursor: grabbing;
+        }
+        .product-carousel-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        .product-card-slide {
+            flex: 0 0 280px;
+            scroll-snap-align: center;
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .product-card-slide:hover {
+            transform: scale(1.02);
+        }
+        @media (min-width: 768px) {
+            .product-card-slide {
+                flex: 0 0 calc(48% - 0.75rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .product-card-slide {
+                flex: 0 0 calc(48% - 0.75rem);
+            }
+        }
+        .product-carousel-btn {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            z-index: 20;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 84, 61, 0.1);
+        }
+        .product-carousel-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+        .product-carousel-btn:hover {
+            background: var(--forest);
+            color: white !important;
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 20px rgba(34, 84, 61, 0.25);
+        }
+        .product-carousel-btn:active {
+            transform: translateY(-50%) scale(0.96);
+        }
+        .product-carousel-btn.prev { left: -16px; }
+        .product-carousel-btn.next { right: -16px; }
+        
+        .product-carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 1rem;
+        }
+        .product-carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(34, 84, 61, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .product-carousel-dot.active {
+            background: var(--forest);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* ===== TESTIMONIAL CAROUSEL ===== */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-track {
+            display: flex;
+            width: 100%;
+        }
+        .carousel-slide {
+            flex-shrink: 0;
+            padding: 0 8px;
+            scroll-snap-align: start;
+        }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(34, 84, 61, 0.08);
+            border-radius: 16px;
+            position: relative;
+        }
+        .testimonial-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            opacity: 0.9;
+            border: 2px solid rgba(34, 84, 61, 0.1);
+        }
+        @media (max-width: 640px) {
+            .testimonial-image {
+                width: 42px;
+                height: 42px;
+            }
+        }
+        
+        /* ===== PHOTO GALLERY ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(34, 84, 61, 0.15);
+        }
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        /* Gallery Modal */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-modal.active {
+            display: flex;
+        }
+        .gallery-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            animation: galleryZoom 0.3s ease;
+        }
+        @keyframes galleryZoom {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .gallery-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        .gallery-close:hover {
+            color: var(--copper);
+        }
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            padding: 16px 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .gallery-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--copper);
+        }
+        .gallery-prev {
+            left: 20px;
+        }
+        .gallery-next {
+            right: 20px;
+        }
+        
+        /* ===== PRICING SECTION ===== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .pricing-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto;
+            color: var(--forest);
+            opacity: 0.8;
+        }
+        .pricing-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .pricing-amount {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ===== INLINE PRICING ===== */
+        .inline-price {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            background: linear-gradient(135deg, rgba(185, 110, 72, 0.1), rgba(185, 110, 72, 0.05));
+            border: 1px solid rgba(185, 110, 72, 0.2);
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .price-from {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-warm);
+        }
+        .price-amount {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--copper);
+            letter-spacing: -0.02em;
+        }
+        @media (max-width: 768px) {
+            .price-amount {
+                font-size: 1rem;
+            }
+            .price-from {
+                font-size: 0.7rem;
+            }
+            .inline-price {
+                padding: 0.3rem 0.65rem;
+            }
+        }
+        
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(34, 84, 61, 0.1);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            touch-action: manipulation;
+        }
+        .carousel-btn:hover {
+            background: white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+        .carousel-btn:active {
+            transform: scale(0.92);
+        }
+        .carousel-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(34, 84, 61, 0.2);
+            transition: all 0.2s ease;
+        }
+        .carousel-dot.active {
+            background: var(--forest);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        /* ===== MODAL (Fixed Scroll) ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(13, 31, 26, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            /* Scroll indicator gradient */
+            background-image: linear-gradient(white, white), linear-gradient(white, white), linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0)), linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+            background-position: center top, center bottom, center top, center bottom;
+            background-repeat: no-repeat;
+            background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+            background-attachment: local, local, scroll, scroll;
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
+        
+        .modal-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px 24px 0 0;
+        }
+        .modal-slider-track {
+            display: flex;
+            transition: transform 0.4s ease;
+        }
+        .modal-slider-slide {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        .modal-slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 16/10; /* Better aspect ratio for mobile modal */
+        }
+        .modal-slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s;
+        }
+        .modal-slider-dot.active {
+            background: white;
+            width: 16px;
+            border-radius: 4px;
+        }
+        
+        /* ===== FAQ ===== */
+        .faq-item {
+            transition: all 0.25s ease;
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-content {
+            max-height: 300px;
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
+        .text-readable {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-warm);
+        }
+        
+        /* ===== AVATAR STACK ===== */
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .avatar-group {
+            display: flex;
+            margin-right: 0.5rem;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-left: -12px;
+            transition: transform 0.2s ease, z-index 0.2s ease;
+            background: #2d3748;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar:first-child {
+            margin-left: 0;
+        }
+        .avatar:hover {
+            transform: translateY(-2px) scale(1.05);
+            z-index: 10;
+        }
+        @media (max-width: 640px) {
+            .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* ===== CTA SECTION ===== */
+        .cta-section-gradient {
+            background: linear-gradient(160deg, #1a3c34 0%, #0d1f1a 100%);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .cta-primary {
+                min-height: 56px;
+                font-size: 1rem;
+            }
+            .modal-content {
+                max-height: 95vh;
+                margin: 0.5rem;
+                border-radius: 20px;
+            }
+            .modal-slider-slide img {
+                aspect-ratio: 4/3;
+            }
+            .section-px {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+        }
+    </style>
+    
+    <!-- Supabase Client for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    
+    <!-- Analytics Tracker -->
+    <script src="analytics-tracker.js"></script>
+    <script>
+        // Initialize analytics when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            window.initKingsaunaAnalytics(supabase);
+            
+            // Track funnel: Landing page view
+            window.ksAnalytics.trackFunnelStep('landing_view', 1, null);
+        });
+    </script>
+</head>
+<body class="bg-sand" style="color: var(--text-charcoal);">
+    
+    <!-- ===== TOP LOGO BAR ===== -->
+    <header id="topLogoBar" class="top-logo-bar py-6">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <a href="index.html" class="inline-block">
+                <img src="images/logo.png" alt="Kingsauna Logo" class="h-20 md:h-24 w-auto brightness-0 invert" loading="lazy">
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== STICKY NAVIGATION ===== -->
+    <nav id="stickyNav" class="sticky-nav">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <a href="index.html" class="flex items-center">
+                    <img src="images/logo.png" alt="Kingsauna Logo" class="h-10 md:h-12 w-auto" style="filter: brightness(0); opacity: 0.9;" loading="lazy">
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#populiariausi" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Populiariausi</a>
+                    <a href="#sprendimai" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Sprendimai</a>
+                    <a href="#apie-mus" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">Apie mus</a>
+                    <a href="#duk" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">DUK</a>
+                </div>
+                
+                <a href="survey.html" class="hidden md:flex cta-primary py-2.5 px-5 text-sm">
+                    Rasti savo pirtį
+                </a>
+
+                <button id="mobileMenuBtn" class="md:hidden p-2" style="color: var(--text-charcoal);" aria-label="Meniu">
+                    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="mobile-menu md:hidden">
+                <div class="flex flex-col py-3 space-y-1 border-t" style="border-color: rgba(34, 84, 61, 0.1);">
+                    <a href="#populiariausi" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Populiariausi</a>
+                    <a href="#sprendimai" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Sprendimai</a>
+                    <a href="#apie-mus" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Apie mus</a>
+                    <a href="#duk" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">DUK</a>
+                    <a href="survey.html" class="cta-primary py-3 px-6 text-center mt-2">
+                        Rasti savo pirtį
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
+        <!-- Background Video -->
+        <video 
+            muted
+            autoplay 
+            loop 
+            playsinline 
+            webkit-playsinline
+            preload="auto"
+            poster="images/iglu-garden-installed.jpg" 
+            class="hero-video-bg"
+            onloadeddata="this.play().catch(() => {})">
+            <source src="images/VideoL.mp4" type="video/mp4">
+            <!-- Fallback image if video fails to load -->
+            <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background">
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content max-w-4xl mx-auto w-full">
+            <div class="glass-panel p-6 md:p-12 lg:p-16">
+                <div class="text-center">
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+                        Svajojate apie nuosavą<br>pirtį ar kubilą?
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl mb-10 text-emerald-100/90 leading-relaxed max-w-2xl mx-auto">
+                        Užpildykite apklausą ir gaukite geriausią pasiūlymą
+                    </p>
+                    
+                    <div class="mb-2">
+                        <a href="survey.html" class="cta-primary inline-flex py-4 px-8 sm:py-5 sm:px-12 text-[15px] sm:text-lg md:text-xl items-center justify-center min-h-[56px] sm:min-h-[64px] whitespace-nowrap font-bold tracking-wide">
+                            RASTI SPRENDIMĄ MAN
+                        </a>
+                    </div>
+                    <p class="text-sm text-emerald-100/75 mt-3">
+                        Apklausa užtrunka iki 2 min.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ===== POPULIARIAUSI MODELIAI ===== -->
+    <section id="populiariausi" class="py-8 md:py-12 px-4 bg-sand section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+                    Mūsų populiariausi modeliai
+                </h2>
+                <div class="w-12 h-1 bg-forest mx-auto mb-6 rounded-full opacity-20"></div>
+            </div>
+            
+            <div class="product-carousel-wrapper relative">
+                <div id="productCarousel" class="product-carousel-container">
+                        <!-- Product Card 1: Bačka (Featured) -->
+                        <div class="product-card-slide">
+                            <div class="product-card featured relative h-full bg-white" onclick="openProductModal('backa')">
+                                <div class="badge-popular absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
+                                    Populiariausias
+                                </div>
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/barrel-vidutine.jpg" alt="Bačka lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Bačka - vidutinė</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 2: Kvadratinė -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('kvadratine')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/kvadratine-priepirtis.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Kvadratinė - su priepirčiu</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 3: Cabin -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('cabin')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/cabin-sauna.jpg" alt="Cabin lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Cabin</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni kabinos stiliaus lauko pirtis</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 4: Trikampė -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('trikampe')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/trikampe-iglu.jpg" alt="Trikampė iglu pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Trikampė (Iglu)</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 5: Kubilas -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('kubilas')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/kubilas-lake-terrace.jpeg" alt="Stiklo pluošto kubilas" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Stiklo pluošto kubilas</h3>
+                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="productCarouselDots" class="product-carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== APIE MUS SECTION ===== -->
+    <section id="apie-mus" class="pt-6 md:pt-10 pb-6 px-4 bg-sand section-px relative">
+        <div class="max-w-4xl mx-auto">
+                <div class="text-left max-w-4xl">
+                <span class="inline-block text-sm font-bold tracking-wider uppercase text-copper mb-3">Mūsų istorija</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style="color: var(--text-charcoal); letter-spacing: -0.02em; line-height: 1.2;">
+                    Meistrystė, gimusi iš meilės pirties kultūrai ir tradicijoms
+                </h2>
+                
+                <div class="space-y-5 text-readable text-base md:text-lg opacity-90 leading-relaxed mb-10">
+                    <p>
+                        „Kingsauna" – tai daugiau nei dešimtmetį puoselėjama aistra kokybiškam poilsiui. Jau daugelį metų kuriame lauko pirtis ir kubilus, kurie tampa neatsiejama Lietuvos sodybų ir kiemų dalimi.
+                    </p>
+                    <p>
+                        Mūsų tikslas – sujungti senąsias pirties tradicijas su šiuolaikišku dizainu ir technologijomis. Kiekvienas gaminys mums yra unikalus, todėl skiriame ypatingą dėmesį detalėms, medžiagų kokybei ir Jūsų individualiai vizijai.
+                    </p>
+                    <p>
+                        Tikime, kad pirtis nėra tik pastatas – tai vieta, kurioje sustoja laikas, dingsta rūpesčiai ir gimsta geriausi prisiminimai su artimiausiais.
+                    </p>
+                </div>
+
+                <!-- KLIENTŲ ATSILIEPIMAI integrated into About Us -->
+                <div class="mt-8 pb-6">
+                    <!-- Review Badge -->
+                    <div class="flex items-center justify-center mb-6">
+                        <!-- Combined Google & Facebook Rating Badge -->
+                        <div class="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-gray-200 shadow-sm">
+                            <!-- Google Logo -->
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            <!-- Facebook Logo -->
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <!-- Rating and Stars -->
+                            <span class="text-lg font-bold text-gray-900">4.9</span>
+                            <div class="flex text-amber-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            </div>
+                            <span class="text-sm text-gray-600">100+ atsiliepimų</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Reviews Title -->
+                    <h3 class="text-2xl md:text-3xl font-bold text-center mb-6" style="color: var(--text-charcoal);">
+                        Ką sako klientai
+                    </h3>
+                    <div class="carousel-container relative" style="padding-bottom: 2.5rem;">
+                        <div id="carouselTrack" class="carousel-track"></div>
+                    </div>
+                    
+                    <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
+                    
+                    <!-- See More Reviews Button -->
+                    <div class="flex justify-center mt-6">
+                        <button id="loadMoreReviews" onclick="window.loadMoreReviews()" class="px-6 py-3 rounded-lg bg-white border border-forest text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                            RODYTI DAUGIAU ATSILIEPIMŲ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section Divider after reviews -->
+                <div class="w-24 h-1 bg-forest/10 mx-auto mt-6 rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SPRENDIMAI: LAUKO PIRTYS ===== -->
+    <section id="sprendimai" class="pt-3 md:pt-6 pb-3 md:pb-8 px-4 bg-cream section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card-light overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-0">
+                    <div class="sprendimai-image-container">
+                        <img 
+                            src="images/barrel-sauna-winter.jpeg" 
+                            alt="Lauko pirtis žiemą" 
+                            class="sprendimai-image"
+                            loading="lazy"
+                        >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 4,896€</span>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
+                        <div class="mb-3 md:mb-4">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                                Autentiškos Lauko Pirtys
+                            </h2>
+                        </div>
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
+                            Tradicinės lauko pirtys jūsų sodui ar kiemui. Aukščiausios kokybės mediena, atspari visoms oro sąlygoms.
+                        </p>
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Terminuota gamyba (4-8 savaitės)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Pristatymas ir montavimas visoje Lietuvoje
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Garantija ir techninė pagalba
+                            </li>
+                        </ul>
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
+                            Išsirinkti lauko pirtį
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SPRENDIMAI: VIDAUS PIRTYS ===== -->
+    <section class="py-3 md:py-8 px-4 bg-sand section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card-light overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-0">
+                    <div class="p-6 md:p-10 flex flex-col justify-center order-2 md:order-1 bg-white">
+                        <div class="mb-3 md:mb-4">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                                Modernios Vidaus Saunos
+                            </h2>
+                        </div>
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
+                            Kompaktiškos vidaus saunos bet kuriai namų ar buto patalpai. Funkcionalios ir elegantiškos.
+                        </p>
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Kompaktiški sprendimai bet kuriai patalpai
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Elektriniai ir malkini pečiai
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Profesionalus montavimas ir pajungimas
+                            </li>
+                        </ul>
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
+                            Išsirinkti vidaus pirtį
+                        </a>
+                    </div>
+                    <div class="sprendimai-image-container order-1 md:order-2">
+                        <img 
+                            src="images/interior-sauna-modern.jpg" 
+                            alt="Moderni vidaus sauna su dušu" 
+                            class="sprendimai-image"
+                            loading="lazy"
+                        >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 5,500€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SPRENDIMAI: KUBILAI ===== -->
+    <section class="py-3 md:py-8 px-4 bg-cream section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card-light overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-0">
+                    <div class="sprendimai-image-container">
+                        <img 
+                            src="images/kubilas-wood-fired-winter-snow.jpg" 
+                            alt="Kubilas žiemą su garu" 
+                            class="sprendimai-image"
+                            loading="lazy"
+                        >
+                        <div class="floating-price-badge">
+                            <span class="price-label">Kaina</span>
+                            <span class="price-value">nuo 1,709€</span>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-10 flex flex-col justify-center bg-white">
+                        <div class="mb-3 md:mb-4">
+                            <h2 class="text-xl md:text-3xl font-bold" style="color: var(--text-charcoal);">
+                                Šildomi Kubilai Poilsiui
+                            </h2>
+                        </div>
+                        <p class="text-readable mb-4 md:mb-6 text-sm md:text-base">
+                            Mediniai ir stiklo pluošto kubilai su įvairiais šildymo būdais. Puikus pasirinkimas atsipalaidavimui.
+                        </p>
+                        <ul class="space-y-2 md:space-y-2.5 mb-6 md:mb-8 text-sm md:text-base" style="color: var(--text-warm);">
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Medinis arba stiklo pluošto korpusas
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Malkinis, dujinis ar elektrinis šildymas
+                            </li>
+                            <li class="flex items-center">
+                                <span class="mr-3" style="color: var(--forest);">✓</span>
+                                Papildoma įranga: LED, oro burbulai, filtrai
+                            </li>
+                        </ul>
+                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
+                            Išsirinkti kubilą
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KAIP TAI VEIKIA ===== -->
+    <section id="kaip-veikia" class="py-12 md:py-16 px-4 section-px relative overflow-hidden" style="background: #1a3c34;">
+        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(185, 110, 72, 0.3) 40px, rgba(185, 110, 72, 0.3) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(185, 110, 72, 0.3) 40px, rgba(185, 110, 72, 0.3) 41px);"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                    Kaip tai veikia?
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Connecting line (desktop only) - aligned to center of circles -->
+                <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5" style="background: var(--copper); z-index: 1;"></div>
+                
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 hidden md:flex items-center justify-center text-white text-2xl font-bold relative z-10" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                        1
+                    </div>
+                    <div class="glassmorphism-card p-6 text-center flex-1 flex flex-col" style="min-height: 220px;">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 hidden md:flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-16 h-16 rounded-full mx-auto mb-4 md:hidden flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                            1
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white">Susidėliojate norimą pirtį</h3>
+                        <p class="text-sm leading-relaxed text-white/80 flex-grow">
+                            Pasirenkate pirties ar kubilo tipą ir atsakote į kelis trumpus klausimus apie savo poreikius.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 hidden md:flex items-center justify-center text-white text-2xl font-bold relative z-10" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                        2
+                    </div>
+                    <div class="glassmorphism-card p-6 text-center flex-1 flex flex-col" style="min-height: 220px;">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 hidden md:flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-16 h-16 rounded-full mx-auto mb-4 md:hidden flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                            2
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white">Specialisto konsultacija</h3>
+                        <p class="text-sm leading-relaxed text-white/80 flex-grow">
+                            Su Jumis susisieks vienas iš mūsų specialistų, aptarsite detales ir kartu išsirinksite geriausią sprendimą.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex flex-col">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-6 hidden md:flex items-center justify-center text-white text-2xl font-bold relative z-10" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                        3
+                    </div>
+                    <div class="glassmorphism-card p-6 text-center flex-1 flex flex-col" style="min-height: 220px;">
+                        <div class="w-12 h-12 rounded-lg mx-auto mb-4 hidden md:flex items-center justify-center" style="background: rgba(185, 110, 72, 0.15);">
+                            <svg class="w-6 h-6" style="color: var(--copper);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-16 h-16 rounded-full mx-auto mb-4 md:hidden flex items-center justify-center text-white text-2xl font-bold" style="background: var(--copper); box-shadow: 0 4px 12px rgba(185, 110, 72, 0.3);">
+                            3
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-white">Tikslus pasiūlymas ir įrengimas</h3>
+                        <p class="text-sm leading-relaxed text-white/80 flex-grow">
+                            Paruošiame tikslų pasiūlymą, suderiname sąlygas ir maždaug po 2 savaičių galite džiaugtis nauja pirtimi ar kubilu.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PHOTO GALLERY ===== -->
+    <section id="galerija" class="py-8 md:py-12 px-4 section-px">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--text-charcoal);">
+                    Mūsų Projektai
+                </h2>
+                <p class="text-base md:text-lg" style="color: var(--text-warm);">
+                    Pažvelkite į mūsų sukurtus sprendimus klientams visoje Lietuvoje
+                </p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(0)">
+                    <img src="images/barrel-large-window.jpg" alt="Bačkos pirtis su dideliu langu" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(1)">
+                    <img src="images/barrel-exterior-chimney.jpg" alt="Bačkos pirtis su kaminu" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(2)">
+                    <img src="images/barrel-interior-window.jpg" alt="Pirties vidus su langu" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(3)">
+                    <img src="images/iglu-terrace.jpg" alt="Iglu pirtis su terasa" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(4)">
+                    <img src="images/iglu-garden-installed.jpg" alt="Iglu pirtis sode" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(5)">
+                    <img src="images/kvadratine-contrast.jpg" alt="Kvadratinė pirtis" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(6)">
+                    <img src="images/barrel-brown-hex.jpg" alt="Bačkos pirtis su šešiakampiais čerpėmis" loading="lazy" class="gallery-img">
+                </div>
+                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(7)">
+                    <img src="images/iglu-shingle-dark.jpg" alt="Iglu pirtis su tamsiais čerpėmis" loading="lazy" class="gallery-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="galleryModal" class="gallery-modal" onclick="closeGallery()">
+        <span class="gallery-close">&times;</span>
+        <button class="gallery-nav gallery-prev" onclick="event.stopPropagation(); changeGalleryImage(-1)">&#10094;</button>
+        <img id="galleryModalImg" class="gallery-modal-content">
+        <button class="gallery-nav gallery-next" onclick="event.stopPropagation(); changeGalleryImage(1)">&#10095;</button>
+    </div>
+
+    <!-- ===== DUK (Moved after Kaip tai veikia) ===== -->
+    <section id="duk" class="py-8 md:py-12 px-4 bg-cream section-px">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--text-charcoal);">
+                    D.U.K
+                </h2>
+            </div>
+
+            <div class="space-y-3">
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kiek laiko trunka pirties ar kubilo gamyba?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Gamybos terminas priklauso nuo pasirinkto sprendimo, dydžio ir komplektacijos.<br>
+                            Dažniausiai lauko pirtys ir kubilai pagaminami per <strong>4-8 savaites</strong> nuo užsakymo patvirtinimo.<br>
+                            Individualiems projektams terminas gali būti ilgesnis - tai visuomet aptariame iš anksto.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Ar gaminate individualius sprendimus?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Taip. Didžioji dalis mūsų projektų yra <strong>individualūs</strong>.<br>
+                            Galime pritaikyti:<br>
+                            <ul class="list-disc ml-6 mt-2 space-y-1">
+                                <li>išmatavimus</li>
+                                <li>išplanavimą</li>
+                                <li>medieną</li>
+                                <li>pečiaus tipą</li>
+                                <li>papildomus sprendimus</li>
+                            </ul>
+                            <br>
+                            Jei dar nesate tikri, ko tiksliai norite - padėsime apsispręsti konsultacijos metu.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Ar reikalingi leidimai lauko pirčiai ar kubilui?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Daugeliu atvejų <strong>leidimų nereikia</strong>, ypač mažesnėms lauko pirtims ar kilnojamiems kubilams.<br>
+                            Tačiau reikalavimai gali skirtis priklausomai nuo savivaldybės ir objekto tipo, todėl rekomenduojame pasitikslinti vietoje.<br>
+                            Jei reikia - galime pakonsultuoti.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kokią medieną naudojate?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Naudojame kokybišką, pirtims tinkamą medieną, dažniausiai:<br>
+                            <ul class="list-disc ml-6 mt-2 space-y-1">
+                                <li>eglę</li>
+                                <li>pušį</li>
+                                <li>termomedieną</li>
+                            </ul>
+                            <br>
+                            Kiekviena mediena turi savo savybes, todėl padedame pasirinkti tinkamiausią variantą pagal naudojimą ir biudžetą.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kuo skiriasi malkinis ir elektrinis pečius?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            <strong>Malkinis pečius</strong> suteikia autentišką pirties pojūtį, intensyvesnę šilumą ir aromatą.<br>
+                            <strong>Elektrinis pečius</strong> yra patogesnis kasdieniam naudojimui, lengvai valdomas ir nereikalauja malkų.<br>
+                            Abu variantai turi savo privalumų - pasirinkimas priklauso nuo jūsų poreikių.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Ar atliekate pristatymą ir montavimą?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Taip, galime pasirūpinti:<br>
+                            <ul class="list-disc ml-6 mt-2 space-y-1">
+                                <li>pristatymu</li>
+                                <li>atvežimu į vietą</li>
+                                <li>pastatymu ar montavimu</li>
+                            </ul>
+                            <br>
+                            Svarbu, kad būtų <strong>privažiavimas</strong> - tai įvertiname užsakymo metu.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Ar galima pirtį ar kubilą naudoti visus metus?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Taip. Visi mūsų gaminiai yra pritaikyti <strong>naudoti visais metų laikais</strong>, įskaitant žiemą.<br>
+                            Tinkama konstrukcija, izoliacija ir teisingas naudojimas užtikrina komfortą bet kokiomis oro sąlygomis.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kiek žmonių telpa pirtyje ar kubile?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Tai priklauso nuo pasirinkto dydžio ir modelio.<br>
+                            Gaminame sprendimus:<br>
+                            <ul class="list-disc ml-6 mt-2 space-y-1">
+                                <li>2-3 žmonėms</li>
+                                <li>4-5 žmonėms</li>
+                                <li>6 ir daugiau žmonių</li>
+                            </ul>
+                            <br>
+                            Survey metu padedame parinkti optimalų variantą pagal jūsų poreikius.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kokia yra pirties ar kubilo kaina?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Kaina priklauso nuo:<br>
+                            <ul class="list-disc ml-6 mt-2 space-y-1">
+                                <li>dydžio</li>
+                                <li>komplektacijos</li>
+                                <li>pasirinktų sprendimų</li>
+                            </ul>
+                            <br>
+                            Todėl kiekvienam klientui pateikiame <strong>individualų pasiūlymą</strong> po apklausos ar konsultacijos.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card-light overflow-hidden">
+                    <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center" style="color: var(--text-charcoal);" onclick="toggleFaq(this)">
+                        <span>Kaip vyksta užsakymo procesas?</span>
+                        <span style="color: var(--copper);" class="text-xl">+</span>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-5 pb-5 leading-relaxed" style="color: var(--text-warm);">
+                            Procesas paprastas:<br>
+                            <ol class="list-decimal ml-6 mt-2 space-y-1">
+                                <li>Užpildote apklausą arba susisiekiate su mumis</li>
+                                <li>Aptariame poreikius ir sprendimus</li>
+                                <li>Pateikiame pasiūlymą</li>
+                                <li>Pradedame gamybą</li>
+                                <li>Pristatome ir, jei reikia, sumontuojame</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TURITE DAUGIAU KLAUSIMŲ? (Renamed Contact) ===== -->
+    <section id="kontaktai" class="py-8 md:py-12 px-4 bg-sand section-px">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--text-charcoal);">
+                    Turite daugiau klausimų?
+                </h2>
+                <p class="text-readable">
+                    Mūsų komanda pasiruošusi padėti
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl mx-auto">
+                <a href="tel:+37067938032" class="glass-card-light p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="text-3xl mb-3">📞</div>
+                    <h3 class="font-bold mb-1" style="color: var(--text-charcoal);">Telefonas</h3>
+                    <p class="font-medium" style="color: var(--copper);">(8-679) 38032</p>
+                    <p class="text-sm mt-1" style="color: var(--text-muted);">I-V: 9:00-18:00</p>
+                </a>
+
+                <a href="mailto:pirtelesjums@gmail.com" class="glass-card-light p-6 text-center hover:shadow-lg transition-shadow">
+                    <div class="text-3xl mb-3">✉️</div>
+                    <h3 class="font-bold mb-1" style="color: var(--text-charcoal);">El. paštas</h3>
+                    <p class="font-medium" style="color: var(--copper);">pirtelesjums@gmail.com</p>
+                    <p class="text-sm mt-1" style="color: var(--text-muted);">Atsakome per 24 val.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PASIRUOŠĘ PRADĖTI? (New Final CTA) ===== -->
+    <section class="py-8 md:py-12 px-4 bg-forest-light section-px">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--text-charcoal);">
+                Pasiruošę pradėti?
+            </h2>
+            <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-warm);">
+                Užpildykite trumpą apklausą ir gaukite individualų pasiūlymą - be jokių įsipareigojimų.
+            </p>
+            <a href="survey.html" class="cta-primary inline-flex py-4 px-6 sm:px-10 text-[15px] sm:text-lg items-center justify-center whitespace-nowrap w-full md:w-auto min-h-[56px]">
+                Rasti sprendimą man
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="py-10 px-4 section-px" style="background: #1a3c34; color: rgba(255,255,255,0.7);">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <img src="images/logo.png" alt="Kingsauna Logo" class="h-12 md:h-14 w-auto mb-4 brightness-0 invert" loading="lazy">
+                    <p class="text-sm leading-relaxed">
+                        Profesionalūs saunų ir kubilų sprendimai visoje Lietuvoje.
+                    </p>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Kontaktai</div>
+                    <div class="space-y-2 text-sm">
+                        <a href="tel:+37067938032" class="block hover:text-white transition-colors">(8-679) 38032</a>
+                        <a href="mailto:pirtelesjums@gmail.com" class="block hover:text-white transition-colors">pirtelesjums@gmail.com</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Nuorodos</div>
+                    <div class="space-y-2 text-sm">
+                        <a href="#populiariausi" class="block hover:text-white transition-colors">Populiariausi modeliai</a>
+                        <a href="#sprendimai" class="block hover:text-white transition-colors">Sprendimai</a>
+                        <a href="survey.html" class="block hover:text-white transition-colors">Pradėti apklausą</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-center text-sm">
+                © 2026 Kingsauna. Visos teisės saugomos.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== PRODUCT MODAL ===== -->
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-md transition-colors" style="color: var(--text-charcoal);" aria-label="Uždaryti">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <div class="modal-slider aspect-[4/3] relative">
+                <div id="modalSliderTrack" class="modal-slider-track h-full"></div>
+                <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2" id="modalSliderDots"></div>
+                <button onclick="modalSliderPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-md" style="color: var(--text-charcoal);" aria-label="Ankstesnis">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button onclick="modalSliderNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow-md" style="color: var(--text-charcoal);" aria-label="Kitas">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <h3 id="modalTitle" class="text-2xl font-bold mb-2" style="color: var(--text-charcoal);"></h3>
+                <p id="modalDescription" class="mb-5 leading-relaxed" style="color: var(--text-warm);"></p>
+                
+                <ul id="modalFeatures" class="space-y-2 mb-6" style="color: var(--text-charcoal);"></ul>
+                
+                <a href="survey.html" id="modalCTA" class="cta-primary block w-full py-4 text-center text-lg">
+                    Išsirinkti šį variantą
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== PRODUCT DATA WITH REAL IMAGES =====
+        const products = {
+            backa: {
+                name: 'Bačka - vidutinė',
+                description: 'Klasikinė statinės formos lauko pirtis, kuri tapo tikru bestseleriu. Kompaktiška, bet talpi - puikiai tinka nedideliam sodui.',
+                features: ['Natūrali eglės arba pušies mediena', 'Talpa: 4-6 žmonėms', 'Lengvas montavimas', 'Atspari visoms oro sąlygoms'],
+                images: [
+                    'images/barrel-vidutine.jpg',
+                    'images/barrel-brown-hex.jpg',
+                    'images/interior-wood.jpg'
+                ]
+            },
+            kvadratine: {
+                name: 'Kvadratinė - su priepirčiu',
+                description: 'Erdvi lauko pirtis su atskira poilsio zona. Puikiai tinka tiems, kas vertina komfortą ir papildomą erdvę.',
+                features: ['Atskiras priepirčio kambarys', 'Talpa: 6-8 žmonėms', 'Galimybė įrengti dušą', 'Premium apdaila'],
+                images: [
+                    'images/kvadratine-priepirtis.jpg',
+                    'images/kvadratine-brown.jpg',
+                    'images/kvadratine-contrast.jpg'
+                ]
+            },
+            trikampe: {
+                name: 'Trikampė (Iglu)',
+                description: 'Moderni A-rėmo konstrukcija, kuri suteikia unikalų stilių ir puikią šilumos izoliaciją.',
+                features: ['Išskirtinis iglu dizainas', 'Talpa: 4-6 žmonėms', 'Puiki šilumos izoliacija', 'Kompaktiškas pagrindas'],
+                images: [
+                    'images/trikampe-iglu.jpg',
+                    'images/iglu-terrace.jpg',
+                    'images/iglu-garden-installed.jpg'
+                ]
+            },
+            kubilas: {
+                name: 'Stiklo pluošto kubilas',
+                description: 'Patikimas ir ilgaamžis stiklo pluošto kubilas su mediniu apvadu. Puikus pasirinkimas poilsiui lauke.',
+                features: ['Stiklo pluošto korpusas', 'Talpa: 4-6 žmonėms', 'Malkinis arba elektrinis šildymas', 'LED apšvietimas (pasirinktinai)'],
+                images: [
+                    'images/kubilas-lake-terrace.jpeg',
+                    'images/kubilas-lake-terrace.jpeg',
+                    'images/kubilas-lake-terrace.jpeg'
+                ]
+            },
+            cabin: {
+                name: 'Cabin',
+                description: 'Moderni kabinos stiliaus lauko pirtis su šiuolaikišku dizainu. Puikiai tinka tiems, kas ieško unikalaus stiliaus.',
+                features: ['Kabinos stiliaus dizainas', 'Talpa: 4-6 žmonėms', 'Puiki šilumos izoliacija', 'Moderni architektūra'],
+                images: [
+                    'images/cabin-sauna.jpg',
+                    'images/cabin-sauna.jpg',
+                    'images/cabin-sauna.jpg'
+                ]
+            }
+        };
+
+        let currentModalSlide = 0;
+        let currentProductKey = null;
+        let scrollPosition = 0;
+
+        function openProductModal(productKey) {
+            const product = products[productKey];
+            if (!product) return;
+            
+            currentProductKey = productKey;
+            currentModalSlide = 0;
+            
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalDescription').textContent = product.description;
+            
+            const featuresEl = document.getElementById('modalFeatures');
+            featuresEl.innerHTML = product.features.map(f => `<li class="flex items-center"><span style="color: var(--forest);" class="mr-2">✓</span>${f}</li>`).join('');
+            
+            const sliderTrack = document.getElementById('modalSliderTrack');
+            
+            // Render images instead of emojis
+            sliderTrack.innerHTML = product.images.map(imgSrc => `
+                <div class="modal-slider-slide">
+                    <img src="${imgSrc}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">
+                </div>
+            `).join('');
+            
+            const dotsEl = document.getElementById('modalSliderDots');
+            dotsEl.innerHTML = product.images.map((_, i) => `
+                <button class="modal-slider-dot ${i === 0 ? 'active' : ''}" onclick="goToModalSlide(${i})"></button>
+            `).join('');
+            
+            updateModalSlider();
+            
+            // Set deep linking for the CTA button
+            const modalCTA = document.getElementById('modalCTA');
+            let surveyType = 'lauko'; // Default to lauko
+            if (productKey === 'kubilas') {
+                surveyType = 'kubila';
+            }
+            // All other products (backa, kvadratine, trikampe, cabin) are lauko
+            modalCTA.onclick = function() {
+                localStorage.setItem('quickSelect', surveyType);
+            };
+            
+            // Lock body scroll
+            scrollPosition = window.pageYOffset;
+            document.body.classList.add('modal-open');
+            document.body.style.top = `-${scrollPosition}px`;
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            
+            // Restore body scroll
+            document.body.classList.remove('modal-open');
+            document.body.style.top = '';
+            window.scrollTo(0, scrollPosition);
+        }
+
+        function updateModalSlider() {
+            const track = document.getElementById('modalSliderTrack');
+            track.style.transform = `translateX(-${currentModalSlide * 100}%)`;
+            
+            document.querySelectorAll('#modalSliderDots .modal-slider-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentModalSlide);
+            });
+        }
+
+        function modalSliderNext() {
+            const product = products[currentProductKey];
+            if (!product) return;
+            currentModalSlide = (currentModalSlide + 1) % product.images.length;
+            updateModalSlider();
+        }
+
+        function modalSliderPrev() {
+            const product = products[currentProductKey];
+            if (!product) return;
+            currentModalSlide = (currentModalSlide - 1 + product.images.length) % product.images.length;
+            updateModalSlider();
+        }
+
+        function goToModalSlide(index) {
+            currentModalSlide = index;
+            updateModalSlider();
+        }
+
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeProductModal();
+        });
+
+        // ===== PHOTO GALLERY =====
+        const galleryImages = [
+            'images/barrel-large-window.jpg',
+            'images/barrel-exterior-chimney.jpg',
+            'images/barrel-interior-window.jpg',
+            'images/iglu-terrace.jpg',
+            'images/iglu-garden-installed.jpg',
+            'images/kvadratine-contrast.jpg',
+            'images/barrel-brown-hex.jpg',
+            'images/iglu-shingle-dark.jpg'
+        ];
+        let currentGalleryIndex = 0;
+
+        function openGallery(index) {
+            currentGalleryIndex = index;
+            const modal = document.getElementById('galleryModal');
+            const modalImg = document.getElementById('galleryModalImg');
+            modal.classList.add('active');
+            modalImg.src = galleryImages[index];
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGallery() {
+            const modal = document.getElementById('galleryModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeGalleryImage(direction) {
+            currentGalleryIndex += direction;
+            if (currentGalleryIndex >= galleryImages.length) currentGalleryIndex = 0;
+            if (currentGalleryIndex < 0) currentGalleryIndex = galleryImages.length - 1;
+            document.getElementById('galleryModalImg').src = galleryImages[currentGalleryIndex];
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('galleryModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') changeGalleryImage(-1);
+                if (e.key === 'ArrowRight') changeGalleryImage(1);
+            }
+        });
+
+        // ===== TESTIMONIALS =====
+        const allTestimonials = [
+            { name: "Jonas R.", city: "Vilnius", quote: "Puikus procesas nuo pradžių iki pabaigos. Apklausa buvo greita, o pasiūlymas aiškus. Pirtis atrodo nuostabiai!", product: "Iglu", image: "images/iglu-garden-installed.jpg", date: "Prieš mėnesį" },
+            { name: "Marija S.", city: "Kaunas", quote: "Profesionalus konsultavimas. Nėra jokio spaudimo, viskas aiškiai paaiškinta. Vidaus sauna - geriausia investicija!", product: "Vidaus sauna", image: "images/square-interior-benches.jpg", date: "Prieš 2 metus" },
+            { name: "Tomas K.", city: "Klaipėda", quote: "Labai patenkinti kubilu! Visa šeima mėgaujasi kiekvieną savaitgalį. Kvalitetas puikus.", product: "Kubilas", image: "images/sauna-hot-tub-combo.jpg", date: "Prieš 3 savaites" },
+            { name: "Rūta M.", city: "Šiauliai", quote: "Greitas atsakymas, aiški kaina, profesionalus montavimas. Rekomenduoju visiems, kas svajoja apie nuosavą pirtį!", product: "Kvadratinė", image: "images/square-modern-glass.jpg", date: "Prieš 3 metus" },
+            { name: "Andrius P.", city: "Panevėžys", quote: "Trikampė pirtis atrodo nuostabiai! Kaimynai pavydi. Jau antrus metus naudojamės - vis dar kaip nauja.", product: "Iglu", image: "images/triangle-iglu-interior.jpg", date: "Prieš mėnesį" },
+            { name: "Giedrė L.", city: "Alytus", quote: "Nuo pirmo skambučio iki montavimo - viskas sklandžiai. Pirtis tampa mūsų šeimos mėgstamiausia vieta.", product: "Iglu", image: "images/iglu-terrace.jpg", date: "Prieš 1 metus" },
+            { name: "Paulius V.", city: "Marijampolė", quote: "Jau antrus metus naudojamės pirti - kokybė nepakitusi. Mediena atspari visoms oro sąlygoms.", product: "Bačka", image: "images/barrel-vidutine.jpg", date: "Prieš 2 metus" },
+            { name: "Ieva D.", city: "Utena", quote: "Vidaus sauna mūsų namuose - geriausia investicija į sveikatą. Kiekvieną dieną mėgaujamės poilsiu.", product: "Vidaus sauna", image: "images/interior-wood.jpg", date: "Prieš 4 metus" },
+            { name: "Dovilė L.", city: "Vilnius", quote: "Profesionalus ir rūpestingas komandos darbas. Pirtis buvo pristatyta laiku, montavimas be jokių problemų. Didžiausios rekomendacijos!", product: "Iglu", image: "images/trikampe-iglu.jpg", date: "Prieš mėnesį" },
+            { name: "Inga K.", city: "Kaunas", quote: "Su kitais gamintojais derėjomės net tris mėnesius, o su Kingsauna viskas išsisprendė greitai – pirtis buvo paruošta per 6 savaites. Tikrai profesionalus darbas!", product: "Iglu", image: "images/iglu-compact-green.jpg", date: "Prieš mėnesį" },
+            { name: "Vaida V.", city: "Klaipėda", quote: "Mūsų situaciją sunkino, kad buvome ne Lietuvoje. Komanda suorganizavo viską: nuo konsultacijų iki montavimo. Pirtis viršijo mūsų lūkesčius!", product: "Bačka", image: "images/barrel-large-window.jpg", date: "Prieš mėnesį" },
+            { name: "Rokas M.", city: "Šiauliai", quote: "Puikiai dirba, greitai atsako į klausimus. Kubilas veikia puikiai, šeima labai patenkinta. Rekomenduoju visiems!", product: "Kubilas", image: "images/kubilas-wooden-natural.jpg", date: "Prieš 2 mėnesius" },
+            { name: "Eglė P.", city: "Panevėžys", quote: "Labai patenkinta paslaugomis. Viskas buvo aiškiai paaiškinta ir greitai įgyvendinta. Vidaus sauna - svajonių išsipildymas!", product: "Vidaus sauna", image: "images/pine-wood.jpg", date: "Prieš 3 mėnesius" },
+            { name: "Mantas L.", city: "Alytus", quote: "Puikus darbas! Pirtis atrodo nuostabiai ir veikia puikiai. Jau planuojame antrą pirtį kitam kiemui.", product: "Iglu", image: "images/iglu-shingle-dark.jpg", date: "Prieš 4 mėnesius" },
+            { name: "Agnė S.", city: "Marijampolė", quote: "Labai patenkinti! Kvalitetas puikus, montavimas profesionalus. Kvadratinė pirtis tinka mūsų sodui puikiai.", product: "Kvadratinė", image: "images/kvadratine-contrast.jpg", date: "Prieš 5 mėnesius" },
+            { name: "Tadas K.", city: "Utena", quote: "Puikus pasirinkimas! Visi draugai klausia, kur radome tokią puikią pirtį. Bačka - klasikinė forma, šiuolaikiškas dizainas.", product: "Bačka", image: "images/barrel-exterior-chimney.jpg", date: "Prieš 6 mėnesius" }
+        ];
+        
+        let testimonials = shuffleArray([...allTestimonials]).slice(0, 3); // Start with 3 reviews
+        let reviewsLoaded = 0;
+        const maxLoads = 4;
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        let currentSlide = 0;
+        let slidesPerView = 1;
+        let autoplayInterval;
+        let isPaused = false;
+
+        function getSlidesPerView() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        }
+
+        function renderCarousel() {
+            slidesPerView = getSlidesPerView();
+            const track = document.getElementById('carouselTrack');
+            const dots = document.getElementById('carouselDots');
+            
+            track.innerHTML = testimonials.map(t => `
+                <div class="carousel-slide" style="width: ${100 / slidesPerView}%;">
+                    <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 flex flex-col" style="min-height: 320px; height: 100%;">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-base md:text-lg text-gray-900">${t.name}</h4>
+                            <div class="flex text-amber-400">
+                                ${Array(5).fill('<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>').join('')}
+                            </div>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed mb-3 flex-grow italic" style="line-height: 1.6;">"${t.quote}"</p>
+                        <div class="flex items-center gap-2 mt-auto pt-3">
+                            <img src="${t.image}" alt="${t.product}" class="w-10 h-10 object-cover rounded" loading="lazy">
+                            <p class="text-xs text-gray-400">${t.date}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const totalDots = Math.ceil(testimonials.length / slidesPerView);
+            dots.innerHTML = Array.from({ length: totalDots }, (_, i) => `
+                <button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>
+            `).join('');
+
+            updateCarousel();
+        }
+        
+        // Load More Reviews Function
+        function loadMoreReviews() {
+            if (reviewsLoaded >= maxLoads) {
+                document.getElementById('loadMoreReviews').style.display = 'none';
+                return;
+            }
+            
+            const remainingReviews = shuffleArray([...allTestimonials]).filter(t => 
+                !testimonials.some(existing => existing.name === t.name && existing.quote === t.quote)
+            );
+            
+            const reviewsToAdd = Math.min(3, remainingReviews.length);
+            if (reviewsToAdd > 0) {
+                testimonials.push(...remainingReviews.slice(0, reviewsToAdd));
+                reviewsLoaded++;
+                renderCarousel();
+                
+                if (reviewsLoaded >= maxLoads || testimonials.length >= allTestimonials.length) {
+                    document.getElementById('loadMoreReviews').style.display = 'none';
+                }
+            }
+        }
+
+        function updateCarousel() {
+            const container = document.querySelector('.carousel-container');
+            if (container) {
+                // Use native scroll instead of transform
+                const slideWidth = container.offsetWidth / slidesPerView;
+                container.scrollTo({
+                    left: currentSlide * slideWidth,
+                    behavior: 'smooth'
+                });
+            }
+            document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        }
+        
+        // Update dots based on scroll position for native scrolling
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('scroll', () => {
+                const scrollLeft = carouselContainer.scrollLeft;
+                const slideWidth = carouselContainer.offsetWidth / slidesPerView;
+                const newSlide = Math.round(scrollLeft / slideWidth);
+                const max = Math.ceil(testimonials.length / slidesPerView) - 1;
+                if (newSlide !== currentSlide && newSlide >= 0 && newSlide <= max) {
+                    currentSlide = newSlide;
+                    document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+                }
+            });
+        }
+
+        function goToSlide(i) {
+            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
+            currentSlide = Math.max(0, Math.min(i, max));
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
+            currentSlide = currentSlide >= max ? 0 : currentSlide + 1;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
+            currentSlide = currentSlide <= 0 ? max : currentSlide - 1;
+            updateCarousel();
+        }
+        
+        // Make loadMoreReviews globally accessible
+        window.loadMoreReviews = loadMoreReviews;
+
+        // ===== PRODUCT CAROUSEL LOGIC =====
+        function initProductCarousel() {
+            const carousel = document.getElementById('productCarousel');
+            const dotsContainer = document.getElementById('productCarouselDots');
+            const slides = carousel.querySelectorAll('.product-card-slide');
+            
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            // Update dots
+            function updateDots() {
+                const scrollPercentage = carousel.scrollLeft / (carousel.scrollWidth - carousel.clientWidth);
+                const activeIndex = Math.round(scrollPercentage * (slides.length - 1));
+                
+                dotsContainer.innerHTML = Array.from({ length: slides.length }, (_, i) => `
+                    <div class="product-carousel-dot ${i === activeIndex ? 'active' : ''}" onclick="scrollToProduct(${i})"></div>
+                `).join('');
+            }
+
+            window.scrollToProduct = (index) => {
+                const slideWidth = slides[0].offsetWidth + 20; // 20 is the gap
+                carousel.scrollTo({
+                    left: index * slideWidth,
+                    behavior: 'smooth'
+                });
+            }
+
+            carousel.addEventListener('scroll', () => {
+                // Throttle dot updates
+                requestAnimationFrame(updateDots);
+            });
+
+
+            // Drag to scroll
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+
+            // Initial dots
+            updateDots();
+        }
+
+        function startAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(() => { if (!isPaused) nextSlide(); }, 7000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure hero video plays on iOS after first interaction if autoplay is blocked
+            const heroVideo = document.querySelector('.hero-video-bg');
+            if (heroVideo) {
+                const tryPlay = () => {
+                    heroVideo.play().catch(() => {});
+                    window.removeEventListener('touchstart', tryPlay);
+                    window.removeEventListener('click', tryPlay);
+                };
+                window.addEventListener('touchstart', tryPlay, { once: true });
+                window.addEventListener('click', tryPlay, { once: true });
+            }
+
+            renderCarousel();
+            initProductCarousel();
+            startAutoplay();
+            
+            const container = document.querySelector('.carousel-container');
+            container.addEventListener('mouseenter', () => isPaused = true);
+            container.addEventListener('mouseleave', () => isPaused = false);
+            
+            let touchStartX = 0;
+            container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; isPaused = true; }, { passive: true });
+            container.addEventListener('touchend', e => {
+                const diff = touchStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+                setTimeout(() => isPaused = false, 3000);
+            }, { passive: true });
+
+            window.addEventListener('resize', () => {
+                if (getSlidesPerView() !== slidesPerView) { currentSlide = 0; renderCarousel(); }
+            });
+        });
+
+        // ===== NAVIGATION =====
+        const topLogoBar = document.getElementById('topLogoBar');
+        const stickyNav = document.getElementById('stickyNav');
+
+        function updateNavState() {
+            if (window.scrollY > 100) {
+                topLogoBar.classList.add('hidden');
+                stickyNav.classList.add('visible');
+            } else {
+                topLogoBar.classList.remove('hidden');
+                stickyNav.classList.remove('visible');
+            }
+        }
+        window.addEventListener('scroll', updateNavState);
+        updateNavState();
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const active = mobileMenu.classList.contains('active');
+            if (active) closeMobileMenu();
+            else {
+                mobileMenu.classList.add('active');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+
+        document.addEventListener('click', e => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) closeMobileMenu();
+        });
+
+        // ===== FAQ =====
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const active = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.faq-toggle span:last-child').textContent = '+';
+            });
+            if (!active) {
+                item.classList.add('active');
+                btn.querySelector('span:last-child').textContent = '−';
+            }
+        }
+    </script>
+
+    <!-- ===== STICKY BOTTOM CTA BAR (Mobile Only) ===== -->
+    <div id="stickyBottomCTA" class="sticky-bottom-cta">
+        <a href="survey.html" class="cta-primary w-full py-4 px-6 text-center text-base font-semibold block" onclick="if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('sticky_cta_click', 1, 'mobile');">
+            RASTI SPRENDIMĄ MAN
+        </a>
+    </div>
+
+    <script>
+        // Sticky Bottom CTA Bar (Mobile Only)
+        (function() {
+            const stickyCTA = document.getElementById('stickyBottomCTA');
+            const heroSection = document.querySelector('.hero-section');
+            const productModal = document.getElementById('productModal');
+            
+            if (!stickyCTA || !heroSection) return;
+            
+            // Function to check if any survey CTA button is visible in viewport
+            function isAnySurveyButtonVisible() {
+                // Check if modal is open
+                if (productModal && productModal.classList.contains('active')) {
+                    return true;
+                }
+                
+                // Get all survey buttons (excluding the sticky CTA itself)
+                const surveyButtons = document.querySelectorAll('a[href="survey.html"]:not(#stickyBottomCTA a)');
+                const scrollY = window.scrollY || window.pageYOffset;
+                const windowHeight = window.innerHeight;
+                const viewportTop = scrollY;
+                const viewportBottom = scrollY + windowHeight;
+                
+                for (let button of surveyButtons) {
+                    // Skip if button is hidden
+                    if (button.offsetParent === null) continue;
+                    
+                    const rect = button.getBoundingClientRect();
+                    const buttonTop = scrollY + rect.top;
+                    const buttonBottom = scrollY + rect.bottom;
+                    
+                    // Check if button is visible in viewport (with some padding)
+                    if (buttonBottom >= viewportTop - 50 && buttonTop <= viewportBottom + 50) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            function handleScroll() {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollY = window.scrollY || window.pageYOffset;
+                
+                // Check if any survey button is visible
+                const surveyButtonVisible = isAnySurveyButtonVisible();
+                
+                // Show sticky CTA only if past hero AND no survey button is visible
+                if (scrollY > heroBottom && !surveyButtonVisible) {
+                    stickyCTA.classList.add('visible');
+                    document.body.classList.add('sticky-cta-active');
+                } else {
+                    stickyCTA.classList.remove('visible');
+                    document.body.classList.remove('sticky-cta-active');
+                }
+            }
+            
+            // Throttle scroll events
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Also check when modal opens/closes
+            if (productModal) {
+                const observer = new MutationObserver(function(mutations) {
+                    handleScroll();
+                });
+                observer.observe(productModal, {
+                    attributes: true,
+                    attributeFilter: ['class']
+                });
+            }
+            
+            // Initial check
+            handleScroll();
+        })();
+    </script>
+
+</body>
+</html>

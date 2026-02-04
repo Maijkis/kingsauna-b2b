@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Setup Helper</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm" type="module"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        .step h2 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+        .step p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .status {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .status.loading {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .copy-btn:hover {
+            background: #218838;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Supabase Setup Helper</h1>
+        
+        <div id="status-container"></div>
+        
+        <div class="step">
+            <h2>Step 1: Verify Connection</h2>
+            <p>First, let's check if we can connect to your Supabase database.</p>
+            <button class="btn" onclick="checkConnection()">Check Connection</button>
+            <div id="connection-status"></div>
+        </div>
+        
+        <div class="step">
+            <h2>Step 2: Check Table Status</h2>
+            <p>Check if the survey_responses table already exists.</p>
+            <button class="btn" onclick="checkTable()">Check Table</button>
+            <div id="table-status"></div>
+        </div>
+        
+        <div class="step">
+            <h2>Step 3: Create Table (If Needed)</h2>
+            <p>If the table doesn't exist, copy this SQL code and run it in Supabase SQL Editor:</p>
+            <div class="code-block" id="sql-code">
+-- Create survey responses table
+CREATE TABLE IF NOT EXISTS survey_responses (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+  vardas TEXT NOT NULL,
+  el_pastas TEXT NOT NULL,
+  telefonas TEXT NOT NULL,
+  miestas TEXT,
+  komentaras TEXT,
+  type TEXT NOT NULL CHECK (type IN ('lauko', 'vidaus', 'kubila')),
+  lauko_data JSONB,
+  kubilas_data JSONB,
+  vidaus_data JSONB
+);
+
+CREATE INDEX IF NOT EXISTS idx_survey_type ON survey_responses(type);
+CREATE INDEX IF NOT EXISTS idx_survey_created_at ON survey_responses(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_survey_email ON survey_responses(el_pastas);
+
+ALTER TABLE survey_responses ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow anonymous survey submissions" ON survey_responses
+  FOR INSERT TO anon WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can view responses" ON survey_responses
+  FOR SELECT TO authenticated USING (true);
+            </div>
+            <button class="copy-btn" onclick="copySQL()">📋 Copy SQL Code</button>
+            <p style="margin-top: 1rem;">
+                <strong>Instructions:</strong><br>
+                1. Click "Copy SQL Code" above<br>
+                2. Go to <a href="https://supabase.com/dashboard" target="_blank">Supabase Dashboard</a><br>
+                3. Open <strong>SQL Editor</strong> (left sidebar)<br>
+                4. Click <strong>New query</strong><br>
+                5. Paste the SQL code<br>
+                6. Click <strong>Run</strong><br>
+                7. Come back here and click "Check Table" again
+            </p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 4: Test Submission</h2>
+            <p>Once the table is created, test if submissions work.</p>
+            <button class="btn" onclick="testSubmission()">Test Submission</button>
+            <div id="test-status"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+        
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        window.supabase = supabase;
+        
+        function showStatus(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        window.checkConnection = async function() {
+            showStatus('connection-status', '🔄 Checking connection...', 'loading');
+            try {
+                // Try a simple query to test connection
+                const { error } = await supabase.from('survey_responses').select('id').limit(0);
+                if (error) {
+                    if (error.message.includes('Could not find the table')) {
+                        showStatus('connection-status', '✅ Connected to Supabase, but table does not exist yet.', 'info');
+                    } else if (error.message.includes('permission') || error.message.includes('RLS')) {
+                        showStatus('connection-status', '✅ Connected to Supabase! (RLS is active)', 'success');
+                    } else {
+                        showStatus('connection-status', `⚠️ Connection issue: ${error.message}`, 'error');
+                    }
+                } else {
+                    showStatus('connection-status', '✅ Successfully connected to Supabase!', 'success');
+                }
+            } catch (error) {
+                showStatus('connection-status', `❌ Connection failed: ${error.message}`, 'error');
+            }
+        };
+        
+        window.checkTable = async function() {
+            showStatus('table-status', '🔄 Checking if table exists...', 'loading');
+            try {
+                const { error } = await supabase.from('survey_responses').select('id').limit(1);
+                if (error) {
+                    if (error.message.includes('Could not find the table') || 
+                        error.message.includes('does not exist')) {
+                        showStatus('table-status', '❌ Table does not exist. Please create it using Step 3.', 'error');
+                    } else {
+                        showStatus('table-status', `⚠️ Error: ${error.message}`, 'error');
+                    }
+                } else {
+                    showStatus('table-status', '✅ Table exists and is accessible!', 'success');
+                }
+            } catch (error) {
+                showStatus('table-status', `❌ Error: ${error.message}`, 'error');
+            }
+        };
+        
+        window.testSubmission = async function() {
+            showStatus('test-status', '🔄 Testing submission...', 'loading');
+            try {
+                const testData = {
+                    vardas: 'Test User',
+                    el_pastas: 'test@example.com',
+                    telefonas: '+37060000000',
+                    miestas: 'Vilnius',
+                    komentaras: 'This is a test submission',
+                    type: 'lauko',
+                    lauko_data: { test: true }
+                };
+                
+                const { error } = await supabase.from('survey_responses').insert([testData]);
+                if (error) {
+                    showStatus('test-status', `❌ Submission failed: ${error.message}`, 'error');
+                } else {
+                    showStatus('test-status', '✅ Test submission successful! The survey should work now.', 'success');
+                }
+            } catch (error) {
+                showStatus('test-status', `❌ Error: ${error.message}`, 'error');
+            }
+        };
+        
+        window.copySQL = function() {
+            const sqlCode = document.getElementById('sql-code').textContent;
+            navigator.clipboard.writeText(sqlCode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.style.background = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#28a745';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        };
+        
+        // Auto-check on load
+        setTimeout(() => {
+            checkConnection();
+            checkTable();
+        }, 500);
+    </script>
+</body>
+</html>
