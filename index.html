@@ -456,6 +456,12 @@
             margin: 0 -1rem;
             padding: 0 1rem;
         }
+        @media (min-width: 768px) {
+            .product-carousel-wrapper {
+                margin: 0 2rem;
+                padding: 0 2rem;
+            }
+        }
         .product-carousel-container {
             display: flex;
             gap: 1.25rem;
@@ -498,7 +504,7 @@
             height: 52px;
             background: white;
             border-radius: 50%;
-            display: flex;
+            display: none; /* Hidden by default (mobile) */
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 16px rgba(0,0,0,0.12);
@@ -509,10 +515,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid rgba(34, 84, 61, 0.1);
+            color: var(--forest);
+        }
+        @media (min-width: 768px) {
+            .product-carousel-btn {
+                display: flex; /* Show on desktop */
+            }
         }
         .product-carousel-btn svg {
             width: 22px;
             height: 22px;
+            stroke: currentColor;
         }
         .product-carousel-btn:hover {
             background: var(--forest);
@@ -523,14 +536,19 @@
         .product-carousel-btn:active {
             transform: translateY(-50%) scale(0.96);
         }
-        .product-carousel-btn.prev { left: -16px; }
-        .product-carousel-btn.next { right: -16px; }
+        .product-carousel-btn.prev { left: 0; }
+        .product-carousel-btn.next { right: 0; }
         
         .product-carousel-dots {
             display: flex;
             justify-content: center;
             gap: 6px;
             margin-top: 1rem;
+        }
+        @media (min-width: 768px) {
+            .product-carousel-dots {
+                display: none;
+            }
         }
         .product-carousel-dot {
             width: 8px;
@@ -548,8 +566,21 @@
 
         /* ===== TESTIMONIAL CAROUSEL ===== */
         .carousel-container {
-            overflow: hidden;
+            overflow: visible;
             position: relative;
+        }
+        .carousel-container.vertical-layout {
+            overflow: visible;
+        }
+        #carouselTrack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            #carouselTrack {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         .carousel-track {
             display: flex;
@@ -1080,6 +1111,17 @@
             </div>
             
             <div class="product-carousel-wrapper relative">
+                <!-- Desktop Navigation Arrows -->
+                <button type="button" class="product-carousel-btn prev" id="carouselPrevBtn" aria-label="Ankstesnis">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:24px;height:24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button type="button" class="product-carousel-btn next" id="carouselNextBtn" aria-label="Kitas">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:24px;height:24px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
                 <div id="productCarousel" class="product-carousel-container">
                         <!-- Product Card 1: Bačka (Featured) -->
                         <div class="product-card-slide">
@@ -1166,7 +1208,7 @@
                     </div>
                 </div>
                 
-                <div id="productCarouselDots" class="product-carousel-dots"></div>
+                <div id="productCarouselDots" class="product-carousel-dots md:hidden"></div>
             </div>
         </div>
     </section>
@@ -1230,7 +1272,6 @@
                         <div id="carouselTrack" class="carousel-track"></div>
                     </div>
                     
-                    <div id="carouselDots" class="flex justify-center gap-2 mt-5"></div>
                     
                     <!-- See More Reviews Button -->
                     <div class="flex justify-center mt-6">
@@ -2013,157 +2054,130 @@
         });
 
         // ===== TESTIMONIALS =====
-        const allTestimonials = [
-            { name: "Jonas R.", city: "Vilnius", quote: "Puikus procesas nuo pradžių iki pabaigos. Apklausa buvo greita, o pasiūlymas aiškus. Pirtis atrodo nuostabiai!", product: "Iglu", image: "images/iglu-garden-installed.jpg", date: "Prieš mėnesį" },
-            { name: "Marija S.", city: "Kaunas", quote: "Profesionalus konsultavimas. Nėra jokio spaudimo, viskas aiškiai paaiškinta. Vidaus sauna - geriausia investicija!", product: "Vidaus sauna", image: "images/square-interior-benches.jpg", date: "Prieš 2 metus" },
-            { name: "Tomas K.", city: "Klaipėda", quote: "Labai patenkinti kubilu! Visa šeima mėgaujasi kiekvieną savaitgalį. Kvalitetas puikus.", product: "Kubilas", image: "images/sauna-hot-tub-combo.jpg", date: "Prieš 3 savaites" },
-            { name: "Rūta M.", city: "Šiauliai", quote: "Greitas atsakymas, aiški kaina, profesionalus montavimas. Rekomenduoju visiems, kas svajoja apie nuosavą pirtį!", product: "Kvadratinė", image: "images/square-modern-glass.jpg", date: "Prieš 3 metus" },
-            { name: "Andrius P.", city: "Panevėžys", quote: "Trikampė pirtis atrodo nuostabiai! Kaimynai pavydi. Jau antrus metus naudojamės - vis dar kaip nauja.", product: "Iglu", image: "images/triangle-iglu-interior.jpg", date: "Prieš mėnesį" },
-            { name: "Giedrė L.", city: "Alytus", quote: "Nuo pirmo skambučio iki montavimo - viskas sklandžiai. Pirtis tampa mūsų šeimos mėgstamiausia vieta.", product: "Iglu", image: "images/iglu-terrace.jpg", date: "Prieš 1 metus" },
-            { name: "Paulius V.", city: "Marijampolė", quote: "Jau antrus metus naudojamės pirti - kokybė nepakitusi. Mediena atspari visoms oro sąlygoms.", product: "Bačka", image: "images/barrel-vidutine.jpg", date: "Prieš 2 metus" },
-            { name: "Ieva D.", city: "Utena", quote: "Vidaus sauna mūsų namuose - geriausia investicija į sveikatą. Kiekvieną dieną mėgaujamės poilsiu.", product: "Vidaus sauna", image: "images/interior-wood.jpg", date: "Prieš 4 metus" },
-            { name: "Dovilė L.", city: "Vilnius", quote: "Profesionalus ir rūpestingas komandos darbas. Pirtis buvo pristatyta laiku, montavimas be jokių problemų. Didžiausios rekomendacijos!", product: "Iglu", image: "images/trikampe-iglu.jpg", date: "Prieš mėnesį" },
-            { name: "Inga K.", city: "Kaunas", quote: "Su kitais gamintojais derėjomės net tris mėnesius, o su Kingsauna viskas išsisprendė greitai – pirtis buvo paruošta per 6 savaites. Tikrai profesionalus darbas!", product: "Iglu", image: "images/iglu-compact-green.jpg", date: "Prieš mėnesį" },
-            { name: "Vaida V.", city: "Klaipėda", quote: "Mūsų situaciją sunkino, kad buvome ne Lietuvoje. Komanda suorganizavo viską: nuo konsultacijų iki montavimo. Pirtis viršijo mūsų lūkesčius!", product: "Bačka", image: "images/barrel-large-window.jpg", date: "Prieš mėnesį" },
-            { name: "Rokas M.", city: "Šiauliai", quote: "Puikiai dirba, greitai atsako į klausimus. Kubilas veikia puikiai, šeima labai patenkinta. Rekomenduoju visiems!", product: "Kubilas", image: "images/kubilas-wooden-natural.jpg", date: "Prieš 2 mėnesius" },
-            { name: "Eglė P.", city: "Panevėžys", quote: "Labai patenkinta paslaugomis. Viskas buvo aiškiai paaiškinta ir greitai įgyvendinta. Vidaus sauna - svajonių išsipildymas!", product: "Vidaus sauna", image: "images/pine-wood.jpg", date: "Prieš 3 mėnesius" },
-            { name: "Mantas L.", city: "Alytus", quote: "Puikus darbas! Pirtis atrodo nuostabiai ir veikia puikiai. Jau planuojame antrą pirtį kitam kiemui.", product: "Iglu", image: "images/iglu-shingle-dark.jpg", date: "Prieš 4 mėnesius" },
-            { name: "Agnė S.", city: "Marijampolė", quote: "Labai patenkinti! Kvalitetas puikus, montavimas profesionalus. Kvadratinė pirtis tinka mūsų sodui puikiai.", product: "Kvadratinė", image: "images/kvadratine-contrast.jpg", date: "Prieš 5 mėnesius" },
-            { name: "Tadas K.", city: "Utena", quote: "Puikus pasirinkimas! Visi draugai klausia, kur radome tokią puikią pirtį. Bačka - klasikinė forma, šiuolaikiškas dizainas.", product: "Bačka", image: "images/barrel-exterior-chimney.jpg", date: "Prieš 6 mėnesius" }
+        var testimonialsData = [
+            { name: "Jonas R.", quote: "Puikus procesas nuo pradžių iki pabaigos. Apklausa buvo greita, o pasiūlymas aiškus. Pirtis atrodo nuostabiai!", product: "Iglu", image: "images/iglu-garden-installed.jpg", date: "Prieš mėnesį" },
+            { name: "Marija S.", quote: "Profesionalus konsultavimas. Nėra jokio spaudimo, viskas aiškiai paaiškinta. Vidaus sauna - geriausia investicija!", product: "Vidaus sauna", image: "images/barrel-interior-window.jpg", date: "Prieš 2 metus" },
+            { name: "Tomas K.", quote: "Labai patenkinti kubilu! Visa šeima mėgaujasi kiekvieną savaitgalį. Kvalitetas puikus.", product: "Kubilas", image: "images/kubilas-lake-terrace.jpeg", date: "Prieš 3 savaites" },
+            { name: "Rūta M.", quote: "Greitas atsakymas, aiški kaina, profesionalus montavimas. Rekomenduoju visiems, kas svajoja apie nuosavą pirtį!", product: "Kvadratinė", image: "images/kvadratine-contrast.jpg", date: "Prieš 3 metus" },
+            { name: "Andrius P.", quote: "Trikampė pirtis atrodo nuostabiai! Kaimynai pavydi. Jau antrus metus naudojamės - vis dar kaip nauja.", product: "Iglu", image: "images/iglu-terrace.jpg", date: "Prieš mėnesį" },
+            { name: "Giedrė L.", quote: "Nuo pirmo skambučio iki montavimo - viskas sklandžiai. Pirtis tampa mūsų šeimos mėgstamiausia vieta.", product: "Bačka", image: "images/barrel-brown-hex.jpg", date: "Prieš 1 metus" },
+            { name: "Paulius V.", quote: "Jau antrus metus naudojamės pirti - kokybė nepakitusi. Mediena atspari visoms oro sąlygoms.", product: "Bačka", image: "images/barrel-large-window.jpg", date: "Prieš 2 metus" },
+            { name: "Mantas L.", quote: "Puikus darbas! Pirtis atrodo nuostabiai ir veikia puikiai. Jau planuojame antrą pirtį kitam kiemui.", product: "Iglu", image: "images/iglu-shingle-dark.jpg", date: "Prieš 4 mėnesius" },
+            { name: "Tadas K.", quote: "Puikus pasirinkimas! Visi draugai klausia, kur radome tokią puikią pirtį. Bačka - klasikinė forma, šiuolaikiškas dizainas.", product: "Bačka", image: "images/barrel-exterior-chimney.jpg", date: "Prieš 6 mėnesius" }
         ];
         
-        let testimonials = shuffleArray([...allTestimonials]).slice(0, 3); // Start with 3 reviews
-        let reviewsLoaded = 0;
-        const maxLoads = 4;
-
-        function shuffleArray(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a;
-        }
-
-        let currentSlide = 0;
-        let slidesPerView = 1;
-        let autoplayInterval;
-        let isPaused = false;
-
-        function getSlidesPerView() {
-            if (window.innerWidth >= 1024) return 3;
-            if (window.innerWidth >= 768) return 2;
-            return 1;
-        }
-
-        function renderCarousel() {
-            slidesPerView = getSlidesPerView();
-            const track = document.getElementById('carouselTrack');
-            const dots = document.getElementById('carouselDots');
-            
-            track.innerHTML = testimonials.map(t => `
-                <div class="carousel-slide" style="width: ${100 / slidesPerView}%;">
-                    <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 flex flex-col" style="min-height: 320px; height: 100%;">
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="font-bold text-base md:text-lg text-gray-900">${t.name}</h4>
-                            <div class="flex text-amber-400">
-                                ${Array(5).fill('<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>').join('')}
-                            </div>
-                        </div>
-                        <p class="text-gray-600 leading-relaxed mb-3 flex-grow italic" style="line-height: 1.6;">"${t.quote}"</p>
-                        <div class="flex items-center gap-2 mt-auto pt-3">
-                            <img src="${t.image}" alt="${t.product}" class="w-10 h-10 object-cover rounded" loading="lazy">
-                            <p class="text-xs text-gray-400">${t.date}</p>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            const totalDots = Math.ceil(testimonials.length / slidesPerView);
-            dots.innerHTML = Array.from({ length: totalDots }, (_, i) => `
-                <button class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></button>
-            `).join('');
-
-            updateCarousel();
-        }
+        var shownTestimonials = 0;
         
-        // Load More Reviews Function
-        function loadMoreReviews() {
-            if (reviewsLoaded >= maxLoads) {
-                document.getElementById('loadMoreReviews').style.display = 'none';
+        function renderTestimonials() {
+            var track = document.getElementById('carouselTrack');
+            if (!track) {
+                console.error('carouselTrack not found');
                 return;
             }
             
-            const remainingReviews = shuffleArray([...allTestimonials]).filter(t => 
-                !testimonials.some(existing => existing.name === t.name && existing.quote === t.quote)
-            );
+            // Set initial count based on screen size
+            if (shownTestimonials === 0) {
+                shownTestimonials = window.innerWidth >= 768 ? 3 : 1;
+            }
             
-            const reviewsToAdd = Math.min(3, remainingReviews.length);
-            if (reviewsToAdd > 0) {
-                testimonials.push(...remainingReviews.slice(0, reviewsToAdd));
-                reviewsLoaded++;
-                renderCarousel();
-                
-                if (reviewsLoaded >= maxLoads || testimonials.length >= allTestimonials.length) {
-                    document.getElementById('loadMoreReviews').style.display = 'none';
-                }
+            var toShow = testimonialsData.slice(0, shownTestimonials);
+            
+            // Set grid styles
+            track.style.display = 'grid';
+            track.style.gridTemplateColumns = window.innerWidth >= 768 ? 'repeat(3, 1fr)' : '1fr';
+            track.style.gap = '1.5rem';
+            
+            var html = '';
+            for (var i = 0; i < toShow.length; i++) {
+                var t = toShow[i];
+                html += '<div class="testimonial-card-item">' +
+                    '<div class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 flex flex-col h-full" style="min-height: 280px;">' +
+                        '<div class="flex justify-between items-start mb-3">' +
+                            '<h4 class="font-bold text-base md:text-lg text-gray-900">' + t.name + '</h4>' +
+                            '<div class="flex text-amber-400">' +
+                                '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+                                '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+                                '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+                                '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+                                '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+                            '</div>' +
+                        '</div>' +
+                        '<p class="text-gray-600 leading-relaxed mb-3 flex-grow italic" style="line-height: 1.6;">"' + t.quote + '"</p>' +
+                        '<div class="flex items-center gap-3 mt-auto pt-3 border-t border-gray-100">' +
+                            '<img src="' + t.image + '" alt="' + t.product + '" class="w-12 h-12 object-cover rounded-lg" loading="lazy">' +
+                            '<div>' +
+                                '<p class="text-sm font-medium text-gray-700">' + t.product + '</p>' +
+                                '<p class="text-xs text-gray-400">' + t.date + '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+            
+            track.innerHTML = html;
+            
+            // Hide button if all shown
+            var btn = document.getElementById('loadMoreReviews');
+            if (btn && shownTestimonials >= testimonialsData.length) {
+                btn.style.display = 'none';
             }
         }
+        
+        function loadMoreReviews() {
+            var increment = window.innerWidth >= 768 ? 3 : 1;
+            shownTestimonials = Math.min(shownTestimonials + increment, testimonialsData.length);
+            renderTestimonials();
+        }
+        
+        window.loadMoreReviews = loadMoreReviews;
 
-        function updateCarousel() {
-            const container = document.querySelector('.carousel-container');
-            if (container) {
-                // Use native scroll instead of transform
-                const slideWidth = container.offsetWidth / slidesPerView;
-                container.scrollTo({
-                    left: currentSlide * slideWidth,
+        // ===== GLOBAL PRODUCT CAROUSEL NAVIGATION =====
+        function scrollProductCarousel(direction) {
+            var carousel = document.getElementById('productCarousel');
+            if (!carousel) {
+                console.error('productCarousel not found');
+                return;
+            }
+            
+            var scrollAmount = 400; // pixels to scroll
+            var newScroll = carousel.scrollLeft + (direction * scrollAmount);
+            
+            carousel.scrollTo({
+                left: newScroll,
                     behavior: 'smooth'
                 });
+        }
+        
+        // Make it global
+        window.scrollProductCarousel = scrollProductCarousel;
+        
+        // Attach click handlers to carousel buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            var prevBtn = document.getElementById('carouselPrevBtn');
+            var nextBtn = document.getElementById('carouselNextBtn');
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    scrollProductCarousel(-1);
+                });
             }
-            document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-        }
-        
-        // Update dots based on scroll position for native scrolling
-        const carouselContainer = document.querySelector('.carousel-container');
-        if (carouselContainer) {
-            carouselContainer.addEventListener('scroll', () => {
-                const scrollLeft = carouselContainer.scrollLeft;
-                const slideWidth = carouselContainer.offsetWidth / slidesPerView;
-                const newSlide = Math.round(scrollLeft / slideWidth);
-                const max = Math.ceil(testimonials.length / slidesPerView) - 1;
-                if (newSlide !== currentSlide && newSlide >= 0 && newSlide <= max) {
-                    currentSlide = newSlide;
-                    document.querySelectorAll('#carouselDots .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-                }
-            });
-        }
-
-        function goToSlide(i) {
-            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
-            currentSlide = Math.max(0, Math.min(i, max));
-            updateCarousel();
-        }
-
-        function nextSlide() {
-            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
-            currentSlide = currentSlide >= max ? 0 : currentSlide + 1;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            const max = Math.ceil(testimonials.length / slidesPerView) - 1;
-            currentSlide = currentSlide <= 0 ? max : currentSlide - 1;
-            updateCarousel();
-        }
-        
-        // Make loadMoreReviews globally accessible
-        window.loadMoreReviews = loadMoreReviews;
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    scrollProductCarousel(1);
+                });
+            }
+        });
 
         // ===== PRODUCT CAROUSEL LOGIC =====
         function initProductCarousel() {
             const carousel = document.getElementById('productCarousel');
+            if (!carousel) return;
+            
             const dotsContainer = document.getElementById('productCarouselDots');
             const slides = carousel.querySelectorAll('.product-card-slide');
+            
+            if (slides.length === 0) return;
             
             let isDown = false;
             let startX;
@@ -2171,6 +2185,7 @@
 
             // Update dots
             function updateDots() {
+                if (!dotsContainer || slides.length === 0) return;
                 const scrollPercentage = carousel.scrollLeft / (carousel.scrollWidth - carousel.clientWidth);
                 const activeIndex = Math.round(scrollPercentage * (slides.length - 1));
                 
@@ -2180,12 +2195,16 @@
             }
 
             window.scrollToProduct = (index) => {
+                if (slides.length === 0) return;
                 const slideWidth = slides[0].offsetWidth + 20; // 20 is the gap
                 carousel.scrollTo({
                     left: index * slideWidth,
                     behavior: 'smooth'
                 });
             }
+            
+            // Initialize arrows
+            updateDots();
 
             carousel.addEventListener('scroll', () => {
                 // Throttle dot updates
@@ -2220,11 +2239,6 @@
             updateDots();
         }
 
-        function startAutoplay() {
-            if (autoplayInterval) clearInterval(autoplayInterval);
-            autoplayInterval = setInterval(() => { if (!isPaused) nextSlide(); }, 7000);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             // Ensure hero video plays on iOS after first interaction if autoplay is blocked
             const heroVideo = document.querySelector('.hero-video-bg');
@@ -2238,24 +2252,13 @@
                 window.addEventListener('click', tryPlay, { once: true });
             }
 
-            renderCarousel();
+            // Initialize testimonials and product carousel
+            renderTestimonials();
             initProductCarousel();
-            startAutoplay();
-            
-            const container = document.querySelector('.carousel-container');
-            container.addEventListener('mouseenter', () => isPaused = true);
-            container.addEventListener('mouseleave', () => isPaused = false);
-            
-            let touchStartX = 0;
-            container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; isPaused = true; }, { passive: true });
-            container.addEventListener('touchend', e => {
-                const diff = touchStartX - e.changedTouches[0].screenX;
-                if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
-                setTimeout(() => isPaused = false, 3000);
-            }, { passive: true });
 
+            // Re-render testimonials on resize for responsive layout
             window.addEventListener('resize', () => {
-                if (getSlidesPerView() !== slidesPerView) { currentSlide = 0; renderCarousel(); }
+                renderTestimonials();
             });
         });
 
