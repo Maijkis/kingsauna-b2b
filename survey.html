@@ -976,132 +976,7 @@
             opacity: 0;
             transform: translateY(-10px);
         }
-        .hottub-slider-container {
-            position: relative;
-            margin: 2rem 0;
-            padding: 0 1rem;
-        }
-        .hottub-slider {
-            width: 100%;
-            height: 12px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            outline: none;
-            position: relative;
-            z-index: 3;
-            cursor: pointer;
-            margin: 0;
-        }
-        .hottub-slider::-webkit-slider-runnable-track {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            height: 12px;
-        }
-        .hottub-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 32px;
-            height: 32px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            z-index: 4;
-        }
-        .hottub-slider::-moz-range-track {
-            background: transparent;
-            height: 12px;
-            border: none;
-        }
-        .hottub-slider::-moz-range-thumb {
-            width: 32px;
-            height: 32px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-        .hottub-slider-track {
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            right: 1rem;
-            height: 12px;
-            background: #E5E7EB;
-            border-radius: 6px;
-            transform: translateY(-50%);
-            z-index: 1;
-        }
-        .hottub-slider-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: #A35E42;
-            border-radius: 6px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-        .hottub-slider-handle {
-            position: absolute;
-            top: 50%;
-            left: 0%;
-            width: 32px;
-            height: 32px;
-            background: #A35E42;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 2px 8px rgba(163, 94, 66, 0.4);
-            transition: left 0.3s ease;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .hottub-slider-handle:active {
-            transform: translate(-50%, -50%) scale(1.2);
-            box-shadow: 0 4px 12px rgba(163, 94, 66, 0.6);
-        }
-        @media (max-width: 640px) {
-            .hottub-illustration-container {
-                min-height: 150px;
-                margin: 1.5rem 0 1rem 0;
-            }
-            .hottub-svg {
-                width: 200px;
-                height: 133px;
-            }
-            .hottub-label-container {
-                min-height: 70px;
-                margin-bottom: 1.5rem;
-            }
-            .hottub-label-main {
-                font-size: 1.25rem;
-            }
-            .hottub-label-sub {
-                font-size: 0.9rem;
-            }
-            .hottub-slider-container {
-                margin: 1.5rem 0;
-            }
-            .hottub-slider::-webkit-slider-thumb {
-                width: 36px;
-                height: 36px;
-            }
-            .hottub-slider::-moz-range-thumb {
-                width: 36px;
-                height: 36px;
-            }
-            .hottub-slider-handle {
-                width: 36px;
-                height: 36px;
-            }
-            .hottub-slider-track {
-                height: 14px;
-            }
-            .hottub-slider-fill {
-                height: 14px;
-            }
-        }
+        /* Old hottub slider CSS removed - now using budget-slider styles */
         
         /* ===== FORM INPUTS ===== */
         .form-input {
@@ -1247,11 +1122,17 @@
                 gap: 1rem;
             }
             
-            /* Option buttons (Yes/No) */
+            /* Option buttons (Malkinis/Elektrinis, etc.) */
             .option-button {
                 padding: 1.125rem 1.5rem;
                 font-size: 1rem;
                 min-height: 60px;
+                width: 100% !important;
+            }
+            
+            /* Space-y containers full width */
+            .space-y-3, .space-y-4 {
+                width: 100% !important;
             }
             
             /* Form inputs */
@@ -1705,118 +1586,27 @@
             <!-- Step 3: Žmonių skaičius -->
             <div class="step" id="step-kubilas-3">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių turi tilpti į kubilą?</h2>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių turi tilpti į kubilą?</h2>
                     
-                    <!-- Slider Container -->
-                    <div class="hottub-illustration-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 200px; gap: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2rem;">
-                        <!-- Dynamic Labels -->
-                        <div class="hottub-label-container" style="margin-bottom: 0;">
-                            <div id="hottub-label-main" class="hottub-label-main">2-3 žmonės</div>
-                            <div id="hottub-label-sub" class="hottub-label-sub">Kompaktiškas, porai</div>
+                    <div class="space-y-3 md:space-y-6">
+                        <!-- Value Display -->
+                        <div class="text-center">
+                            <div id="kubilas-people-value" class="text-2xl md:text-3xl font-bold" style="color: var(--forest);">2-3 žmonės</div>
+                            <div id="kubilas-people-desc" class="text-sm md:text-base mt-1" style="color: var(--text-warm);">Kompaktiškas, porai</div>
                         </div>
                         
-                        <!-- Stepped Slider -->
-                        <div class="hottub-slider-container" style="width: 100%; margin: 0;">
-                            <input 
-                                type="range" 
-                                id="kubilas-people-slider" 
-                                class="hottub-slider" 
-                                min="0" 
-                                max="3" 
-                                step="1" 
-                                value="0"
-                            >
-                            <div class="hottub-slider-track">
-                                <div class="hottub-slider-fill" id="hottub-slider-fill"></div>
-                                <div class="hottub-slider-handle" id="hottub-slider-handle"></div>
+                        <!-- Slider (same style as budget) -->
+                        <div class="budget-slider-container">
+                            <div class="budget-slider-track" id="kubilas-people-track">
+                                <div class="budget-slider-fill" id="kubilas-people-fill"></div>
+                                <div class="budget-slider-handle" id="kubilas-people-handle"></div>
+                                <!-- 4 markers for 4 options -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 33.33%;"></div>
+                                <div class="budget-slider-marker" style="left: 66.66%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Hidden SVG for compatibility (not displayed) -->
-                    <svg id="hottub-svg" class="hottub-svg" style="display: none;" viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Base/Stand with depth -->
-                            <ellipse cx="140" cy="165" rx="120" ry="12" fill="#5A4A3D" opacity="0.8"/>
-                            <rect x="30" y="155" width="220" height="15" rx="8" fill="#6B5D4F" opacity="0.7"/>
-                            <ellipse cx="140" cy="155" rx="110" ry="6" fill="#4A3A2D" opacity="0.6"/>
-                            
-                            <!-- Hot tub outer rim with depth -->
-                            <ellipse cx="140" cy="115" rx="110" ry="35" fill="#7B6B5D" stroke="#5A4A3D" stroke-width="3"/>
-                            <ellipse cx="140" cy="118" rx="108" ry="33" fill="#8B7355" opacity="0.9"/>
-                            
-                            <!-- Hot tub body (wooden barrel style) with perspective -->
-                            <ellipse cx="140" cy="95" rx="102" ry="32" fill="#A0826D" stroke="#6B5D4F" stroke-width="2.5"/>
-                            <ellipse cx="140" cy="98" rx="100" ry="30" fill="#B5927D" opacity="0.6"/>
-                            
-                            <!-- Wood grain texture (horizontal lines) -->
-                            <ellipse cx="140" cy="85" rx="98" ry="1" fill="#8B7355" opacity="0.3"/>
-                            <ellipse cx="140" cy="90" rx="99" ry="1" fill="#8B7355" opacity="0.3"/>
-                            <ellipse cx="140" cy="95" rx="100" ry="1" fill="#8B7355" opacity="0.3"/>
-                            <ellipse cx="140" cy="100" rx="100" ry="1" fill="#8B7355" opacity="0.3"/>
-                            <ellipse cx="140" cy="105" rx="99" ry="1" fill="#8B7355" opacity="0.3"/>
-                            
-                            <!-- Wooden staves (vertical lines with curve) -->
-                            <path d="M 50 65 Q 50 95, 50 120" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 65 63 Q 65 93, 65 118" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 80 62 Q 80 92, 80 117" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 95 61 Q 95 91, 95 116" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 110 60 Q 110 90, 110 115" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 125 60 Q 125 90, 125 115" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 140 60 Q 140 90, 140 115" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 155 60 Q 155 90, 155 115" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 170 61 Q 170 91, 170 116" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 185 62 Q 185 92, 185 117" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 200 63 Q 200 93, 200 118" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 215 65 Q 215 95, 215 120" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            <path d="M 230 67 Q 230 97, 230 122" stroke="#6B5D4F" stroke-width="2" fill="none" opacity="0.5"/>
-                            
-                            <!-- Metal hoops/bands (3 bands) -->
-                            <ellipse cx="140" cy="75" rx="104" ry="3" fill="#C0B0A0" opacity="0.8"/>
-                            <ellipse cx="140" cy="75" rx="102" ry="1.5" fill="#E0D0C0" opacity="0.9"/>
-                            <ellipse cx="140" cy="95" rx="104" ry="3" fill="#C0B0A0" opacity="0.8"/>
-                            <ellipse cx="140" cy="95" rx="102" ry="1.5" fill="#E0D0C0" opacity="0.9"/>
-                            <ellipse cx="140" cy="115" rx="104" ry="3" fill="#C0B0A0" opacity="0.8"/>
-                            <ellipse cx="140" cy="115" rx="102" ry="1.5" fill="#E0D0C0" opacity="0.9"/>
-                            
-                            <!-- Water surface (realistic with depth) -->
-                            <ellipse cx="140" cy="82" rx="98" ry="25" fill="#3A7BC8" opacity="0.8"/>
-                            <ellipse cx="140" cy="79" rx="95" ry="23" fill="#4A90E2" opacity="0.7"/>
-                            <ellipse cx="140" cy="76" rx="92" ry="21" fill="#5BA3F5" opacity="0.6"/>
-                            
-                            <!-- Water ripples and reflections (more realistic) -->
-                            <ellipse cx="140" cy="74" rx="88" ry="19" fill="none" stroke="#6BB6FF" stroke-width="1.5" opacity="0.5"/>
-                            <ellipse cx="140" cy="72" rx="85" ry="17" fill="none" stroke="#7BC8FF" stroke-width="1" opacity="0.4"/>
-                            <ellipse cx="140" cy="70" rx="82" ry="15" fill="none" stroke="#8BD0FF" stroke-width="0.8" opacity="0.3"/>
-                            
-                            <!-- Light reflection on water -->
-                            <ellipse cx="140" cy="75" rx="60" ry="12" fill="#A0D8FF" opacity="0.4"/>
-                            
-                            <!-- Steam rising (more realistic wavy paths) -->
-                            <path d="M 75 80 Q 80 60, 85 45 Q 90 30, 95 20" stroke="#F0F8FF" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
-                            <path d="M 95 78 Q 100 58, 105 43 Q 110 28, 115 18" stroke="#F0F8FF" stroke-width="3.5" fill="none" opacity="0.8" stroke-linecap="round"/>
-                            <path d="M 115 77 Q 120 57, 125 42 Q 130 27, 135 17" stroke="#F0F8FF" stroke-width="3.5" fill="none" opacity="0.8" stroke-linecap="round"/>
-                            <path d="M 135 77 Q 140 57, 145 42 Q 150 27, 155 17" stroke="#F0F8FF" stroke-width="3.5" fill="none" opacity="0.8" stroke-linecap="round"/>
-                            <path d="M 155 78 Q 160 58, 165 43 Q 170 28, 175 18" stroke="#F0F8FF" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
-                            <path d="M 175 80 Q 180 60, 185 45 Q 190 30, 195 20" stroke="#F0F8FF" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
-                            
-                            <!-- Steam bubbles in water (various sizes) -->
-                            <circle cx="100" cy="82" r="3" fill="#E8F4F8" opacity="0.9"/>
-                            <circle cx="120" cy="80" r="4" fill="#E8F4F8" opacity="0.9"/>
-                            <circle cx="140" cy="79" r="4.5" fill="#E8F4F8" opacity="0.9"/>
-                            <circle cx="160" cy="80" r="4" fill="#E8F4F8" opacity="0.9"/>
-                            <circle cx="180" cy="82" r="3" fill="#E8F4F8" opacity="0.9"/>
-                            <circle cx="110" cy="85" r="2" fill="#E8F4F8" opacity="0.8"/>
-                            <circle cx="170" cy="85" r="2" fill="#E8F4F8" opacity="0.8"/>
-                            
-                            <!-- Control panel/jets -->
-                            <rect x="220" y="85" width="18" height="25" rx="3" fill="#7A6A5D" opacity="0.7"/>
-                            <rect x="222" y="87" width="14" height="21" rx="2" fill="#9A8A7D" opacity="0.8"/>
-                            <circle cx="229" cy="95" r="3" fill="#4A90E2" opacity="0.6"/>
-                            <circle cx="229" cy="102" r="3" fill="#4A90E2" opacity="0.6"/>
-                            
-                            <!-- Wood texture highlights -->
-                            <ellipse cx="140" cy="90" rx="95" ry="28" fill="none" stroke="#C5A585" stroke-width="1" opacity="0.2"/>
-                        </svg>
                     </div>
                     
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
@@ -2807,72 +2597,116 @@
         
         const hottubValues = ['2-3', '4-5', '6-8', '8+'];
         
+        // ===== KUBILAS PEOPLE SLIDER (same style as budget) =====
         function initHottubSlider() {
-            const slider = document.getElementById('kubilas-people-slider');
-            const labelMain = document.getElementById('hottub-label-main');
-            const labelSub = document.getElementById('hottub-label-sub');
-            const fill = document.getElementById('hottub-slider-fill');
-            const handle = document.getElementById('hottub-slider-handle');
+            const track = document.getElementById('kubilas-people-track');
+            const handle = document.getElementById('kubilas-people-handle');
+            const fill = document.getElementById('kubilas-people-fill');
+            const valueDisplay = document.getElementById('kubilas-people-value');
+            const descDisplay = document.getElementById('kubilas-people-desc');
             
-            if (!slider || !labelMain || !labelSub) return;
+            if (!track || !handle || !fill) return;
             
-            function updateSlider(value) {
-                const step = parseInt(value);
-                const percent = (step / 3) * 100;
+            let isDragging = false;
+            let currentStep = 0;
+            const totalSteps = 3; // 0, 1, 2, 3 = 4 options
+            
+            function updateSlider(step, animate = false) {
+                currentStep = Math.max(0, Math.min(totalSteps, step));
+                const percent = (currentStep / totalSteps) * 100;
                 
-                // Update labels with fade & slide animation
-                labelMain.classList.add('fade-slide-enter');
-                labelSub.classList.add('fade-slide-enter');
+                if (animate) {
+                    handle.style.transition = 'left 0.2s ease';
+                    fill.style.transition = 'width 0.2s ease';
+                } else {
+                    handle.style.transition = 'none';
+                    fill.style.transition = 'none';
+                }
                 
-                setTimeout(() => {
-                    labelMain.textContent = hottubLabels[step].main;
-                    labelSub.textContent = hottubLabels[step].sub;
-                    labelMain.classList.remove('fade-slide-enter');
-                    labelSub.classList.remove('fade-slide-enter');
-                }, 150);
+                // Update handle and fill
+                handle.style.left = percent + '%';
+                fill.style.width = percent + '%';
                 
-                // Update fill and handle position
-                // Track has 1rem padding on each side, so we need to calculate relative to the track width
-                const trackPadding = 16; // 1rem = 16px
-                const container = slider.parentElement;
-                const containerWidth = container.offsetWidth;
-                const trackWidth = containerWidth - (trackPadding * 2);
-                const fillWidth = (percent / 100) * trackWidth;
-                const handlePosition = trackPadding + fillWidth;
-                
-                fill.style.width = fillWidth + 'px';
-                handle.style.left = (handlePosition - 16) + 'px'; // 16px = half of handle width (32px)
+                // Update labels
+                if (valueDisplay) valueDisplay.textContent = hottubLabels[currentStep].main;
+                if (descDisplay) descDisplay.textContent = hottubLabels[currentStep].sub;
                 
                 // Update survey data
-                const selectedValue = hottubValues[step];
-                surveyData.kubilas.zmones = selectedValue;
-                surveyData.kubilas.talpa = selectedValue;
+                surveyData.kubilas.zmones = hottubValues[currentStep];
+                surveyData.kubilas.talpa = hottubValues[currentStep];
             }
             
-            // Initialize
-            updateSlider(slider.value);
+            function getStepFromPosition(x) {
+                const rect = track.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
+                return Math.round((percent / 100) * totalSteps);
+            }
             
-            // Handle slider input
-            slider.addEventListener('input', (e) => {
-                updateSlider(e.target.value);
-            });
+            function startDrag(e) {
+                isDragging = true;
+                handle.style.transition = 'none';
+                fill.style.transition = 'none';
+                e.preventDefault();
+            }
             
-            // Handle slider change (for snap points)
-            slider.addEventListener('change', (e) => {
-                const value = parseInt(e.target.value);
-                slider.value = value;
-                updateSlider(value);
+            function doDrag(e) {
+                if (!isDragging) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, false);
+            }
+            
+            function endDrag(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                // Snap to nearest step
+                updateSlider(currentStep, true);
+            }
+            
+            // Mouse events
+            handle.addEventListener('mousedown', startDrag);
+            track.addEventListener('mousedown', (e) => {
+                const clientX = e.clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, true);
+                startDrag(e);
             });
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Touch events
+            handle.addEventListener('touchstart', startDrag, { passive: false });
+            track.addEventListener('touchstart', (e) => {
+                const clientX = e.touches[0].clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, true);
+                startDrag(e);
+            }, { passive: false });
+            document.addEventListener('touchmove', doDrag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+            
+            // Initialize at first position
+            updateSlider(0, false);
         }
         
         function selectKubilasZmones(value) {
-            // Legacy function for compatibility - now handled by slider
-            const slider = document.getElementById('kubilas-people-slider');
-            if (slider) {
-                const index = hottubValues.indexOf(value);
-                if (index !== -1) {
-                    slider.value = index;
-                    slider.dispatchEvent(new Event('input'));
+            // Legacy function for compatibility
+            const index = hottubValues.indexOf(value);
+            if (index !== -1) {
+                const handle = document.getElementById('kubilas-people-handle');
+                const fill = document.getElementById('kubilas-people-fill');
+                const valueDisplay = document.getElementById('kubilas-people-value');
+                const descDisplay = document.getElementById('kubilas-people-desc');
+                
+                if (handle && fill) {
+                    const percent = (index / 3) * 100;
+                    handle.style.left = percent + '%';
+                    fill.style.width = percent + '%';
+                    if (valueDisplay) valueDisplay.textContent = hottubLabels[index].main;
+                    if (descDisplay) descDisplay.textContent = hottubLabels[index].sub;
+                    surveyData.kubilas.zmones = value;
+                    surveyData.kubilas.talpa = value;
                 }
             }
         }
