@@ -613,6 +613,9 @@
         }
         
         /* ===== PHOTO GALLERY ===== */
+        .gallery-container {
+            position: relative;
+        }
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -628,10 +631,30 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 640px) {
             .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                gap: 0;
+                padding-bottom: 1rem;
+            }
+            .gallery-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .gallery-item {
+                flex: 0 0 85%;
+                scroll-snap-align: center;
+                margin: 0 0.5rem;
+            }
+            .gallery-item:first-child {
+                margin-left: 1rem;
+            }
+            .gallery-item:last-child {
+                margin-right: 1rem;
             }
         }
         .gallery-item {
@@ -644,6 +667,11 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 32px rgba(34, 84, 61, 0.15);
         }
+        @media (max-width: 640px) {
+            .gallery-item:hover {
+                transform: none;
+            }
+        }
         .gallery-img {
             width: 100%;
             height: 100%;
@@ -652,6 +680,41 @@
         }
         .gallery-item:hover .gallery-img {
             transform: scale(1.05);
+        }
+        @media (max-width: 640px) {
+            .gallery-item:hover .gallery-img {
+                transform: none;
+            }
+        }
+        
+        /* Gallery Dots */
+        .gallery-dots {
+            display: none;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        @media (max-width: 640px) {
+            .gallery-dots {
+                display: flex;
+            }
+        }
+        .gallery-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(34, 84, 61, 0.25);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .gallery-dot.active {
+            background: var(--copper);
+            transform: scale(1.2);
+        }
+        .gallery-dot:hover {
+            background: var(--copper);
         }
         
         /* Gallery Modal */
@@ -1516,38 +1579,68 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold mb-3" style="color: var(--text-charcoal);">
-                    Mūsų Projektai
+                    Daugiau mūsų projektų
                 </h2>
-                <p class="text-base md:text-lg" style="color: var(--text-warm);">
-                    Pažvelkite į mūsų sukurtus sprendimus klientams visoje Lietuvoje
-                </p>
             </div>
             
-            <div class="gallery-grid">
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(0)">
-                    <img src="images/barrel-large-window.jpg" alt="Bačkos pirtis su dideliu langu" loading="lazy" class="gallery-img">
+            <div class="gallery-container">
+                <div class="gallery-grid" id="galleryGrid">
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(0)">
+                        <img src="images/project-iglu-barrel-trio.png" alt="Įvairių formų pirtys - Iglu ir bačkos" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(1)">
+                        <img src="images/project-iglu-green-glass.png" alt="Iglu pirtis su stikline siena" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(2)">
+                        <img src="images/project-elipse-duo.png" alt="Elipsės formos pirtys" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(3)">
+                        <img src="images/project-elipse-interior.png" alt="Elipsės pirties interjeras su krosnele" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(4)">
+                        <img src="images/project-kvadratine-modern.png" alt="Moderni kvadratinė pirtis" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(5)">
+                        <img src="images/project-iglu-gold-shingles.png" alt="Iglu pirtis su auksiniais šindėliais" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(6)">
+                        <img src="images/project-iglu-wood-stove.png" alt="Iglu pirtis su malkine krosnele" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(7)">
+                        <img src="images/project-barrel-duo.png" alt="Dvi bačkos pirtys" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(8)">
+                        <img src="images/project-kvadratine-dark.png" alt="Tamsi moderni kvadratinė pirtis" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(9)">
+                        <img src="images/project-iglu-double-dark.png" alt="Iglu pirtis su prieangiu" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(10)">
+                        <img src="images/barrel-large-window.jpg" alt="Bačkos pirtis su dideliu langu" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(11)">
+                        <img src="images/barrel-exterior-chimney.jpg" alt="Bačkos pirtis su kaminu" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(12)">
+                        <img src="images/barrel-interior-window.jpg" alt="Pirties vidus su langu" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(13)">
+                        <img src="images/iglu-terrace.jpg" alt="Iglu pirtis su terasa" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(14)">
+                        <img src="images/iglu-garden-installed.jpg" alt="Iglu pirtis sode" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(15)">
+                        <img src="images/kvadratine-contrast.jpg" alt="Kvadratinė pirtis" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(16)">
+                        <img src="images/barrel-brown-hex.jpg" alt="Bačkos pirtis su šešiakampiais čerpėmis" loading="lazy" class="gallery-img">
+                    </div>
+                    <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(17)">
+                        <img src="images/iglu-shingle-dark.jpg" alt="Iglu pirtis su tamsiais čerpėmis" loading="lazy" class="gallery-img">
+                    </div>
                 </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(1)">
-                    <img src="images/barrel-exterior-chimney.jpg" alt="Bačkos pirtis su kaminu" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(2)">
-                    <img src="images/barrel-interior-window.jpg" alt="Pirties vidus su langu" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(3)">
-                    <img src="images/iglu-terrace.jpg" alt="Iglu pirtis su terasa" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(4)">
-                    <img src="images/iglu-garden-installed.jpg" alt="Iglu pirtis sode" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(5)">
-                    <img src="images/kvadratine-contrast.jpg" alt="Kvadratinė pirtis" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(6)">
-                    <img src="images/barrel-brown-hex.jpg" alt="Bačkos pirtis su šešiakampiais čerpėmis" loading="lazy" class="gallery-img">
-                </div>
-                <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(7)">
-                    <img src="images/iglu-shingle-dark.jpg" alt="Iglu pirtis su tamsiais čerpėmis" loading="lazy" class="gallery-img">
-                </div>
+                <div class="gallery-dots" id="galleryDots"></div>
             </div>
         </div>
     </section>
@@ -2011,6 +2104,16 @@
 
         // ===== PHOTO GALLERY =====
         const galleryImages = [
+            'images/project-iglu-barrel-trio.png',
+            'images/project-iglu-green-glass.png',
+            'images/project-elipse-duo.png',
+            'images/project-elipse-interior.png',
+            'images/project-kvadratine-modern.png',
+            'images/project-iglu-gold-shingles.png',
+            'images/project-iglu-wood-stove.png',
+            'images/project-barrel-duo.png',
+            'images/project-kvadratine-dark.png',
+            'images/project-iglu-double-dark.png',
             'images/barrel-large-window.jpg',
             'images/barrel-exterior-chimney.jpg',
             'images/barrel-interior-window.jpg',
@@ -2052,6 +2155,76 @@
                 if (e.key === 'ArrowRight') changeGalleryImage(1);
             }
         });
+
+        // ===== MOBILE GALLERY CAROUSEL =====
+        function initGalleryCarousel() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const dotsContainer = document.getElementById('galleryDots');
+            const items = galleryGrid.querySelectorAll('.gallery-item');
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            items.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Nuotrauka ${index + 1}`);
+                dot.onclick = () => scrollToGalleryItem(index);
+                dotsContainer.appendChild(dot);
+            });
+
+            // Update active dot on scroll
+            let scrollTimeout;
+            galleryGrid.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    updateGalleryDots();
+                }, 50);
+            });
+        }
+
+        function scrollToGalleryItem(index) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const items = galleryGrid.querySelectorAll('.gallery-item');
+            if (items[index]) {
+                items[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        function updateGalleryDots() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const dotsContainer = document.getElementById('galleryDots');
+            const dots = dotsContainer.querySelectorAll('.gallery-dot');
+            const items = galleryGrid.querySelectorAll('.gallery-item');
+            
+            const gridRect = galleryGrid.getBoundingClientRect();
+            const gridCenter = gridRect.left + gridRect.width / 2;
+            
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+            
+            items.forEach((item, index) => {
+                const itemRect = item.getBoundingClientRect();
+                const itemCenter = itemRect.left + itemRect.width / 2;
+                const distance = Math.abs(gridCenter - itemCenter);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === closestIndex);
+            });
+        }
+
+        // Initialize on load and resize
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGalleryCarousel);
+        } else {
+            initGalleryCarousel();
+        }
+        window.addEventListener('resize', initGalleryCarousel);
 
         // ===== TESTIMONIALS =====
         var testimonialsData = [
