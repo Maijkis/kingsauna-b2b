@@ -1418,7 +1418,7 @@
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie preliminarūs išmatavimai?</h2>
                     <div class="space-y-6">
-                        <div id="measurements-inputs" class="grid grid-cols-2 gap-4">
+                        <div id="measurements-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                             <div>
                                 <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Plotis (metrais)</label>
                                 <input type="number" id="lauko-plotis" step="0.1" min="0" class="form-input w-full p-4 text-lg touch-manipulation" placeholder="pvz. 2.5" oninput="onMeasurementInput()">
@@ -1471,7 +1471,7 @@
             <div class="step" id="step-lauko-6">
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
                         <button onclick="selectLaukoPriepirtis('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
                             <div class="font-bold text-base md:text-lg">Taip</div>
                         </button>
@@ -1495,7 +1495,7 @@
             <div class="step" id="step-lauko-9">
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
                         <button onclick="selectLaukoPristatymas('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
                             <div class="font-bold text-base md:text-lg">Taip</div>
                         </button>
@@ -1593,8 +1593,8 @@
                         <div class="text-center">
                             <div id="kubilas-people-value" class="text-2xl md:text-3xl font-bold" style="color: var(--forest);">2-3 žmonės</div>
                             <div id="kubilas-people-desc" class="text-sm md:text-base mt-1" style="color: var(--text-warm);">Kompaktiškas, porai</div>
-                        </div>
-                        
+                    </div>
+                    
                         <!-- Slider (same style as budget) -->
                         <div class="budget-slider-container">
                             <div class="budget-slider-track" id="kubilas-people-track">
@@ -1605,7 +1605,7 @@
                                 <div class="budget-slider-marker" style="left: 33.33%;"></div>
                                 <div class="budget-slider-marker" style="left: 66.66%;"></div>
                                 <div class="budget-slider-marker" style="left: 100%;"></div>
-                            </div>
+                    </div>
                         </div>
                     </div>
                     
@@ -1640,7 +1640,7 @@
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Papildomos funkcijos</h2>
                     <p class="helper-text text-center mb-4" style="font-size: 0.875rem; color: var(--text-muted);">(Nebūtina užpildyti)</p>
-                    <div class="grid grid-cols-2 gap-3 md:gap-4 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4">
                         <button onclick="toggleKubilasOption('funkcijos', 'LED apšvietimas')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="LED apšvietimas">
                             <div class="text-center">
                                 <div class="font-bold text-base md:text-lg">LED apšvietimas</div>
@@ -1719,7 +1719,7 @@
             <div class="step" id="step-kubilas-7">
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
                         <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
                             <div class="font-bold text-base md:text-lg">Taip</div>
                         </button>
@@ -1799,7 +1799,7 @@
             <div class="step" id="step-vidaus-3">
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios pirties norite?</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
                         <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Sauna">
                             <div class="font-bold text-base md:text-lg">Sauna</div>
                         </button>
@@ -1825,7 +1825,7 @@
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
                     
                     <div class="space-y-6">
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                             <div>
                                 <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Ilgis (m)</label>
                                 <input type="number" id="vidaus-ilgis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.0" step="0.1" min="0" oninput="onVidausMeasurementInput()">
@@ -2555,19 +2555,19 @@
             const index = surveyData.kubilas.tipas.indexOf(value);
             
             // Remove all selections first
-            const stepEl = document.getElementById('step-kubilas-2');
+                const stepEl = document.getElementById('step-kubilas-2');
             stepEl.querySelectorAll('.icon-box-option').forEach(btn => {
-                btn.classList.remove('selected');
-            });
+                    btn.classList.remove('selected');
+                });
             
             // Select the clicked option
-            if (index > -1) {
+                if (index > -1) {
                 // Deselect if already selected
-                surveyData.kubilas.tipas.splice(index, 1);
-            } else {
+                    surveyData.kubilas.tipas.splice(index, 1);
+                } else {
                 // Select new option (single selection)
                 surveyData.kubilas.tipas = [value];
-                button.classList.add('selected');
+                    button.classList.add('selected');
                 
                 // Automatically proceed to next step after selection
                 setTimeout(() => {
@@ -2692,8 +2692,8 @@
         
         function selectKubilasZmones(value) {
             // Legacy function for compatibility
-            const index = hottubValues.indexOf(value);
-            if (index !== -1) {
+                const index = hottubValues.indexOf(value);
+                if (index !== -1) {
                 const handle = document.getElementById('kubilas-people-handle');
                 const fill = document.getElementById('kubilas-people-fill');
                 const valueDisplay = document.getElementById('kubilas-people-value');
@@ -2768,17 +2768,17 @@
                     }
                     // Handle "Norėčiau Pasikonsultuoti" for other fields
                     if (value !== 'Malkinė' && field !== 'funkcijos') {
-                        const niekoIndex = surveyData.kubilas[field].indexOf('Norėčiau Pasikonsultuoti');
-                        if (niekoIndex > -1) {
-                            surveyData.kubilas[field].splice(niekoIndex, 1);
-                            if (stepEl) {
-                                stepEl.querySelectorAll('.icon-box-option-consultation').forEach(btn => {
-                                    btn.classList.remove('selected');
-                                });
-                                stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
-                                    btn.disabled = false;
-                                    btn.style.opacity = '1';
-                                });
+                    const niekoIndex = surveyData.kubilas[field].indexOf('Norėčiau Pasikonsultuoti');
+                    if (niekoIndex > -1) {
+                        surveyData.kubilas[field].splice(niekoIndex, 1);
+                        if (stepEl) {
+                            stepEl.querySelectorAll('.icon-box-option-consultation').forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
+                                btn.disabled = false;
+                                btn.style.opacity = '1';
+                            });
                             }
                         }
                     }
@@ -2975,7 +2975,7 @@
                     progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
                     // Start from current progress, not 0%
                     const startWidth = Math.max(currentProgress, 0) + '%';
-                    progressContainer.innerHTML = `
+                        progressContainer.innerHTML = `
                             <div class="progress-bar-bg">
                                 <div class="progress-bar-fill" style="width: ${startWidth}"></div>
                             </div>
@@ -2987,28 +2987,45 @@
                 
                 // Update the progress bar inside the card with smooth animation
                 // Map step numbers to sequential positions for each survey type
+                // Position 0 = first question, last position = contact form (100%)
                 if (stepNumber > 1 && progressBarInside) {
-                    let sequentialPosition = 1;
+                    let sequentialPosition = 0;
+                    let totalPositions = 1;
                     
                     if (surveyData.type === 'lauko') {
-                        // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact (8)
-                        const stepMap = {2: 1, 3: 2, 5: 3, 6: 4, 9: 5, 11: 6, 10: 7, [totalSteps]: 8};
-                        sequentialPosition = stepMap[stepNumber] || 1;
+                        // Lauko: 7 questions before contact (positions 0-6), contact = position 7 (100%)
+                        const stepMap = {2: 0, 3: 1, 5: 2, 6: 3, 9: 4, 11: 5, 10: 6};
+                        totalPositions = 7;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
                     } else if (surveyData.type === 'kubila') {
-                        // Steps: 2, 3, 4, 6, 7, 8 (budget), contact (7)
-                        const stepMap = {2: 1, 3: 2, 4: 3, 6: 4, 7: 5, 8: 6, [totalSteps]: 7};
-                        sequentialPosition = stepMap[stepNumber] || 1;
+                        // Kubilas: 6 questions before contact (positions 0-5), contact = position 6 (100%)
+                        const stepMap = {2: 0, 3: 1, 4: 2, 6: 3, 7: 4, 8: 5};
+                        totalPositions = 6;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
                     } else if (surveyData.type === 'vidaus') {
-                        // Steps: 2, 3, 4, 5, 6 (budget), contact (6)
-                        const stepMap = {2: 1, 3: 2, 4: 3, 5: 4, 6: 5, [totalSteps]: 6};
-                        sequentialPosition = stepMap[stepNumber] || 1;
+                        // Vidaus: 5 questions before contact (positions 0-4), contact = position 5 (100%)
+                        const stepMap = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4};
+                        totalPositions = 5;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
                     } else {
-                        sequentialPosition = stepNumber - 1;
+                        sequentialPosition = stepNumber - 2;
+                        totalPositions = totalSteps - 2;
                     }
                     
-                    // Calculate progress: first survey step (position 1) = 0%, last step = 100%
-                    const totalSurveySteps = totalSteps - 1; // Total steps excluding step 1
-                    const newPercentage = (sequentialPosition / totalSurveySteps) * 100;
+                    // Calculate progress: first question = small %, contact = 100%
+                    const newPercentage = ((sequentialPosition + 1) / (totalPositions + 1)) * 100;
                     
                     // Get current width if it exists, otherwise use currentProgress
                     const currentWidth = progressBarInside.style.width ? 
@@ -3151,35 +3168,54 @@
         function updateProgress() {
             const progressBar = document.getElementById('progressBar');
             if (!progressBar || currentStep === 1) {
-                // No progress bar on step 1
+                // No progress bar on step 1 ("Kas jus domina?")
                 return;
             }
             
             // Map step numbers to sequential positions for each survey type
-            // This accounts for non-sequential step IDs (e.g., step-lauko-11, step-lauko-10)
-            let sequentialPosition = 1; // Start at 1 (step 2 is position 1)
+            // Position 0 = first question after selection, last position = contact form (100%)
+            let sequentialPosition = 0;
+            let totalPositions = 1;
             
             if (surveyData.type === 'lauko') {
-                // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact (8)
-                const stepMap = {2: 1, 3: 2, 5: 3, 6: 4, 9: 5, 11: 6, 10: 7, [totalSteps]: 8};
-                sequentialPosition = stepMap[currentStep] || 1;
+                // Lauko steps: 2 (forma), 3 (ismatavimai), 5 (pecius), 6 (krosnele), 9 (funkcijos), 11 (biudzetas), 10 (pageidavimai), contact
+                // Total: 8 steps, positions 0-7, contact = 100%
+                const stepMap = {2: 0, 3: 1, 5: 2, 6: 3, 9: 4, 11: 5, 10: 6};
+                totalPositions = 7; // 7 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
             } else if (surveyData.type === 'kubila') {
-                // Steps: 2, 3, 4, 6, 7, 8 (budget), contact (7)
-                const stepMap = {2: 1, 3: 2, 4: 3, 6: 4, 7: 5, 8: 6, [totalSteps]: 7};
-                sequentialPosition = stepMap[currentStep] || 1;
+                // Kubilas steps: 2 (tipas), 3 (zmones), 4 (sildymas), 6 (funkcijos), 7 (vieta), 8 (biudzetas), contact
+                // Total: 7 steps, positions 0-6, contact = 100%
+                const stepMap = {2: 0, 3: 1, 4: 2, 6: 3, 7: 4, 8: 5};
+                totalPositions = 6; // 6 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
             } else if (surveyData.type === 'vidaus') {
-                // Steps: 2, 3, 4, 5, 6 (budget), contact (6)
-                const stepMap = {2: 1, 3: 2, 4: 3, 5: 4, 6: 5, [totalSteps]: 6};
-                sequentialPosition = stepMap[currentStep] || 1;
+                // Vidaus steps: 2 (tipas), 3 (zmones), 4 (krosnele), 5 (funkcijos), 6 (biudzetas), contact
+                // Total: 6 steps, positions 0-5, contact = 100%
+                const stepMap = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4};
+                totalPositions = 5; // 5 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
             } else {
-                // Fallback: use currentStep directly
-                sequentialPosition = currentStep - 1;
+                // Fallback
+                sequentialPosition = currentStep - 2;
+                totalPositions = totalSteps - 2;
             }
             
-            // Calculate progress: first survey step (position 1) = 0%, last step = 100%
-            // totalSteps already includes contact form, so totalSteps - 1 is the number of survey steps
-            const totalSurveySteps = totalSteps - 1; // Total steps excluding step 1
-            const newPercentage = (sequentialPosition / totalSurveySteps) * 100;
+            // Calculate progress percentage
+            // First question = small percentage (not 0), contact form = 100%
+            const newPercentage = ((sequentialPosition + 1) / (totalPositions + 1)) * 100;
             
             // Get current width
             const currentWidth = progressBar.style.width ? 
