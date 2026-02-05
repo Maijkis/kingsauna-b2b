@@ -1176,6 +1176,53 @@
             opacity: 1;
         }
 
+        /* ===== DESKTOP OPTIMIZATIONS ===== */
+        @media (min-width: 1024px) {
+            .glass-card {
+                padding: 2.5rem 3rem;
+                border-radius: 20px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            }
+            
+            .glass-card h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1.75rem;
+            }
+            
+            .option-button {
+                padding: 1.25rem 1.5rem;
+            }
+            
+            .icon-box-option {
+                padding: 1rem;
+            }
+            
+            .icon-box-image {
+                height: 140px;
+            }
+            
+            .cta-primary {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .form-input {
+                padding: 0.875rem 1rem;
+                font-size: 1rem;
+            }
+            
+            /* Tighter spacing for desktop */
+            .step-subtitle {
+                margin-bottom: 1.25rem;
+                font-size: 0.95rem;
+            }
+            
+            /* Better grid for 3-column layouts on desktop */
+            .icon-boxes-grid-main {
+                gap: 1rem;
+            }
+        }
+
         @media (max-width: 640px) {
             .section-px {
                 padding-left: 1.25rem;
@@ -1290,8 +1337,8 @@
     </style>
 </head>
 <body style="background: var(--bg-sand); color: var(--text-charcoal);">
-    <div class="min-h-screen py-4 md:py-8 px-4">
-        <div class="max-w-2xl lg:max-w-3xl mx-auto">
+    <div class="min-h-screen py-4 md:py-8 lg:py-12 px-4 flex flex-col justify-start lg:justify-center">
+        <div class="w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
             <!-- Header - Only show on step 1 -->
             <div id="surveyHeader" class="text-center mb-3 md:mb-4">
                 <div class="mb-2 md:mb-3">
@@ -2100,7 +2147,7 @@
                 <div>
                     <img src="images/logo.png" alt="Kingsauna Logo" class="h-12 md:h-14 w-auto mb-4 brightness-0 invert" loading="lazy">
                     <p class="text-sm leading-relaxed">
-                        Profesionalūs saunų ir kubilų sprendimai visoje Lietuvoje.
+                        Profesionalūs pirčių ir kubilų sprendimai visoje Lietuvoje nuo 2002 metų.
                     </p>
                 </div>
                 <div>
