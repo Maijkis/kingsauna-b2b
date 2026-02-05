@@ -1176,50 +1176,162 @@
             opacity: 1;
         }
 
-        /* ===== DESKTOP OPTIMIZATIONS ===== */
-        @media (min-width: 1024px) {
+        /* ===== SURVEY WRAPPER - ALL SCREEN SIZES ===== */
+        #surveyWrapper {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* ===== DESKTOP/TABLET OPTIMIZATIONS (768px+) ===== */
+        @media (min-width: 768px) {
+            /* Container - 720px optimal width */
+            #surveyWrapper {
+                max-width: 720px !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+            }
+            
+            /* ALL steps same width */
+            #surveyWrapper .step,
+            #surveyWrapper .step .glass-card {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Card styling */
             .glass-card {
-                padding: 2.5rem 3rem;
+                padding: 2.5rem !important;
                 border-radius: 20px;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             }
             
             .glass-card h2 {
-                font-size: 1.75rem;
-                margin-bottom: 1.75rem;
+                font-size: 1.625rem;
+                margin-bottom: 2rem;
             }
             
-            .option-button {
-                padding: 1.25rem 1.5rem;
-            }
-            
+            /* Icon boxes */
             .icon-box-option {
-                padding: 1rem;
+                padding: 0;
+                min-height: auto;
+                border-radius: 14px;
             }
             
             .icon-box-image {
-                height: 140px;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                object-fit: cover;
+                border-radius: 14px 14px 0 0;
             }
             
-            .cta-primary {
-                padding: 0.875rem 2rem;
+            .icon-box-label {
                 font-size: 1rem;
+                padding: 0.75rem 0.5rem;
+                font-weight: 600;
             }
             
+            /* Grid layouts */
+            .icon-boxes-grid {
+                gap: 1rem;
+            }
+            
+            .icon-boxes-grid-main {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            
+            .icon-boxes-grid-stove {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            /* Option buttons (Yes/No) */
+            .option-button {
+                padding: 1.125rem 1.5rem;
+                font-size: 1rem;
+                min-height: 60px;
+            }
+            
+            /* Form inputs */
             .form-input {
-                padding: 0.875rem 1rem;
+                padding: 1rem 1.125rem;
                 font-size: 1rem;
             }
             
-            /* Tighter spacing for desktop */
+            /* CTA buttons */
+            .cta-primary {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+            
+            /* Back button */
+            .back-button {
+                padding: 0.8rem 1.25rem;
+                font-size: 0.95rem;
+                min-height: 48px;
+            }
+            
+            /* Spacing */
             .step-subtitle {
-                margin-bottom: 1.25rem;
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+            }
+            
+            /* Consultation button */
+            .icon-box-option-consultation {
+                min-height: 52px;
+                height: 52px;
+                font-size: 1rem;
+            }
+            
+            /* Budget buttons */
+            .budget-option-btn {
+                padding: 1rem 1.25rem;
+                font-size: 1rem;
+            }
+            
+            /* Feature buttons */
+            .feature-options-grid {
+                gap: 0.75rem;
+            }
+            
+            .feature-option-btn {
+                padding: 0.8rem 1.125rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Hot tub slider */
+            .hottub-illustration-container {
+                min-height: 160px;
+                padding: 1.75rem;
+                gap: 1.5rem;
+            }
+            
+            .hottub-label-main {
+                font-size: 1.5rem;
+            }
+            
+            .hottub-label-sub {
                 font-size: 0.95rem;
             }
             
-            /* Better grid for 3-column layouts on desktop */
-            .icon-boxes-grid-main {
-                gap: 1rem;
+            /* Form spacing */
+            .space-y-4 > * + * {
+                margin-top: 1rem;
+            }
+            
+            .space-y-2\.5 > * + * {
+                margin-top: 0.875rem;
+            }
+            
+            /* Navigation */
+            .flex.justify-between,
+            .flex.flex-col.md\\:flex-row {
+                margin-top: 1.75rem;
+                gap: 1.25rem;
             }
         }
 
@@ -1337,8 +1449,8 @@
     </style>
 </head>
 <body style="background: var(--bg-sand); color: var(--text-charcoal);">
-    <div class="min-h-screen py-4 md:py-8 lg:py-12 px-4 flex flex-col justify-start lg:justify-center">
-        <div class="w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+    <div class="min-h-screen py-4 md:py-8 lg:py-10 px-4 flex flex-col justify-start lg:justify-center" style="align-items: center;">
+        <div id="surveyWrapper" style="width: 100%; max-width: 720px;">
             <!-- Header - Only show on step 1 -->
             <div id="surveyHeader" class="text-center mb-3 md:mb-4">
                 <div class="mb-2 md:mb-3">
@@ -1348,7 +1460,7 @@
 
             <!-- STEP 1: Qualification -->
             <div class="step active" id="step1">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <!-- Progress Bar - Hidden on step 1, will show from step 2 -->
                     <div id="progressBarContainer" class="mb-4 md:mb-6" style="display: none;">
                         <div class="progress-bar-bg">
@@ -1385,7 +1497,7 @@
             <!-- LAUKO PIRTIES SURVEY -->
             <!-- Step 2: Forma / tipas (MULTI-SELECT) -->
             <div class="step" id="step-lauko-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks modelis jus domina?</h2>
                     <!-- First row: Bačka, Kvadratinė, Trikampė -->
                     <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
@@ -1422,7 +1534,7 @@
 
             <!-- Step 3: Išmatavimai (EXCLUSIVE: inputs OR nežinau) -->
             <div class="step" id="step-lauko-3">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie preliminarūs išmatavimai?</h2>
                     <div class="space-y-6">
                         <div id="measurements-inputs" class="grid grid-cols-2 gap-4">
@@ -1450,7 +1562,7 @@
 
             <!-- Step 5: Pečius (SINGLE-SELECT) -->
             <div class="step" id="step-lauko-5">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio pečiaus norėtumėte?</h2>
                     <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
                         <button onclick="selectLaukoPecius('Malkinis')" class="icon-box-option touch-manipulation" data-value="Malkinis">
@@ -1476,7 +1588,7 @@
 
             <!-- Step 6: Išplanavimas (CONDITIONAL reveal) -->
             <div class="step" id="step-lauko-6">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
                     <div class="grid grid-cols-2 gap-4 mb-3">
                         <button onclick="selectLaukoPriepirtis('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
@@ -1500,7 +1612,7 @@
 
             <!-- Step 9: Pristatymas (SINGLE-SELECT) -->
             <div class="step" id="step-lauko-9">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
                     <div class="grid grid-cols-2 gap-4 mb-3">
                         <button onclick="selectLaukoPristatymas('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
@@ -1525,7 +1637,7 @@
             <!-- Step 10: Individualūs sprendimai -->
             <!-- Step 11: Budget (LAUKO) - Before additional questions -->
             <div class="step" id="step-lauko-11">
-                <div class="glass-card p-4 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
@@ -1554,7 +1666,7 @@
             </div>
 
             <div class="step" id="step-lauko-10">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar turite papildomų pageidavimų?</h2>
                     <p class="helper-text text-center mb-4">(Nebūtina užpildyti)</p>
                     <textarea id="lauko-pageidavimai" rows="5" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Pvz.: norėčiau LED apšvietimo, turiu klausimų dėl stogo dangos, svarstau apie papildomą langą..."></textarea>
@@ -1568,7 +1680,7 @@
             <!-- KUBILŲ SURVEY -->
             <!-- Step 2: Kubilo tipas -->
             <div class="step" id="step-kubilas-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
                     <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
                         <button onclick="toggleKubilasTipas('Medinis')" class="icon-box-option touch-manipulation" data-value="Medinis">
@@ -1592,7 +1704,7 @@
 
             <!-- Step 3: Žmonių skaičius -->
             <div class="step" id="step-kubilas-3">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių turi tilpti į kubilą?</h2>
                     
                     <!-- Slider Container -->
@@ -1716,7 +1828,7 @@
 
             <!-- Step 4: Šildymo tipas -->
             <div class="step" id="step-kubilas-4">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Šildymo tipas</h2>
                     <div class="space-y-3 md:space-y-4 mb-4">
                         <button onclick="selectKubilasOption('sildymas', 'Malkinis')" class="option-button rounded-xl p-4 md:p-5 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center w-full" data-value="Malkinis">
@@ -1735,7 +1847,7 @@
 
             <!-- Step 6: Papildomos funkcijos -->
             <div class="step" id="step-kubilas-6">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Papildomos funkcijos</h2>
                     <p class="helper-text text-center mb-4" style="font-size: 0.875rem; color: var(--text-muted);">(Nebūtina užpildyti)</p>
                     <div class="grid grid-cols-2 gap-3 md:gap-4 mb-4">
@@ -1815,7 +1927,7 @@
 
             <!-- Step 7: Pristatymas -->
             <div class="step" id="step-kubilas-7">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
                     <div class="grid grid-cols-2 gap-4 mb-3">
                         <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
@@ -1839,7 +1951,7 @@
 
             <!-- Step 8: Budget (KUBILAS) -->
             <div class="step" id="step-kubilas-8">
-                <div class="glass-card p-4 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
@@ -1870,7 +1982,7 @@
             <!-- VIDAUS PIRTIES SURVEY -->
             <!-- Step 2: Vieta -->
             <div class="step" id="step-vidaus-2">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kur bus įrengiama pirtis?</h2>
                     <div class="space-y-5 md:space-y-4">
                         <button onclick="selectVidausOption('vieta', 'Bute')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
@@ -1895,7 +2007,7 @@
 
             <!-- Step 3: Tipas -->
             <div class="step" id="step-vidaus-3">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios pirties norite?</h2>
                     <div class="grid grid-cols-2 gap-4 mb-3">
                         <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Sauna">
@@ -1919,7 +2031,7 @@
 
             <!-- Step 4: Išmatavimai -->
             <div class="step" id="step-vidaus-4">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
                     
                     <div class="space-y-6">
@@ -1954,7 +2066,7 @@
 
             <!-- Step 5: Krosnelė -->
             <div class="step" id="step-vidaus-5">
-                <div class="glass-card p-5 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Krosnelės tipas</h2>
                     <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
                         <button onclick="selectVidausOption('krosnele', 'Malkinė')" class="icon-box-option touch-manipulation" data-value="Malkinė">
@@ -1980,7 +2092,7 @@
 
             <!-- Step 6: Budget (VIDAUS) -->
             <div class="step" id="step-vidaus-6">
-                <div class="glass-card p-4 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
                     <div class="space-y-3 md:space-y-6">
                         <div class="budget-slider-container">
@@ -2010,7 +2122,7 @@
 
             <!-- CONTACT DETAILS FORM (Final step for all flows) -->
             <div class="step" id="step-contact">
-                <div class="glass-card p-3 md:p-8 lg:p-12">
+                <div class="glass-card p-5 md:p-8">
                     <h2 class="text-base md:text-2xl lg:text-3xl font-bold mb-3 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kur galime atsiųsti pasiūlymą?</h2>
                     
                     <form id="contactForm" class="space-y-2.5 md:space-y-5">
@@ -2122,7 +2234,7 @@
 
             <!-- CONFIRMATION STATE -->
             <div class="step" id="step-confirmation">
-                <div class="glass-card p-8 md:p-12 text-center">
+                <div class="glass-card p-5 md:p-8 text-center">
                     <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: var(--bg-forest-light);">
                         <svg class="w-12 h-12" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
