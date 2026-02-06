@@ -4,6 +4,7 @@ FROM nginx:alpine
 # Copy static files to nginx html directory
 COPY index.html /usr/share/nginx/html/
 COPY survey.html /usr/share/nginx/html/
+COPY apklausa/ /usr/share/nginx/html/apklausa/
 COPY analytics-tracker.js /usr/share/nginx/html/
 COPY images/ /usr/share/nginx/html/images/
 

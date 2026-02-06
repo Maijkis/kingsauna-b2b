@@ -633,14 +633,63 @@
         .gallery-container {
             position: relative;
         }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+        .gallery-viewport {
+            overflow: hidden;
+            width: 100%;
+        }
+        .gallery-carousel-btn {
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            color: var(--forest);
+            font-size: 1.5rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .gallery-carousel-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+        }
+        .gallery-carousel-prev { left: -12px; }
+        .gallery-carousel-next { right: -12px; }
+        @media (min-width: 1025px) {
+            .gallery-carousel-btn { display: flex; }
+            .gallery-viewport { border-radius: 12px; }
+            .gallery-grid {
+                display: flex;
+                width: 600%;
+                gap: 0;
+                transition: transform 0.4s ease;
+                padding: 0;
+            }
+            .gallery-grid .gallery-item {
+                flex: 0 0 5.555%;
+                min-width: 0;
+                margin: 0;
+                scroll-snap-align: none;
+                padding: 0 0.25rem;
+                box-sizing: border-box;
+            }
+            .gallery-grid .gallery-item:first-child { padding-left: 0; }
+            .gallery-grid .gallery-item:last-child { padding-right: 0; }
         }
         @media (max-width: 1024px) {
             .gallery-grid {
+                display: grid;
+                width: 100%;
                 grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
             }
         }
         @media (max-width: 768px) {
@@ -649,8 +698,10 @@
             }
         }
         @media (max-width: 640px) {
+            .gallery-carousel-btn { display: none !important; }
             .gallery-grid {
                 display: flex;
+                width: auto;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
@@ -658,11 +709,12 @@
                 -ms-overflow-style: none;
                 gap: 0;
                 padding-bottom: 1rem;
+                transition: none;
             }
             .gallery-grid::-webkit-scrollbar {
                 display: none;
             }
-            .gallery-item {
+            .gallery-grid .gallery-item {
                 flex: 0 0 85%;
                 scroll-snap-align: center;
                 margin: 0 0.5rem;
@@ -672,6 +724,12 @@
             }
             .gallery-item:last-child {
                 margin-right: 1rem;
+            }
+        }
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         .gallery-item {
@@ -1107,7 +1165,7 @@
                     <a href="#duk" class="hover:opacity-70 transition-opacity font-medium text-sm" style="color: var(--text-warm);">DUK</a>
                 </div>
                 
-                <a href="survey.html" class="hidden md:flex cta-primary py-2.5 px-5 text-sm">
+                <a href="/apklausa" class="hidden md:flex cta-primary py-2.5 px-5 text-sm">
                     Rasti savo pirtį
                 </a>
 
@@ -1127,7 +1185,7 @@
                     <a href="#sprendimai" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Sprendimai</a>
                     <a href="#apie-mus" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">Apie mus</a>
                     <a href="#duk" class="py-3 px-4 rounded-lg font-medium" style="color: var(--text-charcoal);" onclick="closeMobileMenu()">DUK</a>
-                    <a href="survey.html" class="cta-primary py-3 px-6 text-center mt-2">
+                    <a href="/apklausa" class="cta-primary py-3 px-6 text-center mt-2">
                         Rasti savo pirtį
                     </a>
                 </div>
@@ -1168,7 +1226,7 @@
                     </p>
                     
                     <div class="mb-2">
-                        <a href="survey.html" class="cta-primary inline-flex py-4 px-8 sm:py-5 sm:px-12 text-[15px] sm:text-lg md:text-xl items-center justify-center min-h-[56px] sm:min-h-[64px] whitespace-nowrap font-bold tracking-wide">
+                        <a href="/apklausa" class="cta-primary inline-flex py-4 px-8 sm:py-5 sm:px-12 text-[15px] sm:text-lg md:text-xl items-center justify-center min-h-[56px] sm:min-h-[64px] whitespace-nowrap font-bold tracking-wide">
                             RASTI SPRENDIMĄ MAN
                         </a>
                     </div>
@@ -1183,11 +1241,11 @@
     <!-- ===== POPULIARIAUSI MODELIAI ===== -->
     <section id="populiariausi" class="py-8 md:py-12 px-4 bg-sand section-px">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-3" style="color: var(--text-charcoal); letter-spacing: -0.02em;">
                     Mūsų populiariausi modeliai
                 </h2>
-                <div class="w-12 h-1 bg-forest mx-auto mb-6 rounded-full opacity-20"></div>
+                <div class="w-12 h-1 bg-forest mx-auto mb-2 rounded-full opacity-20"></div>
             </div>
             
             <div class="product-carousel-wrapper relative">
@@ -1214,7 +1272,6 @@
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Bačka</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Klasikinė statinės formos lauko pirtis</p>
                                     <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
@@ -1230,7 +1287,6 @@
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Kvadratinė</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Erdvi pirtis su poilsio zona</p>
                                     <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
@@ -1246,7 +1302,6 @@
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Cabin</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni kabinos stiliaus lauko pirtis</p>
                                     <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
@@ -1262,7 +1317,6 @@
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Iglu</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Moderni iglu stiliaus pirtis</p>
                                     <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
@@ -1278,7 +1332,6 @@
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko kubilai</h3>
-                                    <p class="text-sm mb-4 leading-relaxed flex-grow" style="color: var(--text-muted);">Vidutinės klasės, 4-6 žmonėms</p>
                                     <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
                                         Daugiau informacijos
                                     </span>
@@ -1407,7 +1460,7 @@
                                 Garantija ir techninė pagalba
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-fit text-sm md:text-base">
+                        <a href="/apklausa" onclick="localStorage.setItem('quickSelect', 'lauko'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'lauko');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
                             Išsirinkti lauko pirtį
                         </a>
                     </div>
@@ -1444,7 +1497,7 @@
                                 Profesionalus montavimas ir pajungimas
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
+                        <a href="/apklausa" onclick="localStorage.setItem('quickSelect', 'vidaus'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'vidaus');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
                             Išsirinkti vidaus pirtį
                         </a>
                     </div>
@@ -1505,7 +1558,7 @@
                                 Papildoma įranga: LED, oro burbulai, filtrai
                             </li>
                         </ul>
-                        <a href="survey.html" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
+                        <a href="/apklausa" onclick="localStorage.setItem('quickSelect', 'kubila'); if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('survey_start_click', 2, 'kubila');" class="cta-primary py-3 md:py-4 px-6 md:px-8 text-center w-full md:w-fit text-sm md:text-base">
                             Išsirinkti kubilą
                         </a>
                     </div>
@@ -1600,7 +1653,10 @@
                 </h2>
             </div>
             
-            <div class="gallery-container">
+            <div class="gallery-container gallery-carousel-wrapper">
+                <button type="button" class="gallery-carousel-btn gallery-carousel-prev" id="galleryCarouselPrev" aria-label="Ankstesnės">&#10094;</button>
+                <button type="button" class="gallery-carousel-btn gallery-carousel-next" id="galleryCarouselNext" aria-label="Kitos">&#10095;</button>
+                <div class="gallery-viewport" id="galleryViewport">
                 <div class="gallery-grid" id="galleryGrid">
                     <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(0)">
                         <img src="images/project-iglu-barrel-trio.png" alt="Įvairių formų pirtys - Iglu ir bačkos" loading="lazy" class="gallery-img">
@@ -1656,6 +1712,7 @@
                     <div class="gallery-item glass-card-light overflow-hidden cursor-pointer" onclick="openGallery(17)">
                         <img src="images/iglu-shingle-dark.jpg" alt="Iglu pirtis su tamsiais čerpėmis" loading="lazy" class="gallery-img">
                     </div>
+                </div>
                 </div>
                 <div class="gallery-dots" id="galleryDots"></div>
             </div>
@@ -1895,7 +1952,7 @@
             <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-warm);">
                 Užpildykite trumpą apklausą ir gaukite individualų pasiūlymą - be jokių įsipareigojimų.
             </p>
-            <a href="survey.html" class="cta-primary inline-flex py-4 px-6 sm:px-10 text-[15px] sm:text-lg items-center justify-center whitespace-nowrap w-full md:w-auto min-h-[56px]">
+            <a href="/apklausa" class="cta-primary inline-flex py-4 px-6 sm:px-10 text-[15px] sm:text-lg items-center justify-center whitespace-nowrap w-full md:w-auto min-h-[56px]">
                 Rasti sprendimą man
             </a>
         </div>
@@ -1923,7 +1980,7 @@
                     <div class="space-y-2 text-sm">
                         <a href="#populiariausi" class="block hover:text-white transition-colors">Populiariausi modeliai</a>
                         <a href="#sprendimai" class="block hover:text-white transition-colors">Sprendimai</a>
-                        <a href="survey.html" class="block hover:text-white transition-colors">Pradėti apklausą</a>
+                        <a href="/apklausa" class="block hover:text-white transition-colors">Pradėti apklausą</a>
                     </div>
                 </div>
             </div>
@@ -1955,11 +2012,11 @@
             
             <div class="p-6 md:p-8">
                 <h3 id="modalTitle" class="text-2xl font-bold mb-2" style="color: var(--text-charcoal);"></h3>
-                <p id="modalDescription" class="mb-5 leading-relaxed" style="color: var(--text-warm);"></p>
+                <p id="modalDescription" class="mb-5 leading-relaxed hidden" style="color: var(--text-warm);" aria-hidden="true"></p>
                 
                 <ul id="modalFeatures" class="space-y-2 mb-6" style="color: var(--text-charcoal);"></ul>
                 
-                <a href="survey.html" id="modalCTA" class="cta-primary block w-full py-4 text-center text-lg">
+                <a href="/apklausa" id="modalCTA" class="cta-primary block w-full py-4 text-center text-lg">
                     Išsirinkti šį variantą
                 </a>
             </div>
@@ -2055,7 +2112,7 @@
             currentModalSlide = 0;
             
             document.getElementById('modalTitle').textContent = product.name;
-            document.getElementById('modalDescription').textContent = product.description;
+            document.getElementById('modalDescription').textContent = '';
             
             const featuresEl = document.getElementById('modalFeatures');
             featuresEl.innerHTML = product.features.map(f => `<li class="flex items-center"><span style="color: var(--forest);" class="mr-2">✓</span>${f}</li>`).join('');
@@ -2194,75 +2251,130 @@
             }
         });
 
-        // ===== MOBILE GALLERY CAROUSEL =====
+        // ===== GALLERY CAROUSEL (desktop) + MOBILE SCROLL =====
+        let galleryCarouselIndex = 0;
+        const GALLERY_TOTAL = 18;
+        const GALLERY_VISIBLE_DESKTOP = 3;
+        const GALLERY_MAX_INDEX = Math.max(0, GALLERY_TOTAL - GALLERY_VISIBLE_DESKTOP);
+
+        function updateGalleryCarouselTrack() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (!galleryGrid) return;
+            if (window.innerWidth >= 1025) {
+                const percent = (galleryCarouselIndex * 100) / GALLERY_TOTAL;
+                galleryGrid.style.transform = `translateX(-${percent}%)`;
+            } else {
+                galleryGrid.style.transform = '';
+            }
+        }
+
+        function galleryCarouselNext() {
+            if (window.innerWidth < 1025) return;
+            galleryCarouselIndex = Math.min(GALLERY_MAX_INDEX, galleryCarouselIndex + 1);
+            updateGalleryCarouselTrack();
+            updateGalleryDotsFromIndex(galleryCarouselIndex);
+        }
+
+        function galleryCarouselPrev() {
+            if (window.innerWidth < 1025) return;
+            galleryCarouselIndex = Math.max(0, galleryCarouselIndex - 1);
+            updateGalleryCarouselTrack();
+            updateGalleryDotsFromIndex(galleryCarouselIndex);
+        }
+
+        function updateGalleryDotsFromIndex(index) {
+            const dotsContainer = document.getElementById('galleryDots');
+            if (!dotsContainer) return;
+            const dots = dotsContainer.querySelectorAll('.gallery-dot');
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+
         function initGalleryCarousel() {
             const galleryGrid = document.getElementById('galleryGrid');
             const dotsContainer = document.getElementById('galleryDots');
-            const items = galleryGrid.querySelectorAll('.gallery-item');
-            
-            // Create dots
+            const items = galleryGrid ? galleryGrid.querySelectorAll('.gallery-item') : [];
+            const isDesktop = window.innerWidth >= 1025;
+
             dotsContainer.innerHTML = '';
             items.forEach((_, index) => {
                 const dot = document.createElement('button');
                 dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
                 dot.setAttribute('aria-label', `Nuotrauka ${index + 1}`);
-                dot.onclick = () => scrollToGalleryItem(index);
+                dot.onclick = () => {
+                    if (isDesktop) {
+                        galleryCarouselIndex = Math.min(index, GALLERY_MAX_INDEX);
+                        updateGalleryCarouselTrack();
+                        updateGalleryDotsFromIndex(galleryCarouselIndex);
+                    } else {
+                        scrollToGalleryItem(index);
+                    }
+                };
                 dotsContainer.appendChild(dot);
             });
 
-            // Update active dot on scroll
+            if (isDesktop) {
+                galleryCarouselIndex = 0;
+                updateGalleryCarouselTrack();
+                updateGalleryDotsFromIndex(0);
+            }
+        }
+
+        (function attachGalleryScrollListener() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (!galleryGrid || galleryGrid.dataset.scrollListener === '1') return;
+            galleryGrid.dataset.scrollListener = '1';
             let scrollTimeout;
             galleryGrid.addEventListener('scroll', () => {
+                if (window.innerWidth >= 1025) return;
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    updateGalleryDots();
-                }, 50);
+                scrollTimeout = setTimeout(() => updateGalleryDots(), 50);
             });
-        }
+        })();
 
         function scrollToGalleryItem(index) {
             const galleryGrid = document.getElementById('galleryGrid');
-            const items = galleryGrid.querySelectorAll('.gallery-item');
+            const items = galleryGrid ? galleryGrid.querySelectorAll('.gallery-item') : [];
             if (items[index]) {
                 items[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
         }
 
         function updateGalleryDots() {
+            if (window.innerWidth >= 1025) return;
             const galleryGrid = document.getElementById('galleryGrid');
             const dotsContainer = document.getElementById('galleryDots');
-            const dots = dotsContainer.querySelectorAll('.gallery-dot');
-            const items = galleryGrid.querySelectorAll('.gallery-item');
-            
+            const dots = dotsContainer ? dotsContainer.querySelectorAll('.gallery-dot') : [];
+            const items = galleryGrid ? galleryGrid.querySelectorAll('.gallery-item') : [];
             const gridRect = galleryGrid.getBoundingClientRect();
             const gridCenter = gridRect.left + gridRect.width / 2;
-            
             let closestIndex = 0;
             let closestDistance = Infinity;
-            
             items.forEach((item, index) => {
                 const itemRect = item.getBoundingClientRect();
                 const itemCenter = itemRect.left + itemRect.width / 2;
                 const distance = Math.abs(gridCenter - itemCenter);
-                
                 if (distance < closestDistance) {
                     closestDistance = distance;
                     closestIndex = index;
                 }
             });
-            
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === closestIndex);
-            });
+            dots.forEach((dot, index) => dot.classList.toggle('active', index === closestIndex));
         }
 
-        // Initialize on load and resize
+        document.getElementById('galleryCarouselPrev')?.addEventListener('click', galleryCarouselPrev);
+        document.getElementById('galleryCarouselNext')?.addEventListener('click', galleryCarouselNext);
+
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initGalleryCarousel);
         } else {
             initGalleryCarousel();
         }
-        window.addEventListener('resize', initGalleryCarousel);
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1025) {
+                galleryCarouselIndex = Math.min(galleryCarouselIndex, GALLERY_MAX_INDEX);
+            }
+            initGalleryCarousel();
+        });
 
         // ===== TESTIMONIALS =====
         var testimonialsData = [
@@ -2531,7 +2643,7 @@
 
     <!-- ===== STICKY BOTTOM CTA BAR (Mobile Only) ===== -->
     <div id="stickyBottomCTA" class="sticky-bottom-cta">
-        <a href="survey.html" class="cta-primary w-full py-4 px-6 text-center text-base font-semibold block" onclick="if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('sticky_cta_click', 1, 'mobile');">
+        <a href="/apklausa" class="cta-primary w-full py-4 px-6 text-center text-base font-semibold block" onclick="if(window.ksAnalytics) window.ksAnalytics.trackFunnelStep('sticky_cta_click', 1, 'mobile');">
             RASTI SPRENDIMĄ MAN
         </a>
     </div>
@@ -2553,7 +2665,7 @@
                 }
                 
                 // Get all survey buttons (excluding the sticky CTA itself)
-                const surveyButtons = document.querySelectorAll('a[href="survey.html"]:not(#stickyBottomCTA a)');
+                const surveyButtons = document.querySelectorAll('a[href="/apklausa"]:not(#stickyBottomCTA a)');
                 const scrollY = window.scrollY || window.pageYOffset;
                 const windowHeight = window.innerHeight;
                 const viewportTop = scrollY;

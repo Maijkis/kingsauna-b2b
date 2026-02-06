@@ -1,0 +1,3794 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kingsauna apklausa - atraskite tinkamiausią saunos ar kubilo sprendimą">
+    <title>Kingsauna Apklausa | Raskite Tobulą Sprendimą</title>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1573314220485947');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1573314220485947&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase Client - Load UMD version directly (more reliable) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase immediately with UMD build
+        (function() {
+            const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+            
+            // Wait for Supabase library to load
+            let attempts = 0;
+            const maxAttempts = 50;
+            const checkInterval = setInterval(function() {
+                attempts++;
+                
+                if (window.supabase && window.supabase.createClient) {
+                    clearInterval(checkInterval);
+                    try {
+                        window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                        window.supabase = window.supabaseClient; // Alias for compatibility
+                        window.supabaseReady = true;
+                        
+                        console.log('✅ Supabase client initialized');
+                        console.log('Client ready:', typeof window.supabase.from === 'function');
+                        
+                        // Test connection
+                        setTimeout(function() {
+                            window.supabase.from('survey_responses').select('id').limit(0)
+                                .then(function(result) {
+                                    if (result.error) {
+                                        if (result.error.message && result.error.message.includes('relation') && result.error.message.includes('does not exist')) {
+                                            console.warn('⚠️ Table does not exist. Run ONE_STEP_FIX.sql in Supabase.');
+                                        } else if (result.error.message && result.error.message.includes('RLS')) {
+                                            console.log('✅ Connection verified (RLS active)');
+                                        } else {
+                                            console.warn('⚠️ Connection test:', result.error.message);
+                                        }
+                                    } else {
+                                        console.log('✅ Connection verified - table exists!');
+                                    }
+                                })
+                                .catch(function(err) {
+                                    console.error('Connection test error:', err);
+                                });
+                        }, 100);
+                    } catch (error) {
+                        console.error('❌ Failed to initialize Supabase:', error);
+                        window.supabaseReady = false;
+                    }
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                    console.error('❌ Supabase library failed to load after ' + (maxAttempts * 100) + 'ms');
+                    window.supabaseReady = false;
+                }
+            }, 100);
+        })();
+        
+        // Test connection and table existence
+        setTimeout(() => {
+            window.supabase.from('survey_responses').select('id').limit(0)
+                .then(({ error }) => {
+                    if (error) {
+                        if (error.message.includes('Could not find the table') || 
+                            error.message.includes('does not exist') ||
+                            (error.message.includes('relation') && error.message.includes('does not exist'))) {
+                            console.error('❌ TABLE MISSING: survey_responses table does not exist in Supabase!');
+                            console.error('📋 SETUP REQUIRED:');
+                            console.error('1. Go to https://supabase.com/dashboard');
+                            console.error('2. Open SQL Editor');
+                            console.error('3. Copy and paste the SQL from CREATE_TABLE.sql file');
+                            console.error('4. Click Run');
+                            
+                            // Show user-friendly warning
+                            const warningDiv = document.createElement('div');
+                            warningDiv.id = 'supabase-setup-warning';
+                            warningDiv.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; max-width: 90%; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.2);';
+                            warningDiv.innerHTML = `
+                                <div style="display: flex; align-items: start; gap: 1rem;">
+                                    <div style="flex: 1;">
+                                        <h3 style="color: #92400e; font-size: 1.1rem; font-weight: bold; margin-bottom: 0.5rem;">⚠️ Duomenų bazės lentelė nerasta</h3>
+                                        <p style="color: #78350f; margin-bottom: 1rem; line-height: 1.5;">
+                                            Reikia sukurti "survey_responses" lentelę Supabase duomenų bazėje.
+                                        </p>
+                                        <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                                            <p style="color: #78350f; font-weight: 600; margin-bottom: 0.5rem;">Kaip tai padaryti:</p>
+                                            <ol style="color: #78350f; margin-left: 1.5rem; line-height: 1.8;">
+                                                <li>Eikite į <a href="https://supabase.com/dashboard" target="_blank" style="color: #f59e0b; text-decoration: underline;">Supabase Dashboard</a></li>
+                                                <li>Atidarykite <strong>SQL Editor</strong></li>
+                                                <li>Nukopijuokite SQL kodą iš <strong>CREATE_TABLE.sql</strong> failo</li>
+                                                <li>Spustelėkite <strong>Run</strong></li>
+                                            </ol>
+                                        </div>
+                                        <button onclick="this.closest('#supabase-setup-warning').remove()" style="background: #f59e0b; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;">Supratau</button>
+                                    </div>
+                                </div>
+                            `;
+                            document.body.appendChild(warningDiv);
+                        } else if (error.message.includes('permission') || 
+                            error.message.includes('policy') || 
+                            error.message.includes('RLS')) {
+                            console.log('✅ Supabase connected (RLS active - expected)');
+                        } else {
+                            console.warn('⚠️ Connection test:', error.message);
+                        }
+                    } else {
+                        console.log('✅ Supabase connection verified - table exists!');
+                    }
+                })
+                .catch((err) => {
+                    console.error('Connection test error:', err);
+                });
+        }, 100);
+    </script>
+    
+    
+    <!-- Analytics Tracker -->
+    <script src="analytics-tracker.js"></script>
+    <script>
+        let surveyStartTime = Date.now();
+        
+        // Initialize supabaseReady flag if not set
+        if (typeof window.supabaseReady === 'undefined') {
+            window.supabaseReady = false;
+        }
+        
+        // Helper function to wait for Supabase to be ready
+        window.waitForSupabase = function(maxWait = 10000) {
+            return new Promise((resolve, reject) => {
+                // Check if already ready
+                if (window.supabaseReady && window.supabase && typeof window.supabase.from === 'function') {
+                    resolve(window.supabase);
+                    return;
+                }
+                
+                // If module script hasn't loaded, try to initialize manually
+                if (!window.supabase && typeof window.supabaseLib !== 'undefined' && window.supabaseLib.createClient) {
+                    try {
+                        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+                        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+                        window.supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                        window.supabaseReady = true;
+                        console.log('✅ Supabase client initialized via fallback');
+                        resolve(window.supabase);
+                        return;
+                    } catch (e) {
+                        console.error('Failed to initialize Supabase fallback:', e);
+                    }
+                }
+                
+                const startTime = Date.now();
+                const checkInterval = setInterval(() => {
+                    if (window.supabaseReady && window.supabase && typeof window.supabase.from === 'function') {
+                        clearInterval(checkInterval);
+                        resolve(window.supabase);
+                    } else if (Date.now() - startTime > maxWait) {
+                        clearInterval(checkInterval);
+                        const diagnostics = {
+                            supabaseReady: window.supabaseReady,
+                            hasSupabase: !!window.supabase,
+                            hasFromMethod: window.supabase && typeof window.supabase.from === 'function',
+                            hasSupabaseLib: typeof window.supabaseLib !== 'undefined'
+                        };
+                        console.error('Supabase initialization timeout. Diagnostics:', diagnostics);
+                        reject(new Error('Supabase initialization timeout - check console for details'));
+                    }
+                }, 100);
+            });
+        };
+        
+        // Initialize analytics when page loads (wait for Supabase)
+        window.addEventListener('DOMContentLoaded', function() {
+            // Wait for Supabase to be available
+            function initAnalytics() {
+                if (window.supabase && typeof window.supabase.from === 'function') {
+                    if (window.initKingsaunaAnalytics) {
+                        window.initKingsaunaAnalytics(window.supabase);
+                    }
+                    // Track funnel: Survey page view
+                    if (window.ksAnalytics) {
+                        window.ksAnalytics.trackFunnelStep('survey_page_view', 3, null);
+                    }
+                } else {
+                    // Retry after a short delay
+                    setTimeout(initAnalytics, 200);
+                }
+            }
+            initAnalytics();
+        });
+    </script>
+    
+    <style>
+        /* ===== COLOR PALETTE (Matching Landing Page) ===== */
+        :root {
+            /* Backgrounds */
+            --bg-sand: #faf8f4;
+            --bg-cream: #f5f2ec;
+            --bg-forest-light: #e8f0eb;
+            
+            /* Accent - Forest Green */
+            --forest: #22543d;
+            --forest-light: #276749;
+            --forest-muted: #38a169;
+            
+            /* CTA - Copper */
+            --copper: #b45c3a;
+            --copper-dark: #9a4a2f;
+            --copper-light: #c76a47;
+            
+            /* Text */
+            --text-charcoal: #2d3748;
+            --text-warm: #4a5568;
+            --text-muted: #718096;
+            
+            /* Glass */
+            --glass-white: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(34, 84, 61, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            /* Prevent horizontal scroll on mobile */
+            position: relative;
+            width: 100%;
+        }
+        
+        /* Ensure smooth scrolling on all devices */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                max-height: 200px;
+            }
+        }
+        
+        .validation-error-message {
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                max-height: 200px;
+            }
+        }
+        
+        .validation-error-message {
+            animation: slideDown 0.3s ease;
+        }
+        
+        /* ===== OPTION BUTTONS ===== */
+        .option-button {
+            transition: all 0.2s ease;
+            background: var(--glass-white);
+            border: 2px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+            text-align: left;
+            touch-action: manipulation;
+        }
+        .option-button:hover {
+            transform: translateY(-2px);
+            border-color: var(--forest-muted);
+            box-shadow: 0 4px 16px rgba(34, 84, 61, 0.1);
+        }
+        .option-button.selected {
+            background: var(--forest);
+            color: white;
+            border-color: var(--forest);
+            box-shadow: 0 4px 20px rgba(34, 84, 61, 0.25);
+        }
+        .option-button.selected .option-description {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        /* Checkmark for multi-select */
+        .option-button .checkmark {
+            display: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            color: var(--forest);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+        .option-button.selected .checkmark {
+            display: flex;
+        }
+        
+        /* ===== FEATURE OPTION BUTTONS (2-Column Grid) ===== */
+        .feature-option-button {
+            background: var(--glass-white);
+            border: 2px solid var(--glass-border);
+            transition: all 0.2s ease;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            position: relative;
+            touch-action: manipulation;
+        }
+        .feature-option-button:active {
+            transform: scale(0.98);
+        }
+        .feature-option-button:hover {
+            border-color: var(--forest-muted);
+            box-shadow: 0 4px 12px rgba(34, 84, 61, 0.1);
+        }
+        .feature-option-button.selected {
+            border-color: #2D4A36;
+            border-width: 3px;
+            background: rgba(45, 74, 54, 0.05);
+        }
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--text-charcoal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .feature-option-button.selected .feature-icon {
+            color: #2D4A36;
+        }
+        .feature-description {
+            color: var(--text-muted);
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+        .feature-option-button.selected .feature-description {
+            opacity: 0.8;
+        }
+        .feature-checkmark {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 24px;
+            height: 24px;
+            display: none;
+            flex-shrink: 0;
+        }
+        .feature-option-button.selected .feature-checkmark {
+            display: block;
+        }
+        .feature-checkmark svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media (max-width: 640px) {
+            .feature-option-button {
+                min-height: 90px;
+                padding: 0.875rem;
+            }
+            .feature-icon {
+                width: 20px;
+                height: 20px;
+            }
+            .feature-checkmark {
+                width: 20px;
+                height: 20px;
+                top: 0.625rem;
+                right: 0.625rem;
+            }
+        }
+        .option-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .option-button:disabled:hover {
+            transform: none;
+            border-color: var(--glass-border);
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .option-button {
+                min-height: 64px;
+                padding: 1.25rem;
+            }
+            .option-button:active:not(:disabled) {
+                transform: scale(0.97);
+                background: rgba(34, 84, 61, 0.05);
+            }
+            /* Better touch feedback */
+            .option-button:not(:disabled) {
+                -webkit-tap-highlight-color: rgba(34, 84, 61, 0.1);
+            }
+        }
+        
+        /* ===== BUDGET SLIDER ===== */
+        .budget-slider-container {
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .budget-slider-track {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            background: rgba(34, 84, 61, 0.1);
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        @media (max-width: 640px) {
+            .budget-slider-container {
+                padding: 1rem 0;
+            }
+            .budget-slider-track {
+                margin: 1rem 0;
+            }
+        }
+        .budget-slider-fill {
+            position: absolute;
+            height: 100%;
+            background: var(--forest);
+            border-radius: 10px;
+            transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1), left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            left: 0;
+            width: 0%;
+        }
+        .budget-slider-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 16px;
+            background: rgba(34, 84, 61, 0.25);
+            z-index: 1;
+        }
+        .budget-value-display {
+            text-align: center;
+            margin: 0 auto 2rem auto;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--forest);
+            min-height: 3rem;
+            position: relative;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 84, 61, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(34, 84, 61, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 300px;
+        }
+        @media (max-width: 640px) {
+            .budget-value-display {
+                font-size: 1.75rem;
+                padding: 1rem 1.25rem;
+                max-width: 100%;
+                margin: 0 auto 1rem auto;
+                min-height: 2.5rem;
+            }
+        }
+        .budget-slider-handle {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 3px solid var(--forest);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: left 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(34, 84, 61, 0.3);
+            cursor: grab;
+            z-index: 3;
+            left: 0%;
+            touch-action: none;
+            user-select: none;
+        }
+        .budget-slider-handle:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .budget-slider-handle.snapping {
+            transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .budget-slider-track {
+            cursor: pointer;
+            touch-action: none;
+        }
+        .budget-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        .budget-label-btn {
+            flex: 1;
+            background: transparent;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+        .budget-label-btn:hover {
+            border-color: var(--forest-muted);
+            background: rgba(34, 84, 61, 0.05);
+        }
+        .budget-label-btn.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: white;
+            box-shadow: 0 4px 16px rgba(34, 84, 61, 0.25);
+        }
+        .budget-label-btn.selected .budget-amount {
+            color: white;
+            font-weight: 600;
+        }
+        .budget-amount {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-charcoal);
+            transition: color 0.3s ease;
+        }
+        @media (max-width: 640px) {
+            .budget-slider-handle {
+                width: 28px;
+                height: 28px;
+            }
+            .budget-label-btn {
+                padding: 0.75rem 0.5rem;
+            }
+            .budget-amount {
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* ===== ICON BOX OPTIONS ===== */
+        .icon-box-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100px;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .icon-box-option:hover {
+            transform: translateY(-2px);
+            border-color: var(--forest);
+            box-shadow: 0 8px 24px rgba(34, 84, 61, 0.15);
+        }
+        .icon-box-option:active {
+            transform: scale(0.96);
+        }
+        .icon-box-option.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: white;
+        }
+        .icon-box-image {
+            width: 100%;
+            height: 75%; /* 3/4 of button height */
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px 12px 0 0;
+            margin: 0;
+            opacity: 0.9;
+            flex-shrink: 0;
+            display: block;
+            aspect-ratio: 16 / 9;
+        }
+        .icon-box-option.selected .icon-box-image {
+            opacity: 1;
+            filter: brightness(1.1);
+        }
+        .icon-box-icon {
+            width: 56px;
+            height: 56px;
+            margin: 1rem 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            opacity: 0.7;
+            color: var(--forest);
+        }
+        .icon-box-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .icon-box-option.selected .icon-box-icon {
+            opacity: 1;
+            color: white;
+        }
+        .icon-box-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            line-height: 1.3;
+            padding: 0.5rem 0.4rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        .icon-box-option.selected .icon-box-label {
+            color: white;
+        }
+        .icon-boxes-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+        .icon-boxes-grid-main {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        .icon-boxes-grid-stove {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        .icon-box-option-consultation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            height: 48px;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            width: 100%;
+            max-width: 600px;
+        }
+        .icon-box-option-consultation:hover {
+            transform: translateY(-1px);
+            border-color: var(--forest);
+            box-shadow: 0 4px 12px rgba(34, 84, 61, 0.1);
+        }
+        .icon-box-option-consultation:active {
+            transform: scale(0.98);
+        }
+        .icon-box-option-consultation.selected {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: white;
+        }
+        .icon-box-consultation-text {
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--text-charcoal);
+        }
+        .icon-box-option-consultation.selected .icon-box-consultation-text {
+            color: white;
+        }
+        @media (max-width: 640px) {
+            .icon-boxes-grid-main {
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 0.75rem;
+            }
+            .icon-boxes-grid-stove {
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 0.75rem;
+            }
+            .icon-box-option {
+                min-height: auto;
+            }
+            .icon-box-image {
+                height: 80%; /* 4/5 image, 1/5 text */
+                aspect-ratio: 16 / 9;
+            }
+            .icon-box-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.5rem;
+                margin: 0.5rem 0 0.25rem 0;
+            }
+            .icon-box-label {
+                font-size: 0.85rem;
+                padding: 0.5rem 0.4rem;
+                line-height: 1.4;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                min-height: 2.5rem;
+            }
+            .icon-box-option-consultation {
+                min-height: 44px;
+                height: 44px;
+                padding: 0.4rem 1rem;
+            }
+            .icon-box-consultation-text {
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* ===== GLASS CARD ===== */
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+        }
+        @media (max-width: 640px) {
+            .glass-card {
+                border-radius: 12px;
+            }
+        }
+        
+        /* ===== PRIMARY CTA (Copper) ===== */
+        .cta-primary {
+            background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
+            box-shadow: 0 8px 30px -5px rgba(180, 92, 58, 0.4);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+        .cta-primary:active {
+            transform: scale(0.98);
+        }
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.4s;
+        }
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px -5px rgba(180, 92, 58, 0.5);
+        }
+        
+        /* ===== SECONDARY BUTTON ===== */
+        .btn-secondary {
+            background: rgba(34, 84, 61, 0.08);
+            border: 1px solid rgba(34, 84, 61, 0.15);
+            color: var(--forest);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+        .btn-secondary:hover {
+            background: rgba(34, 84, 61, 0.12);
+            border-color: rgba(34, 84, 61, 0.25);
+        }
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+        
+        /* ===== CUSTOM CHECKBOX ===== */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: white;
+            border: 2px solid rgba(34, 84, 61, 0.25);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .custom-checkbox:hover {
+            border-color: rgba(34, 84, 61, 0.4);
+            background-color: rgba(34, 84, 61, 0.05);
+        }
+        
+        .custom-checkbox:checked {
+            background-color: #38a169;
+            border-color: #38a169;
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .custom-checkbox:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.2);
+        }
+        
+        /* ===== BACK BUTTON ===== */
+        .back-button {
+            color: var(--text-charcoal);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+            touch-action: manipulation;
+            border: 2px solid var(--glass-border);
+            background: white;
+        }
+        .back-button:hover {
+            background: var(--bg-cream);
+            border-color: var(--forest-muted);
+        }
+        .back-button:active {
+            transform: scale(0.98);
+        }
+        
+        /* ===== PROGRESS BAR WITH GLOW ===== */
+        .progress-bar-bg {
+            background: rgba(34, 84, 61, 0.1);
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 4px;
+        }
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--forest-muted), var(--forest));
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 8px rgba(56, 161, 105, 0.3);
+            will-change: width;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            height: 100%;
+        }
+        .progress-bar-fill.glowing {
+            animation: glow-pulse 0.6s ease-out;
+        }
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 25px rgba(56, 161, 105, 0.9), 0 0 40px rgba(56, 161, 105, 0.6); }
+            50% { box-shadow: 0 0 20px rgba(56, 161, 105, 0.7), 0 0 30px rgba(56, 161, 105, 0.4); }
+            100% { box-shadow: 0 0 12px rgba(56, 161, 105, 0.4); }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* ===== HOT TUB SLIDER UI ===== */
+        .hottub-illustration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0 1.5rem 0;
+            min-height: 180px;
+        }
+        .hottub-svg {
+            width: 240px;
+            height: 160px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+            transform: scale(1);
+        }
+        .hottub-label-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            min-height: 80px;
+        }
+        .hottub-label-main {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-charcoal);
+            margin-bottom: 0.5rem;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .hottub-label-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .hottub-label-main.fade-slide-enter {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .hottub-label-sub.fade-slide-enter {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        /* Old hottub slider CSS removed - now using budget-slider styles */
+        
+        /* ===== FORM INPUTS ===== */
+        .form-input {
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            background: white;
+            font-size: 16px !important; /* Prevent iOS zoom */
+        }
+        .form-input::placeholder {
+            color: #9ca3af;
+            opacity: 0.7;
+        }
+        .form-input:focus {
+            border-color: var(--forest-muted);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.15);
+        }
+        /* Better mobile input styling */
+        @media (max-width: 640px) {
+            .form-input {
+                font-size: 16px !important; /* Prevents iOS zoom on focus */
+            }
+            .form-input::placeholder {
+                font-size: 0.875rem !important; /* 14px - smaller placeholder on mobile */
+            }
+            .form-input:focus {
+                transform: scale(1.01);
+            }
+        }
+        .form-input:disabled {
+            background: #f0f0f0;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* ===== HELPER TEXT ===== */
+        .helper-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        .step-subtitle {
+            color: var(--text-warm);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* ===== SLIDE DOWN INPUTS ===== */
+        .slide-input-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
+            opacity: 0;
+            margin-top: 0;
+        }
+        .slide-input-container.visible {
+            max-height: 120px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+        
+        /* ===== CONDITIONAL SECTIONS ===== */
+        .conditional-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .conditional-section.visible {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* ===== SURVEY WRAPPER - ALL SCREEN SIZES ===== */
+        #surveyWrapper {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* ===== DESKTOP/TABLET OPTIMIZATIONS (768px+) ===== */
+        @media (min-width: 768px) {
+            /* Container - 720px optimal width */
+            #surveyWrapper {
+                max-width: 720px !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+            }
+            
+            /* ALL steps same width */
+            #surveyWrapper .step,
+            #surveyWrapper .step .glass-card {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            /* Card styling */
+            .glass-card {
+                padding: 2.5rem !important;
+                border-radius: 20px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            }
+            
+            .glass-card h2 {
+                font-size: 1.625rem;
+                margin-bottom: 2rem;
+            }
+            
+            /* Icon boxes */
+            .icon-box-option {
+                padding: 0;
+                min-height: auto;
+                border-radius: 14px;
+            }
+            
+            .icon-box-image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                object-fit: cover;
+                border-radius: 14px 14px 0 0;
+            }
+            
+            .icon-box-label {
+                font-size: 1rem;
+                padding: 0.75rem 0.5rem;
+                font-weight: 600;
+            }
+            
+            /* Grid layouts */
+            .icon-boxes-grid {
+                gap: 1rem;
+            }
+            
+            .icon-boxes-grid-main {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            
+            .icon-boxes-grid-stove {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            /* Option buttons (Malkinis/Elektrinis, etc.) */
+            .option-button {
+                padding: 1.125rem 1.5rem;
+                font-size: 1rem;
+                min-height: 60px;
+                width: 100% !important;
+            }
+            
+            /* Space-y containers full width */
+            .space-y-3, .space-y-4 {
+                width: 100% !important;
+            }
+            
+            /* Form inputs */
+            .form-input {
+                padding: 1rem 1.125rem;
+                font-size: 1rem;
+            }
+            
+            /* CTA buttons */
+            .cta-primary {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+            
+            /* Back button */
+            .back-button {
+                padding: 0.8rem 1.25rem;
+                font-size: 0.95rem;
+                min-height: 48px;
+            }
+            
+            /* Spacing */
+            .step-subtitle {
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+            }
+            
+            /* Consultation button */
+            .icon-box-option-consultation {
+                min-height: 52px;
+                height: 52px;
+                font-size: 1rem;
+            }
+            
+            /* Budget buttons */
+            .budget-option-btn {
+                padding: 1rem 1.25rem;
+                font-size: 1rem;
+            }
+            
+            /* Feature buttons */
+            .feature-options-grid {
+                gap: 0.75rem;
+            }
+            
+            .feature-option-btn {
+                padding: 0.8rem 1.125rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Hot tub slider */
+            .hottub-illustration-container {
+                min-height: 160px;
+                padding: 1.75rem;
+                gap: 1.5rem;
+            }
+            
+            .hottub-label-main {
+                font-size: 1.5rem;
+            }
+            
+            .hottub-label-sub {
+                font-size: 0.95rem;
+            }
+            
+            /* Form spacing */
+            .space-y-4 > * + * {
+                margin-top: 1rem;
+            }
+            
+            .space-y-2\.5 > * + * {
+                margin-top: 0.875rem;
+            }
+            
+            /* Navigation */
+            .flex.justify-between,
+            .flex.flex-col.md\\:flex-row {
+                margin-top: 1.75rem;
+                gap: 1.25rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .section-px {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+            .step-container {
+                padding: 1.5rem 1rem;
+            }
+            .grid-narrow {
+                grid-template-columns: 1fr !important;
+            }
+            /* Mobile navigation for survey - Embedded in card */
+            .mobile-actions-sticky {
+                position: relative;
+                background: transparent;
+                padding: 0.5rem 0 0 0;
+                box-shadow: none;
+                display: flex;
+                gap: 1rem;
+                z-index: 10;
+                border-top: none;
+                border-radius: 0;
+            }
+            .mobile-actions-sticky .back-button {
+                flex: 1;
+                margin: 0;
+                justify-content: center;
+                border: 2px solid var(--glass-border);
+                background: white;
+                border-radius: 12px;
+                min-height: 44px;
+                color: var(--text-charcoal);
+                font-weight: 600;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            .mobile-actions-sticky .cta-primary {
+                flex: 1;
+                margin: 0;
+                min-height: 44px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            /* Reset padding since buttons are no longer sticky */
+            .step.active {
+                padding-bottom: 2rem !important;
+                min-height: auto;
+            }
+            .step.active .glass-card {
+                padding-bottom: 2rem !important;
+                margin-bottom: 1rem;
+            }
+            /* Add extra spacing to option grids and lists */
+            .icon-boxes-grid {
+                margin-bottom: 3rem;
+            }
+            .space-y-3, .space-y-4, .space-y-5, .space-y-6 {
+                margin-bottom: 1.5rem;
+            }
+            /* Mobile-specific option button spacing */
+            .space-y-5 > * + * {
+                margin-top: 1.25rem !important;
+            }
+            .option-button {
+                margin-bottom: 0.75rem;
+            }
+            /* Ensure generous spacing in all option containers */
+            .glass-card .space-y-3 > * + *,
+            .glass-card .space-y-4 > * + *,
+            .glass-card .space-y-5 > * + *,
+            .glass-card .space-y-6 > * + * {
+                margin-top: 1.5rem !important;
+            }
+            /* Progress bar and text spacing */
+            .progress-bar-bg {
+                margin-bottom: 0.75rem !important;
+            }
+            #progressText {
+                margin-bottom: 2rem !important;
+            }
+            /* Question titles spacing */
+            .glass-card h2 {
+                margin-bottom: 2rem !important;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .step-subtitle {
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Body wrapper padding for footer visibility */
+            body > .min-h-screen {
+                padding-bottom: 0 !important;
+            }
+            /* Ensure the main container allows scrolling */
+            .min-h-screen {
+                min-height: 100vh;
+                height: auto;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            /* Better scroll behavior */
+            body {
+                overscroll-behavior-y: contain;
+            }
+        }
+    </style>
+</head>
+<body style="background: var(--bg-sand); color: var(--text-charcoal);">
+    <div class="min-h-screen py-4 md:py-8 lg:py-10 px-4 flex flex-col justify-start lg:justify-center" style="align-items: center;">
+        <div id="surveyWrapper" style="width: 100%; max-width: 720px;">
+            <!-- Header - Only show on step 1 -->
+            <div id="surveyHeader" class="text-center mb-3 md:mb-4">
+                <div class="mb-2 md:mb-3">
+                    <img src="/images/logo.png" alt="Kingsauna Logo" class="h-12 md:h-16 w-auto mx-auto" loading="lazy">
+                </div>
+            </div>
+
+            <!-- STEP 1: Qualification -->
+            <div class="step active" id="step1">
+                <div class="glass-card p-5 md:p-8">
+                    <!-- Progress Bar - Hidden on step 1, will show from step 2 -->
+                    <div id="progressBarContainer" class="mb-4 md:mb-6" style="display: none;">
+                        <div class="progress-bar-bg">
+                            <div id="progressBar" class="progress-bar-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kas jus domina?</h2>
+                    <div class="icon-boxes-grid icon-boxes-grid-main">
+                        <button onclick="selectMainOption('lauko')" class="icon-box-option touch-manipulation" data-value="lauko">
+                            <img src="/images/barrel-vidutine.jpg" alt="Lauko pirtis" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Lauko pirtis</div>
+                        </button>
+                        <button onclick="selectMainOption('kubila')" class="icon-box-option touch-manipulation" data-value="kubila">
+                            <img src="/images/kubilas-wooden-natural.jpg" alt="Kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Kubilas</div>
+                        </button>
+                        <button onclick="selectMainOption('vidaus')" class="icon-box-option touch-manipulation" data-value="vidaus">
+                            <img src="/images/interior-sauna-modern.jpg" alt="Vidaus pirtis" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Vidaus pirtis</div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Back to main page button - only on step 1 -->
+                <div class="mt-4 text-center">
+                    <a href="index.html" class="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors py-2 px-3 rounded-lg hover:bg-gray-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        <span>Grįžti į pagrindinį puslapį</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- LAUKO PIRTIES SURVEY -->
+            <!-- Step 2: Forma / tipas (MULTI-SELECT) -->
+            <div class="step" id="step-lauko-2">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks modelis jus domina?</h2>
+                    <!-- First row: Bačka, Kvadratinė, Trikampė -->
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                        <button onclick="toggleLaukoForma('Bačka')" class="icon-box-option touch-manipulation" data-value="Bačka">
+                            <img src="/images/barrel-vidutine.jpg" alt="Bačka" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Bačka</div>
+                        </button>
+                        <button onclick="toggleLaukoForma('Kvadratinė')" class="icon-box-option touch-manipulation" data-value="Kvadratinė">
+                            <img src="/images/kvadratine-priepirtis.jpg" alt="Kvadratinė" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Kvadratinė</div>
+                        </button>
+                        <button onclick="toggleLaukoForma('Trikampės Iglu')" class="icon-box-option touch-manipulation" data-value="Trikampės Iglu">
+                            <img src="/images/trikampe-iglu.jpg" alt="Trikampės Iglu" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Trikampė</div>
+                        </button>
+                    </div>
+                    <!-- Second row: Elipsės, Cabin -->
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                        <button onclick="toggleLaukoForma('Elipsės')" class="icon-box-option touch-manipulation" data-value="Elipsės">
+                            <img src="/images/elipses-sauna.jpg" alt="Elipsės" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Elipsės</div>
+                        </button>
+                        <button onclick="toggleLaukoForma('Cabin')" class="icon-box-option touch-manipulation" data-value="Cabin">
+                            <img src="/images/cabin-sauna.jpg" alt="Cabin" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Cabin</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Išmatavimai (EXCLUSIVE: inputs OR nežinau) -->
+            <div class="step" id="step-lauko-3">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie preliminarūs išmatavimai?</h2>
+                    <div class="space-y-6">
+                        <div id="measurements-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                            <div>
+                                <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Plotis (metrais)</label>
+                                <input type="number" id="lauko-plotis" step="0.1" min="0" class="form-input w-full p-4 text-lg touch-manipulation" placeholder="pvz. 2.5" oninput="onMeasurementInput()">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Ilgis (metrais)</label>
+                                <input type="number" id="lauko-ilgis" step="0.1" min="0" class="form-input w-full p-4 text-lg touch-manipulation" placeholder="pvz. 3.0" oninput="onMeasurementInput()">
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button onclick="selectLaukoNezinauMeasurements()" id="nezinau-measurements-btn" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Pečius (SINGLE-SELECT) -->
+            <div class="step" id="step-lauko-5">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio pečiaus norėtumėte?</h2>
+                    <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
+                        <button onclick="selectLaukoPecius('Malkinis')" class="icon-box-option touch-manipulation" data-value="Malkinis">
+                            <img src="/images/stove-wood.jpg" alt="Malkinis pečius" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Malkinis</div>
+                        </button>
+                        <button onclick="selectLaukoPecius('Elektrinis')" class="icon-box-option touch-manipulation" data-value="Elektrinis">
+                            <img src="/images/stove-electric.jpg" alt="Elektrinis pečius" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Elektrinis</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center mt-3">
+                        <button onclick="selectLaukoPecius('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Išplanavimas (CONDITIONAL reveal) -->
+            <div class="step" id="step-lauko-6">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
+                        <button onclick="selectLaukoPriepirtis('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
+                            <div class="font-bold text-base md:text-lg">Taip</div>
+                        </button>
+                        <button onclick="selectLaukoPriepirtis('Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Ne">
+                            <div class="font-bold text-base md:text-lg">Ne</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectLaukoPriepirtis('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 9: Pristatymas (SINGLE-SELECT) -->
+            <div class="step" id="step-lauko-9">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
+                        <button onclick="selectLaukoPristatymas('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
+                            <div class="font-bold text-base md:text-lg">Taip</div>
+                        </button>
+                        <button onclick="selectLaukoPristatymas('Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Ne">
+                            <div class="font-bold text-base md:text-lg">Ne</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectLaukoPristatymas('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(9)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 10: Individualūs sprendimai -->
+            <!-- Step 11: Budget (LAUKO) - Before additional questions -->
+            <div class="step" id="step-lauko-11">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
+                        <div class="budget-slider-container">
+                            <div class="budget-value-display" id="lauko-budget-value">1000€</div>
+                            <div class="budget-slider-track" id="lauko-budget-track">
+                                <div class="budget-slider-fill" id="lauko-budget-fill"></div>
+                                <div class="budget-slider-handle" id="lauko-budget-handle"></div>
+                                <!-- Sticky point markers -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 12.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 25%;"></div>
+                                <div class="budget-slider-marker" style="left: 37.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 50%;"></div>
+                                <div class="budget-slider-marker" style="left: 62.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 75%;"></div>
+                                <div class="budget-slider-marker" style="left: 87.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextLaukoStep(11)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" id="step-lauko-10">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar turite papildomų pageidavimų?</h2>
+                    <p class="helper-text text-center mb-4">(Nebūtina užpildyti)</p>
+                    <textarea id="lauko-pageidavimai" rows="5" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Pvz.: norėčiau LED apšvietimo, turiu klausimų dėl stogo dangos, svarstau apie papildomą langą..."></textarea>
+                    <div class="flex flex-col md:flex-row gap-4 mt-6">
+                        <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
+                        <button onclick="nextLaukoStep(10)" class="cta-primary py-4 px-6 md:px-10 text-base md:text-lg w-full md:w-auto min-h-[56px] touch-manipulation">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KUBILŲ SURVEY -->
+            <!-- Step 2: Kubilo tipas -->
+            <div class="step" id="step-kubilas-2">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio tipo kubilas jus domina?</h2>
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                        <button onclick="toggleKubilasTipas('Medinis')" class="icon-box-option touch-manipulation" data-value="Medinis">
+                            <img src="/images/medinis-kubilas.jpg" alt="Medinis kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Medinis</div>
+                        </button>
+                        <button onclick="toggleKubilasTipas('Plastikinis')" class="icon-box-option touch-manipulation" data-value="Plastikinis">
+                            <img src="/images/plastic-kubilas.jpg" alt="Plastikinis kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Plastikinis</div>
+                        </button>
+                        <button onclick="toggleKubilasTipas('Stiklo Pluošto')" class="icon-box-option touch-manipulation" data-value="Stiklo Pluošto">
+                            <img src="/images/stiklo-kubilas.jpg" alt="Stiklo pluošto kubilas" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Stiklo Pluošto</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Žmonių skaičius -->
+            <div class="step" id="step-kubilas-3">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kiek žmonių turi tilpti į kubilą?</h2>
+                    
+                    <div class="space-y-3 md:space-y-6">
+                        <!-- Value Display -->
+                        <div class="text-center">
+                            <div id="kubilas-people-value" class="text-2xl md:text-3xl font-bold" style="color: var(--forest);">2-3 žmonės</div>
+                            <div id="kubilas-people-desc" class="text-sm md:text-base mt-1" style="color: var(--text-warm);">Kompaktiškas, porai</div>
+                    </div>
+                    
+                        <!-- Slider (same style as budget) -->
+                        <div class="budget-slider-container">
+                            <div class="budget-slider-track" id="kubilas-people-track">
+                                <div class="budget-slider-fill" id="kubilas-people-fill"></div>
+                                <div class="budget-slider-handle" id="kubilas-people-handle"></div>
+                                <!-- 4 markers for 4 options -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 33.33%;"></div>
+                                <div class="budget-slider-marker" style="left: 66.66%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
+                    </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Šildymo tipas -->
+            <div class="step" id="step-kubilas-4">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Šildymo tipas</h2>
+                    <div class="space-y-3 md:space-y-4 mb-4">
+                        <button onclick="selectKubilasOption('sildymas', 'Malkinis')" class="option-button rounded-xl p-4 md:p-5 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center w-full" data-value="Malkinis">
+                            <div class="font-bold text-base md:text-lg">Malkinis</div>
+                        </button>
+                        <button onclick="selectKubilasOption('sildymas', 'Elektrinis')" class="option-button rounded-xl p-4 md:p-5 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center w-full" data-value="Elektrinis">
+                            <div class="font-bold text-base md:text-lg">Elektrinis</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Papildomos funkcijos -->
+            <div class="step" id="step-kubilas-6">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Papildomos funkcijos</h2>
+                    <p class="helper-text text-center mb-4" style="font-size: 0.875rem; color: var(--text-muted);">(Nebūtina užpildyti)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4">
+                        <button onclick="toggleKubilasOption('funkcijos', 'LED apšvietimas')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="LED apšvietimas">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">LED apšvietimas</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Hidromasažas')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Hidromasažas">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">Hidromasažas</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Oro burbulai')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Oro burbulai">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">Oro burbulai</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Dangtis')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Dangtis">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">Dangtis</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Laipteliai')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Laipteliai">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">Laipteliai</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button onclick="toggleKubilasOption('funkcijos', 'Malkinė')" class="feature-option-button rounded-xl p-4 md:p-5 relative touch-manipulation" data-value="Malkinė">
+                            <div class="text-center">
+                                <div class="font-bold text-base md:text-lg">Malkinė</div>
+                            </div>
+                            <div class="feature-checkmark">
+                                <svg viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="9" fill="#2D4A36"/>
+                                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg w-full md:w-auto">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Pristatymas -->
+            <div class="step" id="step-kubilas-7">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
+                        <button onclick="selectKubilasOption('pristatymas', 'Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
+                            <div class="font-bold text-base md:text-lg">Taip</div>
+                        </button>
+                        <button onclick="selectKubilasOption('pristatymas', 'Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Ne">
+                            <div class="font-bold text-base md:text-lg">Ne</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectKubilasOption('pristatymas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(7)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8: Budget (KUBILAS) -->
+            <div class="step" id="step-kubilas-8">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
+                        <div class="budget-slider-container">
+                            <div class="budget-value-display" id="kubilas-budget-value">1000€</div>
+                            <div class="budget-slider-track" id="kubilas-budget-track">
+                                <div class="budget-slider-fill" id="kubilas-budget-fill"></div>
+                                <div class="budget-slider-handle" id="kubilas-budget-handle"></div>
+                                <!-- Sticky point markers -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 12.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 25%;"></div>
+                                <div class="budget-slider-marker" style="left: 37.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 50%;"></div>
+                                <div class="budget-slider-marker" style="left: 62.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 75%;"></div>
+                                <div class="budget-slider-marker" style="left: 87.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextKubilasStep(8)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIDAUS PIRTIES SURVEY -->
+            <!-- Step 2: Vieta -->
+            <div class="step" id="step-vidaus-2">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kur bus įrengiama pirtis?</h2>
+                    <div class="space-y-5 md:space-y-4">
+                        <button onclick="selectVidausOption('vieta', 'Bute')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Bute</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Name')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Name</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Sodyboje')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Sodyboje</div>
+                        </button>
+                        <button onclick="selectVidausOption('vieta', 'Komerciniame objekte')" class="option-button w-full rounded-xl p-5 md:p-6 text-left relative touch-manipulation">
+                            <div class="font-bold text-lg md:text-xl">Komerciniame objekte (SPA, sporto klubas ir pan.)</div>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(2)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Tipas -->
+            <div class="step" id="step-vidaus-3">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokios pirties norite?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
+                        <button onclick="selectVidausOption('tipas', 'Sauna')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Sauna">
+                            <div class="font-bold text-base md:text-lg">Sauna</div>
+                        </button>
+                        <button onclick="selectVidausOption('tipas', 'Garinė')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Garinė">
+                            <div class="font-bold text-base md:text-lg">Garinė</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectVidausOption('tipas', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(3)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Išmatavimai -->
+            <div class="step" id="step-vidaus-4">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie yra patalpos išmatavimai?</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Ilgis (m)</label>
+                                <input type="number" id="vidaus-ilgis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.0" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Plotis (m)</label>
+                                <input type="number" id="vidaus-plotis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.5" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-sm font-medium mb-2" style="color: var(--text-charcoal);">Aukštis (m)</label>
+                                <input type="number" id="vidaus-aukstis" class="form-input w-full p-4 text-lg" placeholder="pvz.: 2.1" step="0.1" min="0" oninput="onVidausMeasurementInput()">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <button id="vidaus-nezinau-measurements-btn" onclick="selectVidausNezinauMeasurements()" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(4)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Krosnelė -->
+            <div class="step" id="step-vidaus-5">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Krosnelės tipas</h2>
+                    <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
+                        <button onclick="selectVidausOption('krosnele', 'Malkinė')" class="icon-box-option touch-manipulation" data-value="Malkinė">
+                            <img src="/images/stove-wood.jpg" alt="Malkinė krosnelė" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Malkinė</div>
+                        </button>
+                        <button onclick="selectVidausOption('krosnele', 'Elektrinė')" class="icon-box-option touch-manipulation" data-value="Elektrinė">
+                            <img src="/images/stove-electric.jpg" alt="Elektrinė krosnelė" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Elektrinė</div>
+                        </button>
+                    </div>
+                    <div class="flex justify-center">
+                        <button onclick="selectVidausOption('krosnele', 'Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
+                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
+                        </button>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(5)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Budget (VIDAUS) -->
+            <div class="step" id="step-vidaus-6">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks jūsų planuojamas biudžetas?</h2>
+                    <div class="space-y-3 md:space-y-6">
+                        <div class="budget-slider-container">
+                            <div class="budget-value-display" id="vidaus-budget-value">1000€</div>
+                            <div class="budget-slider-track" id="vidaus-budget-track">
+                                <div class="budget-slider-fill" id="vidaus-budget-fill"></div>
+                                <div class="budget-slider-handle" id="vidaus-budget-handle"></div>
+                                <!-- Sticky point markers -->
+                                <div class="budget-slider-marker" style="left: 0%;"></div>
+                                <div class="budget-slider-marker" style="left: 12.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 25%;"></div>
+                                <div class="budget-slider-marker" style="left: 37.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 50%;"></div>
+                                <div class="budget-slider-marker" style="left: 62.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 75%;"></div>
+                                <div class="budget-slider-marker" style="left: 87.5%;"></div>
+                                <div class="budget-slider-marker" style="left: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
+                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
+                        <button onclick="nextVidausStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT DETAILS FORM (Final step for all flows) -->
+            <div class="step" id="step-contact">
+                <div class="glass-card p-5 md:p-8">
+                    <h2 class="text-base md:text-2xl lg:text-3xl font-bold mb-3 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kur galime atsiųsti pasiūlymą?</h2>
+                    
+                    <form id="contactForm" class="space-y-2.5 md:space-y-5">
+                        <div>
+                            <label class="block font-semibold mb-1 md:mb-2 text-xs md:text-base" style="color: var(--text-charcoal);">Vardas <span style="color: var(--copper);">*</span></label>
+                            <input type="text" id="vardas" required class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px]" placeholder="Jūsų vardas">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 md:mb-2 text-xs md:text-base" style="color: var(--text-charcoal);">El. paštas <span style="color: var(--copper);">*</span></label>
+                            <input type="email" id="email" required class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px]" placeholder="jūsų@elpastas.lt">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 md:mb-2 text-xs md:text-base" style="color: var(--text-charcoal);">Telefono numeris <span style="color: var(--copper);">*</span></label>
+                            <input type="tel" id="telefonas" required class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px]" placeholder="+370 6XX XXXXX" pattern="\+370[0-9]{8}" title="Įveskite galiojantį Lietuvos telefono numerį (+370 ir 8 skaitmenys)">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 md:mb-2 text-xs md:text-base" style="color: var(--text-charcoal);">Miestas / savivaldybė <span style="color: var(--copper);">*</span></label>
+                            <input type="text" id="miestas" required list="miestu-sarasas" class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px]" placeholder="Pradėkite rašyti miestą arba savivaldybę...">
+                            <datalist id="miestu-sarasas">
+                                <option value="Vilnius">
+                                <option value="Kaunas">
+                                <option value="Klaipėda">
+                                <option value="Šiauliai">
+                                <option value="Panevėžys">
+                                <option value="Alytus">
+                                <option value="Marijampolė">
+                                <option value="Mažeikiai">
+                                <option value="Jonava">
+                                <option value="Utena">
+                                <option value="Akmenės r. sav.">
+                                <option value="Alytaus m. sav.">
+                                <option value="Alytaus r. sav.">
+                                <option value="Anykščių r. sav.">
+                                <option value="Birštono sav.">
+                                <option value="Biržų r. sav.">
+                                <option value="Druskininkų sav.">
+                                <option value="Elektrėnų sav.">
+                                <option value="Ignalinos r. sav.">
+                                <option value="Jonavos r. sav.">
+                                <option value="Joniškio r. sav.">
+                                <option value="Jurbarko r. sav.">
+                                <option value="Kaišiadorių r. sav.">
+                                <option value="Kalvarijos sav.">
+                                <option value="Kauno m. sav.">
+                                <option value="Kauno r. sav.">
+                                <option value="Kazlų Rūdos sav.">
+                                <option value="Kėdainių r. sav.">
+                                <option value="Kelmės r. sav.">
+                                <option value="Klaipėdos m. sav.">
+                                <option value="Klaipėdos r. sav.">
+                                <option value="Kretingos r. sav.">
+                                <option value="Kupiškio r. sav.">
+                                <option value="Lazdijų r. sav.">
+                                <option value="Marijampolės sav.">
+                                <option value="Mažeikių r. sav.">
+                                <option value="Molėtų r. sav.">
+                                <option value="Neringos sav.">
+                                <option value="Pagėgių sav.">
+                                <option value="Pakruojo r. sav.">
+                                <option value="Palangos m. sav.">
+                                <option value="Panevėžio m. sav.">
+                                <option value="Panevėžio r. sav.">
+                                <option value="Pasvalio r. sav.">
+                                <option value="Plungės r. sav.">
+                                <option value="Prienų r. sav.">
+                                <option value="Radviliškio r. sav.">
+                                <option value="Raseinių r. sav.">
+                                <option value="Rietavo sav.">
+                                <option value="Rokiškio r. sav.">
+                                <option value="Skuodo r. sav.">
+                                <option value="Šakių r. sav.">
+                                <option value="Šalčininkų r. sav.">
+                                <option value="Šiaulių m. sav.">
+                                <option value="Šiaulių r. sav.">
+                                <option value="Šilalės r. sav.">
+                                <option value="Šilutės r. sav.">
+                                <option value="Širvintų r. sav.">
+                                <option value="Skuodo r. sav.">
+                                <option value="Švenčionių r. sav.">
+                                <option value="Tauragės r. sav.">
+                                <option value="Telšių r. sav.">
+                                <option value="Trakų r. sav.">
+                                <option value="Ukmergės r. sav.">
+                                <option value="Utenos r. sav.">
+                                <option value="Varėnos r. sav.">
+                                <option value="Vilkaviškio r. sav.">
+                                <option value="Vilniaus m. sav.">
+                                <option value="Vilniaus r. sav.">
+                                <option value="Visagino sav.">
+                                <option value="Zarasų r. sav.">
+                            </datalist>
+                        </div>
+                        <div class="flex items-start pt-1 md:pt-2">
+                            <input type="checkbox" id="consent" required class="mt-0.5 mr-2 md:mr-3 w-3.5 h-3.5 md:w-5 md:h-5 rounded focus:ring-2 touch-manipulation cursor-pointer custom-checkbox">
+                            <label for="consent" class="text-xs md:text-sm cursor-pointer leading-tight" style="color: var(--text-warm);" onclick="document.getElementById('consent').click();">
+                                Sutinku gauti pasiūlymą el. paštu ar telefonu <span style="color: var(--copper);">*</span>
+                            </label>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row gap-2.5 md:gap-4 pt-3 md:pt-6 mobile-actions-sticky">
+                            <button type="button" onclick="goBack()" class="back-button touch-manipulation">← Atgal</button>
+                            <button type="submit" class="cta-primary ml-auto py-2 md:py-4 px-4 md:px-10 text-sm md:text-lg w-full md:w-auto min-h-[40px] md:min-h-[56px] touch-manipulation">
+                                Gauti pasiūlymą
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CONFIRMATION STATE -->
+            <div class="step" id="step-confirmation">
+                <div class="glass-card p-5 md:p-8 text-center">
+                    <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: var(--bg-forest-light);">
+                        <svg class="w-12 h-12" style="color: var(--forest);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--text-charcoal);">Ačiū! Jūsų užklausa gauta.</h2>
+                    <p class="text-lg mb-8" style="color: var(--text-warm);">
+                        Mūsų komanda su Jumis susisieks netrukus SMS žinute.
+                    </p>
+                    <a href="https://www.facebook.com/kingsauna.lt/" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-block py-3 px-8 font-semibold touch-manipulation">
+                        Sekite mus per Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="py-10 px-4 section-px" style="background: #1a3c34; color: rgba(255,255,255,0.7);">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <img src="/images/logo.png" alt="Kingsauna Logo" class="h-12 md:h-14 w-auto mb-4 brightness-0 invert" loading="lazy">
+                    <p class="text-sm leading-relaxed">
+                        Profesionalūs pirčių ir kubilų sprendimai visoje Lietuvoje nuo 2002 metų.
+                    </p>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Kontaktai</div>
+                    <div class="space-y-2 text-sm">
+                        <a href="tel:+37067938032" class="block hover:text-white transition-colors">(8-679) 38032</a>
+                        <a href="mailto:pirtelesjums@gmail.com" class="block hover:text-white transition-colors">pirtelesjums@gmail.com</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-semibold text-white mb-3">Nuorodos</div>
+                    <div class="space-y-2 text-sm">
+                        <a href="/#populiariausi" class="block hover:text-white transition-colors">Populiariausi modeliai</a>
+                        <a href="index.html#sprendimai" class="block hover:text-white transition-colors">Sprendimai</a>
+                        <a href="/apklausa" class="block hover:text-white transition-colors">Pradėti apklausą</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-center text-sm">
+                © 2026 Kingsauna. Visos teisės saugomos.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== SURVEY STATE MANAGEMENT =====
+        let surveyData = {
+            type: null,
+            lauko: {
+                forma: [],
+                mediena: [],
+                medienaKita: '',
+                biudzetas: null
+            },
+            kubilas: {
+                tipas: [],
+                biudzetas: null
+            },
+            vidaus: {
+                vieta: null,
+                tipas: null,
+                ismatavimai: null,
+                krosnele: null,
+                biudzetas: null
+            }
+        };
+
+        let currentStep = 1;
+        let stepHistory = [1];
+        let totalSteps = 1;
+        let currentProgress = 0; // Track current progress percentage
+
+        // ===== STEP 1: MAIN QUALIFICATION =====
+        function selectMainOption(type) {
+            surveyData.type = type;
+            
+            // Remove selected from all
+            document.querySelectorAll('#step1 .icon-box-option, #step1 .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            // Add selected to clicked
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.option-button');
+            if (button) button.classList.add('selected');
+            
+            // Set total steps based on type
+            // Includes: all question steps + budget + additional requests (lauko only) + contact form
+            if (type === 'lauko') {
+                // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact = 8 steps after step 1
+                totalSteps = 8;
+                currentProgress = 0; // Reset progress when starting survey
+                setTimeout(() => goToStep('step-lauko-2', 2), 300);
+            } else if (type === 'kubila') {
+                // Steps: 2, 3, 4, 6, 7, 8 (budget), contact = 7 steps after step 1
+                totalSteps = 7;
+                currentProgress = 0; // Reset progress when starting survey
+                setTimeout(() => goToStep('step-kubilas-2', 2), 300);
+            } else if (type === 'vidaus') {
+                // Steps: 2, 3, 4, 5, 6 (budget), contact = 6 steps after step 1
+                totalSteps = 6;
+                currentProgress = 0; // Reset progress when starting survey
+                setTimeout(() => goToStep('step-vidaus-2', 2), 300);
+            }
+        }
+
+        // ===== LAUKO STEP 2: FORMA (MULTI-SELECT) =====
+        function toggleLaukoForma(value) {
+            if (!surveyData.lauko.forma) surveyData.lauko.forma = [];
+            
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
+            const index = surveyData.lauko.forma.indexOf(value);
+            
+            if (index > -1) {
+                surveyData.lauko.forma.splice(index, 1);
+                button.classList.remove('selected');
+            } else {
+                surveyData.lauko.forma.push(value);
+                button.classList.add('selected');
+            }
+        }
+
+        // ===== LAUKO STEP 3: IŠMATAVIMAI (EXCLUSIVE) =====
+        function onMeasurementInput() {
+            // If user types in measurements, deselect "Norėčiau Pasikonsultuoti"
+            const nezinauBtn = document.getElementById('nezinau-measurements-btn');
+            nezinauBtn.classList.remove('selected');
+            surveyData.lauko.ismatavimai = null;
+        }
+
+        function selectLaukoNezinauMeasurements() {
+            const btn = document.getElementById('nezinau-measurements-btn');
+            const plotisInput = document.getElementById('lauko-plotis');
+            const ilgisInput = document.getElementById('lauko-ilgis');
+            
+            if (btn.classList.contains('selected')) {
+                // Deselect
+                btn.classList.remove('selected');
+                plotisInput.disabled = false;
+                ilgisInput.disabled = false;
+                surveyData.lauko.ismatavimai = null;
+            } else {
+                // Select and disable inputs
+                btn.classList.add('selected');
+                plotisInput.value = '';
+                ilgisInput.value = '';
+                plotisInput.disabled = true;
+                ilgisInput.disabled = true;
+                surveyData.lauko.ismatavimai = 'Norėčiau Pasikonsultuoti';
+            }
+        }
+
+        // ===== LAUKO STEP 4: MEDIENA (MULTI-SELECT WITH CONDITIONALS) =====
+        // ===== LAUKO STEP 5: PEČIUS (SINGLE-SELECT) =====
+        function selectLaukoPecius(value) {
+            const stepEl = document.getElementById('step-lauko-5');
+            stepEl.querySelectorAll('.icon-box-option, .option-button, .icon-box-option-consultation').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
+            if (button) button.classList.add('selected');
+            surveyData.lauko.pecius = value;
+        }
+
+        // ===== LAUKO STEP 6: PRIEPIRČIO KAMBARYS =====
+        function selectLaukoPriepirtis(value) {
+            const stepEl = document.getElementById('step-lauko-6');
+            
+            // Deselect all buttons
+            stepEl.querySelectorAll('.option-button, .icon-box-option-consultation').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select the clicked button
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option-consultation');
+            if (button) button.classList.add('selected');
+            
+            surveyData.lauko.priepirtis = value;
+        }
+
+        // ===== LAUKO STEP 9: PRISTATYMAS (SINGLE-SELECT) =====
+        function selectLaukoPristatymas(value) {
+            const stepEl = document.getElementById('step-lauko-9');
+            stepEl.querySelectorAll('.option-button, .icon-box-option-consultation').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option-consultation');
+            if (button) button.classList.add('selected');
+            surveyData.lauko.pristatymas = value;
+        }
+
+        // ===== BUDGET SELECTION FUNCTION =====
+        function selectBudget(type, value) {
+            const positionMap = {
+                '1000-2000': 1,
+                '2000-3000': 2,
+                '3000-4000+': 3
+            };
+            const position = positionMap[value];
+            
+            // Update survey data
+            if (type === 'lauko') {
+                surveyData.lauko.biudzetas = value;
+            } else if (type === 'kubilas') {
+                surveyData.kubilas.biudzetas = value;
+            } else if (type === 'vidaus') {
+                surveyData.vidaus.biudzetas = value;
+            }
+            
+            // Update UI elements
+            updateBudgetSlider(type, position, value);
+        }
+
+        function updateBudgetSlider(type, position, value) {
+            const fillId = `${type}-budget-fill`;
+            const handleId = `${type}-budget-handle`;
+            const fill = document.getElementById(fillId);
+            const handle = document.getElementById(handleId);
+            const stepId = type === 'lauko' ? 'step-lauko-11' : type === 'kubilas' ? 'step-kubilas-8' : 'step-vidaus-6';
+            const buttons = document.querySelectorAll(`#${stepId} .budget-label-btn`);
+            
+            // Update slider position
+            if (fill && handle) {
+                fill.setAttribute('data-position', position);
+                handle.setAttribute('data-position', position);
+            }
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.getAttribute('data-value') === value) {
+                    btn.classList.add('selected');
+                }
+            });
+        }
+
+        // ===== BUDGET SLIDER DRAG FUNCTIONALITY =====
+        function initBudgetSlider(type) {
+            const trackId = `${type}-budget-track`;
+            const handleId = `${type}-budget-handle`;
+            const fillId = `${type}-budget-fill`;
+            const valueDisplayId = `${type}-budget-value`;
+            const track = document.getElementById(trackId);
+            const handle = document.getElementById(handleId);
+            const fill = document.getElementById(fillId);
+            const valueDisplay = document.getElementById(valueDisplayId);
+            const stepId = type === 'lauko' ? 'step-lauko-11' : type === 'kubilas' ? 'step-kubilas-8' : 'step-vidaus-6';
+            
+            if (!track || !handle || !fill) return;
+            
+            let isDragging = false;
+            let startX = 0;
+            
+            const minValue = 1000;
+            const maxValue = 5000;
+            const snapPoints = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000]; // Snap points in euros
+            
+            // Convert value to percentage
+            function valueToPercent(value) {
+                return ((value - minValue) / (maxValue - minValue)) * 100;
+            }
+            
+            // Convert percentage to value
+            function percentToValue(percent) {
+                return minValue + (percent / 100) * (maxValue - minValue);
+            }
+            
+            // Get budget range string from value
+            function getBudgetRange(value) {
+                if (value < 2000) {
+                    return '1000-2000';
+                } else if (value < 3000) {
+                    return '2000-3000';
+                } else if (value < 5000) {
+                    return '3000-5000';
+                } else {
+                    return '5000+';
+                }
+            }
+            
+            // Find nearest snap point
+            function findNearestSnap(value) {
+                let nearest = value;
+                let minDist = Infinity;
+                
+                snapPoints.forEach(snap => {
+                    const dist = Math.abs(value - snap);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearest = snap;
+                    }
+                });
+                
+                // Always snap to nearest point if within reasonable distance
+                if (minDist < (maxValue - minValue) * 0.15) { // 15% threshold for snapping
+                    return nearest;
+                }
+                
+                return value;
+            }
+            
+            function updateSlider(x, snap = false) {
+                const rect = track.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
+                
+                let value = percentToValue(percent);
+                
+                // Always snap to nearest snap point
+                const nearestSnap = findNearestSnap(value);
+                if (snap || Math.abs(value - nearestSnap) < (maxValue - minValue) * 0.15) {
+                    value = nearestSnap;
+                    percent = valueToPercent(value);
+                    if (snap) {
+                        handle.classList.add('snapping');
+                    }
+                }
+                
+                // Update handle position
+                handle.style.left = percent + '%';
+                
+                // Update fill
+                fill.style.width = percent + '%';
+                
+                // Update value display
+                if (valueDisplay) {
+                    if (value >= 5000) {
+                        valueDisplay.textContent = '5000+€';
+                    } else {
+                        valueDisplay.textContent = value + '€';
+                    }
+                }
+                
+                // Update survey data with range
+                const budgetRange = getBudgetRange(value);
+                if (type === 'lauko') {
+                    surveyData.lauko.biudzetas = budgetRange;
+                } else if (type === 'kubilas') {
+                    surveyData.kubilas.biudzetas = budgetRange;
+                } else if (type === 'vidaus') {
+                    surveyData.vidaus.biudzetas = budgetRange;
+                }
+            }
+            
+            function startDrag(e) {
+                isDragging = true;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                startX = clientX;
+                
+                handle.style.transition = 'none';
+                fill.style.transition = 'none';
+                handle.classList.remove('snapping');
+                
+                e.preventDefault();
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                updateSlider(clientX, false);
+            }
+            
+            function endDrag(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                handle.style.transition = '';
+                fill.style.transition = '';
+                
+                const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+                updateSlider(clientX, true); // Snap on release
+                
+                // Remove snapping class after animation
+                setTimeout(() => {
+                    handle.classList.remove('snapping');
+                }, 300);
+            }
+            
+            // Mouse events
+            handle.addEventListener('mousedown', startDrag);
+            track.addEventListener('mousedown', (e) => {
+                if (e.target === track || e.target === fill) {
+                    startDrag(e);
+                    drag(e);
+                }
+            });
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Touch events
+            handle.addEventListener('touchstart', startDrag, { passive: false });
+            track.addEventListener('touchstart', (e) => {
+                if (e.target === track || e.target === fill) {
+                    startDrag(e);
+                    drag(e);
+                }
+            }, { passive: false });
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+        }
+
+        // ===== LAUKO NAVIGATION =====
+        // Helper function to show validation error
+        function showValidationError(message, stepElement = null) {
+            // Remove any existing error
+            const existingError = document.querySelector('.validation-error-message');
+            if (existingError) existingError.remove();
+            
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error-message';
+            errorDiv.style.cssText = 'background: rgba(180, 92, 58, 0.1); border-left: 4px solid var(--copper); padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; animation: slideDown 0.3s ease;';
+            errorDiv.innerHTML = `
+                <div style="display: flex; align-items: start; gap: 0.75rem;">
+                    <div style="font-size: 1.25rem;">⚠️</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--copper); margin-bottom: 0.25rem;">Pasirinkimas privalomas</div>
+                        <div style="color: var(--text-warm); font-size: 0.9rem;">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert error message
+            const targetElement = stepElement || document.querySelector('.step.active .glass-card');
+            if (targetElement) {
+                // Insert after the title/subtitle but before the options
+                const subtitle = targetElement.querySelector('.step-subtitle');
+                if (subtitle) {
+                    subtitle.after(errorDiv);
+                } else {
+                    const title = targetElement.querySelector('h2');
+                    if (title) {
+                        title.after(errorDiv);
+                    } else {
+                        targetElement.prepend(errorDiv);
+                    }
+                }
+                
+                // Scroll to error
+                setTimeout(() => {
+                    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    errorDiv.style.opacity = '0';
+                    errorDiv.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => errorDiv.remove(), 300);
+                }, 5000);
+            }
+        }
+        
+        function nextLaukoStep(currentStepNum) {
+            // Validation
+            if (currentStepNum === 2) {
+                if (!surveyData.lauko.forma || surveyData.lauko.forma.length === 0) {
+                    showValidationError('Prašome pasirinkti bent vieną pirties formą, kuri jus domina.');
+                    return;
+                }
+            }
+            if (currentStepNum === 3) {
+                const plotis = document.getElementById('lauko-plotis').value;
+                const ilgis = document.getElementById('lauko-ilgis').value;
+                if (plotis || ilgis) {
+                    surveyData.lauko.plotis = plotis;
+                    surveyData.lauko.ilgis = ilgis;
+                    surveyData.lauko.ismatavimai = null;
+                } else if (!surveyData.lauko.ismatavimai) {
+                    showValidationError('Prašome įvesti išmatavimus arba pasirinkti "Norėčiau Pasikonsultuoti".');
+                    return;
+                }
+            }
+            if (currentStepNum === 5) {
+                if (!surveyData.lauko.pecius) {
+                    showValidationError('Prašome pasirinkti pečiaus tipą.');
+                    return;
+                }
+            }
+            if (currentStepNum === 6) {
+                if (!surveyData.lauko.priepirtis) {
+                    showValidationError('Prašome pasirinkti, ar norite priepirčio.');
+                    return;
+                }
+            }
+            if (currentStepNum === 9) {
+                if (!surveyData.lauko.pristatymas) {
+                    showValidationError('Prašome pasirinkti pristatymo sąlygas.');
+                    return;
+                }
+            }
+            if (currentStepNum === 10) {
+                surveyData.lauko.pageidavimai = document.getElementById('lauko-pageidavimai').value;
+            }
+
+            // Navigate - skip removed steps (4, 7, 8)
+            let nextStep = currentStepNum + 1;
+            if (nextStep === 4) nextStep = 5; // Skip mediena
+            if (nextStep === 7) nextStep = 9; // Skip langai/durys
+            if (nextStep === 8) nextStep = 9; // Skip praėjimai
+            
+            // After step 9 (delivery), go to step 11 (budget) before step 10 (additional questions)
+            if (currentStepNum === 9) {
+                goToStep('step-lauko-11', 11);
+            } else if (currentStepNum === 11) {
+                // After budget (11), go to additional questions (10)
+                goToStep('step-lauko-10', 10);
+            } else if (currentStepNum === 10) {
+                // After additional questions (10), go to contact
+                goToContact();
+            } else if (nextStep < 11) {
+                goToStep(`step-lauko-${nextStep}`, nextStep);
+            } else {
+                // Fallback to contact
+                goToContact();
+            }
+        }
+
+        // ===== KUBILAS FUNCTIONS =====
+        // ===== KUBILAS STEP 2: TIPAS (MULTI-SELECT) =====
+        function toggleKubilasTipas(value) {
+            if (!surveyData.kubilas.tipas) surveyData.kubilas.tipas = [];
+            
+            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
+            const index = surveyData.kubilas.tipas.indexOf(value);
+            
+            // Remove all selections first
+                const stepEl = document.getElementById('step-kubilas-2');
+            stepEl.querySelectorAll('.icon-box-option').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+            
+            // Select the clicked option
+                if (index > -1) {
+                // Deselect if already selected
+                    surveyData.kubilas.tipas.splice(index, 1);
+                } else {
+                // Select new option (single selection)
+                surveyData.kubilas.tipas = [value];
+                    button.classList.add('selected');
+                
+                // Automatically proceed to next step after selection
+                setTimeout(() => {
+                    nextKubilasStep(2);
+                }, 300);
+            }
+        }
+        
+        function selectKubilasOption(field, value) {
+            surveyData.kubilas[field] = value;
+            
+            const currentStepEl = document.querySelector('.step.active');
+            currentStepEl.querySelectorAll('.option-button, .icon-box-option, .icon-box-option-consultation').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation');
+            if (button) button.classList.add('selected');
+        }
+        
+        // Slider labels configuration
+        const hottubLabels = [
+            { main: '2-3 žmonės', sub: 'Kompaktiškas, porai' },
+            { main: '4-5 žmonės', sub: 'Optimalus šeimai' },
+            { main: '6-8 žmonės', sub: 'Erdvus, svečiams' },
+            { main: '8+ žmonės', sub: 'Verslui' }
+        ];
+        
+        const hottubValues = ['2-3', '4-5', '6-8', '8+'];
+        
+        // ===== KUBILAS PEOPLE SLIDER (same style as budget) =====
+        function initHottubSlider() {
+            const track = document.getElementById('kubilas-people-track');
+            const handle = document.getElementById('kubilas-people-handle');
+            const fill = document.getElementById('kubilas-people-fill');
+            const valueDisplay = document.getElementById('kubilas-people-value');
+            const descDisplay = document.getElementById('kubilas-people-desc');
+            
+            if (!track || !handle || !fill) return;
+            
+            let isDragging = false;
+            let currentStep = 0;
+            const totalSteps = 3; // 0, 1, 2, 3 = 4 options
+            
+            function updateSlider(step, animate = false) {
+                currentStep = Math.max(0, Math.min(totalSteps, step));
+                const percent = (currentStep / totalSteps) * 100;
+                
+                if (animate) {
+                    handle.style.transition = 'left 0.2s ease';
+                    fill.style.transition = 'width 0.2s ease';
+                } else {
+                    handle.style.transition = 'none';
+                    fill.style.transition = 'none';
+                }
+                
+                // Update handle and fill
+                handle.style.left = percent + '%';
+                fill.style.width = percent + '%';
+                
+                // Update labels
+                if (valueDisplay) valueDisplay.textContent = hottubLabels[currentStep].main;
+                if (descDisplay) descDisplay.textContent = hottubLabels[currentStep].sub;
+                
+                // Update survey data
+                surveyData.kubilas.zmones = hottubValues[currentStep];
+                surveyData.kubilas.talpa = hottubValues[currentStep];
+            }
+            
+            function getStepFromPosition(x) {
+                const rect = track.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
+                return Math.round((percent / 100) * totalSteps);
+            }
+            
+            function startDrag(e) {
+                isDragging = true;
+                handle.style.transition = 'none';
+                fill.style.transition = 'none';
+                e.preventDefault();
+            }
+            
+            function doDrag(e) {
+                if (!isDragging) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, false);
+            }
+            
+            function endDrag(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                // Snap to nearest step
+                updateSlider(currentStep, true);
+            }
+            
+            // Mouse events
+            handle.addEventListener('mousedown', startDrag);
+            track.addEventListener('mousedown', (e) => {
+                const clientX = e.clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, true);
+                startDrag(e);
+            });
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Touch events
+            handle.addEventListener('touchstart', startDrag, { passive: false });
+            track.addEventListener('touchstart', (e) => {
+                const clientX = e.touches[0].clientX;
+                const step = getStepFromPosition(clientX);
+                updateSlider(step, true);
+                startDrag(e);
+            }, { passive: false });
+            document.addEventListener('touchmove', doDrag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+            
+            // Initialize at first position
+            updateSlider(0, false);
+        }
+        
+        function selectKubilasZmones(value) {
+            // Legacy function for compatibility
+                const index = hottubValues.indexOf(value);
+                if (index !== -1) {
+                const handle = document.getElementById('kubilas-people-handle');
+                const fill = document.getElementById('kubilas-people-fill');
+                const valueDisplay = document.getElementById('kubilas-people-value');
+                const descDisplay = document.getElementById('kubilas-people-desc');
+                
+                if (handle && fill) {
+                    const percent = (index / 3) * 100;
+                    handle.style.left = percent + '%';
+                    fill.style.width = percent + '%';
+                    if (valueDisplay) valueDisplay.textContent = hottubLabels[index].main;
+                    if (descDisplay) descDisplay.textContent = hottubLabels[index].sub;
+                    surveyData.kubilas.zmones = value;
+                    surveyData.kubilas.talpa = value;
+                }
+            }
+        }
+
+        function toggleKubilasOption(field, value) {
+            if (!surveyData.kubilas[field]) {
+                surveyData.kubilas[field] = [];
+            }
+            
+            const index = surveyData.kubilas[field].indexOf(value);
+            const button = event.target.closest('.option-button') || event.target.closest('.feature-option-button') || event.target.closest('.icon-box-option-consultation');
+            const stepEl = document.getElementById('step-kubilas-6');
+            
+            if (index > -1) {
+                surveyData.kubilas[field].splice(index, 1);
+                if (button) button.classList.remove('selected');
+                
+                // If deselecting "Malkinė", re-enable all other buttons (only for funkcijos)
+                if (value === 'Malkinė' && field === 'funkcijos') {
+                    if (stepEl) {
+                        stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
+                            btn.disabled = false;
+                            btn.style.opacity = '1';
+                        });
+                    }
+                }
+            } else {
+                if (value === 'Malkinė' && field === 'funkcijos') {
+                    // Exclusive selection - clear all others and disable them
+                    surveyData.kubilas[field] = ['Malkinė'];
+                    if (stepEl) {
+                        stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
+                            btn.classList.remove('selected');
+                            btn.disabled = true;
+                            btn.style.opacity = '0.5';
+                        });
+                    }
+                    if (button) {
+                        button.classList.add('selected');
+                        button.disabled = false;
+                        button.style.opacity = '1';
+                    }
+                } else {
+                    // Deselect "Malkinė" if it was selected (only for funkcijos)
+                    if (field === 'funkcijos') {
+                        const malkineIndex = surveyData.kubilas[field].indexOf('Malkinė');
+                        if (malkineIndex > -1) {
+                            surveyData.kubilas[field].splice(malkineIndex, 1);
+                            if (stepEl) {
+                                stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
+                                    if (btn.dataset.value === 'Malkinė') {
+                                        btn.classList.remove('selected');
+                                    }
+                                    btn.disabled = false;
+                                    btn.style.opacity = '1';
+                                });
+                            }
+                        }
+                    }
+                    // Handle "Norėčiau Pasikonsultuoti" for other fields
+                    if (value !== 'Malkinė' && field !== 'funkcijos') {
+                    const niekoIndex = surveyData.kubilas[field].indexOf('Norėčiau Pasikonsultuoti');
+                    if (niekoIndex > -1) {
+                        surveyData.kubilas[field].splice(niekoIndex, 1);
+                        if (stepEl) {
+                            stepEl.querySelectorAll('.icon-box-option-consultation').forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            stepEl.querySelectorAll('.feature-option-button').forEach(btn => {
+                                btn.disabled = false;
+                                btn.style.opacity = '1';
+                            });
+                            }
+                        }
+                    }
+                    surveyData.kubilas[field].push(value);
+                    if (button) button.classList.add('selected');
+                }
+            }
+            
+        }
+
+        function nextKubilasStep(currentStepNum) {
+            if (currentStepNum === 2 && (!surveyData.kubilas.tipas || surveyData.kubilas.tipas.length === 0)) {
+                showValidationError('Prašome pasirinkti kubilo tipą.');
+                return;
+            }
+            if (currentStepNum === 3) {
+                if (!surveyData.kubilas.zmones) {
+                    showValidationError('Prašome pasirinkti žmonių kiekį.');
+                    return;
+                }
+                // Collect custom input if "Daugiau" was selected
+                if (surveyData.kubilas.zmones === 'Daugiau') {
+                    const daugiauValue = document.getElementById('kubilas-zmones-daugiau-input').value.trim();
+                    if (!daugiauValue) {
+                        const input = document.getElementById('kubilas-zmones-daugiau-input');
+                        input.focus();
+                        input.style.borderColor = 'var(--copper)';
+                        input.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
+                        // Scroll to input on mobile
+                        setTimeout(() => {
+                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                            input.style.boxShadow = '';
+                        }, 3000);
+                        return;
+                    }
+                    surveyData.kubilas.zmonesDaugiau = daugiauValue;
+                }
+            }
+            if (currentStepNum === 4 && !surveyData.kubilas.sildymas) {
+                showValidationError('Prašome pasirinkti šildymo būdą.');
+                return;
+            }
+            // Papildomos funkcijos is optional, no validation needed
+            if (currentStepNum === 7 && !surveyData.kubilas.pristatymas) {
+                showValidationError('Prašome pasirinkti pristatymo sąlygas.');
+                return;
+            }
+
+            // Skip step 5 (apdaila - removed)
+            let nextStep = currentStepNum + 1;
+            if (nextStep === 5) nextStep = 6; // Skip apdaila step
+            
+            if (currentStepNum < 8) {
+                goToStep(`step-kubilas-${nextStep}`, nextStep);
+            } else if (currentStepNum === 8) {
+                // Budget step - optional, no validation needed
+                goToContact();
+            } else {
+                goToContact();
+            }
+        }
+
+        // ===== VIDAUS PIRTIS FUNCTIONS =====
+        function selectVidausOption(field, value) {
+            surveyData.vidaus[field] = value;
+            
+            const currentStepEl = document.querySelector('.step.active');
+            currentStepEl.querySelectorAll('.option-button, .icon-box-option-consultation').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            const button = event.target.closest('.option-button') || event.target.closest('.icon-box-option-consultation');
+            if (button) button.classList.add('selected');
+        }
+
+        function onVidausMeasurementInput() {
+            const nezinauBtn = document.getElementById('vidaus-nezinau-measurements-btn');
+            nezinauBtn.classList.remove('selected');
+            surveyData.vidaus.ismatavimai = null;
+        }
+
+        function selectVidausNezinauMeasurements() {
+            const btn = document.getElementById('vidaus-nezinau-measurements-btn');
+            const ilgisInput = document.getElementById('vidaus-ilgis');
+            const plotisInput = document.getElementById('vidaus-plotis');
+            const aukstisInput = document.getElementById('vidaus-aukstis');
+            
+            if (btn.classList.contains('selected')) {
+                btn.classList.remove('selected');
+                ilgisInput.disabled = false;
+                plotisInput.disabled = false;
+                aukstisInput.disabled = false;
+                surveyData.vidaus.ismatavimai = null;
+            } else {
+                btn.classList.add('selected');
+                ilgisInput.value = '';
+                plotisInput.value = '';
+                aukstisInput.value = '';
+                ilgisInput.disabled = true;
+                plotisInput.disabled = true;
+                aukstisInput.disabled = true;
+                surveyData.vidaus.ismatavimai = 'Norėčiau Pasikonsultuoti';
+            }
+        }
+
+        function nextVidausStep(currentStepNum) {
+            if (currentStepNum === 2 && !surveyData.vidaus.vieta) {
+                showValidationError('Prašome pasirinkti įrengimo vietą.');
+                return;
+            }
+            if (currentStepNum === 3 && !surveyData.vidaus.tipas) {
+                showValidationError('Prašome pasirinkti pirties tipą.');
+                return;
+            }
+            if (currentStepNum === 4) {
+                const ilgis = document.getElementById('vidaus-ilgis').value;
+                const plotis = document.getElementById('vidaus-plotis').value;
+                const aukstis = document.getElementById('vidaus-aukstis').value;
+                
+                if (!surveyData.vidaus.ismatavimai && (!ilgis || !plotis || !aukstis)) {
+                    showValidationError('Prašome nurodyti visus matmenis arba pasirinkti "Norėčiau Pasikonsultuoti".');
+                    return;
+                }
+                
+                if (!surveyData.vidaus.ismatavimai) {
+                    surveyData.vidaus.ilgis = ilgis;
+                    surveyData.vidaus.plotis = plotis;
+                    surveyData.vidaus.aukstis = aukstis;
+                    surveyData.vidaus.ismatavimai = `${ilgis}x${plotis}x${aukstis}m`;
+                }
+            }
+            if (currentStepNum === 5 && !surveyData.vidaus.krosnele) {
+                showValidationError('Prašome pasirinkti krosnelės tipą.');
+                return;
+            }
+
+            if (currentStepNum === 5) {
+                // Go to budget step
+                goToStep('step-vidaus-6', 6);
+            } else if (currentStepNum === 6) {
+                // After budget step, go to contact
+                goToContact();
+            } else if (currentStepNum < 6) {
+                goToStep(`step-vidaus-${currentStepNum + 1}`, currentStepNum + 1);
+            } else {
+                goToContact();
+            }
+        }
+
+        // ===== NAVIGATION FUNCTIONS =====
+        function goToStep(stepId, stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            const activeStep = document.getElementById(stepId);
+            activeStep.classList.add('active');
+            
+            currentStep = stepNumber;
+            stepHistory.push(stepNumber);
+            
+            // Show progress bar from step 2 onwards, hide on step 1
+            const progressBarContainer = document.getElementById('progressBarContainer');
+            if (progressBarContainer) {
+                if (stepNumber === 1) {
+                    progressBarContainer.style.display = 'none';
+                } else {
+                    progressBarContainer.style.display = 'block';
+                }
+            }
+            
+            updateProgress();
+            
+            // Initialize hottub slider when step-kubilas-3 is shown
+            if (stepId === 'step-kubilas-3') {
+                setTimeout(() => {
+                    initHottubSlider();
+                }, 100);
+            }
+            
+            
+            // Add progress bar inside the glass-card for all steps
+            // Progress calculation: exclude step 1, so step 2 is the first progress step
+            const glassCard = activeStep.querySelector('.glass-card');
+            if (glassCard) {
+                // Check if progress bar already exists in this card
+                let progressBarInside = glassCard.querySelector('#progressBar') || glassCard.querySelector('.progress-bar-fill');
+                
+                if (!progressBarInside) {
+                    // Create progress bar container if it doesn't exist
+                    const progressContainer = document.createElement('div');
+                    progressContainer.className = 'progress-container-inside mb-4 md:mb-6';
+                    // Start from current progress, not 0%
+                    const startWidth = Math.max(currentProgress, 0) + '%';
+                        progressContainer.innerHTML = `
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: ${startWidth}"></div>
+                            </div>
+                        `;
+                    // Insert at the beginning of glass-card
+                    glassCard.insertBefore(progressContainer, glassCard.firstChild);
+                    progressBarInside = progressContainer.querySelector('.progress-bar-fill');
+                }
+                
+                // Update the progress bar inside the card with smooth animation
+                // Map step numbers to sequential positions for each survey type
+                // Position 0 = first question, last position = contact form (100%)
+                if (stepNumber > 1 && progressBarInside) {
+                    let sequentialPosition = 0;
+                    let totalPositions = 1;
+                    
+                    if (surveyData.type === 'lauko') {
+                        // Lauko: 7 questions before contact (positions 0-6), contact = position 7 (100%)
+                        const stepMap = {2: 0, 3: 1, 5: 2, 6: 3, 9: 4, 11: 5, 10: 6};
+                        totalPositions = 7;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
+                    } else if (surveyData.type === 'kubila') {
+                        // Kubilas: 6 questions before contact (positions 0-5), contact = position 6 (100%)
+                        const stepMap = {2: 0, 3: 1, 4: 2, 6: 3, 7: 4, 8: 5};
+                        totalPositions = 6;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
+                    } else if (surveyData.type === 'vidaus') {
+                        // Vidaus: 5 questions before contact (positions 0-4), contact = position 5 (100%)
+                        const stepMap = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4};
+                        totalPositions = 5;
+                        if (stepNumber === totalSteps) {
+                            sequentialPosition = totalPositions; // Contact = 100%
+                        } else {
+                            sequentialPosition = stepMap[stepNumber] !== undefined ? stepMap[stepNumber] : 0;
+                        }
+                    } else {
+                        sequentialPosition = stepNumber - 2;
+                        totalPositions = totalSteps - 2;
+                    }
+                    
+                    // Calculate progress: first question = small %, contact = 100%
+                    const newPercentage = ((sequentialPosition + 1) / (totalPositions + 1)) * 100;
+                    
+                    // Get current width if it exists, otherwise use currentProgress
+                    const currentWidth = progressBarInside.style.width ? 
+                        parseFloat(progressBarInside.style.width) : currentProgress;
+                    
+                    // When going forward, never go backward (prevent reset)
+                    // When going back, allow decrease
+                    const isGoingForward = newPercentage >= currentProgress;
+                    const targetPercentage = isGoingForward ? Math.max(newPercentage, currentProgress) : newPercentage;
+                    
+                    // Update currentProgress
+                    currentProgress = Math.min(Math.max(targetPercentage, 0), 100);
+                    
+                    // Only animate if moving forward
+                    if (targetPercentage > currentWidth) {
+                        // Use requestAnimationFrame for smooth 60fps animation
+                        requestAnimationFrame(() => {
+                            progressBarInside.style.width = currentProgress + '%';
+                            progressBarInside.classList.add('glowing');
+                            setTimeout(() => {
+                                progressBarInside.classList.remove('glowing');
+                            }, 600);
+                        });
+                    } else {
+                        // Just update the value (for going back or staying same)
+                        progressBarInside.style.width = currentProgress + '%';
+                    }
+                }
+            }
+            
+            // Initialize budget sliders when budget steps become active
+            if (stepId === 'step-lauko-11') {
+                setTimeout(() => initBudgetSlider('lauko'), 100);
+            } else if (stepId === 'step-kubilas-8') {
+                setTimeout(() => initBudgetSlider('kubilas'), 100);
+            } else if (stepId === 'step-vidaus-6') {
+                setTimeout(() => initBudgetSlider('vidaus'), 100);
+            }
+            
+            // Keep logo visible on all steps
+            const surveyHeader = document.getElementById('surveyHeader');
+            if (surveyHeader) {
+                surveyHeader.style.display = 'block';
+            }
+            
+            // Smooth scroll to top with better mobile support
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Fallback for older browsers
+                if (!('scrollBehavior' in document.documentElement.style)) {
+                    window.scrollTo(0, 0);
+                }
+            }, 50);
+        }
+
+        function goBack() {
+            if (stepHistory.length > 1) {
+                stepHistory.pop();
+                let previousStep = stepHistory[stepHistory.length - 1];
+                
+                // Handle skipped steps for lauko survey
+                if (surveyData.type === 'lauko') {
+                    if (previousStep === 4) previousStep = 3; // Skip mediena
+                    if (previousStep === 7) previousStep = 6; // Skip langai/durys
+                    if (previousStep === 8) previousStep = 6; // Skip praėjimai
+                    // Handle new order: step 9 -> step 11 (budget) -> step 10 (additional) -> contact
+                    if (previousStep === 12) previousStep = 10; // After contact, go back to additional questions
+                    if (previousStep === 10) previousStep = 11; // From additional questions, go back to budget
+                    if (previousStep === 11) previousStep = 9; // From budget, go back to delivery
+                }
+                
+                // Handle skipped steps for kubilas survey
+                if (surveyData.type === 'kubila') {
+                    if (previousStep === 5) previousStep = 4; // Skip apdaila
+                }
+                
+                document.querySelectorAll('.step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                
+                if (previousStep === 1) {
+                    document.getElementById('step1').classList.add('active');
+                    currentStep = 1;
+                    // Hide progress bar on step 1
+                    const progressBarContainer = document.getElementById('progressBarContainer');
+                    if (progressBarContainer) {
+                        progressBarContainer.style.display = 'none';
+                    }
+                } else if (surveyData.type === 'lauko') {
+                    document.getElementById(`step-lauko-${previousStep}`).classList.add('active');
+                    currentStep = previousStep;
+                    // Show progress bar from step 2 onwards
+                    const progressBarContainer = document.getElementById('progressBarContainer');
+                    if (progressBarContainer) {
+                        progressBarContainer.style.display = 'block';
+                    }
+                } else if (surveyData.type === 'kubila') {
+                    document.getElementById(`step-kubilas-${previousStep}`).classList.add('active');
+                    currentStep = previousStep;
+                    // Show progress bar from step 2 onwards
+                    const progressBarContainer = document.getElementById('progressBarContainer');
+                    if (progressBarContainer) {
+                        progressBarContainer.style.display = 'block';
+                    }
+                } else if (surveyData.type === 'vidaus') {
+                    document.getElementById(`step-vidaus-${previousStep}`).classList.add('active');
+                    currentStep = previousStep;
+                    // Show progress bar from step 2 onwards
+                    const progressBarContainer = document.getElementById('progressBarContainer');
+                    if (progressBarContainer) {
+                        progressBarContainer.style.display = 'block';
+                    }
+                }
+                
+                updateProgress();
+                
+                // Hide/show header based on step number (only show on step 1)
+                const surveyHeader = document.getElementById('surveyHeader');
+                if (surveyHeader) {
+                // Keep logo visible on all steps
+                if (surveyHeader) {
+                    surveyHeader.style.display = 'block';
+                }
+                }
+                
+                // Smooth scroll to top with better mobile support
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (!('scrollBehavior' in document.documentElement.style)) {
+                        window.scrollTo(0, 0);
+                    }
+                }, 50);
+            }
+        }
+
+        function goToContact() {
+            goToStep('step-contact', totalSteps);
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            if (!progressBar || currentStep === 1) {
+                // No progress bar on step 1 ("Kas jus domina?")
+                return;
+            }
+            
+            // Map step numbers to sequential positions for each survey type
+            // Position 0 = first question after selection, last position = contact form (100%)
+            let sequentialPosition = 0;
+            let totalPositions = 1;
+            
+            if (surveyData.type === 'lauko') {
+                // Lauko steps: 2 (forma), 3 (ismatavimai), 5 (pecius), 6 (krosnele), 9 (funkcijos), 11 (biudzetas), 10 (pageidavimai), contact
+                // Total: 8 steps, positions 0-7, contact = 100%
+                const stepMap = {2: 0, 3: 1, 5: 2, 6: 3, 9: 4, 11: 5, 10: 6};
+                totalPositions = 7; // 7 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
+            } else if (surveyData.type === 'kubila') {
+                // Kubilas steps: 2 (tipas), 3 (zmones), 4 (sildymas), 6 (funkcijos), 7 (vieta), 8 (biudzetas), contact
+                // Total: 7 steps, positions 0-6, contact = 100%
+                const stepMap = {2: 0, 3: 1, 4: 2, 6: 3, 7: 4, 8: 5};
+                totalPositions = 6; // 6 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
+            } else if (surveyData.type === 'vidaus') {
+                // Vidaus steps: 2 (tipas), 3 (zmones), 4 (krosnele), 5 (funkcijos), 6 (biudzetas), contact
+                // Total: 6 steps, positions 0-5, contact = 100%
+                const stepMap = {2: 0, 3: 1, 4: 2, 5: 3, 6: 4};
+                totalPositions = 5; // 5 questions before contact
+                if (currentStep === totalSteps) {
+                    sequentialPosition = totalPositions; // Contact form = 100%
+                } else {
+                    sequentialPosition = stepMap[currentStep] !== undefined ? stepMap[currentStep] : 0;
+                }
+            } else {
+                // Fallback
+                sequentialPosition = currentStep - 2;
+                totalPositions = totalSteps - 2;
+            }
+            
+            // Calculate progress percentage
+            // First question = small percentage (not 0), contact form = 100%
+            const newPercentage = ((sequentialPosition + 1) / (totalPositions + 1)) * 100;
+            
+            // Get current width
+            const currentWidth = progressBar.style.width ? 
+                parseFloat(progressBar.style.width) : currentProgress;
+            
+            // When going forward, never go backward (prevent reset)
+            // When going back, allow decrease
+            const isGoingForward = newPercentage >= currentProgress;
+            const targetPercentage = isGoingForward ? Math.max(newPercentage, currentProgress) : newPercentage;
+            
+            // Update currentProgress
+            currentProgress = Math.min(Math.max(targetPercentage, 0), 100);
+            
+            // Only animate if moving forward
+            if (targetPercentage > currentWidth) {
+                // Add glow effect
+                progressBar.classList.add('glowing');
+                progressBar.style.width = currentProgress + '%';
+                
+                // Remove glow after animation
+                setTimeout(() => {
+                    progressBar.classList.remove('glowing');
+                }, 600);
+            } else {
+                // Just update the value (for going back or staying same)
+                progressBar.style.width = currentProgress + '%';
+            }
+        }
+
+        // ===== FORM SUBMISSION =====
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button to prevent double submission
+            const submitButton = e.target.querySelector('button[type="submit"], .cta-primary');
+            const originalButtonText = submitButton ? submitButton.textContent : '';
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Siunčiama...';
+            }
+            
+            try {
+                // Wait for Supabase to be ready (with longer timeout)
+                await window.waitForSupabase(10000);
+            } catch (error) {
+                console.error('❌ Supabase client not initialized after waiting');
+                console.error('Error:', error);
+                
+                // Try one more time with direct initialization
+                if (!window.supabase && typeof window.supabaseLib !== 'undefined' && window.supabaseLib.createClient) {
+                    try {
+                        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+                        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+                        window.supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                        window.supabaseReady = true;
+                        console.log('✅ Supabase initialized via emergency fallback');
+                    } catch (e) {
+                        console.error('Emergency fallback also failed:', e);
+                    }
+                }
+                
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                // Show user-friendly error with more helpful message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida: Duomenų bazės ryšys nepasiekiamas</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: 1rem;">Patikrinkite interneto ryšį ir bandykite dar kartą.</p>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Jei problema išlieka, atnaujinkite puslapį (F5) arba susisiekite su mumis.</p>
+                    <button onclick="this.closest('.error-message').remove(); location.reload();" class="cta-primary py-2 px-6" style="width: 100%; margin-bottom: 0.5rem;">Atnaujinti puslapį</button>
+                    <button onclick="this.closest('.error-message').remove()" style="width: 100%; padding: 0.5rem; background: transparent; border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-charcoal);">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
+                return;
+            }
+            
+            // Double-check Supabase is available
+            if (!window.supabase || typeof window.supabase.from !== 'function') {
+                console.error('❌ Supabase client not initialized');
+                console.error('window.supabase:', typeof window.supabase);
+                
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida: Duomenų bazės ryšys nepasiekiamas</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: 1.5rem;">Patikrinkite interneto ryšį ir bandykite dar kartą.</p>
+                    <button onclick="this.closest('.error-message').remove()" class="cta-primary py-2 px-6" style="width: 100%;">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
+                return;
+            }
+            
+            // Normalize and validate Lithuanian phone number
+            const phoneInput = document.getElementById('telefonas');
+            let telefonas = phoneInput.value.replace(/\s+/g, '').replace(/-/g, ''); // Remove spaces and hyphens
+            const phonePattern = /^\+370[0-9]{8}$/;
+            
+            if (!phonePattern.test(telefonas)) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                // Better mobile-friendly error display
+                phoneInput.focus();
+                phoneInput.style.borderColor = 'var(--copper)';
+                phoneInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
+                
+                // Show error message (better than alert for mobile)
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                errorMsg.style.cssText = 'color: var(--copper); font-size: 0.875rem; margin-top: 0.5rem; padding: 0.75rem; background: rgba(180, 92, 58, 0.1); border-radius: 8px; border: 1px solid rgba(180, 92, 58, 0.2);';
+                errorMsg.textContent = 'Prašome įvesti galiojantį Lietuvos telefono numerį formatu: +370 ir 8 skaitmenys (pvz., +37060012345)';
+                
+                const telefonasContainer = phoneInput.parentElement;
+                const existingError = telefonasContainer.querySelector('.error-message');
+                if (existingError) existingError.remove();
+                telefonasContainer.appendChild(errorMsg);
+                
+                // Scroll to error on mobile
+                setTimeout(() => {
+                    phoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+                
+                setTimeout(() => {
+                    phoneInput.style.borderColor = '';
+                    phoneInput.style.boxShadow = '';
+                    if (errorMsg.parentElement) errorMsg.remove();
+                }, 5000);
+                return;
+            }
+            
+            // Ensure survey type is set
+            if (!surveyData.type) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                console.error('❌ Survey type is missing');
+                alert('Įvyko klaida: nepasirinktas apklausos tipas. Grįžkite į pradžią.');
+                return;
+            }
+
+            const contactData = {
+                vardas: document.getElementById('vardas').value,
+                email: document.getElementById('email').value,
+                telefonas: telefonas,
+                miestas: document.getElementById('miestas').value.trim()
+            };
+
+            // Validate city/municipality from the list
+            const datalist = document.getElementById('miestu-sarasas');
+            const validOptions = Array.from(datalist.options).map(opt => opt.value);
+            
+            if (!validOptions.includes(contactData.miestas)) {
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                const miestasInput = document.getElementById('miestas');
+                miestasInput.focus();
+                miestasInput.style.borderColor = 'var(--copper)';
+                miestasInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
+                
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'error-message';
+                errorMsg.style.cssText = 'color: var(--copper); font-size: 0.875rem; margin-top: 0.5rem; padding: 0.75rem; background: rgba(180, 92, 58, 0.1); border-radius: 8px; border: 1px solid rgba(180, 92, 58, 0.2);';
+                errorMsg.textContent = 'Prašome pasirinkti miestą arba savivaldybę iš pateikto sąrašo.';
+                
+                const container = miestasInput.parentElement;
+                const existingError = container.querySelector('.error-message');
+                if (existingError) existingError.remove();
+                container.appendChild(errorMsg);
+                
+                setTimeout(() => {
+                    miestasInput.style.borderColor = '';
+                    miestasInput.style.boxShadow = '';
+                    if (errorMsg.parentElement) errorMsg.remove();
+                }, 5000);
+                return;
+            }
+
+            // Calculate completion time
+            const completionTime = Math.round((Date.now() - surveyStartTime) / 1000);
+            
+            // Get URL parameters for tracking
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get visitor and session IDs from analytics
+            const visitorId = window.ksAnalytics ? window.ksAnalytics.visitorId : null;
+            const sessionId = window.ksAnalytics ? window.ksAnalytics.sessionId : null;
+            
+            // Start with minimal required payload (matches new clean schema)
+            const basePayload = {
+                visitor_id: visitorId, // Link to visitor for tracking
+                session_id: sessionId || 'unknown',
+                vardas: contactData.vardas,
+                el_pastas: contactData.email,
+                telefonas: telefonas,
+                miestas: contactData.miestas || null,
+                type: surveyData.type,
+                time_to_complete_seconds: completionTime,
+                referrer: document.referrer || null,
+                utm_source: urlParams.get('utm_source') || null,
+                utm_medium: urlParams.get('utm_medium') || null,
+                utm_campaign: urlParams.get('utm_campaign') || null,
+                landing_page: localStorage.getItem('ks_landing_page') || window.location.href
+            };
+
+            // Add type-specific data as JSON
+            if (surveyData.type === 'lauko') {
+                basePayload.lauko_data = surveyData.lauko;
+            } else if (surveyData.type === 'kubila') {
+                basePayload.kubilas_data = surveyData.kubilas;
+            } else if (surveyData.type === 'vidaus') {
+                basePayload.vidaus_data = surveyData.vidaus;
+            }
+
+            // Send data to webhook (non-blocking, send before Supabase so it always goes through)
+            try {
+                const webhookPayload = {
+                    ...basePayload,
+                    contact_data: contactData,
+                    survey_data: surveyData,
+                    submitted_at: new Date().toISOString()
+                };
+                
+                const webhookUrl = 'https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7';
+                
+                // Try JSON format first
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookPayload)
+                })
+                .then(async response => {
+                    const responseText = await response.text();
+                    if (response.ok) {
+                        console.log('✅ Survey data sent to webhook successfully', responseText);
+                    } else {
+                        console.error('❌ Webhook JSON error:', response.status, responseText);
+                        // Try FormData format as fallback
+                        try {
+                            const formData = new FormData();
+                            Object.keys(webhookPayload).forEach(key => {
+                                const value = webhookPayload[key];
+                                if (value !== null && value !== undefined) {
+                                    if (typeof value === 'object') {
+                                        formData.append(key, JSON.stringify(value));
+                                    } else {
+                                        formData.append(key, String(value));
+                                    }
+                                }
+                            });
+                            
+                            const formResponse = await fetch(webhookUrl, {
+                                method: 'POST',
+                                body: formData
+                            });
+                            
+                            const formResponseText = await formResponse.text();
+                            if (formResponse.ok) {
+                                console.log('✅ Survey data sent to webhook successfully (form data format)', formResponseText);
+                            } else {
+                                console.error('❌ Webhook form data also failed:', formResponse.status, formResponseText);
+                                // Try URL-encoded format as last resort
+                                try {
+                                    const urlParams = new URLSearchParams();
+                                    Object.keys(webhookPayload).forEach(key => {
+                                        const value = webhookPayload[key];
+                                        if (value !== null && value !== undefined) {
+                                            if (typeof value === 'object') {
+                                                urlParams.append(key, JSON.stringify(value));
+                                            } else {
+                                                urlParams.append(key, String(value));
+                                            }
+                                        }
+                                    });
+                                    
+                                    const urlResponse = await fetch(webhookUrl, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: urlParams.toString()
+                                    });
+                                    
+                                    const urlResponseText = await urlResponse.text();
+                                    if (urlResponse.ok) {
+                                        console.log('✅ Survey data sent to webhook successfully (URL-encoded format)', urlResponseText);
+                                    } else {
+                                        console.error('❌ All webhook formats failed. Last error:', urlResponse.status, urlResponseText);
+                                    }
+                                } catch (urlError) {
+                                    console.error('❌ URL-encoded fallback failed:', urlError);
+                                }
+                            }
+                        } catch (formError) {
+                            console.error('❌ Form data fallback failed:', formError);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Webhook submission failed:', error);
+                });
+            } catch (e) {
+                console.error('❌ Webhook submission error:', e);
+            }
+
+            try {
+                // Track funnel completion (non-blocking)
+                if (window.ksAnalytics) {
+                    try {
+                        window.ksAnalytics.trackFunnelStep('survey_completed', 4, surveyData.type, {
+                            completion_time: completionTime
+                        });
+                    } catch (e) {
+                        console.warn('Analytics tracking failed (non-critical):', e);
+                    }
+                }
+                
+                // Try submitting with base payload first (no .select() to avoid RLS issues)
+                // Log submission without exposing sensitive data
+                console.log('📤 Submitting survey to Supabase...', { type: basePayload.type, hasData: true });
+                const { error: insertError } = await window.supabase
+                    .from('survey_responses')
+                    .insert([basePayload]);
+
+                if (insertError) {
+                    // Log error without exposing sensitive payload data
+                    console.error('❌ Supabase insert error:', { 
+                        code: insertError.code, 
+                        message: insertError.message?.substring(0, 150),
+                        hint: insertError.hint?.substring(0, 100)
+                    });
+                    
+                    // If error mentions missing columns, try with only core required fields
+                    if (insertError.message && (
+                        insertError.message.includes('column') || 
+                        insertError.message.includes('does not exist') ||
+                        insertError.code === '42703'
+                    )) {
+                        console.warn('⚠️ Column error detected, trying minimal payload with only core fields...');
+                        // Only include fields that are definitely in the base schema (no analytics fields)
+                        const minimalPayload = {
+                            vardas: contactData.vardas,
+                            el_pastas: contactData.email,
+                            telefonas: telefonas,
+                            type: surveyData.type
+                        };
+                        
+                        // Only add fields that definitely exist in base schema
+                        if (contactData.miestas) minimalPayload.miestas = contactData.miestas;
+                        if (surveyData.type === 'lauko' && surveyData.lauko) minimalPayload.lauko_data = surveyData.lauko;
+                        else if (surveyData.type === 'kubila' && surveyData.kubilas) minimalPayload.kubilas_data = surveyData.kubilas;
+                        else if (surveyData.type === 'vidaus' && surveyData.vidaus) minimalPayload.vidaus_data = surveyData.vidaus;
+
+                        const { error: minimalError } = await window.supabase
+                            .from('survey_responses')
+                            .insert([minimalPayload]);
+                        
+                        if (minimalError) {
+                            // Don't expose payload data in error logs
+                            console.error('❌ Minimal payload also failed:', { 
+                                code: minimalError.code, 
+                                message: minimalError.message?.substring(0, 100) 
+                            });
+                            throw new Error(`Duomenų bazės klaida: ${minimalError.message || 'Nežinoma klaida'}`);
+                        } else {
+                            console.log('✅ Survey saved successfully');
+                        }
+                    } else if (insertError.message && (
+                        insertError.message.includes('Could not find the table') ||
+                        insertError.message.includes('does not exist') ||
+                        insertError.message.includes('relation') && insertError.message.includes('does not exist')
+                    )) {
+                        throw new Error('Duomenų bazės lentelė nerasta. Prašome sukurti "survey_responses" lentelę Supabase duomenų bazėje. Žiūrėkite SUPABASE_QUICK_SETUP.md failą arba Supabase SQL Editor.');
+                    } else if (insertError.message && (
+                        insertError.message.includes('permission') || 
+                        insertError.message.includes('policy') ||
+                        insertError.message.includes('RLS')
+                    )) {
+                        throw new Error('Prieigos klaida. Patikrinkite duomenų bazės nustatymus (RLS policies).');
+                    } else if (insertError.message && (
+                        insertError.message.includes('network') || 
+                        insertError.message.includes('fetch') ||
+                        insertError.message.includes('Failed to fetch')
+                    )) {
+                        throw new Error('Tinklo klaida. Patikrinkite interneto ryšį ir bandykite dar kartą.');
+                    } else {
+                        throw new Error(`Duomenų bazės klaida: ${insertError.message || insertError.hint || 'Nežinoma klaida'}`);
+                    }
+                } else {
+                    console.log('✅ Survey saved successfully to Supabase');
+                    
+                    // Mark visitor as converted (non-blocking)
+                    if (visitorId) {
+                        try {
+                            await window.supabase
+                                .from('visitors')
+                                .update({
+                                    converted: true,
+                                    converted_at: new Date().toISOString()
+                                })
+                                .eq('visitor_id', visitorId);
+                            console.log('✅ Visitor marked as converted');
+                        } catch (e) {
+                            console.warn('Failed to mark visitor as converted (non-critical):', e);
+                        }
+                    }
+                }
+                
+                // Track successful submission (non-blocking)
+                if (window.ksAnalytics) {
+                    try {
+                        window.ksAnalytics.trackEvent('survey_submitted', {
+                            category: 'conversion',
+                            label: surveyData.type,
+                            value: 1
+                        });
+                    } catch (e) {
+                        console.warn('Analytics event tracking failed (non-critical):', e);
+                    }
+                }
+                
+                // Clear sensitive data from memory after successful submission
+                // Reset survey data to prevent access via browser console
+                Object.keys(surveyData).forEach(key => {
+                    if (key !== 'type') {
+                        surveyData[key] = {};
+                    }
+                });
+                surveyData.type = null;
+                
+                // Navigate to confirmation page
+                goToStep('step-confirmation', totalSteps + 1);
+                
+            } catch (error) {
+                // Log error without exposing sensitive data
+                console.error('❌ Full submission error:', { 
+                    message: error.message?.substring(0, 200),
+                    name: error.name
+                });
+                
+                // Re-enable button
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+                
+                // Show user-friendly error message
+                let errorMessage = 'Įvyko klaida siunčiant duomenis.';
+                let errorDetails = '';
+                let isTableMissing = false;
+                
+                if (error.message) {
+                    errorMessage = error.message;
+                    // Check if it's a missing table error
+                    if (error.message.includes('Could not find the table') ||
+                        error.message.includes('does not exist') ||
+                        (error.message.includes('relation') && error.message.includes('does not exist')) ||
+                        error.message.includes('lentelė nerasta')) {
+                        isTableMissing = true;
+                        errorMessage = 'Duomenų bazės lentelė nerasta';
+                        errorDetails = `
+                            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <p style="color: #78350f; font-weight: 600; margin-bottom: 0.75rem;">Reikia sukurti "survey_responses" lentelę Supabase duomenų bazėje:</p>
+                                <ol style="color: #78350f; margin-left: 1.5rem; line-height: 1.8;">
+                                    <li>Eikite į <a href="https://supabase.com/dashboard" target="_blank" style="color: #f59e0b; font-weight: 600;">Supabase Dashboard</a></li>
+                                    <li>Atidarykite <strong>SQL Editor</strong></li>
+                                    <li>Nukopijuokite SQL kodą iš <strong>CREATE_TABLE.sql</strong> failo</li>
+                                    <li>Spustelėkite <strong>Run</strong></li>
+                                    <li>Grįžkite čia ir bandykite dar kartą</li>
+                                </ol>
+                            </div>
+                        `;
+                    }
+                }
+                
+                // Create a better error display
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; max-width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;';
+                errorDiv.innerHTML = `
+                    <h3 style="color: var(--copper); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Klaida</h3>
+                    <p style="color: var(--text-charcoal); margin-bottom: ${isTableMissing ? '0' : '1.5rem'};">${errorMessage}</p>
+                    ${errorDetails}
+                    <button onclick="this.closest('.error-message').remove()" class="cta-primary py-2 px-6" style="width: 100%; margin-top: 1rem;">Uždaryti</button>
+                `;
+                document.body.appendChild(errorDiv);
+                
+                // Also log to console for debugging
+                console.error('User-facing error:', errorMessage);
+            }
+        });
+
+        // Initialize
+        updateProgress();
+        
+        // Ensure header is visible on step 1 initially
+        const surveyHeader = document.getElementById('surveyHeader');
+        if (surveyHeader && currentStep === 1) {
+            surveyHeader.style.display = 'block';
+        }
+        
+        // Check for quick select from landing page
+        window.addEventListener('DOMContentLoaded', function() {
+            const quickSelect = localStorage.getItem('quickSelect');
+            if (quickSelect) {
+                // Set survey type directly
+                surveyData.type = quickSelect;
+                
+                // Set total steps and navigate to step 2
+                // Includes: all question steps + budget + additional requests (lauko only) + contact form
+                if (quickSelect === 'lauko') {
+                    // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact = 8 steps after step 1
+                    totalSteps = 8;
+                    currentProgress = 0; // Reset progress when starting survey
+                    goToStep('step-lauko-2', 2);
+                } else if (quickSelect === 'vidaus') {
+                    // Steps: 2, 3, 4, 5, 6 (budget), contact = 6 steps after step 1
+                    totalSteps = 6;
+                    currentProgress = 0; // Reset progress when starting survey
+                    goToStep('step-vidaus-2', 2);
+                } else if (quickSelect === 'kubila' || quickSelect === 'kubilas') {
+                    // Normalize to 'kubila' for consistency
+                    surveyData.type = 'kubila';
+                    // Steps: 2, 3, 4, 6, 7, 8 (budget), contact = 7 steps after step 1
+                    totalSteps = 7;
+                    currentProgress = 0; // Reset progress when starting survey
+                    goToStep('step-kubilas-2', 2);
+                }
+                
+                // Clear localStorage
+                localStorage.removeItem('quickSelect');
+            }
+        });
+    </script>
+</body>
+</html>
