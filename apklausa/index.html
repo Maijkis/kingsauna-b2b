@@ -3451,14 +3451,6 @@
             const visitorId = window.ksAnalytics ? window.ksAnalytics.visitorId : null;
             const sessionId = window.ksAnalytics ? window.ksAnalytics.sessionId : null;
             
-            // Format type for display
-            const formatSurveyType = (type) => {
-                if (type === 'lauko') return 'Lauko pirtis';
-                if (type === 'kubila') return 'Kubilas';
-                if (type === 'vidaus') return 'Vidaus pirtis';
-                return type;
-            };
-            
             // Start with minimal required payload (matches new clean schema)
             const basePayload = {
                 visitor_id: visitorId, // Link to visitor for tracking
@@ -3467,7 +3459,7 @@
                 el_pastas: contactData.email,
                 telefonas: telefonas,
                 miestas: contactData.miestas || null,
-                type: formatSurveyType(surveyData.type),
+                type: surveyData.type,
                 time_to_complete_seconds: completionTime,
                 referrer: document.referrer || null,
                 utm_source: urlParams.get('utm_source') || null,
@@ -3485,10 +3477,19 @@
                 basePayload.vidaus_data = surveyData.vidaus;
             }
 
+            // Format type for webhook display
+            const formatSurveyType = (type) => {
+                if (type === 'lauko') return 'Lauko pirtis';
+                if (type === 'kubila') return 'Kubilas';
+                if (type === 'vidaus') return 'Vidaus pirtis';
+                return type;
+            };
+            
             // Send data to webhook (non-blocking, send before Supabase so it always goes through)
             try {
                 const webhookPayload = {
                     ...basePayload,
+                    type: formatSurveyType(surveyData.type), // Override with readable format for webhook
                     contact_data: contactData,
                     survey_data: surveyData,
                     submitted_at: new Date().toISOString()
