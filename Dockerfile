@@ -5,6 +5,7 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/
 COPY survey.html /usr/share/nginx/html/
 COPY apklausa/ /usr/share/nginx/html/apklausa/
+COPY atsiliepimai/ /usr/share/nginx/html/atsiliepimai/
 COPY analytics-tracker.js /usr/share/nginx/html/
 COPY images/ /usr/share/nginx/html/images/
 

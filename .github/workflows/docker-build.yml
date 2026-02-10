@@ -9,6 +9,8 @@ on:
       - 'nginx.conf'
       - 'index.html'
       - 'survey.html'
+      - 'apklausa/**'
+      - 'atsiliepimai/**'
       - 'analytics-tracker.js'
       - 'images/**'
   workflow_dispatch:
