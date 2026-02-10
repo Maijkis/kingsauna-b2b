@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Įvertinkite Kingsauna paslaugas - jūsų nuomonė mums labai svarbi">
+    <title>Įvertinkite Mūsų Paslaugas | Kingsauna</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1573314220485947');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1573314220485947&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --forest: #22543d;
+            --forest-muted: #2d6d4e;
+            --copper: #b45c3a;
+            --sand: #f5efe6;
+            --cream: #faf8f5;
+            --text-charcoal: #2c3e35;
+            --text-warm: #5a6c5d;
+            --glass-white: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(34, 84, 61, 0.08);
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--sand);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(34, 84, 61, 0.06);
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .star-button {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+        
+        .star-button:hover {
+            transform: scale(1.15);
+        }
+        
+        .star-icon {
+            width: 48px;
+            height: 48px;
+            fill: #d1d5db;
+            transition: fill 0.2s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .star-icon {
+                width: 64px;
+                height: 64px;
+            }
+        }
+        
+        .star-icon.filled {
+            fill: #fbbf24;
+        }
+        
+        .star-icon.hovered {
+            fill: #fcd34d;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--forest);
+            box-shadow: 0 0 0 3px rgba(34, 84, 61, 0.1);
+        }
+        
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .cta-primary {
+            background: var(--copper);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            min-height: 48px;
+        }
+        
+        .cta-primary:hover {
+            background: #9d4d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(180, 92, 58, 0.3);
+        }
+        
+        .cta-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .back-button {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 2px solid var(--glass-border);
+            background: white;
+            color: var(--text-charcoal);
+            cursor: pointer;
+            min-height: 48px;
+        }
+        
+        .back-button:hover {
+            border-color: var(--forest-muted);
+            background: var(--cream);
+        }
+        
+        .validation-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .validation-error.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex justify-center p-4 pt-8 md:pt-16">
+        <div class="w-full max-w-2xl md:max-w-4xl">
+            <!-- Header with Logo -->
+            <div class="text-center mb-6">
+                <img src="/images/logo.png" alt="Kingsauna Logo" class="h-32 w-auto mx-auto">
+            </div>
+            
+            <!-- Step 1: Star Rating -->
+            <div class="step active" id="step-rating">
+                <div class="glass-card p-6 md:p-12">
+                    <h1 class="text-2xl md:text-4xl font-bold mb-6 md:mb-8 text-center" style="color: var(--text-charcoal);">
+                        Kaip vertinate mūsų paslaugas?
+                    </h1>
+                    
+                    <h2 class="text-lg md:text-xl font-medium mb-6 md:mb-8 text-center text-gray-600">
+                        Pasirinkite žvaigždučių skaičių 👇
+                    </h2>
+                    
+                    <div class="star-rating" id="starRating">
+                        <button type="button" class="star-button" data-rating="1" onclick="selectRating(1)" onmouseenter="hoverStars(1)" onmouseleave="resetHover()">
+                            <svg class="star-icon" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="star-button" data-rating="2" onclick="selectRating(2)" onmouseenter="hoverStars(2)" onmouseleave="resetHover()">
+                            <svg class="star-icon" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="star-button" data-rating="3" onclick="selectRating(3)" onmouseenter="hoverStars(3)" onmouseleave="resetHover()">
+                            <svg class="star-icon" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="star-button" data-rating="4" onclick="selectRating(4)" onmouseenter="hoverStars(4)" onmouseleave="resetHover()">
+                            <svg class="star-icon" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="star-button" data-rating="5" onclick="selectRating(5)" onmouseenter="hoverStars(5)" onmouseleave="resetHover()">
+                            <svg class="star-icon" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Feedback Form (for low ratings) -->
+            <div class="step" id="step-feedback">
+                <div class="glass-card p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center" style="color: var(--text-charcoal);">
+                        Apgailestaujame, kad nepateisinome jūsų lūkesčių.
+                    </h2>
+                    
+                    <p class="text-center mb-6 text-gray-600">
+                        Jeigu pranešumėte, kur mes galėtume patobulėti, būtume labai dėkingi.
+                    </p>
+                    
+                    <div id="feedbackError" class="validation-error"></div>
+                    
+                    <form id="feedbackForm" class="space-y-4">
+                        <div>
+                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">
+                                Vardas (pasirinktinai)
+                            </label>
+                            <input type="text" id="vardas" class="form-input" placeholder="Įrašykite">
+                        </div>
+                        
+                        <div>
+                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">
+                                El. paštas (pasirinktinai)
+                            </label>
+                            <input type="email" id="email" class="form-input" placeholder="Įrašykite">
+                        </div>
+                        
+                        <div>
+                            <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">
+                                Jūsų pastabos *
+                            </label>
+                            <textarea id="pastabos" required class="form-input" placeholder="Kur galėtume patobulėti?"></textarea>
+                        </div>
+                        
+                        <div class="flex gap-4 mt-6">
+                            <button type="button" onclick="goBack()" class="back-button flex-1">
+                                ← Atgal
+                            </button>
+                            <button type="submit" class="cta-primary flex-1">
+                                Pateikti
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Step 3: Thank You -->
+            <div class="step" id="step-thankyou">
+                <div class="glass-card p-6 md:p-8 text-center">
+                    <div class="text-6xl mb-6">✅</div>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-8" style="color: var(--forest);">
+                        Ačiū už jūsų atsiliepimą!
+                    </h2>
+                    <a href="/" class="cta-primary inline-block">
+                        Grįžti į pagrindinį puslapį
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://jwfyumswseoczupzixkm.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3Znl1bXN3c2VvY3p1cHppeGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzODYzNzksImV4cCI6MjA4Mzk2MjM3OX0.dwKnGJicY3gOgWSHX1V4Jibr1GzGN07vd5VZ8_50-B8';
+        const supabase = window.supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    
+    <script>
+        let selectedRating = null;
+        
+        function updateStars(rating, isHover = false) {
+            const stars = document.querySelectorAll('.star-icon');
+            stars.forEach((star, index) => {
+                const starRating = index + 1;
+                star.classList.remove('filled', 'hovered');
+                if (starRating <= rating) {
+                    star.classList.add(isHover ? 'hovered' : 'filled');
+                }
+            });
+        }
+        
+        function hoverStars(rating) {
+            if (!selectedRating) {
+                updateStars(rating, true);
+            }
+        }
+        
+        function resetHover() {
+            if (selectedRating) {
+                updateStars(selectedRating, false);
+            } else {
+                updateStars(0, false);
+            }
+        }
+        
+        function selectRating(rating) {
+            selectedRating = rating;
+            updateStars(rating, false);
+            
+            // Wait a bit for visual feedback
+            setTimeout(() => {
+                if (rating >= 4) {
+                    // High rating - save to DB and redirect to Google review
+                    saveReview(rating, null, null, null).then(() => {
+                        window.location.href = 'https://reviewthis.biz/kingsauna';
+                    });
+                } else {
+                    // Low rating - show feedback form
+                    goToStep('step-feedback');
+                }
+            }, 300);
+        }
+        
+        function goToStep(stepId) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+        }
+        
+        function goBack() {
+            goToStep('step-rating');
+            selectedRating = null;
+            updateStars(0, false);
+        }
+        
+        async function saveReview(rating, vardas, email, pastabos) {
+            try {
+                const payload = {
+                    rating: rating,
+                    vardas: vardas || null,
+                    email: email || null,
+                    pastabos: pastabos || null,
+                    submitted_at: new Date().toISOString(),
+                    referrer: document.referrer || null
+                };
+                
+                console.log('Saving review:', payload);
+                
+                const { data, error } = await supabase
+                    .from('reviews')
+                    .insert([payload]);
+                
+                if (error) {
+                    console.error('Error saving review:', error);
+                    throw error;
+                }
+                
+                console.log('Review saved successfully');
+                return true;
+            } catch (error) {
+                console.error('Failed to save review:', error);
+                return false;
+            }
+        }
+        
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const vardas = document.getElementById('vardas').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pastabos = document.getElementById('pastabos').value.trim();
+            
+            if (!pastabos) {
+                const errorDiv = document.getElementById('feedbackError');
+                errorDiv.textContent = 'Prašome įvesti savo pastabas.';
+                errorDiv.classList.add('show');
+                setTimeout(() => {
+                    errorDiv.classList.remove('show');
+                }, 3000);
+                return;
+            }
+            
+            // Disable button
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Siunčiama...';
+            
+            try {
+                await saveReview(selectedRating, vardas, email, pastabos);
+                goToStep('step-thankyou');
+                
+                // Track event
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'SubmitApplication', {
+                        content_name: 'Review Feedback',
+                        rating: selectedRating
+                    });
+                }
+            } catch (error) {
+                alert('Klaida išsaugant atsiliepimą. Bandykite dar kartą.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+</html>
