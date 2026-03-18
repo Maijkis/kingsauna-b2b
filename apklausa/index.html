@@ -2115,9 +2115,6 @@
             { id: 'window-clear', label: 'Panoraminis langas (skaidrus)', price: 350 },
             { id: 'window-bronze', label: 'Panoraminis langas (bronzinis)', price: 380 },
             { id: 'window-tint', label: 'Lango toniravimas (veidrodinis)', price: 200 },
-            { id: 'tank-20', label: 'Vandens talpa 20L', price: 100 },
-            { id: 'tank-30', label: 'Vandens talpa 30L', price: 115 },
-            { id: 'tank-40', label: 'Vandens talpa 40L', price: 135 },
             { id: 'chimney', label: 'Ner\u016bdijan\u010dio plieno kaminas su montavimu', price: 540 }
         ];
 
@@ -3631,6 +3628,73 @@
                 return type;
             };
             
+            // Build pricing summary for webhook
+            function buildPricingSummary() {
+                if (surveyData.type !== 'lauko') return null;
+
+                let totalPrice = 0;
+                const lines = [];
+
+                // Model + Size
+                const modelName = surveyData.lauko.forma || '';
+                const modelData = PRICE_DATA[modelName];
+                if (modelData && surveyData.lauko.dydis) {
+                    const size = modelData.sizes.find(s => s.id === surveyData.lauko.dydis);
+                    if (size) {
+                        lines.push(`Modelis: ${modelName} - ${size.label} ${size.dims} (${formatPrice(size.price)} €)`);
+                        totalPrice += size.price;
+                    }
+                } else {
+                    lines.push(`Modelis: ${modelName}`);
+                }
+
+                // Stove
+                if (surveyData.lauko.pecius && surveyData.lauko.pecius !== 'Norėčiau Pasikonsultuoti') {
+                    const stove = STOVES_DATA.find(s => s.id === surveyData.lauko.pecius);
+                    if (stove) {
+                        lines.push(`Krosnelė: ${stove.label} - ${stove.desc} (${formatPrice(stove.price)} €)`);
+                        totalPrice += stove.price;
+                    } else {
+                        lines.push(`Krosnelė: ${surveyData.lauko.pecius}`);
+                    }
+                }
+
+                // Delivery
+                if (surveyData.lauko.pristatymas) {
+                    lines.push(`Sunkvežimio privažiavimas: ${surveyData.lauko.pristatymas}`);
+                }
+
+                // Extras
+                if (surveyData.lauko.extras && surveyData.lauko.extras.length > 0) {
+                    const extraLines = [];
+                    surveyData.lauko.extras.forEach(extraId => {
+                        const extra = EXTRAS_DATA.find(e => e.id === extraId);
+                        if (extra) {
+                            extraLines.push(`  • ${extra.label} (${formatPrice(extra.price)} €)`);
+                            totalPrice += extra.price;
+                        }
+                    });
+                    if (extraLines.length > 0) {
+                        lines.push('Priedai:');
+                        lines.push(...extraLines);
+                    }
+                }
+
+                // Custom notes
+                if (surveyData.lauko.pageidavimai) {
+                    lines.push(`Papildomi pageidavimai: ${surveyData.lauko.pageidavimai}`);
+                }
+
+                // Total
+                if (totalPrice > 0) {
+                    lines.push(`\nOrientuojama kaina: ${formatPrice(totalPrice)} €`);
+                }
+
+                return { summary: lines.join('\n'), totalPrice };
+            }
+
+            const pricingSummary = buildPricingSummary();
+
             // Send data to webhook (non-blocking, send before Supabase so it always goes through)
             try {
                 const webhookPayload = {
@@ -3640,6 +3704,12 @@
                     survey_data: surveyData,
                     submitted_at: new Date().toISOString()
                 };
+
+                // Add pricing summary for lauko surveys
+                if (pricingSummary) {
+                    webhookPayload.pricing_summary = pricingSummary.summary;
+                    webhookPayload.total_price = pricingSummary.totalPrice;
+                }
                 
                 const webhookUrl = 'https://services.leadconnectorhq.com/hooks/JtGagDd01SUOSTQyKDlH/webhook-trigger/3ee983b1-6dbd-4e2b-a463-6c0aff1069e7';
                 
