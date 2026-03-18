@@ -306,7 +306,21 @@
         .validation-error-message {
             animation: slideDown 0.3s ease;
         }
-        
+
+        /* ===== SIZE / STOVE / EXTRA CARD SELECTED ===== */
+        .size-card.selected {
+            border-color: var(--forest) !important;
+            background: var(--bg-forest-light) !important;
+        }
+        .stove-card.selected {
+            border-color: var(--forest) !important;
+            background: var(--bg-forest-light) !important;
+        }
+        .extra-option.selected {
+            border-color: var(--forest) !important;
+            background: var(--bg-forest-light) !important;
+        }
+
         /* ===== OPTION BUTTONS ===== */
         .option-button {
             transition: all 0.2s ease;
@@ -724,9 +738,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 48px;
-            height: 48px;
-            padding: 0.5rem 1.5rem;
+            min-height: 80px;
+            padding: 0.75rem 1.5rem;
             background: rgba(255, 255, 255, 0.6);
             border: 1.5px solid var(--glass-border);
             border-radius: 12px;
@@ -736,7 +749,11 @@
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
             width: 100%;
-            max-width: 600px;
+        }
+        @media (min-width: 768px) {
+            .icon-box-option-consultation {
+                min-height: 100px;
+            }
         }
         .icon-box-option-consultation:hover {
             transform: translateY(-1px);
@@ -1405,33 +1422,43 @@
             </div>
 
             <!-- LAUKO PIRTIES SURVEY -->
-            <!-- Step 2: Forma / tipas (MULTI-SELECT) -->
+            <!-- Step 2: Forma / tipas (SINGLE-SELECT with auto-advance) -->
             <div class="step" id="step-lauko-2">
                 <div class="glass-card p-5 md:p-8">
                     <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Koks modelis jus domina?</h2>
-                    <!-- First row: Bačka, Kvadratinė, Trikampė -->
+                    <!-- First row: Bačka, Karkasinė, Trikampė -->
                     <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
-                        <button onclick="toggleLaukoForma('Bačka')" class="icon-box-option touch-manipulation" data-value="Bačka">
+                        <button onclick="selectLaukoForma('Bačka')" class="icon-box-option touch-manipulation" data-value="Bačka">
                             <img src="/images/barrel-vidutine.jpg" alt="Bačka" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Bačka</div>
                         </button>
-                        <!-- Kvadratinė laikinai paslėpta -->
-                        <button onclick="toggleLaukoForma('Kvadratinė')" class="icon-box-option touch-manipulation" data-value="Kvadratinė" style="display: none !important;">
-                            <img src="/images/kvadratine-priepirtis.jpg" alt="Kvadratinė" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Kvadratinė</div>
+                        <button onclick="selectLaukoForma('Karkasinė')" class="icon-box-option touch-manipulation" data-value="Karkasinė">
+                            <img src="/images/kvadratine-priepirtis.jpg" alt="Karkasinė" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Karkasinė</div>
                         </button>
-                        <button onclick="toggleLaukoForma('Trikampės Iglu')" class="icon-box-option touch-manipulation" data-value="Trikampės Iglu">
+                        <button onclick="selectLaukoForma('Trikampės Iglu')" class="icon-box-option touch-manipulation" data-value="Trikampės Iglu">
                             <img src="/images/trikampe-iglu.jpg" alt="Trikampės Iglu" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Trikampė</div>
                         </button>
                     </div>
-                    <!-- Second row: Elipsės, Cabin -->
+                    <!-- Second row: Vantos lapo, Kvadratinė, Elipsės -->
                     <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
-                        <button onclick="toggleLaukoForma('Elipsės')" class="icon-box-option touch-manipulation" data-value="Elipsės">
+                        <button onclick="selectLaukoForma('Vantos lapo')" class="icon-box-option touch-manipulation" data-value="Vantos lapo">
+                            <img src="/images/vantos-lapo.png" alt="Vantos lapo" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Vantos lapo</div>
+                        </button>
+                        <button onclick="selectLaukoForma('Kvadratinė')" class="icon-box-option touch-manipulation" data-value="Kvadratinė">
+                            <img src="/images/kvadratine-nauja.png" alt="Kvadratinė" class="icon-box-image" loading="lazy">
+                            <div class="icon-box-label">Kvadratinė</div>
+                        </button>
+                        <button onclick="selectLaukoForma('Elipsės')" class="icon-box-option touch-manipulation" data-value="Elipsės">
                             <img src="/images/elipses-sauna.jpg" alt="Elipsės" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Elipsės</div>
                         </button>
-                        <button onclick="toggleLaukoForma('Cabin')" class="icon-box-option touch-manipulation" data-value="Cabin">
+                    </div>
+                    <!-- Third row: Cabin -->
+                    <div class="icon-boxes-grid icon-boxes-grid-main mb-3">
+                        <button onclick="selectLaukoForma('Cabin')" class="icon-box-option touch-manipulation" data-value="Cabin">
                             <img src="/images/cabin-sauna.jpg" alt="Cabin" class="icon-box-image" loading="lazy">
                             <div class="icon-box-label">Cabin</div>
                         </button>
@@ -1443,26 +1470,13 @@
                 </div>
             </div>
 
-            <!-- Step 3: Išmatavimai (EXCLUSIVE: inputs OR nežinau) -->
+            <!-- Step 3: Dydžio pasirinkimas (dynamic size selector with plans + prices) -->
             <div class="step" id="step-lauko-3">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokie preliminarūs išmatavimai?</h2>
-                    <div class="space-y-6">
-                        <div id="measurements-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                            <div>
-                                <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Plotis (metrais)</label>
-                                <input type="number" id="lauko-plotis" step="0.1" min="0" class="form-input w-full p-4 text-lg touch-manipulation" placeholder="pvz. 2.5" oninput="onMeasurementInput()">
-                            </div>
-                            <div>
-                                <label class="block font-semibold mb-2" style="color: var(--text-charcoal);">Ilgis (metrais)</label>
-                                <input type="number" id="lauko-ilgis" step="0.1" min="0" class="form-input w-full p-4 text-lg touch-manipulation" placeholder="pvz. 3.0" oninput="onMeasurementInput()">
-                            </div>
-                        </div>
-                        <div class="flex justify-center">
-                            <button onclick="selectLaukoNezinauMeasurements()" id="nezinau-measurements-btn" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                                <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                            </button>
-                        </div>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Pasirinkite dydį</h2>
+                    <p class="text-center mb-6 text-sm" style="color: var(--text-muted);">Kainos nurodytos be krosnelės ir kamino</p>
+                    <div id="size-selector" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                        <!-- Dynamically populated -->
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
                         <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
@@ -1471,21 +1485,13 @@
                 </div>
             </div>
 
-            <!-- Step 5: Pečius (SINGLE-SELECT) -->
+            <!-- Step 5: Krosnelė (specific stove models with prices) -->
             <div class="step" id="step-lauko-5">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokio pečiaus norėtumėte?</h2>
-                    <div class="icon-boxes-grid icon-boxes-grid-stove mb-3">
-                        <button onclick="selectLaukoPecius('Malkinis')" class="icon-box-option touch-manipulation" data-value="Malkinis">
-                            <img src="/images/stove-wood.jpg" alt="Malkinis pečius" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Malkinis</div>
-                        </button>
-                        <button onclick="selectLaukoPecius('Elektrinis')" class="icon-box-option touch-manipulation" data-value="Elektrinis">
-                            <img src="/images/stove-electric.jpg" alt="Elektrinis pečius" class="icon-box-image" loading="lazy">
-                            <div class="icon-box-label">Elektrinis</div>
-                        </button>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Pasirinkite krosnelę</h2>
+                    <div id="stove-selector" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                     </div>
-                    <div class="flex justify-center mt-3">
+                    <div class="flex justify-center mt-4">
                         <button onclick="selectLaukoPecius('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
                             <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
@@ -1497,45 +1503,18 @@
                 </div>
             </div>
 
-            <!-- Step 6: Išplanavimas (CONDITIONAL reveal) -->
-            <div class="step" id="step-lauko-6">
-                <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar reikalingas priepirčio kambarys?</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
-                        <button onclick="selectLaukoPriepirtis('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
-                            <div class="font-bold text-base md:text-lg">Taip</div>
-                        </button>
-                        <button onclick="selectLaukoPriepirtis('Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Ne">
-                            <div class="font-bold text-base md:text-lg">Ne</div>
-                        </button>
-                    </div>
-                    <div class="flex justify-center">
-                        <button onclick="selectLaukoPriepirtis('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
-                        </button>
-                    </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextLaukoStep(6)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Step 6: REMOVED (priepirtis now shown in size selection) -->
 
             <!-- Step 9: Pristatymas (SINGLE-SELECT) -->
             <div class="step" id="step-lauko-9">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti prie pristatymo vietos?</h2>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar sunkvežimis gali privažiuoti<br class="hidden md:inline"> prie pristatymo vietos?</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3">
                         <button onclick="selectLaukoPristatymas('Taip')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Taip">
                             <div class="font-bold text-base md:text-lg">Taip</div>
                         </button>
                         <button onclick="selectLaukoPristatymas('Ne')" class="option-button rounded-xl p-3 md:p-4 text-center relative touch-manipulation min-h-[80px] md:min-h-[100px] justify-center items-center" data-value="Ne">
                             <div class="font-bold text-base md:text-lg">Ne</div>
-                        </button>
-                    </div>
-                    <div class="flex justify-center">
-                        <button onclick="selectLaukoPristatymas('Norėčiau Pasikonsultuoti')" class="icon-box-option-consultation touch-manipulation" data-value="Norėčiau Pasikonsultuoti">
-                            <span class="icon-box-consultation-text">Norėčiau Pasikonsultuoti</span>
                         </button>
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
@@ -1545,37 +1524,18 @@
                 </div>
             </div>
 
-            <!-- Step 10: Individualūs sprendimai -->
-            <!-- Step 11: Budget (LAUKO) - Before additional questions -->
-            <div class="step" id="step-lauko-11">
-                <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-lg md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center px-2" style="color: var(--text-charcoal);">Kokiu sprendimu domitės?</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                        <button type="button" onclick="selectSprendimoTipas('lauko', 'biudžetiniu')" class="sprendimo-option-btn touch-manipulation text-left p-5 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all" data-type="lauko" data-value="biudžetiniu">
-                            <span class="block font-semibold text-lg" style="color: var(--text-charcoal);">Biudžetiniu</span>
-                            <span class="block text-xs mt-1" style="color: var(--text-muted);">bazinis variantas, mažiausia kaina</span>
-                        </button>
-                        <button type="button" onclick="selectSprendimoTipas('lauko', 'balansuotu')" class="sprendimo-option-btn touch-manipulation text-left p-5 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all" data-type="lauko" data-value="balansuotu">
-                            <span class="block font-semibold text-lg" style="color: var(--text-charcoal);">Balansuotu</span>
-                            <span class="block text-xs mt-1" style="color: var(--text-muted);">geriausias kainos ir kokybės santykis</span>
-                        </button>
-                        <button type="button" onclick="selectSprendimoTipas('lauko', 'premium')" class="sprendimo-option-btn touch-manipulation text-left p-5 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all" data-type="lauko" data-value="premium">
-                            <span class="block font-semibold text-lg" style="color: var(--text-charcoal);">Premium</span>
-                            <span class="block text-xs mt-1" style="color: var(--text-muted);">maksimalus komfortas, pilna komplektacija</span>
-                        </button>
-                    </div>
-                    <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
-                        <button onclick="goBack()" class="back-button touch-manipulation">Atgal</button>
-                        <button onclick="nextLaukoStep(11)" class="cta-primary ml-auto py-3 px-6 md:px-8 min-h-[48px] touch-manipulation text-base md:text-lg">Tęsti</button>
-                    </div>
-                </div>
-            </div>
+            <!-- Step 11: REMOVED (budget step no longer needed) -->
 
             <div class="step" id="step-lauko-10">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Ar turite papildomų pageidavimų?</h2>
-                    <p class="helper-text text-center mb-4">(Nebūtina užpildyti)</p>
-                    <textarea id="lauko-pageidavimai" rows="5" class="form-input w-full p-4 text-base md:text-lg touch-manipulation" placeholder="Pvz.: norėčiau LED apšvietimo, turiu klausimų dėl stogo dangos, svarstau apie papildomą langą..."></textarea>
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 text-center px-2" style="color: var(--text-charcoal);">Papildomos opcijos</h2>
+                    <p class="text-center mb-6 text-sm" style="color: var(--text-muted);">(Nebūtina pasirinkti)</p>
+                    <div id="extras-selector" class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-2 text-sm" style="color: var(--text-charcoal);">Kiti pageidavimai</label>
+                        <textarea id="lauko-pageidavimai" rows="3" class="form-input w-full p-4 text-base touch-manipulation" placeholder="Pvz.: norėčiau aptarti stogo dangą, turiu klausimų dėl montavimo..."></textarea>
+                    </div>
                     <div class="flex flex-col md:flex-row gap-4 mt-6">
                         <button onclick="goBack()" class="back-button touch-manipulation justify-center">← Atgal</button>
                         <button onclick="nextLaukoStep(10)" class="cta-primary py-4 px-6 md:px-10 text-base md:text-lg w-full md:w-auto min-h-[56px] touch-manipulation">Tęsti</button>
@@ -2095,14 +2055,95 @@
     </footer>
 
     <script>
+        // ===== PRICING DATA =====
+        const PRICE_DATA = {
+            'Bačka': {
+                sizes: [
+                    { id: 'r16', label: 'Tik pirtis (1.6m)', dims: 'Ø2.1 × 1.6m', price: 2220, plan: '/images/round-plan-16m.png' },
+                    { id: 'r2', label: 'Tik pirtis (2m)', dims: 'Ø2.4 × 2m', price: 2816, plan: '/images/round-plan-2m.png' },
+                    { id: 'r25', label: 'Tik pirtis (2.5m)', dims: 'Ø2.4 × 2.5m', price: 3130, plan: '/images/round-plan-25m.png' },
+                    { id: 'r3', label: 'Pirtis su priepirčiu (3m)', dims: 'Ø2.4 × 3m', price: 3890, plan: '/images/round-plan-3m-gp.png' },
+                    { id: 'r35', label: 'Pirtis su priepirčiu (3.5m)', dims: 'Ø2.4 × 3.5m', price: 4202, plan: '/images/round-plan-35m.png' },
+                    { id: 'r4', label: 'Pirtis su priepirčiu (4m)', dims: 'Ø2.4 × 4m', price: 4675, plan: '/images/round-plan-4m-gp.png' },
+                    { id: 'r5', label: 'Pirtis su priepirčiu (5m)', dims: 'Ø2.4 × 5m', price: 5430, plan: '/images/round-plan-5m.png' }
+                ]
+            },
+            'Trikampės Iglu': {
+                sizes: [
+                    { id: 'ig3', label: 'Tik pirtis (3m)', dims: '2.4 × 3m', price: 4125, plan: '/images/iglu-plan-3m.png' },
+                    { id: 'ig4gp', label: 'Tik pirtis (4m)', dims: '2.4 × 4m', price: 4598, plan: '/images/iglu-plan-4m-gp.png' },
+                    { id: 'ig4sp', label: 'Pirtis su priepirčiu (4m)', dims: '2.4 × 4m', price: 5203, plan: '/images/iglu-plan-4m-sp.png' },
+                    { id: 'ig5', label: 'Pirtis su priepirčiu (5m)', dims: '2.4 × 5m', price: 5654, plan: '/images/iglu-plan-5m-sp.png' }
+                ]
+            },
+            'Vantos lapo': {
+                sizes: [
+                    { id: 'l25', label: 'Tik pirtis (2.5m)', dims: '2.6 × 2.5m', price: 3388, plan: '/images/leaf-plan-25m.png' },
+                    { id: 'l3ga', label: 'Tik pirtis (3m)', dims: '2.6 × 3m', price: 3520, plan: '/images/leaf-plan-3m-terasa.png' },
+                    { id: 'l3gp', label: 'Pirtis su priepirčiu (3m)', dims: '2.6 × 3m', price: 3740, plan: '/images/leaf-plan-3m-priepirtis.png' },
+                    { id: 'l35', label: 'Pirtis su priepirčiu (3.5m)', dims: '2.6 × 3.5m', price: 4862, plan: '/images/leaf-plan-35m.png' },
+                    { id: 'l4', label: 'Pirtis su priepirčiu (4m)', dims: '2.6 × 4m', price: 5527, plan: '/images/leaf-plan-4m.png' }
+                ]
+            },
+            'Kvadratinė': {
+                sizes: [
+                    { id: 's22', label: 'Tik pirtis (2.26m)', dims: '2.4 × 2.26m', price: 2950, plan: '/images/square-plan-226m.png' },
+                    { id: 's3', label: 'Tik pirtis (3m)', dims: '2.4 × 3m', price: 4565, plan: '/images/square-plan-3m-gp.png' },
+                    { id: 's4gp', label: 'Tik pirtis (4m)', dims: '2.4 × 4m', price: 5049, plan: '/images/square-plan-4m-gp.png' },
+                    { id: 's4sp', label: 'Pirtis su priepirčiu (4m)', dims: '2.4 × 4m', price: 5335, plan: '/images/square-plan-4m-sp.png' },
+                    { id: 's45', label: 'Pirtis su priepirčiu (4.5m)', dims: '2.4 × 4.5m', price: 5687, plan: '/images/square-plan-45m-sp.png' },
+                    { id: 's5', label: 'Pirtis su priepirčiu (5m)', dims: '2.4 × 5m', price: 6237, plan: '/images/square-plan-5m-sp.png' }
+                ]
+            },
+            'Karkasinė': {
+                sizes: [
+                    { id: 'h24', label: 'Tik pirtis (2.4m)', dims: '2.4 × 2.4m', price: 4345, plan: '/images/house-plan-24m.png' },
+                    { id: 'h3', label: 'Pirtis su priepirčiu (3m)', dims: '2.4 × 3m', price: 5050, plan: '/images/house-plan-3m.png' },
+                    { id: 'h35', label: 'Pirtis su priepirčiu (3.5m)', dims: '2.4 × 3.5m', price: 5450, plan: '/images/house-plan-35m.png' },
+                    { id: 'h4', label: 'Pirtis su priepirčiu (4m)', dims: '2.4 × 4m', price: 5940, plan: '/images/house-plan-4m.png' },
+                    { id: 'h5', label: 'Pirtis su priepirčiu (5m)', dims: '2.4 × 5m', price: 6520, plan: '/images/house-plan-5m.png' }
+                ]
+            }
+        };
+
+        const EXTRAS_DATA = [
+            { id: 'elektra', label: 'Elektros instaliacija', desc: '2 lempos, 1 rozet\u0117', price: 100 },
+            { id: 'led-warm', label: 'LED ap\u0161vietimas (\u0161ilta balta)', price: 270 },
+            { id: 'led-rgb', label: 'LED ap\u0161vietimas (RGB su pulteliu)', price: 400 },
+            { id: 'apdaila', label: 'Pirties apdaila', desc: 'Drebul\u0117, liepa arba juodalknis', price: 560 },
+            { id: 'thermowood', label: 'Thermowood suolai', price: 470 },
+            { id: 'window-clear', label: 'Panoraminis langas (skaidrus)', price: 350 },
+            { id: 'window-bronze', label: 'Panoraminis langas (bronzinis)', price: 380 },
+            { id: 'window-tint', label: 'Lango toniravimas (veidrodinis)', price: 200 },
+            { id: 'tank-20', label: 'Vandens talpa 20L', price: 100 },
+            { id: 'tank-30', label: 'Vandens talpa 30L', price: 115 },
+            { id: 'tank-40', label: 'Vandens talpa 40L', price: 135 },
+            { id: 'chimney', label: 'Ner\u016bdijan\u010dio plieno kaminas su montavimu', price: 540 }
+        ];
+
+        const STOVES_DATA = [
+            { id: 'harvia-cilindro', label: 'Harvia Cilindro 9kW', desc: 'Elektrinis, su integruotu valdymu', price: 686, type: 'Elektrinis', image: '/images/stove-harvia-cilindro.png' },
+            { id: 'harvia-spirit', label: 'Harvia Spirit 9kW', desc: 'Elektrinis, su WiFi valdymu', price: 1110, type: 'Elektrinis', image: '/images/stove-harvia-spirit.png' },
+            { id: 'harvia-m3-inside', label: 'Harvia M3', desc: 'Malkinis, k\u016brenamas i\u0161 vidaus', price: 530, type: 'Malkinis', image: '/images/stove-harvia-m3.png' },
+            { id: 'harvia-m3sl', label: 'Harvia M3 SL', desc: 'Malkinis, k\u016brenamas i\u0161 lauko', price: 930, type: 'Malkinis', image: '/images/stove-harvia-m3sl.png' },
+            { id: 'stoveman-inside', label: 'Stoveman 13', desc: 'Malkinis, k\u016brenamas i\u0161 vidaus', price: 631, type: 'Malkinis', image: '/images/stove-stoveman-inside.png' },
+            { id: 'stoveman-outside', label: 'Stoveman 13', desc: 'Malkinis, k\u016brenamas i\u0161 lauko', price: 780, type: 'Malkinis', image: '/images/stove-stoveman-outside.png' }
+        ];
+
+        // Format price with space as thousands separator (Lithuanian locale)
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
         // ===== SURVEY STATE MANAGEMENT =====
         let surveyData = {
             type: null,
             lauko: {
-                forma: [],
+                forma: null,
                 mediena: [],
                 medienaKita: '',
-                biudzetas: null
+                biudzetas: null,
+                extras: []
             },
             kubilas: {
                 tipas: [],
@@ -2137,8 +2178,8 @@
             // Set total steps based on type
             // Includes: all question steps + budget + additional requests (lauko only) + contact form
             if (type === 'lauko') {
-                // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact = 8 steps after step 1
-                totalSteps = 8;
+                // Steps: 2 (model), 3 (size), 5 (stove), 9 (delivery), 10 (extras), contact = 6 steps after step 1
+                totalSteps = 6;
                 currentProgress = 0; // Reset progress when starting survey
                 setTimeout(() => goToStep('step-lauko-2', 2), 300);
             } else if (type === 'kubila') {
@@ -2154,61 +2195,159 @@
             }
         }
 
-        // ===== LAUKO STEP 2: FORMA (MULTI-SELECT) =====
-        function toggleLaukoForma(value) {
-            if (!surveyData.lauko.forma) surveyData.lauko.forma = [];
-            
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
-            const index = surveyData.lauko.forma.indexOf(value);
-            
-            if (index > -1) {
-                surveyData.lauko.forma.splice(index, 1);
-                button.classList.remove('selected');
+        // ===== LAUKO STEP 2: FORMA (SINGLE-SELECT with auto-advance) =====
+        function selectLaukoForma(value) {
+            const stepEl = document.getElementById('step-lauko-2');
+            // Deselect all
+            stepEl.querySelectorAll('.icon-box-option').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            // Select clicked
+            const button = event.target.closest('.icon-box-option');
+            if (button) button.classList.add('selected');
+            // Store as string (not array)
+            surveyData.lauko.forma = value;
+
+            // Auto-advance after 300ms
+            setTimeout(() => {
+                // Check if model has price data
+                if (PRICE_DATA[value]) {
+                    // Has price data — go to size selector (step 3)
+                    populateSizeSelector();
+                    goToStep('step-lauko-3', 3);
+                } else {
+                    // No price data (Cabin, Elipses) — skip to stove (step 5)
+                    populateStoveSelector();
+                    goToStep('step-lauko-5', 5);
+                }
+            }, 300);
+        }
+
+        // ===== LAUKO STEP 3: SIZE SELECTOR =====
+        function populateSizeSelector() {
+            const container = document.getElementById('size-selector');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const modelData = PRICE_DATA[surveyData.lauko.forma];
+            if (!modelData) return;
+
+            modelData.sizes.forEach(size => {
+                const card = document.createElement('button');
+                card.onclick = function() { selectLaukoSize(size.id); };
+                card.className = 'size-card touch-manipulation text-left p-3 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all bg-white';
+                card.setAttribute('data-value', size.id);
+                card.innerHTML = `
+                    <img src="${size.plan}" alt="Planas" class="w-full rounded-lg mb-2" style="max-height: 160px; object-fit: contain; background: #f9f9f9;">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-base" style="color: var(--text-charcoal);">${size.label}</div>
+                            <div class="text-xs" style="color: var(--text-muted);">${size.dims}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-lg" style="color: var(--copper);">nuo ${formatPrice(size.price)} \u20AC</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectLaukoSize(sizeId) {
+            // Deselect all size cards and consultation button
+            document.querySelectorAll('#size-selector .size-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            const konsultBtn = document.getElementById('size-konsultacija-btn');
+            if (konsultBtn) konsultBtn.classList.remove('selected');
+
+            if (sizeId === 'konsultacija') {
+                // Select consultation button
+                if (konsultBtn) konsultBtn.classList.add('selected');
+                surveyData.lauko.dydis = null;
+                surveyData.lauko.ismatavimai = 'Nor\u0117\u010diau Pasikonsultuoti';
             } else {
-                surveyData.lauko.forma.push(value);
-                button.classList.add('selected');
+                // Select the clicked size card
+                const card = document.querySelector(`#size-selector .size-card[data-value="${sizeId}"]`);
+                if (card) card.classList.add('selected');
+                surveyData.lauko.dydis = sizeId;
+                surveyData.lauko.ismatavimai = null;
             }
         }
 
-        // ===== LAUKO STEP 3: IŠMATAVIMAI (EXCLUSIVE) =====
-        function onMeasurementInput() {
-            // If user types in measurements, deselect "Norėčiau Pasikonsultuoti"
-            const nezinauBtn = document.getElementById('nezinau-measurements-btn');
-            nezinauBtn.classList.remove('selected');
-            surveyData.lauko.ismatavimai = null;
+        // ===== POPULATE STOVE SELECTOR =====
+        function populateStoveSelector() {
+            const container = document.getElementById('stove-selector');
+            if (!container) return;
+            container.innerHTML = '';
+
+            STOVES_DATA.forEach(stove => {
+                const card = document.createElement('button');
+                card.onclick = function() { selectLaukoPecius(stove.id); };
+                card.className = 'stove-card touch-manipulation text-left p-3 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all bg-white';
+                card.setAttribute('data-value', stove.id);
+                card.innerHTML = `
+                    <img src="${stove.image}" alt="${stove.label}" class="w-full rounded-lg mb-2" style="max-height: 120px; object-fit: contain; background: #f9f9f9;">
+                    <div class="font-bold text-sm" style="color: var(--text-charcoal);">${stove.label}</div>
+                    <div class="text-xs" style="color: var(--text-muted);">${stove.desc}</div>
+                    <div class="font-bold text-base mt-1" style="color: var(--copper);">${formatPrice(stove.price)} \u20AC</div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function selectLaukoNezinauMeasurements() {
-            const btn = document.getElementById('nezinau-measurements-btn');
-            const plotisInput = document.getElementById('lauko-plotis');
-            const ilgisInput = document.getElementById('lauko-ilgis');
-            
-            if (btn.classList.contains('selected')) {
-                // Deselect
-                btn.classList.remove('selected');
-                plotisInput.disabled = false;
-                ilgisInput.disabled = false;
-                surveyData.lauko.ismatavimai = null;
+        // ===== POPULATE EXTRAS SELECTOR =====
+        function populateExtrasSelector() {
+            const container = document.getElementById('extras-selector');
+            if (!container) return;
+            container.innerHTML = '';
+
+            EXTRAS_DATA.forEach(extra => {
+                const card = document.createElement('button');
+                card.onclick = function() { toggleExtra(extra.id); };
+                card.className = 'extra-option touch-manipulation text-left p-3 rounded-xl border-2 border-gray-200 hover:border-forest/30 transition-all bg-white flex justify-between items-center';
+                card.setAttribute('data-value', extra.id);
+                card.innerHTML = `
+                    <div>
+                        <div class="font-semibold text-sm" style="color: var(--text-charcoal);">${extra.label}</div>
+                        ${extra.desc ? `<div class="text-xs" style="color: var(--text-muted);">${extra.desc}</div>` : ''}
+                    </div>
+                    <div class="font-bold text-sm whitespace-nowrap ml-2" style="color: var(--copper);">${formatPrice(extra.price)} \u20AC</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleExtra(id) {
+            if (!surveyData.lauko.extras) surveyData.lauko.extras = [];
+
+            const card = document.querySelector(`#extras-selector .extra-option[data-value="${id}"]`);
+            const index = surveyData.lauko.extras.indexOf(id);
+
+            if (index > -1) {
+                surveyData.lauko.extras.splice(index, 1);
+                if (card) card.classList.remove('selected');
             } else {
-                // Select and disable inputs
-                btn.classList.add('selected');
-                plotisInput.value = '';
-                ilgisInput.value = '';
-                plotisInput.disabled = true;
-                ilgisInput.disabled = true;
-                surveyData.lauko.ismatavimai = 'Norėčiau Pasikonsultuoti';
+                surveyData.lauko.extras.push(id);
+                if (card) card.classList.add('selected');
             }
         }
 
         // ===== LAUKO STEP 4: MEDIENA (MULTI-SELECT WITH CONDITIONALS) =====
-        // ===== LAUKO STEP 5: PEČIUS (SINGLE-SELECT) =====
+        // ===== LAUKO STEP 5: PEČIUS (SINGLE-SELECT with stove models) =====
         function selectLaukoPecius(value) {
             const stepEl = document.getElementById('step-lauko-5');
-            stepEl.querySelectorAll('.icon-box-option, .option-button, .icon-box-option-consultation').forEach(btn => {
+            // Deselect all stove cards and consultation button
+            stepEl.querySelectorAll('.stove-card, .icon-box-option-consultation').forEach(btn => {
                 btn.classList.remove('selected');
             });
-            const button = event.target.closest('.icon-box-option') || event.target.closest('.icon-box-option-consultation') || event.target.closest('.option-button');
-            if (button) button.classList.add('selected');
+            if (value === 'Norėčiau Pasikonsultuoti') {
+                const button = event.target.closest('.icon-box-option-consultation');
+                if (button) button.classList.add('selected');
+            } else {
+                const card = stepEl.querySelector(`.stove-card[data-value="${value}"]`);
+                if (card) card.classList.add('selected');
+            }
             surveyData.lauko.pecius = value;
         }
 
@@ -2518,65 +2657,56 @@
         function nextLaukoStep(currentStepNum) {
             // Validation
             if (currentStepNum === 2) {
-                if (!surveyData.lauko.forma || surveyData.lauko.forma.length === 0) {
-                    showValidationError('Prašome pasirinkti bent vieną pirties formą, kuri jus domina.');
+                if (!surveyData.lauko.forma) {
+                    showValidationError('Prašome pasirinkti pirties modelį.');
                     return;
                 }
+                // Navigation is handled by selectLaukoForma auto-advance
+                // But if user clicks "Tęsti" manually:
+                if (PRICE_DATA[surveyData.lauko.forma]) {
+                    populateSizeSelector();
+                    goToStep('step-lauko-3', 3);
+                } else {
+                    populateStoveSelector();
+                    goToStep('step-lauko-5', 5);
+                }
+                return;
             }
             if (currentStepNum === 3) {
-                const plotis = document.getElementById('lauko-plotis').value;
-                const ilgis = document.getElementById('lauko-ilgis').value;
-                if (plotis || ilgis) {
-                    surveyData.lauko.plotis = plotis;
-                    surveyData.lauko.ilgis = ilgis;
-                    surveyData.lauko.ismatavimai = null;
-                } else if (!surveyData.lauko.ismatavimai) {
-                    showValidationError('Prašome įvesti išmatavimus arba pasirinkti "Norėčiau Pasikonsultuoti".');
+                if (!surveyData.lauko.dydis) {
+                    showValidationError('Prašome pasirinkti dydį.');
                     return;
                 }
+                // After size selection, go to stove (step 5)
+                populateStoveSelector();
+                goToStep('step-lauko-5', 5);
+                return;
             }
             if (currentStepNum === 5) {
                 if (!surveyData.lauko.pecius) {
-                    showValidationError('Prašome pasirinkti pečiaus tipą.');
+                    showValidationError('Prašome pasirinkti krosnelę.');
                     return;
                 }
-            }
-            if (currentStepNum === 6) {
-                if (!surveyData.lauko.priepirtis) {
-                    showValidationError('Prašome pasirinkti, ar norite priepirčio.');
-                    return;
-                }
+                // After stove, go to delivery (step 9)
+                goToStep('step-lauko-9', 9);
+                return;
             }
             if (currentStepNum === 9) {
                 if (!surveyData.lauko.pristatymas) {
                     showValidationError('Prašome pasirinkti pristatymo sąlygas.');
                     return;
                 }
+                // After delivery, go to extras (step 10)
+                populateExtrasSelector();
+                goToStep('step-lauko-10', 10);
+                return;
             }
             if (currentStepNum === 10) {
+                // Collect extras and pageidavimai
                 surveyData.lauko.pageidavimai = document.getElementById('lauko-pageidavimai').value;
-            }
-
-            // Navigate - skip removed steps (4, 7, 8)
-            let nextStep = currentStepNum + 1;
-            if (nextStep === 4) nextStep = 5; // Skip mediena
-            if (nextStep === 7) nextStep = 9; // Skip langai/durys
-            if (nextStep === 8) nextStep = 9; // Skip praėjimai
-            
-            // After step 9 (delivery), go to step 11 (budget) before step 10 (additional questions)
-            if (currentStepNum === 9) {
-                goToStep('step-lauko-11', 11);
-            } else if (currentStepNum === 11) {
-                // After budget (11), go to additional questions (10)
-                goToStep('step-lauko-10', 10);
-            } else if (currentStepNum === 10) {
-                // After additional questions (10), go to contact
+                // Go to contact
                 goToContact();
-            } else if (nextStep < 11) {
-                goToStep(`step-lauko-${nextStep}`, nextStep);
-            } else {
-                // Fallback to contact
-                goToContact();
+                return;
             }
         }
 
@@ -2993,6 +3123,21 @@
                 setTimeout(() => {
                     initHottubSlider();
                 }, 100);
+            }
+
+            // Populate stove selector when step-lauko-5 is shown
+            if (stepId === 'step-lauko-5') {
+                populateStoveSelector();
+            }
+
+            // Populate size selector when step-lauko-3 is shown
+            if (stepId === 'step-lauko-3') {
+                populateSizeSelector();
+            }
+
+            // Populate extras selector when step-lauko-10 is shown
+            if (stepId === 'step-lauko-10') {
+                populateExtrasSelector();
             }
             
             
@@ -3786,8 +3931,8 @@
                 // Set total steps and navigate to step 2
                 // Includes: all question steps + budget + additional requests (lauko only) + contact form
                 if (quickSelect === 'lauko') {
-                    // Steps: 2, 3, 5, 6, 9, 11 (budget), 10 (additional), contact = 8 steps after step 1
-                totalSteps = 8;
+                    // Steps: 2 (model), 3 (size), 5 (stove), 9 (delivery), 10 (extras), contact = 6 steps
+                totalSteps = 6;
                 currentProgress = 0; // Reset progress when starting survey
                 goToStep('step-lauko-2', 2);
             } else if (quickSelect === 'vidaus') {

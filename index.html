@@ -1313,11 +1313,41 @@
                             </div>
                         </div>
 
-                        <!-- Product Card 2: Kvadratinė (laikinai paslėpta) -->
-                        <div class="product-card-slide" style="display: none !important;">
+                        <!-- Product Card 2: Karkasinė -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('karkasine')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/kvadratine-priepirtis.jpg" alt="Karkasinė lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Karkasinė</h3>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 3: Vantos lapo -->
+                        <div class="product-card-slide">
+                            <div class="product-card h-full bg-white" onclick="openProductModal('vantoslapo')">
+                                <div class="aspect-[4/3] image-container">
+                                    <img src="images/vantos-lapo.png" alt="Vantos lapo lauko pirtis" class="product-image" loading="lazy">
+                                </div>
+                                <div class="p-5 flex flex-col flex-1">
+                                    <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Vantos lapo</h3>
+                                    <span class="glass-button block w-full py-3 px-4 text-sm font-medium text-center mt-auto">
+                                        Daugiau informacijos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 4: Kvadratinė (nauja) -->
+                        <div class="product-card-slide">
                             <div class="product-card h-full bg-white" onclick="openProductModal('kvadratine')">
                                 <div class="aspect-[4/3] image-container">
-                                    <img src="images/kvadratine-priepirtis.jpg" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
+                                    <img src="images/kvadratine-nauja.png" alt="Kvadratinė lauko pirtis" class="product-image" loading="lazy">
                                 </div>
                                 <div class="p-5 flex flex-col flex-1">
                                     <h3 class="font-bold text-lg mb-2" style="color: var(--text-charcoal);">Lauko pirtis Kvadratinė</h3>
@@ -1328,7 +1358,7 @@
                             </div>
                         </div>
 
-                        <!-- Product Card 3: Cabin -->
+                        <!-- Product Card 5: Cabin -->
                         <div class="product-card-slide">
                             <div class="product-card h-full bg-white" onclick="openProductModal('cabin')">
                                 <div class="aspect-[4/3] image-container">
@@ -2066,8 +2096,8 @@
                     'images/barrel-interior-huum.png'
                 ]
             },
-            kvadratine: {
-                name: 'Lauko pirtis Kvadratinė',
+            karkasine: {
+                name: 'Lauko pirtis Karkasinė',
                 description: 'Erdvi lauko pirtis su atskira poilsio zona. Puikiai tinka tiems, kas vertina komfortą ir papildomą erdvę.',
                 features: ['Atskiras priepirčio kambarys', 'Talpa: 6-8 žmonėms', 'Galimybė įrengti dušą', 'Premium apdaila'],
                 images: [
@@ -2080,6 +2110,22 @@
                     'images/kvadratine-dark-cube.png',
                     'images/kvadratine-garden.png',
                     'images/kvadratine-lake.png'
+                ]
+            },
+            vantoslapo: {
+                name: 'Lauko pirtis Vantos lapo',
+                description: 'Vantos lapo formos lauko pirtis – unikalus dizainas, kuris išsiskiria bet kuriame kieme.',
+                features: ['Unikalus vantos lapo dizainas', 'Talpa: 4-6 žmonėms', 'Kokybiška mediena', 'Atspari visoms oro sąlygoms'],
+                images: [
+                    'images/vantos-lapo.png'
+                ]
+            },
+            kvadratine: {
+                name: 'Lauko pirtis Kvadratinė',
+                description: 'Kvadratinės formos lauko pirtis – paprastas, funkcionalus ir stilingas sprendimas.',
+                features: ['Kvadratinė forma', 'Talpa: 4-6 žmonėms', 'Funkcionalus dizainas', 'Kokybiška mediena'],
+                images: [
+                    'images/kvadratine-nauja.png'
                 ]
             },
             trikampe: {
@@ -2165,7 +2211,7 @@
             if (productKey === 'kubilas') {
                 surveyType = 'kubila';
             }
-            // All other products (backa, kvadratine, trikampe, cabin) are lauko
+            // All other products (backa, karkasine, vantoslapo, kvadratine, trikampe, cabin) are lauko
             modalCTA.onclick = function() {
                 localStorage.setItem('quickSelect', surveyType);
             };
