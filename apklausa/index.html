@@ -1045,8 +1045,8 @@
         }
         .hottub-model-card img {
             width: 100%;
-            height: 140px;
-            object-fit: cover;
+            height: 180px;
+            object-fit: contain;
             border-radius: 8px;
             margin-bottom: 8px;
             background: #f9f9f9;
@@ -1086,6 +1086,44 @@
             color: var(--forest);
             font-weight: 600;
             font-size: 0.8rem;
+        }
+
+        /* ===== CITY SELECT ===== */
+        .city-select-wrapper {
+            position: relative;
+        }
+        .city-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            margin-top: 4px;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            max-height: 260px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .city-options-list {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .city-option {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background 0.1s;
+        }
+        .city-option:active, .city-option:hover {
+            background: rgba(45, 74, 54, 0.08);
+        }
+        .city-option.highlighted {
+            background: rgba(45, 74, 54, 0.06);
         }
 
         /* ===== FORM INPUTS ===== */
@@ -1310,7 +1348,7 @@
             }
 
             .hottub-model-card img {
-                height: 120px;
+                height: 160px;
             }
 
             /* Form spacing */
@@ -1628,8 +1666,8 @@
             <!-- Step 3: Liner spalva -->
             <div class="step" id="step-kubilas-3">
                 <div class="glass-card p-5 md:p-8">
-                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Vidinio paviršiaus spalva</h2>
-                    <div id="hottub-liner-selector" class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mb-3">
+                    <h2 class="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center px-2" style="color: var(--text-charcoal);">Kubilo vidaus dangos spalva</h2>
+                    <div id="hottub-liner-selector" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-3">
                         <!-- Populated by JS -->
                     </div>
                     <div class="flex gap-4 mt-6 md:mt-8 mobile-actions-sticky">
@@ -1893,80 +1931,19 @@
                         </div>
                         <div>
                             <label class="block font-semibold mb-1 md:mb-2 text-xs md:text-base" style="color: var(--text-charcoal);">Miestas / savivaldybė <span style="color: var(--copper);">*</span></label>
-                            <input type="text" id="miestas" required list="miestu-sarasas" class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px]" placeholder="Pradėkite rašyti miestą arba savivaldybę...">
-                            <datalist id="miestu-sarasas">
-                                <option value="Vilnius">
-                                <option value="Kaunas">
-                                <option value="Klaipėda">
-                                <option value="Šiauliai">
-                                <option value="Panevėžys">
-                                <option value="Alytus">
-                                <option value="Marijampolė">
-                                <option value="Mažeikiai">
-                                <option value="Jonava">
-                                <option value="Utena">
-                                <option value="Akmenės r. sav.">
-                                <option value="Alytaus m. sav.">
-                                <option value="Alytaus r. sav.">
-                                <option value="Anykščių r. sav.">
-                                <option value="Birštono sav.">
-                                <option value="Biržų r. sav.">
-                                <option value="Druskininkų sav.">
-                                <option value="Elektrėnų sav.">
-                                <option value="Ignalinos r. sav.">
-                                <option value="Jonavos r. sav.">
-                                <option value="Joniškio r. sav.">
-                                <option value="Jurbarko r. sav.">
-                                <option value="Kaišiadorių r. sav.">
-                                <option value="Kalvarijos sav.">
-                                <option value="Kauno m. sav.">
-                                <option value="Kauno r. sav.">
-                                <option value="Kazlų Rūdos sav.">
-                                <option value="Kėdainių r. sav.">
-                                <option value="Kelmės r. sav.">
-                                <option value="Klaipėdos m. sav.">
-                                <option value="Klaipėdos r. sav.">
-                                <option value="Kretingos r. sav.">
-                                <option value="Kupiškio r. sav.">
-                                <option value="Lazdijų r. sav.">
-                                <option value="Marijampolės sav.">
-                                <option value="Mažeikių r. sav.">
-                                <option value="Molėtų r. sav.">
-                                <option value="Neringos sav.">
-                                <option value="Pagėgių sav.">
-                                <option value="Pakruojo r. sav.">
-                                <option value="Palangos m. sav.">
-                                <option value="Panevėžio m. sav.">
-                                <option value="Panevėžio r. sav.">
-                                <option value="Pasvalio r. sav.">
-                                <option value="Plungės r. sav.">
-                                <option value="Prienų r. sav.">
-                                <option value="Radviliškio r. sav.">
-                                <option value="Raseinių r. sav.">
-                                <option value="Rietavo sav.">
-                                <option value="Rokiškio r. sav.">
-                                <option value="Skuodo r. sav.">
-                                <option value="Šakių r. sav.">
-                                <option value="Šalčininkų r. sav.">
-                                <option value="Šiaulių m. sav.">
-                                <option value="Šiaulių r. sav.">
-                                <option value="Šilalės r. sav.">
-                                <option value="Šilutės r. sav.">
-                                <option value="Širvintų r. sav.">
-                                <option value="Skuodo r. sav.">
-                                <option value="Švenčionių r. sav.">
-                                <option value="Tauragės r. sav.">
-                                <option value="Telšių r. sav.">
-                                <option value="Trakų r. sav.">
-                                <option value="Ukmergės r. sav.">
-                                <option value="Utenos r. sav.">
-                                <option value="Varėnos r. sav.">
-                                <option value="Vilkaviškio r. sav.">
-                                <option value="Vilniaus m. sav.">
-                                <option value="Vilniaus r. sav.">
-                                <option value="Visagino sav.">
-                                <option value="Zarasų r. sav.">
-                            </datalist>
+                            <div class="city-select-wrapper" id="city-select-wrapper">
+                                <input type="text" id="miestas" required readonly
+                                    class="form-input w-full p-2.5 md:p-4 text-sm md:text-lg touch-manipulation min-h-[40px] md:min-h-[48px] cursor-pointer"
+                                    placeholder="Pasirinkite miestą..."
+                                    onclick="toggleCityDropdown()"
+                                    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%278%27 viewBox=%270 0 12 8%27%3E%3Cpath fill=%27%23666%27 d=%27M1 1l5 5 5-5%27 stroke=%27%23666%27 stroke-width=%271.5%27 fill=%27none%27/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center;">
+                                <div id="city-dropdown" class="city-dropdown" style="display: none;">
+                                    <div style="padding: 8px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; background: white; z-index: 1;">
+                                        <input type="text" id="city-search" class="form-input w-full p-2 text-sm" placeholder="Ieškoti..." oninput="filterCities()" autocomplete="off">
+                                    </div>
+                                    <div id="city-options" class="city-options-list"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-start pt-1 md:pt-2">
                             <input type="checkbox" id="consent" required class="mt-0.5 mr-2 md:mr-3 w-3.5 h-3.5 md:w-5 md:h-5 rounded focus:ring-2 touch-manipulation cursor-pointer custom-checkbox">
@@ -2221,15 +2198,85 @@
             },
         ];
 
+        // ===== CITY LIST =====
+        const CITY_LIST = [
+            'Vilnius', 'Kaunas', 'Klaipėda', 'Šiauliai', 'Panevėžys', 'Alytus', 'Marijampolė', 'Mažeikiai', 'Jonava', 'Utena',
+            'Akmenės r. sav.', 'Alytaus m. sav.', 'Alytaus r. sav.', 'Anykščių r. sav.', 'Birštono sav.', 'Biržų r. sav.',
+            'Druskininkų sav.', 'Elektrėnų sav.', 'Ignalinos r. sav.', 'Jonavos r. sav.', 'Joniškio r. sav.', 'Jurbarko r. sav.',
+            'Kaišiadorių r. sav.', 'Kalvarijos sav.', 'Kauno m. sav.', 'Kauno r. sav.', 'Kazlų Rūdos sav.', 'Kėdainių r. sav.',
+            'Kelmės r. sav.', 'Klaipėdos m. sav.', 'Klaipėdos r. sav.', 'Kretingos r. sav.', 'Kupiškio r. sav.', 'Lazdijų r. sav.',
+            'Marijampolės sav.', 'Mažeikių r. sav.', 'Molėtų r. sav.', 'Neringos sav.', 'Pagėgių sav.', 'Pakruojo r. sav.',
+            'Palangos m. sav.', 'Panevėžio m. sav.', 'Panevėžio r. sav.', 'Pasvalio r. sav.', 'Plungės r. sav.', 'Prienų r. sav.',
+            'Radviliškio r. sav.', 'Raseinių r. sav.', 'Rietavo sav.', 'Rokiškio r. sav.', 'Skuodo r. sav.', 'Šakių r. sav.',
+            'Šalčininkų r. sav.', 'Šiaulių m. sav.', 'Šiaulių r. sav.', 'Šilalės r. sav.', 'Šilutės r. sav.', 'Širvintų r. sav.',
+            'Švenčionių r. sav.', 'Tauragės r. sav.', 'Telšių r. sav.', 'Trakų r. sav.', 'Ukmergės r. sav.', 'Utenos r. sav.',
+            'Varėnos r. sav.', 'Vilkaviškio r. sav.', 'Vilniaus m. sav.', 'Vilniaus r. sav.', 'Visagino sav.', 'Zarasų r. sav.'
+        ];
+
+        function toggleCityDropdown() {
+            const dropdown = document.getElementById('city-dropdown');
+            const isOpen = dropdown.style.display !== 'none';
+            if (isOpen) {
+                closeCityDropdown();
+            } else {
+                dropdown.style.display = 'flex';
+                const searchInput = document.getElementById('city-search');
+                searchInput.value = '';
+                filterCities();
+                setTimeout(() => searchInput.focus(), 50);
+            }
+        }
+
+        function closeCityDropdown() {
+            document.getElementById('city-dropdown').style.display = 'none';
+        }
+
+        function filterCities() {
+            const query = document.getElementById('city-search').value.toLowerCase();
+            const container = document.getElementById('city-options');
+            container.innerHTML = '';
+
+            const filtered = CITY_LIST.filter(c => c.toLowerCase().includes(query));
+            filtered.forEach(city => {
+                const div = document.createElement('div');
+                div.className = 'city-option';
+                div.textContent = city;
+                div.onclick = function(e) {
+                    e.stopPropagation();
+                    document.getElementById('miestas').value = city;
+                    document.getElementById('miestas').style.borderColor = '';
+                    document.getElementById('miestas').style.boxShadow = '';
+                    closeCityDropdown();
+                };
+                container.appendChild(div);
+            });
+
+            if (filtered.length === 0) {
+                const div = document.createElement('div');
+                div.className = 'city-option';
+                div.style.color = '#9ca3af';
+                div.textContent = 'Nerasta...';
+                container.appendChild(div);
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('city-select-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                closeCityDropdown();
+            }
+        });
+
         const HOTTUB_OPTIONS = {
             liner: [
                 { id: 'white', label: 'Balta', price: 0, image: 'https://tenspa.eu/wp-content/uploads/2024/07/RAL-9001-600x600-1.png' },
                 { id: 'grey', label: 'Pilka', price: 0, image: 'https://tenspa.eu/wp-content/uploads/2024/07/RAL-7015-600x600-1.png' },
-                { id: 'custom-ral', label: 'Kita RAL spalva', price: 270, image: null },
+                { id: 'custom-ral', label: 'Kita RAL spalva', price: 270, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cdefs%3E%3ClinearGradient id='r' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23e74c3c'/%3E%3Cstop offset='25%25' stop-color='%23f39c12'/%3E%3Cstop offset='50%25' stop-color='%232ecc71'/%3E%3Cstop offset='75%25' stop-color='%233498db'/%3E%3Cstop offset='100%25' stop-color='%239b59b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='36' fill='url(%23r)'/%3E%3C/svg%3E" },
                 { id: '3d-beach', label: 'Smėlio perlamutras', priceBySize: { tarkine: 400, daintree: 580, ardennes: 400 }, image: 'https://tenspa.eu/wp-content/uploads/2024/04/image-4.png' },
                 { id: '3d-ocean', label: 'Vandenyno perlamutras', priceBySize: { tarkine: 400, daintree: 580, ardennes: 400 }, image: 'https://tenspa.eu/wp-content/uploads/2024/04/image-1-2.png' },
                 { id: '3d-navy', label: 'Tamsiai mėlynas perlamutras', priceBySize: { tarkine: 400, daintree: 580, ardennes: 400 }, image: 'https://tenspa.eu/wp-content/uploads/2024/04/image-2.png' },
-                { id: '3d-quartz', label: 'Kvarco perlamutras', priceBySize: { tarkine: 400, daintree: 580, ardennes: 400 }, image: null }
+                { id: '3d-quartz', label: 'Kvarco perlamutras', priceBySize: { tarkine: 400, daintree: 580, ardennes: 400 }, image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='%23e8e0d4'/%3E%3Ccircle cx='28' cy='30' r='4' fill='%23d4ccc0' opacity='0.6'/%3E%3Ccircle cx='52' cy='35' r='3' fill='%23cfc6b8' opacity='0.5'/%3E%3Ccircle cx='38' cy='50' r='5' fill='%23ddd5c9' opacity='0.4'/%3E%3Ccircle cx='48' cy='25' r='2' fill='%23c8bfb1' opacity='0.5'/%3E%3C/svg%3E" }
             ],
             wood: [
                 { id: 'spruce', label: 'Eglė', price: 0, desc: 'Standartinė' },
@@ -3791,31 +3838,27 @@
             };
 
             // Validate city/municipality from the list
-            const datalist = document.getElementById('miestu-sarasas');
-            const validOptions = Array.from(datalist.options).map(opt => opt.value);
-            
-            if (!validOptions.includes(contactData.miestas)) {
+            if (!contactData.miestas || !CITY_LIST.includes(contactData.miestas)) {
                 // Re-enable button
                 if (submitButton) {
                     submitButton.disabled = false;
                     submitButton.textContent = originalButtonText;
                 }
-                
+
                 const miestasInput = document.getElementById('miestas');
-                miestasInput.focus();
                 miestasInput.style.borderColor = 'var(--copper)';
                 miestasInput.style.boxShadow = '0 0 0 3px rgba(180, 92, 58, 0.15)';
-                
+
                 const errorMsg = document.createElement('div');
                 errorMsg.className = 'error-message';
                 errorMsg.style.cssText = 'color: var(--copper); font-size: 0.875rem; margin-top: 0.5rem; padding: 0.75rem; background: rgba(180, 92, 58, 0.1); border-radius: 8px; border: 1px solid rgba(180, 92, 58, 0.2);';
-                errorMsg.textContent = 'Prašome pasirinkti miestą arba savivaldybę iš pateikto sąrašo.';
-                
-                const container = miestasInput.parentElement;
+                errorMsg.textContent = 'Prašome pasirinkti miestą arba savivaldybę iš sąrašo.';
+
+                const container = document.getElementById('city-select-wrapper');
                 const existingError = container.querySelector('.error-message');
                 if (existingError) existingError.remove();
                 container.appendChild(errorMsg);
-                
+
                 setTimeout(() => {
                     miestasInput.style.borderColor = '';
                     miestasInput.style.boxShadow = '';
