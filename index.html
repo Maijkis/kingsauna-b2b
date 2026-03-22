@@ -1217,19 +1217,18 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
         <!-- Background Video -->
-        <video 
+        <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background" class="hero-video-bg" id="hero-poster">
+        <video
+            id="hero-video"
+            src="images/VideoL.mp4"
             muted
-            autoplay 
-            loop 
-            playsinline 
+            autoplay
+            loop
+            playsinline
             webkit-playsinline
             preload="auto"
-            poster="images/iglu-garden-installed.jpg" 
             class="hero-video-bg"
-            onloadeddata="this.play().catch(() => {})">
-            <source src="images/VideoL.mp4" type="video/mp4">
-            <!-- Fallback image if video fails to load -->
-            <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background">
+            style="opacity: 0; transition: opacity 0.5s;">
         </video>
         
         <!-- Dark Overlay -->
@@ -2635,16 +2634,34 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Ensure hero video plays on iOS after first interaction if autoplay is blocked
-            const heroVideo = document.querySelector('.hero-video-bg');
+            // Ensure hero video autoplays
+            const heroVideo = document.getElementById('hero-video');
+            const heroPoster = document.getElementById('hero-poster');
             if (heroVideo) {
-                const tryPlay = () => {
-                    heroVideo.play().catch(() => {});
-                    window.removeEventListener('touchstart', tryPlay);
-                    window.removeEventListener('click', tryPlay);
+                heroVideo.muted = true;
+                heroVideo.playsInline = true;
+
+                const showVideo = () => {
+                    if (!heroVideo.paused) {
+                        heroVideo.style.opacity = '1';
+                        if (heroPoster) heroPoster.style.display = 'none';
+                    }
                 };
-                window.addEventListener('touchstart', tryPlay, { once: true });
-                window.addEventListener('click', tryPlay, { once: true });
+
+                const forcePlay = () => {
+                    heroVideo.play().then(showVideo).catch(() => {});
+                };
+
+                forcePlay();
+                heroVideo.addEventListener('canplay', forcePlay, { once: true });
+                heroVideo.addEventListener('loadeddata', forcePlay, { once: true });
+                heroVideo.addEventListener('playing', showVideo, { once: true });
+                setTimeout(forcePlay, 500);
+                setTimeout(forcePlay, 1500);
+
+                // iOS Safari fallback
+                window.addEventListener('touchstart', forcePlay, { once: true });
+                window.addEventListener('click', forcePlay, { once: true });
             }
 
             // Initialize testimonials and product carousel
