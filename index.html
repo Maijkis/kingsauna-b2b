@@ -1217,18 +1217,17 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section text-white min-h-screen py-12 md:py-20 px-4 section-px">
         <!-- Background Video -->
-        <img src="images/iglu-garden-installed.jpg" alt="Kingsauna background" class="hero-video-bg" id="hero-poster">
         <video
             id="hero-video"
-            src="images/VideoL.mp4"
             muted
             autoplay
             loop
             playsinline
             webkit-playsinline
             preload="auto"
-            class="hero-video-bg"
-            style="opacity: 0; transition: opacity 0.5s;">
+            poster="images/iglu-garden-installed.jpg"
+            class="hero-video-bg">
+            <source src="images/VideoL.mp4" type="video/mp4">
         </video>
         
         <!-- Dark Overlay -->
@@ -2634,34 +2633,43 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Ensure hero video autoplays
+            // Ensure hero video autoplays (especially on mobile)
             const heroVideo = document.getElementById('hero-video');
-            const heroPoster = document.getElementById('hero-poster');
             if (heroVideo) {
+                // Force muted + playsinline via JS (some mobile browsers ignore HTML attributes)
                 heroVideo.muted = true;
+                heroVideo.defaultMuted = true;
                 heroVideo.playsInline = true;
+                heroVideo.setAttribute('muted', '');
+                heroVideo.setAttribute('playsinline', '');
 
-                const showVideo = () => {
-                    if (!heroVideo.paused) {
-                        heroVideo.style.opacity = '1';
-                        if (heroPoster) heroPoster.style.display = 'none';
+                const forcePlay = () => {
+                    if (heroVideo.paused) {
+                        heroVideo.play().catch(() => {});
                     }
                 };
 
-                const forcePlay = () => {
-                    heroVideo.play().then(showVideo).catch(() => {});
-                };
-
+                // Try immediately + on data ready
                 forcePlay();
+                heroVideo.addEventListener('loadedmetadata', forcePlay, { once: true });
                 heroVideo.addEventListener('canplay', forcePlay, { once: true });
                 heroVideo.addEventListener('loadeddata', forcePlay, { once: true });
-                heroVideo.addEventListener('playing', showVideo, { once: true });
-                setTimeout(forcePlay, 500);
-                setTimeout(forcePlay, 1500);
 
-                // iOS Safari fallback
-                window.addEventListener('touchstart', forcePlay, { once: true });
-                window.addEventListener('click', forcePlay, { once: true });
+                // Retry after short delays (mobile can be slow to initialize)
+                setTimeout(forcePlay, 300);
+                setTimeout(forcePlay, 1000);
+                setTimeout(forcePlay, 2500);
+
+                // Mobile Safari sometimes needs user gesture — catch first touch/scroll
+                const gesturePlay = () => {
+                    forcePlay();
+                    window.removeEventListener('touchstart', gesturePlay);
+                    window.removeEventListener('scroll', gesturePlay);
+                    window.removeEventListener('click', gesturePlay);
+                };
+                window.addEventListener('touchstart', gesturePlay, { passive: true });
+                window.addEventListener('scroll', gesturePlay, { passive: true });
+                window.addEventListener('click', gesturePlay);
             }
 
             // Initialize testimonials and product carousel
