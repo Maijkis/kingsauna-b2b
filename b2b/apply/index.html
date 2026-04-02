@@ -365,6 +365,9 @@
                         <span>Other</span>
                     </button>
                 </div>
+                <div class="hidden-field" id="step1Continue">
+                    <button class="btn-primary w-full mt-4" onclick="goToStep(2)">Continue</button>
+                </div>
                 <div class="hidden-field" id="businessTypeOther">
                     <input type="text" class="form-input" id="businessTypeOtherInput" placeholder="Please specify your business type" oninput="validateOtherInput(this)">
                     <button class="btn-primary w-full mt-4" id="businessTypeOtherBtn" onclick="continueFromOtherBusiness()" disabled>Continue</button>
@@ -390,6 +393,9 @@
                         <span class="radio-dot"></span>
                         <span>No, this would be new for us</span>
                     </button>
+                </div>
+                <div class="hidden-field" id="step2Continue">
+                    <button class="btn-primary w-full mt-4" onclick="goToStep(3)">Continue</button>
                 </div>
                 <div class="hidden-field" id="currentBrandsField">
                     <label class="form-label">Which brands do you currently carry?</label>
@@ -503,14 +509,14 @@
 
                 <div class="space-y-5">
                     <div>
-                        <label class="form-label">Do you have a warehouse or storage facility?</label>
+                        <label class="form-label">Do you have a warehouse or storage facility? <span class="required">*</span></label>
                         <div class="toggle-group">
                             <button class="toggle-btn" data-field="warehouse" data-value="yes" onclick="selectToggle(this)">Yes</button>
                             <button class="toggle-btn" data-field="warehouse" data-value="no" onclick="selectToggle(this)">No</button>
                         </div>
                     </div>
                     <div>
-                        <label class="form-label">Do you have a showroom or display area?</label>
+                        <label class="form-label">Do you have a showroom or display area? <span class="required">*</span></label>
                         <div class="toggle-group">
                             <button class="toggle-btn" data-field="showroom" data-value="yes" onclick="selectToggle(this)">Yes</button>
                             <button class="toggle-btn" data-field="showroom" data-value="no" onclick="selectToggle(this)">No</button>
@@ -522,7 +528,7 @@
                     </div>
                 </div>
 
-                <button class="btn-primary w-full mt-6" onclick="goToStep(5)">Continue</button>
+                <button class="btn-primary w-full mt-6" id="step4Next" onclick="validateAndGoStep4()" disabled>Continue</button>
             </div>
         </div>
 
@@ -560,6 +566,9 @@
                         <span class="radio-dot"></span>
                         <span>Other</span>
                     </button>
+                </div>
+                <div class="hidden-field" id="step5Continue">
+                    <button class="btn-primary w-full mt-4" onclick="goToStep(6)">Continue</button>
                 </div>
             </div>
         </div>
@@ -694,11 +703,12 @@
             surveyData.business_type = value;
 
             if (value === 'other') {
+                document.getElementById('step1Continue').classList.remove('visible');
                 document.getElementById('businessTypeOther').classList.add('visible');
             } else {
                 document.getElementById('businessTypeOther').classList.remove('visible');
                 surveyData.business_type_other = null;
-                setTimeout(() => goToStep(2), 300);
+                document.getElementById('step1Continue').classList.add('visible');
             }
         }
 
@@ -728,11 +738,12 @@
             surveyData.currently_sells_saunas = value === 'yes';
 
             if (value === 'yes') {
+                document.getElementById('step2Continue').classList.remove('visible');
                 document.getElementById('currentBrandsField').classList.add('visible');
             } else {
                 document.getElementById('currentBrandsField').classList.remove('visible');
                 surveyData.current_brands = null;
-                setTimeout(() => goToStep(3), 300);
+                document.getElementById('step2Continue').classList.add('visible');
             }
         }
 
@@ -766,12 +777,21 @@
         function selectToggle(btn) {
             const field = btn.dataset.field;
             const value = btn.dataset.value;
-            // Deselect siblings
             btn.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
 
             if (field === 'warehouse') surveyData.has_warehouse = value === 'yes';
             if (field === 'showroom') surveyData.has_showroom = value === 'yes';
+
+            // Enable Continue only when both are answered
+            const bothAnswered = surveyData.has_warehouse !== null && surveyData.has_showroom !== null;
+            document.getElementById('step4Next').disabled = !bothAnswered;
+        }
+
+        function validateAndGoStep4() {
+            if (surveyData.has_warehouse !== null && surveyData.has_showroom !== null) {
+                goToStep(5);
+            }
         }
 
         // ===== STEP 5: Source =====
@@ -779,7 +799,7 @@
             btn.closest('.space-y-3').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             surveyData.how_heard_about_us = btn.dataset.value;
-            setTimeout(() => goToStep(6), 300);
+            document.getElementById('step5Continue').classList.add('visible');
         }
 
         // ===== STEP 6: Contact Form Submission =====
