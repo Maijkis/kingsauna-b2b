@@ -215,6 +215,43 @@
             background: rgba(34, 84, 61, 0.06);
             color: var(--forest-light);
         }
+
+        /* === HAMBURGER → X ANIMATION === */
+        #menuToggle span {
+            display: block;
+            transform-origin: center;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+        }
+        #menuToggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        #menuToggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        #menuToggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* === SECONDARY CTA MOBILE === */
+        @media (max-width: 640px) {
+            .cta-secondary { width: 100%; min-height: 56px; font-size: 1rem; padding: 0.875rem 1.5rem; }
+        }
+
+        /* === PROCESS STEPS — MOBILE VERTICAL TIMELINE === */
+        .process-steps-wrapper { position: relative; }
+        .process-step-body { }
+        @media (max-width: 767px) {
+            .process-steps-wrapper::before {
+                content: '';
+                position: absolute;
+                left: 27px; top: 52px; bottom: 52px;
+                width: 2px;
+                background: linear-gradient(180deg, var(--copper) 0%, rgba(180, 92, 58, 0.15) 100%);
+                pointer-events: none;
+            }
+            .process-step {
+                display: flex !important;
+                align-items: flex-start;
+                gap: 1.25rem;
+                text-align: left !important;
+            }
+            .step-number { margin: 0 !important; flex-shrink: 0; }
+            .process-step-body { flex: 1; padding-top: 0.125rem; }
+        }
     </style>
 </head>
 <body style="background-color: var(--bg-sand);">
@@ -282,12 +319,12 @@
                         <div class="text-2xl font-bold text-white">15+</div>
                         <div class="text-sm text-white/60">Years Manufacturing</div>
                     </div>
-                    <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
+                    <div class="hidden sm:block w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
                     <div class="text-center">
                         <div class="text-2xl font-bold text-white">1,500+</div>
                         <div class="text-sm text-white/60">Units Built & Delivered</div>
                     </div>
-                    <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
+                    <div class="hidden sm:block w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
                     <div class="text-center">
                         <div class="flex items-center justify-center gap-1">
                             <div class="text-2xl font-bold text-white">4.9</div>
@@ -295,7 +332,7 @@
                         </div>
                         <div class="text-sm text-white/60">100+ Reviews</div>
                     </div>
-                    <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
+                    <div class="hidden sm:block w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
                     <div class="text-center">
                         <div class="text-2xl font-bold text-white">20+</div>
                         <div class="text-sm text-white/60">Countries Served</div>
@@ -544,23 +581,29 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">From Application to First Sale</h2>
                 <p class="text-lg" style="color: var(--text-warm);">A clear, simple process to get your distribution business started.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
+            <div class="process-steps-wrapper grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
                 <div class="process-step fade-in">
                     <div class="step-number">1</div>
                     <div class="hidden md:block step-connector"></div>
-                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Submit Your Application</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Tell us about your business, target market, and goals. Takes under 3 minutes. No commitment required.</p>
+                    <div class="process-step-body">
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Submit Your Application</h3>
+                        <p class="text-sm" style="color: var(--text-muted);">Tell us about your business, target market, and goals. Takes under 3 minutes. No commitment required.</p>
+                    </div>
                 </div>
                 <div class="process-step fade-in">
                     <div class="step-number">2</div>
                     <div class="hidden md:block step-connector"></div>
-                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Partnership Discussion</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Our team reviews your application and schedules a video call to discuss territory, pricing, and terms that work for both sides.</p>
+                    <div class="process-step-body">
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Partnership Discussion</h3>
+                        <p class="text-sm" style="color: var(--text-muted);">Our team reviews your application and schedules a video call to discuss territory, pricing, and terms that work for both sides.</p>
+                    </div>
                 </div>
                 <div class="process-step fade-in">
                     <div class="step-number">3</div>
-                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Launch & Grow</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Receive product samples, your wholesale price list, and marketing materials. We support you from first order to full-scale distribution.</p>
+                    <div class="process-step-body">
+                        <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Launch & Grow</h3>
+                        <p class="text-sm" style="color: var(--text-muted);">Receive product samples, your wholesale price list, and marketing materials. We support you from first order to full-scale distribution.</p>
+                    </div>
                 </div>
             </div>
             <div class="text-center mt-14 fade-in">
@@ -768,13 +811,35 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script>
-        // Mobile menu
+        // Mobile menu + hamburger X animation
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('active'));
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuToggle.classList.toggle('open');
         });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuToggle.classList.remove('open');
+            });
+        });
+
+        // Nav: hide on scroll down, show on scroll up
+        const siteNav = document.getElementById('siteNav');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 120) {
+                siteNav.classList.add('hidden-nav');
+                // Also close mobile menu if open
+                mobileMenu.classList.remove('active');
+                menuToggle.classList.remove('open');
+            } else {
+                siteNav.classList.remove('hidden-nav');
+            }
+            lastScrollY = currentScrollY;
+        }, { passive: true });
 
         // Sticky bottom CTA
         const stickyBottomCta = document.getElementById('stickyBottomCta');

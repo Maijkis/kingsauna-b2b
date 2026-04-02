@@ -293,6 +293,19 @@
         /* Hidden helper */
         .hidden-field { display: none; }
         .hidden-field.visible { display: block; margin-top: 0.75rem; }
+
+        /* === MOBILE OPTIMIZATIONS === */
+        /* Prevent iOS Safari auto-zoom on input focus (triggers when font-size < 16px) */
+        @media (max-width: 640px) {
+            .form-input { font-size: 16px; }
+            .option-btn { font-size: 1rem; min-height: 56px; }
+            .btn-primary { min-height: 56px; font-size: 1rem; }
+            .survey-card { padding: 1.25rem; }
+        }
+        /* Remove 300ms tap delay on all interactive elements */
+        .option-btn, .toggle-btn, .btn-primary, .btn-back, button, a {
+            touch-action: manipulation;
+        }
     </style>
 </head>
 <body style="background: var(--bg-sand);">
