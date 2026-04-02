@@ -595,8 +595,8 @@
                             <input type="email" class="form-input" id="email" required placeholder="john@company.com">
                         </div>
                         <div>
-                            <label class="form-label">Phone</label>
-                            <input type="tel" class="form-input" id="phone" placeholder="+44 7911 123456">
+                            <label class="form-label">Phone <span class="required">*</span></label>
+                            <input type="tel" class="form-input" id="phone" required placeholder="+44 7911 123456">
                         </div>
                     </div>
                     <div>
@@ -778,7 +778,7 @@
             surveyData.company_name = document.getElementById('companyName').value.trim();
             surveyData.job_title = document.getElementById('jobTitle').value.trim() || null;
             surveyData.email = document.getElementById('email').value.trim();
-            surveyData.phone = document.getElementById('phone').value.trim() || null;
+            surveyData.phone = document.getElementById('phone').value.trim();
             surveyData.website = document.getElementById('website').value.trim() || null;
             surveyData.additional_message = document.getElementById('message').value.trim() || null;
 
@@ -846,6 +846,7 @@
                     const minPayload = {
                         full_name: payload.full_name,
                         email: payload.email,
+                        phone: payload.phone,
                         company_name: payload.company_name,
                         target_country: payload.target_country,
                         business_type: payload.business_type,
