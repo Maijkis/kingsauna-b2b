@@ -596,7 +596,21 @@
                     </div>
                     <div>
                         <label class="form-label">Job Title / Role</label>
-                        <input type="text" class="form-input" id="jobTitle" placeholder="e.g., Managing Director, Buyer">
+                        <input type="text" class="form-input" id="jobTitle" placeholder="e.g., Owner, Sales Manager" list="jobTitleSuggestions" autocomplete="off">
+                        <datalist id="jobTitleSuggestions">
+                            <option value="Owner">
+                            <option value="Co-Owner">
+                            <option value="Managing Director">
+                            <option value="CEO">
+                            <option value="Sales Manager">
+                            <option value="Sales Director">
+                            <option value="Business Development Manager">
+                            <option value="Purchasing Manager">
+                            <option value="Buyer">
+                            <option value="General Manager">
+                            <option value="Operations Manager">
+                            <option value="Partner">
+                        </datalist>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
