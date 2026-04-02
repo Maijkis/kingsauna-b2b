@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="KingSauna - European manufacturer of premium outdoor saunas and hot tubs. Become a distribution partner and grow your business with direct factory pricing.">
     <title>KingSauna | Become a Distribution Partner — European Outdoor Saunas & Hot Tubs</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,12 +21,8 @@
             overscroll-behavior-y: contain;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        p, h1, h2, h3, h4, h5, h6, li {
-            text-wrap: pretty;
-        }
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
+        p, h1, h2, h3, h4, h5, h6, li { text-wrap: pretty; }
+        * { -webkit-tap-highlight-color: transparent; }
 
         :root {
             --bg-sand: #faf8f4;
@@ -48,256 +43,159 @@
 
         /* === NAV === */
         .site-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
             background: rgba(250, 248, 244, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(34, 84, 61, 0.08);
             transition: transform 0.3s ease;
         }
-        .site-nav.hidden-nav {
-            transform: translateY(-100%);
-        }
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .mobile-menu.active {
-            max-height: 350px;
-        }
+        .site-nav.hidden-nav { transform: translateY(-100%); }
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .mobile-menu.active { max-height: 350px; }
 
         /* === CTA === */
         .cta-primary {
             background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
             box-shadow: 0 8px 30px -5px rgba(180, 92, 58, 0.4);
             transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            touch-action: manipulation;
-            min-height: 48px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; overflow: hidden;
+            border-radius: 12px; color: white; font-weight: 600;
+            touch-action: manipulation; min-height: 48px;
+            display: inline-flex; align-items: center; justify-content: center;
             white-space: nowrap;
         }
         .cta-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
             transition: left 0.4s;
         }
         .cta-primary:hover::before { left: 100%; }
-        .cta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px -5px rgba(180, 92, 58, 0.5);
-        }
-        .cta-primary:active {
-            transform: scale(0.97);
-        }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -5px rgba(180, 92, 58, 0.5); }
+        .cta-primary:active { transform: scale(0.97); }
         @media (max-width: 640px) {
-            .cta-primary {
-                min-height: 56px;
-                font-size: 1rem;
-                padding: 0.875rem 1.5rem;
-                width: 100%;
-            }
+            .cta-primary { min-height: 56px; font-size: 1rem; padding: 0.875rem 1.5rem; width: 100%; }
         }
-
         .cta-secondary {
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 48px;
+            border: 2px solid rgba(255, 255, 255, 0.4); color: white;
+            border-radius: 12px; font-weight: 600; transition: all 0.25s ease;
+            display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
         }
-        .cta-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
+        .cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
 
         /* === HERO === */
         .hero-section {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
             min-height: 100vh;
         }
-        .hero-bg {
-            position: absolute;
-            top: 0; left: 0;
+        .hero-video-bg {
+            position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 1;
+            object-fit: cover; z-index: 1;
         }
         .hero-overlay {
-            position: absolute;
-            top: 0; left: 0;
+            position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(160deg, rgba(26, 60, 52, 0.78) 0%, rgba(13, 31, 26, 0.55) 40%, rgba(26, 60, 52, 0.82) 100%);
+            background: linear-gradient(160deg, rgba(26, 60, 52, 0.75) 0%, rgba(13, 31, 26, 0.50) 40%, rgba(26, 60, 52, 0.78) 100%);
             z-index: 2;
         }
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-        }
+        .hero-content { position: relative; z-index: 10; width: 100%; }
         @media (max-width: 640px) {
-            .hero-content h1 {
-                font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
-                line-height: 1.2;
-            }
+            .hero-content h1 { font-size: clamp(1.75rem, 7vw, 2.5rem) !important; line-height: 1.2; }
         }
 
         /* === PRODUCT CARDS === */
         .product-card {
-            background: var(--glass-white);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            background: var(--glass-white); border: 1px solid var(--glass-border);
+            border-radius: 20px; overflow: hidden; transition: all 0.3s ease;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .product-card:hover { transform: translateY(-6px); border-color: rgba(34, 84, 61, 0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .product-card:hover .product-image { transform: scale(1.05); }
+        .image-container { overflow: hidden; position: relative; }
+
+        /* === WHY US - ALTERNATING ROWS === */
+        .why-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: stretch;
             overflow: hidden;
-            transition: all 0.3s ease;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            min-height: 320px;
+        }
+        .why-row:last-child { margin-bottom: 0; }
+        .why-row-content {
+            padding: 3rem;
             display: flex;
             flex-direction: column;
-            height: 100%;
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(34, 84, 61, 0.2);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-        }
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-        .image-container {
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* === BENEFIT CARDS === */
-        .benefit-card {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-        .benefit-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-4px);
-        }
-        .benefit-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(180, 92, 58, 0.2);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            margin-bottom: 1.25rem;
+        }
+        .why-row-image {
+            position: relative;
+            overflow: hidden;
+        }
+        .why-row-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .why-row:hover .why-row-image img { transform: scale(1.04); }
+        @media (max-width: 768px) {
+            .why-row { grid-template-columns: 1fr; min-height: auto; }
+            .why-row-image { aspect-ratio: 16/9; }
+            .why-row-content { padding: 2rem; }
+            .why-row.reverse .why-row-image { order: -1; }
         }
 
         /* === PROCESS STEPS === */
-        .process-step {
-            position: relative;
-            text-align: center;
-        }
+        .process-step { position: relative; text-align: center; }
         .step-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
+            width: 56px; height: 56px; border-radius: 50%;
             background: linear-gradient(135deg, var(--copper), var(--copper-dark));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 0 auto 1.25rem;
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 700; margin: 0 auto 1.25rem;
             box-shadow: 0 4px 15px rgba(180, 92, 58, 0.3);
         }
         .step-connector {
-            position: absolute;
-            top: 28px;
-            left: calc(50% + 36px);
-            width: calc(100% - 72px);
+            position: absolute; top: 28px;
+            left: calc(50% + 36px); width: calc(100% - 72px);
             height: 2px;
             background: linear-gradient(90deg, var(--copper), rgba(180, 92, 58, 0.2));
         }
 
         /* === GALLERY === */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        .gallery-item {
-            aspect-ratio: 4/3;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        @media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        .gallery-item { aspect-ratio: 4/3; overflow: hidden; border-radius: 12px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
 
         /* === STATS === */
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
+        .stat-item { text-align: center; padding: 1.5rem; }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--forest); line-height: 1; }
+
+        /* === FAQ === */
+        .faq-item { border-bottom: 1px solid var(--glass-border); }
+        .faq-question {
+            width: 100%; padding: 1.25rem 0; display: flex; align-items: center;
+            justify-content: space-between; gap: 1rem; cursor: pointer;
+            text-align: left;
         }
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--forest);
-            line-height: 1;
-        }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
+        .faq-answer.open { max-height: 500px; padding-bottom: 1.25rem; }
+        .faq-chevron { transition: transform 0.3s ease; flex-shrink: 0; }
+        .faq-chevron.open { transform: rotate(180deg); }
 
         /* === STICKY BOTTOM CTA === */
         .sticky-bottom-cta {
-            position: fixed;
-            bottom: 0;
-            left: 0; right: 0;
-            z-index: 100;
-            background: white;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 12px 16px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            display: none;
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+            background: white; border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 12px 16px; transform: translateY(100%);
+            transition: transform 0.3s ease; display: none;
         }
         .sticky-bottom-cta.visible { transform: translateY(0); }
         @media (max-width: 768px) {
@@ -306,56 +204,58 @@
         }
 
         /* === ANIMATIONS === */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* === MATERIAL TAG === */
+        .material-tag {
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.25rem 0.75rem; border-radius: 100px;
+            font-size: 0.75rem; font-weight: 500;
+            background: rgba(34, 84, 61, 0.06);
+            color: var(--forest-light);
         }
     </style>
 </head>
-<body class="bg-sand" style="background-color: var(--bg-sand);">
+<body style="background-color: var(--bg-sand);">
 
     <!-- ===== NAVIGATION ===== -->
     <nav class="site-nav" id="siteNav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-16 md:h-20">
-                <!-- Logo -->
                 <a href="/b2b/" class="flex items-center gap-3 flex-shrink-0">
                     <img src="/images/logo.png" alt="KingSauna" class="h-9 md:h-11 w-auto">
                 </a>
-                <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#products" class="text-sm font-medium" style="color: var(--text-warm);">Products</a>
                     <a href="#why-us" class="text-sm font-medium" style="color: var(--text-warm);">Why KingSauna</a>
                     <a href="#process" class="text-sm font-medium" style="color: var(--text-warm);">Process</a>
+                    <a href="#faq" class="text-sm font-medium" style="color: var(--text-warm);">FAQ</a>
                     <a href="/b2b/apply/" class="cta-primary px-6 py-2.5 text-sm">Become a Partner</a>
                 </div>
-                <!-- Mobile Hamburger -->
                 <button class="md:hidden flex flex-col gap-1.5 p-2" id="menuToggle" aria-label="Menu">
-                    <span class="w-6 h-0.5 bg-gray-700 transition-all" id="bar1"></span>
-                    <span class="w-6 h-0.5 bg-gray-700 transition-all" id="bar2"></span>
-                    <span class="w-6 h-0.5 bg-gray-700 transition-all" id="bar3"></span>
+                    <span class="w-6 h-0.5 bg-gray-700 transition-all"></span>
+                    <span class="w-6 h-0.5 bg-gray-700 transition-all"></span>
+                    <span class="w-6 h-0.5 bg-gray-700 transition-all"></span>
                 </button>
             </div>
-            <!-- Mobile Menu -->
             <div class="mobile-menu md:hidden" id="mobileMenu">
                 <div class="py-4 space-y-3 border-t" style="border-color: var(--glass-border);">
                     <a href="#products" class="block py-2 text-sm font-medium" style="color: var(--text-warm);">Products</a>
                     <a href="#why-us" class="block py-2 text-sm font-medium" style="color: var(--text-warm);">Why KingSauna</a>
                     <a href="#process" class="block py-2 text-sm font-medium" style="color: var(--text-warm);">Process</a>
+                    <a href="#faq" class="block py-2 text-sm font-medium" style="color: var(--text-warm);">FAQ</a>
                     <a href="/b2b/apply/" class="cta-primary px-6 py-3 text-sm text-center block mt-2">Become a Partner</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO WITH VIDEO ===== -->
     <section class="hero-section">
-        <img src="/images/iglu-garden-installed.jpg" alt="Premium outdoor sauna installation" class="hero-bg" loading="eager">
+        <video class="hero-video-bg" id="heroVideo" muted autoplay loop playsinline webkit-playsinline preload="auto" poster="/images/iglu-garden-installed.jpg">
+            <source src="/images/VideoL.mp4" type="video/mp4">
+        </video>
         <div class="hero-overlay"></div>
         <div class="hero-content px-4 sm:px-6">
             <div class="max-w-4xl mx-auto text-center">
@@ -364,30 +264,36 @@
                     <span class="text-white/80 text-sm font-medium">Now Accepting Distribution Partners</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    European-Crafted Outdoor Saunas & Hot Tubs
+                    Partner Directly With a European Sauna Manufacturer
                 </h1>
                 <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Partner directly with the manufacturer. Premium Lithuanian craftsmanship, competitive wholesale margins, and full business support.
+                    15+ years of craftsmanship. 1,500+ units built. Premium outdoor saunas and hot tubs &mdash; manufactured in Lithuania, sold worldwide.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a href="/b2b/apply/" class="cta-primary px-8 py-4 text-base md:text-lg">
                         Apply for Partnership
                         <svg class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
-                    <a href="#products" class="cta-secondary px-8 py-4 text-base">
-                        View Products
-                    </a>
+                    <a href="#products" class="cta-secondary px-8 py-4 text-base">View Products</a>
                 </div>
                 <!-- Trust badges -->
                 <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-12 pt-8" style="border-top: 1px solid rgba(255,255,255,0.1);">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-white">15+</div>
-                        <div class="text-sm text-white/60">Years Experience</div>
+                        <div class="text-sm text-white/60">Years Manufacturing</div>
                     </div>
                     <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
                     <div class="text-center">
                         <div class="text-2xl font-bold text-white">1,500+</div>
-                        <div class="text-sm text-white/60">Units Produced</div>
+                        <div class="text-sm text-white/60">Units Built & Delivered</div>
+                    </div>
+                    <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
+                    <div class="text-center">
+                        <div class="flex items-center justify-center gap-1">
+                            <div class="text-2xl font-bold text-white">4.9</div>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                        <div class="text-sm text-white/60">100+ Reviews</div>
                     </div>
                     <div class="w-px h-10" style="background: rgba(255,255,255,0.15);"></div>
                     <div class="text-center">
@@ -399,25 +305,49 @@
         </div>
     </section>
 
-    <!-- ===== STATS BAR ===== -->
-    <section class="py-16" style="background: var(--bg-cream);">
+    <!-- ===== ABOUT / COMPANY STORY ===== -->
+    <section class="py-20 md:py-28" style="background: var(--bg-cream);">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="stat-item fade-in">
-                    <div class="stat-number">15+</div>
-                    <div class="text-sm mt-2 font-medium" style="color: var(--text-muted);">Years of Manufacturing</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="fade-in">
+                    <span class="text-xs font-semibold uppercase tracking-widest mb-4 block" style="color: var(--copper);">About KingSauna</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--forest);">Craftsmanship Born From a Passion for Sauna Culture</h2>
+                    <p class="text-base leading-relaxed mb-4" style="color: var(--text-warm);">
+                        For over 15 years, KingSauna has been manufacturing premium outdoor saunas and hot tubs from our production facility in Lithuania. What started as a passion for traditional sauna culture has grown into one of the region's leading manufacturers.
+                    </p>
+                    <p class="text-base leading-relaxed mb-6" style="color: var(--text-warm);">
+                        We combine time-honoured woodworking traditions with modern engineering &mdash; every unit is built to order, with meticulous attention to materials, insulation, and finish. Our saunas aren't mass-produced; they're crafted.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="material-tag">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Nordic Spruce
+                        </span>
+                        <span class="material-tag">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Thermowood
+                        </span>
+                        <span class="material-tag">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Fiberglass Composite
+                        </span>
+                        <span class="material-tag">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Harvia Stoves
+                        </span>
+                        <span class="material-tag">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            CE Certified
+                        </span>
+                    </div>
                 </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">1,500+</div>
-                    <div class="text-sm mt-2 font-medium" style="color: var(--text-muted);">Saunas & Hot Tubs Produced</div>
-                </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">7</div>
-                    <div class="text-sm mt-2 font-medium" style="color: var(--text-muted);">Product Categories</div>
-                </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">20+</div>
-                    <div class="text-sm mt-2 font-medium" style="color: var(--text-muted);">Countries Served</div>
+                <div class="grid grid-cols-2 gap-3 fade-in">
+                    <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+                        <img src="/images/barrel-exterior-chimney.jpg" alt="Barrel sauna with chimney" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="rounded-2xl overflow-hidden aspect-[3/4] mt-8">
+                        <img src="/images/iglu-shingle-dark.jpg" alt="Iglu sauna with dark shingles" class="w-full h-full object-cover" loading="lazy">
+                    </div>
                 </div>
             </div>
         </div>
@@ -427,70 +357,109 @@
     <section id="products" class="py-20 md:py-28" style="background: var(--bg-sand);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-14 fade-in">
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper);">Product Catalog</span>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">A Complete Product Line for Your Market</h2>
-                <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-warm);">From compact barrel saunas to luxury cabin installations &mdash; offer your customers the full range of premium outdoor wellness products.</p>
+                <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-warm);">7 product categories, 40+ configurations. One supplier for your entire outdoor wellness offering.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
                 <!-- Barrel Saunas -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
                         <img src="/images/barrel-vidutine.jpg" alt="Barrel Sauna" class="product-image" loading="lazy">
+                        <div class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white" style="background: linear-gradient(135deg, var(--copper), var(--copper-dark));">Best Seller</div>
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 flex-1 flex flex-col">
                         <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Barrel Saunas</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Classic Nordic design. Multiple sizes from 1.6m to 5m. Our best-selling category.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Classic Nordic barrel design &mdash; our most popular category. Compact yet spacious, perfect for any garden. Natural spruce or pine wood, weather-resistant.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">4-6 people</span>
+                            <span class="material-tag">1.6m &ndash; 5m</span>
+                            <span class="material-tag">Wood / Electric</span>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Square Saunas -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
                         <img src="/images/kvadratine-priepirtis.jpg" alt="Square Sauna" class="product-image" loading="lazy">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 flex-1 flex flex-col">
                         <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Square Saunas</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Modern architecture meets traditional sauna culture. Spacious interiors with optional changing rooms.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Spacious frame construction with separate changing room. Shower installation possible. Premium finish with modern architectural lines.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">6-8 people</span>
+                            <span class="material-tag">Changing room</span>
+                            <span class="material-tag">Shower ready</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Iglu Saunas -->
+
+                <!-- Iglu / A-Frame Saunas -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
-                        <img src="/images/trikampe-iglu.jpg" alt="Iglu Sauna" class="product-image" loading="lazy">
+                        <img src="/images/trikampe-iglu.jpg" alt="Iglu A-Frame Sauna" class="product-image" loading="lazy">
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Iglu Saunas</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Distinctive A-frame design with strong visual appeal. Eye-catching addition to any property.</p>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Iglu / A-Frame Saunas</h3>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Distinctive triangular design with excellent heat insulation. Eye-catching silhouette that drives customer interest and showroom traffic.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">4-6 people</span>
+                            <span class="material-tag">Compact footprint</span>
+                            <span class="material-tag">Premium insulation</span>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Cabin Saunas -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
                         <img src="/images/cabin-sauna.jpg" alt="Cabin Sauna" class="product-image" loading="lazy">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 flex-1 flex flex-col">
                         <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Cabin Saunas</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Premium cabin-style saunas with full amenities. Excellent thermal insulation.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Modern cabin-style architecture with full amenities. Premium thermal insulation and contemporary design for the high-end segment.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">4-6 people</span>
+                            <span class="material-tag">Modern design</span>
+                            <span class="material-tag">Full amenities</span>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Leaf-Shaped Saunas -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
                         <img src="/images/vantos-lapo.png" alt="Leaf-Shaped Sauna" class="product-image" loading="lazy">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 flex-1 flex flex-col">
                         <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Leaf-Shaped Saunas</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Unique organic design that stands out. A true conversation starter for upscale customers.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Unique organic leaf silhouette &mdash; a true conversation starter. Stands out in any property and attracts upscale buyers looking for something different.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">4-6 people</span>
+                            <span class="material-tag">Unique design</span>
+                            <span class="material-tag">Premium wood</span>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Hot Tubs -->
                 <div class="product-card fade-in">
                     <div class="image-container" style="aspect-ratio: 4/3;">
                         <img src="/images/kubilas-lake-terrace.jpeg" alt="Hot Tub" class="product-image" loading="lazy">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 flex-1 flex flex-col">
                         <h3 class="text-lg font-semibold mb-1" style="color: var(--forest);">Hot Tubs</h3>
-                        <p class="text-sm" style="color: var(--text-muted);">Wood-fired and electric options. Fiberglass or traditional wood construction. High margins.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-muted);">Fiberglass or traditional wood construction. Wood-fired, gas, or electric heating. Optional LED lighting, air jets, and filtration. High-margin upsell product.</p>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-3">
+                            <span class="material-tag">4-6 people</span>
+                            <span class="material-tag">3 heating types</span>
+                            <span class="material-tag">LED / SPA options</span>
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div class="text-center mt-12 fade-in">
                 <a href="/b2b/apply/" class="cta-primary px-8 py-4 text-base">
@@ -501,61 +470,67 @@
         </div>
     </section>
 
-    <!-- ===== WHY PARTNER WITH US ===== -->
-    <section id="why-us" class="py-20 md:py-28" style="background: var(--forest);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- ===== WHY PARTNER WITH US (Alternating Image/Text Rows) ===== -->
+    <section id="why-us" class="py-20 md:py-28" style="background: var(--bg-cream);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-14 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Why Distributors Choose KingSauna</h2>
-                <p class="text-lg text-white/70 max-w-2xl mx-auto">Everything you need to successfully sell premium outdoor saunas and hot tubs in your market.</p>
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper);">Partnership Benefits</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">Why Distributors Choose KingSauna</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Benefit 1 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">Direct Manufacturer Pricing</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">No middlemen. Work directly with our factory in Lithuania for the best wholesale margins in the industry.</p>
+
+            <!-- Row 1: Image Left, Text Right -->
+            <div class="why-row fade-in" style="background: white; border: 1px solid var(--glass-border);">
+                <div class="why-row-image">
+                    <img src="/images/project-iglu-barrel-trio.png" alt="KingSauna production" loading="lazy">
                 </div>
-                <!-- Benefit 2 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div class="why-row-content">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style="background: rgba(180, 92, 58, 0.1);">
+                        <svg class="w-6 h-6" style="color: var(--copper);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">Proven Product Range</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">7 product categories, 40+ configurations. One supplier for your complete outdoor wellness catalog.</p>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--forest);">Direct Factory Pricing</h3>
+                    <p style="color: var(--text-warm); line-height: 1.7;">Skip the middlemen entirely. You buy directly from our production line in Lithuania, giving you the strongest margins in the outdoor wellness market. No agents, no markups &mdash; just manufacturer-to-distributor pricing.</p>
                 </div>
-                <!-- Benefit 3 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+
+            <!-- Row 2: Text Left, Image Right -->
+            <div class="why-row reverse fade-in" style="background: white; border: 1px solid var(--glass-border);">
+                <div class="why-row-content">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style="background: rgba(180, 92, 58, 0.1);">
+                        <svg class="w-6 h-6" style="color: var(--copper);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">European Quality Standards</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">CE-certified manufacturing. Premium Nordic spruce and thermowood. The quality your customers expect.</p>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--forest);">European Quality That Sells Itself</h3>
+                    <p style="color: var(--text-warm); line-height: 1.7;">CE-certified production. Premium Nordic spruce, pine, and thermowood. Harvia stove integration. Weather-resistant construction rated for year-round use in any climate. The kind of quality your customers can feel the moment they step inside.</p>
                 </div>
-                <!-- Benefit 4 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">Marketing & Sales Support</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">Professional product photography, technical specifications, training materials, and co-branded marketing assets.</p>
+                <div class="why-row-image">
+                    <img src="/images/square-interior-benches.jpg" alt="Premium sauna interior quality" loading="lazy">
                 </div>
-                <!-- Benefit 5 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                    </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">Flexible Order Quantities</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">Start with sample orders. Scale as your market grows. Container-load pricing available for volume partners.</p>
+            </div>
+
+            <!-- Row 3: Image Left, Text Right -->
+            <div class="why-row fade-in" style="background: white; border: 1px solid var(--glass-border);">
+                <div class="why-row-image">
+                    <img src="/images/project-kvadratine-modern.png" alt="Modern sauna installations" loading="lazy">
                 </div>
-                <!-- Benefit 6 -->
-                <div class="benefit-card fade-in">
-                    <div class="benefit-icon">
-                        <svg class="w-6 h-6" style="color: var(--copper-light);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <div class="why-row-content">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style="background: rgba(180, 92, 58, 0.1);">
+                        <svg class="w-6 h-6" style="color: var(--copper);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                     </div>
-                    <h3 class="text-white font-semibold text-lg mb-2">Dedicated Partner Manager</h3>
-                    <p class="text-white/60 text-sm leading-relaxed">Your own point of contact for orders, customizations, and business development. We grow together.</p>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--forest);">Flexible Volume & Custom Orders</h3>
+                    <p style="color: var(--text-warm); line-height: 1.7;">Start with a single sample unit to test your market. Scale to container-load orders as demand grows. We also accept custom configurations &mdash; dimensions, wood type, stove, layout &mdash; so you can offer tailored solutions your competitors can't match.</p>
+                </div>
+            </div>
+
+            <!-- Row 4: Text Left, Image Right -->
+            <div class="why-row reverse fade-in" style="background: white; border: 1px solid var(--glass-border);">
+                <div class="why-row-content">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4" style="background: rgba(180, 92, 58, 0.1);">
+                        <svg class="w-6 h-6" style="color: var(--copper);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--forest);">Full Launch Support</h3>
+                    <p style="color: var(--text-warm); line-height: 1.7;">You're not just buying products &mdash; you're getting a partner. We provide professional product photography, technical specification sheets, training materials, co-branded marketing assets, and a dedicated partner manager who knows your market.</p>
+                </div>
+                <div class="why-row-image">
+                    <img src="/images/project-elipse-interior.png" alt="KingSauna partnership support" loading="lazy">
                 </div>
             </div>
         </div>
@@ -565,29 +540,27 @@
     <section id="process" class="py-20 md:py-28" style="background: var(--bg-sand);">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-16 fade-in">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">How Partnership Works</h2>
-                <p class="text-lg" style="color: var(--text-warm);">From application to your first sale in three simple steps.</p>
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper);">Getting Started</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">From Application to First Sale</h2>
+                <p class="text-lg" style="color: var(--text-warm);">A clear, simple process to get your distribution business started.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
-                <!-- Step 1 -->
                 <div class="process-step fade-in">
                     <div class="step-number">1</div>
                     <div class="hidden md:block step-connector"></div>
                     <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Submit Your Application</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Tell us about your business, target market, and goals. Takes under 3 minutes to complete.</p>
+                    <p class="text-sm" style="color: var(--text-muted);">Tell us about your business, target market, and goals. Takes under 3 minutes. No commitment required.</p>
                 </div>
-                <!-- Step 2 -->
                 <div class="process-step fade-in">
                     <div class="step-number">2</div>
                     <div class="hidden md:block step-connector"></div>
-                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Partnership Review</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Our team reviews your application and schedules a video call to discuss terms, pricing, and territory.</p>
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Partnership Discussion</h3>
+                    <p class="text-sm" style="color: var(--text-muted);">Our team reviews your application and schedules a video call to discuss territory, pricing, and terms that work for both sides.</p>
                 </div>
-                <!-- Step 3 -->
                 <div class="process-step fade-in">
                     <div class="step-number">3</div>
-                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Start Selling</h3>
-                    <p class="text-sm" style="color: var(--text-muted);">Receive product samples, marketing materials, and your wholesale price list. We support your launch.</p>
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--forest);">Launch & Grow</h3>
+                    <p class="text-sm" style="color: var(--text-muted);">Receive product samples, your wholesale price list, and marketing materials. We support you from first order to full-scale distribution.</p>
                 </div>
             </div>
             <div class="text-center mt-14 fade-in">
@@ -599,10 +572,44 @@
         </div>
     </section>
 
+    <!-- ===== MANUFACTURING DETAILS ===== -->
+    <section class="py-20 md:py-28" style="background: var(--forest);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-14 fade-in">
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper-light);">Manufacturing</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Built to Order. Built to Last.</h2>
+                <p class="text-lg text-white/60 max-w-2xl mx-auto">Every unit is manufactured individually to specification. Here's what goes into every KingSauna product.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 fade-in">
+                <div class="rounded-2xl p-6 text-center" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="text-3xl font-bold text-white mb-1">4&ndash;8</div>
+                    <div class="text-sm text-white/80 font-medium mb-2">Week Lead Time</div>
+                    <p class="text-xs text-white/50">Standard production from order confirmation to delivery-ready</p>
+                </div>
+                <div class="rounded-2xl p-6 text-center" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="text-3xl font-bold text-white mb-1">3</div>
+                    <div class="text-sm text-white/80 font-medium mb-2">Wood Options</div>
+                    <p class="text-xs text-white/50">Nordic spruce, pine, and premium thermowood &mdash; selected for durability and aesthetics</p>
+                </div>
+                <div class="rounded-2xl p-6 text-center" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="text-3xl font-bold text-white mb-1">3</div>
+                    <div class="text-sm text-white/80 font-medium mb-2">Stove Types</div>
+                    <p class="text-xs text-white/50">Wood-fired, electric, and gas options. Harvia integration standard across the range</p>
+                </div>
+                <div class="rounded-2xl p-6 text-center" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="text-3xl font-bold text-white mb-1">365</div>
+                    <div class="text-sm text-white/80 font-medium mb-2">Days Year-Round Use</div>
+                    <p class="text-xs text-white/50">All products engineered for all-season outdoor use, including harsh winters</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== PROJECT GALLERY ===== -->
-    <section class="py-20 md:py-28" style="background: var(--bg-cream);">
+    <section class="py-20 md:py-28" style="background: var(--bg-sand);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-14 fade-in">
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper);">Portfolio</span>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">Installed Across Europe</h2>
                 <p class="text-lg" style="color: var(--text-warm);">Real installations from our manufacturing facility. Every unit built with precision and care.</p>
             </div>
@@ -617,8 +624,92 @@
                 <div class="gallery-item"><img src="/images/project-kvadratine-dark.png" alt="Dark square sauna" loading="lazy"></div>
                 <div class="gallery-item"><img src="/images/barrel-sauna-winter.jpeg" alt="Barrel sauna in winter" loading="lazy"></div>
                 <div class="gallery-item"><img src="/images/project-iglu-double-dark.png" alt="Double iglu sauna" loading="lazy"></div>
-                <div class="gallery-item"><img src="/images/interior-wood.jpg" alt="Premium sauna interior" loading="lazy"></div>
-                <div class="gallery-item"><img src="/images/barrel-interior-led.jpg" alt="Barrel sauna interior with LED" loading="lazy"></div>
+                <div class="gallery-item"><img src="/images/kubilas-winter-forest.png" alt="Hot tub in winter forest" loading="lazy"></div>
+                <div class="gallery-item"><img src="/images/project-iglu-wood-stove.png" alt="Iglu sauna with wood stove" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="py-20 md:py-28" style="background: var(--bg-cream);">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-14 fade-in">
+                <span class="text-xs font-semibold uppercase tracking-widest mb-3 block" style="color: var(--copper);">FAQ</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--forest);">Common Questions From Partners</h2>
+            </div>
+            <div class="fade-in">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">What is the typical production lead time?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">Standard production takes 4&ndash;8 weeks from order confirmation. Custom projects may take longer depending on complexity. We provide delivery estimates at the quoting stage so you can plan with your customers.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">Do you offer custom configurations?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">Yes, the majority of our orders are custom-configured. Distributors can specify dimensions, floor plans, wood type, stove selection, and additional features like LED lighting, glass panels, or extended terraces. We work with you to find the right configuration for your market.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">What wood types do you use?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">We primarily use Nordic spruce, pine, and premium thermowood. Each has distinct properties &mdash; spruce for classic aesthetics, pine for durability, and thermowood for superior weather resistance and a rich dark finish. We help you select the right material for your climate and customer base.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">What are the minimum order quantities?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">We're flexible. New partners can start with a single sample unit to test the market. As your business grows, we offer tiered pricing with better rates at higher volumes, including full container-load pricing for established distributors.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">How does shipping and delivery work?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">We handle logistics from our factory to your warehouse or directly to your customer's site. Delivery across Europe is well-established. For overseas markets, we coordinate container shipping. All products are professionally packaged for safe transport.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">Can the saunas be used year-round?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">Absolutely. All products are engineered for year-round outdoor use, including harsh Nordic winters. Proper construction, insulation, and wood treatment ensure comfort and durability in any season and climate.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">What stove options are available?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">We offer wood-fired stoves for an authentic experience, electric stoves for convenience (including Harvia models), and gas heating for hot tubs. Each has different appeal &mdash; wood-fired is popular in Northern Europe, while electric dominates in urban markets. We advise on what works best for your region.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-left" style="color: var(--text-charcoal);">Do customers need building permits for outdoor saunas?</span>
+                        <svg class="faq-chevron w-5 h-5 flex-shrink-0" style="color: var(--text-muted);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-sm" style="color: var(--text-warm);">In most cases, smaller outdoor saunas and portable hot tubs don't require permits. However, requirements vary by country and municipality. We can provide CE documentation and technical specs to support any approval process your customers may need.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -640,27 +731,26 @@
     <footer class="py-12" style="background: #0d1f1a;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <!-- Col 1 -->
                 <div>
                     <img src="/images/logo.png" alt="KingSauna" class="h-10 w-auto mb-4 brightness-0 invert opacity-80">
-                    <p class="text-sm text-white/50 leading-relaxed">KingSauna is a Lithuanian manufacturer of premium outdoor saunas and hot tubs, serving distribution partners across Europe and beyond.</p>
+                    <p class="text-sm text-white/50 leading-relaxed">KingSauna is a Lithuanian manufacturer of premium outdoor saunas and hot tubs with 15+ years of experience, serving distribution partners across Europe and beyond.</p>
                 </div>
-                <!-- Col 2 -->
                 <div>
                     <h4 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Contact</h4>
                     <div class="space-y-2 text-sm text-white/50">
                         <p>Siltas Medis, UAB</p>
                         <p>partners@kingsauna.lt</p>
+                        <p>+370 679 38032</p>
                         <p>Vilnius, Lithuania</p>
                     </div>
                 </div>
-                <!-- Col 3 -->
                 <div>
                     <h4 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Quick Links</h4>
                     <div class="space-y-2 text-sm">
                         <a href="#products" class="block text-white/50 hover:text-white/80 transition-colors">Products</a>
                         <a href="#why-us" class="block text-white/50 hover:text-white/80 transition-colors">Why Partner With Us</a>
                         <a href="#process" class="block text-white/50 hover:text-white/80 transition-colors">Partnership Process</a>
+                        <a href="#faq" class="block text-white/50 hover:text-white/80 transition-colors">FAQ</a>
                         <a href="/b2b/apply/" class="block text-white/50 hover:text-white/80 transition-colors">Apply Now</a>
                     </div>
                 </div>
@@ -678,18 +768,15 @@
 
     <!-- ===== SCRIPTS ===== -->
     <script>
-        // Mobile menu toggle
+        // Mobile menu
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
-        // Close mobile menu on link click
+        menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('active'));
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.remove('active'));
         });
 
-        // Sticky bottom CTA visibility
+        // Sticky bottom CTA
         const stickyBottomCta = document.getElementById('stickyBottomCta');
         const heroSection = document.querySelector('.hero-section');
         const observer = new IntersectionObserver((entries) => {
@@ -717,16 +804,39 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
         fadeElements.forEach(el => fadeObserver.observe(el));
 
-        // Smooth scroll for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
             });
         });
+
+        // FAQ toggle
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const chevron = btn.querySelector('.faq-chevron');
+            const isOpen = answer.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+            // Open clicked (if was closed)
+            if (!isOpen) {
+                answer.classList.add('open');
+                chevron.classList.add('open');
+            }
+        }
+
+        // Video autoplay fallback for mobile
+        const heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            heroVideo.play().catch(() => {
+                document.addEventListener('touchstart', function startVideo() {
+                    heroVideo.play();
+                    document.removeEventListener('touchstart', startVideo);
+                }, { once: true });
+            });
+        }
     </script>
 </body>
 </html>
