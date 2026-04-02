@@ -366,8 +366,8 @@
                     </button>
                 </div>
                 <div class="hidden-field" id="businessTypeOther">
-                    <input type="text" class="form-input" id="businessTypeOtherInput" placeholder="Please specify your business type">
-                    <button class="btn-primary w-full mt-4" onclick="goToStep(2)">Continue</button>
+                    <input type="text" class="form-input" id="businessTypeOtherInput" placeholder="Please specify your business type" oninput="validateOtherInput(this)">
+                    <button class="btn-primary w-full mt-4" id="businessTypeOtherBtn" onclick="continueFromOtherBusiness()" disabled>Continue</button>
                 </div>
             </div>
         </div>
@@ -700,6 +700,24 @@
                 surveyData.business_type_other = null;
                 setTimeout(() => goToStep(2), 300);
             }
+        }
+
+        function validateOtherInput(input) {
+            const filled = input.value.trim().length > 0;
+            input.style.borderColor = filled ? '' : 'var(--copper)';
+            document.getElementById('businessTypeOtherBtn').disabled = !filled;
+        }
+
+        function continueFromOtherBusiness() {
+            const val = document.getElementById('businessTypeOtherInput').value.trim();
+            if (!val) {
+                const input = document.getElementById('businessTypeOtherInput');
+                input.style.borderColor = 'var(--copper)';
+                input.focus();
+                return;
+            }
+            surveyData.business_type_other = val;
+            goToStep(2);
         }
 
         // ===== STEP 2: Experience =====
